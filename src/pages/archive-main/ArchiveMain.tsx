@@ -3,15 +3,16 @@
 import styled from "styled-components";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { useState } from "react";
+import RecentPopularVideo from "./components/RecentPopularVideo";
 
+import { useCallback, useEffect, useState } from "react";
 const ArchiveMain = () => {
   const [recentPopularVideos, setRecentPopularVideos] = useState<any>([]);
   const [savedVideos, setSavedVideos] = useState<any>([]);
   const [totalVideos, setTotalVideos] = useState<any>([]);
   //   const [page, setPage] = useState<number>(1);
 
-  const getArchiveMainVideos = async () => {
+  const getArchiveMainVideos = useCallback(async () => {
     try {
       setRecentPopularVideos([
         {
@@ -328,13 +329,19 @@ const ArchiveMain = () => {
     } catch (err) {
       console.log(err);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    getArchiveMainVideos();
+  }, [getArchiveMainVideos]);
 
   return (
     <ArchiveComponent>
       <Header />
       <RecentPopularVideoComponent>
-        <CenteredInnerComponent></CenteredInnerComponent>
+        <CenteredInnerComponent>
+          {recentPopularVideos.length > 0 && <RecentPopularVideo />}
+        </CenteredInnerComponent>
       </RecentPopularVideoComponent>
       <SavedVideoComponent>
         <CenteredInnerComponent></CenteredInnerComponent>
