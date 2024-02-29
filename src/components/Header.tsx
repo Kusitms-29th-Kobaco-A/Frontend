@@ -32,7 +32,13 @@ const Header = () => {
           </TopBarRightComponent>
         ) : (
           <TopBarRightComponent>
-            <TopBarText>로그인</TopBarText>
+            <TopBarText
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              로그인
+            </TopBarText>
             <TopBarText>|</TopBarText>
             <TopBarText>회원가입</TopBarText>
           </TopBarRightComponent>
@@ -113,6 +119,7 @@ const TopBarIcon = styled.img`
   height: 40px;
   flex-shrink: 0;
   object-fit: cover;
+  cursor: pointer;
 `;
 
 const TopBarRightComponent = styled.div`
@@ -135,6 +142,7 @@ const TopBarText = styled.div`
   font-weight: 350;
   line-height: 140%;
   letter-spacing: -0.4px;
+  cursor: pointer;
 `;
 
 //메뉴바 부분
@@ -164,7 +172,6 @@ const TotalMenuComponent = styled.div`
 `;
 
 const MenuBox = styled.div<{ menuColor?: string }>`
-  /* color: var(--Gray-9, #27272e); */
   color: ${(props) => props.menuColor || " #27272e"};
   display: flex;
   justify-content: center;
