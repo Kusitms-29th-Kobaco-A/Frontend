@@ -6,11 +6,12 @@ import glass from "../../../assets/archive/Glass.svg";
 import XImage from "../../../assets/archive/XImg.svg";
 import questionImg from "../../../assets/archive/Question.svg";
 
+// react-tooltip 가져오기
+
 // 드롭다운 리스트 받아오기
 import {
   industryList,
   recommendKeywordsList,
-  videoOrderList,
   videoTypeList,
 } from "../../../data/ArchiveData";
 
@@ -19,6 +20,7 @@ import SearchedTotalVideos from "./SearchedTotalVideos";
 // 페이지네이션
 import Pagination from "react-js-pagination";
 import "../../archive-main/components/paging.css";
+import { Tooltip } from "react-tooltip";
 
 // 전체 광고 컴포넌트
 const RecentPopularVideosTotal = () => {
@@ -306,7 +308,21 @@ const RecentPopularVideosTotal = () => {
     <TotalComponent>
       <TotalTopRowFlexComponent>
         <TotalTopLabel>최근 인기있는 영상</TotalTopLabel>
-        <TotalTopQuestionImgBox src={questionImg} alt="?" />
+
+        <TotalTopQuestionImgBox
+          src={questionImg}
+          alt="?"
+          data-tooltip-id="question-tooltip"
+          data-tooltip-place="bottom"
+        />
+
+        {/* 물음표 툴팁 구현 */}
+        <Tooltip style={{ zIndex: "1" }} id="question-tooltip">
+          <TooltipComponent>
+            <div>최근 한 달 동안 가장 많이 시청된</div>
+            <div>영상으로 정렬되었습니다.</div>
+          </TooltipComponent>
+        </Tooltip>
       </TotalTopRowFlexComponent>
 
       {/* 검색 컴포넌트 */}
@@ -449,6 +465,25 @@ const TotalTopQuestionImgBox = styled.img`
   height: 23px;
   flex-shrink: 0;
   fill: var(--Gray-3, #bebebe);
+`;
+const TooltipComponent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  /* height: 69px; */
+  fill: var(--Gray-8, #373d49);
+  color: var(--Gray-1, #f4f6f6);
+  text-align: center;
+
+  /* Detail/4 */
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 350;
+  line-height: 140%; /* 19.6px */
+  letter-spacing: -0.4px;
 `;
 
 //검색 부분
