@@ -1,20 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { useCallback, useEffect, useState } from "react";
+
 import styled from "styled-components";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-
-import { useCallback, useEffect, useState } from "react";
 import SwiperVideo from "./components/SwiperVideo";
 import NotLoginComponent from "./components/NotLoginComponent";
 import TotalVideo from "./components/TotalVideo";
 
+// 아카이브 메인페이지
 const ArchiveMain = () => {
+  // 로그인 여부에 따라 찜하기 부분 다르게 구현
   const token = localStorage.getItem("token");
+
+  // 비디오리스트 저장하는 곳
   const [recentPopularVideos, setRecentPopularVideos] = useState<any>([]);
   const [savedVideos, setSavedVideos] = useState<any>([]);
   const [totalVideos, setTotalVideos] = useState<any>([]);
 
+  // 여기서 한번에 모든 비디오 정보들 받음
   const getArchiveMainVideos = useCallback(async () => {
     try {
       setRecentPopularVideos([
@@ -367,19 +372,23 @@ const ArchiveMain = () => {
     <ArchiveComponent>
       <Header />
 
+      {/* 최근 인기있는 영상 컴포넌트 */}
       <OnLoginRecentPopularVideoComponent>
         {recentPopularVideos.length > 0 && (
           <SwiperVideo sector="popular" videos={recentPopularVideos} />
         )}
       </OnLoginRecentPopularVideoComponent>
 
+      {/* 내가 찜한 영상 컴포넌트 */}
       {token ? (
+        // 로그인 시 찜한 영상 보이게 하기
         <OnLoginSavedVideoComponrnt>
           {savedVideos.length > 0 && (
             <SwiperVideo sector="save" videos={savedVideos} />
           )}
         </OnLoginSavedVideoComponrnt>
       ) : (
+        // 비로그인 시 볼 수 없다고 보이게 하기
         <SavedVideoComponent>
           <CenteredInnerComponent>
             <NotLoginComponent />
@@ -387,6 +396,8 @@ const ArchiveMain = () => {
         </SavedVideoComponent>
       )}
 
+      {/* 전체 비디오 영상 컴포넌트 */}
+      {/* videos 보내주고 페이지 바뀌거나 검색어 입력시 TotalVideo 내부에서 다시 받아 렌더링 */}
       <TotalVideoComponent>
         <CenteredInnerComponent>
           {totalVideos.length > 0 && <TotalVideo videos={totalVideos} />}
@@ -435,6 +446,7 @@ const TotalVideoComponent = styled(RecentPopularVideoComponent)`
   height: 1749px;
 `;
 
+// 내부 일정 너비로 가운데 정렬
 const CenteredInnerComponent = styled.div`
   width: 77.813vw;
   height: 100%;

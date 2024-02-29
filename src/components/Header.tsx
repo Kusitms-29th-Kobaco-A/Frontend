@@ -1,14 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from "styled-components";
 import kobaco from "../assets/header/KobacoLogo.svg";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const Header = () => {
+  // menuState추출하기
+  const location = useLocation();
+  const menuState = location.state?.menuState;
+  // 로그인 성공시 토큰 여부로 확인
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   return (
     <HeaderComponent>
+      {/* 제일 상단 부분 */}
       <HeaderTopBar>
         <TopBarIcon
           onClick={() => {
@@ -17,22 +22,55 @@ const Header = () => {
           src={kobaco}
           alt="icon"
         />
+
+        {/* 로그인 여부에 따라 다르게 표현 */}
         {token ? (
-          <TopBarUser>User</TopBarUser>
+          <TopBarRightComponent>
+            <TopBarText>로그아웃</TopBarText>
+            <TopBarText>|</TopBarText>
+            <TopBarText>마이페이지</TopBarText>
+          </TopBarRightComponent>
         ) : (
-          <TopBarUser>로그인</TopBarUser>
+          <TopBarRightComponent>
+            <TopBarText>로그인</TopBarText>
+            <TopBarText>|</TopBarText>
+            <TopBarText>회원가입</TopBarText>
+          </TopBarRightComponent>
         )}
       </HeaderTopBar>
+
+      {/* 메뉴바 부분 표현 */}
+      {/* 어떤 페이지인지에 따라 붉은색으로 텍스트 표시 */}
       <HeaderMenuBar>
         <VisibleMenuComponent>
           <TotalMenuComponent>
-            <MenuBox
-              onClick={() => {
-                navigate("/archive");
-              }}
-            >
-              레퍼런스 탐색
-            </MenuBox>
+            {menuState === "archive" ? (
+              <MenuBox
+                menuColor="#D33B4D"
+                onClick={() => {
+                  navigate("/archive", {
+                    state: {
+                      menuState: "archive",
+                    },
+                  });
+                }}
+              >
+                레퍼런스 탐색
+              </MenuBox>
+            ) : (
+              <MenuBox
+                onClick={() => {
+                  navigate("/archive", {
+                    state: {
+                      menuState: "archive",
+                    },
+                  });
+                }}
+              >
+                레퍼런스 탐색
+              </MenuBox>
+            )}
+
             <MenuBox>검색어 트렌드</MenuBox>
             <MenuBox>광고 카피 제작</MenuBox>
             <MenuBox>스토리보드 제작</MenuBox>
@@ -75,21 +113,26 @@ const TopBarIcon = styled.img`
   flex-shrink: 0;
   object-fit: cover;
 `;
-const TopBarUser = styled.div`
+
+const TopBarRightComponent = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
   top: 29px;
   right: 11.094vw; /* right: 142px; */
+`;
+
+const TopBarText = styled.div`
+  display: inline-flex;
   color: var(--Gray-7, #707887);
-  width: 44px;
   height: 40px;
+  margin: 0px 6px;
   text-align: center;
   font-family: "Noto Sans KR";
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
-  line-height: 140%; /* 22.4px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
 
@@ -119,11 +162,12 @@ const TotalMenuComponent = styled.div`
   width: 100%;
 `;
 
-const MenuBox = styled.div`
+const MenuBox = styled.div<{ menuColor?: string }>`
+  /* color: var(--Gray-9, #27272e); */
+  color: ${(props) => props.menuColor || " #27272e"};
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--Gray-9, #27272e);
   text-align: center;
   font-family: "Noto Sans KR";
   font-size: 16px;

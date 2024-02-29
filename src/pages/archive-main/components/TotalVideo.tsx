@@ -1,28 +1,53 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState } from "react";
 import styled from "styled-components";
 import glass from "../../../assets/archive/Glass.svg";
 import XImage from "../../../assets/archive/XImg.svg";
-import { useState } from "react";
+
+// 드롭다운 리스트 받아오기
 import {
   industryList,
   recommendKeywordsList,
   videoOrderList,
   videoTypeList,
 } from "../../../data/ArchiveData";
+
 import SearchedTotalVideos from "./SearchedTotalVideos";
+
+// 페이지네이션
 import Pagination from "react-js-pagination";
 import "./paging.css";
+
+// 전체 광고 컴포넌트
 const TotalVideo = ({ videos }: any) => {
+  //비디오 받고 나중에 또 업데이트
   const [totalVideos, setTotalVideos] = useState(videos);
 
+  // 키워드 검색후 리스트에 추가,삭제
   const [searchedKeyword, setSearchedKeyword] = useState<string>("");
   const [keywordsArray, setKeywordsArray] = useState<string[]>([]);
 
+  // 검색어 바뀔경우
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchedKeyword(event.target.value);
   };
 
+  //키보드 누를 때 엔터인지 확인
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && searchedKeyword.trim() !== "") {
+      handleAddKeyword();
+    }
+  };
+
+  //X버튼 누를 때 지우기 확인
+  const handleRemoveKeyword = (index: number) => {
+    setKeywordsArray((prevKeywords) =>
+      prevKeywords.filter((_, i) => i !== index)
+    );
+  };
+
+  // 리스트에 추가
   const handleAddKeyword = () => {
     if (searchedKeyword.trim() !== "") {
       setKeywordsArray((prevKeywords) => [...prevKeywords, searchedKeyword]);
@@ -30,6 +55,7 @@ const TotalVideo = ({ videos }: any) => {
     }
   };
 
+  // 선택된 드롭다운 value값
   const [selectedType, setSelectedType] = useState("토픽 선택");
   const [selectedIndustry, setSelectedIndustry] = useState("산업군");
   const [selectedOrder, setSelectedOrder] = useState("최근 등록순");
@@ -55,6 +81,8 @@ const TotalVideo = ({ videos }: any) => {
   return (
     <TotalComponent>
       <TotalTopLabel>전체 광고</TotalTopLabel>
+
+      {/* 검색 컴포넌트 */}
       <TotalSearchComponent>
         <TotalSearchComponentLeftDiv>
           <ContainInputDiv>
@@ -62,12 +90,16 @@ const TotalVideo = ({ videos }: any) => {
             <TotalSearchInput
               value={searchedKeyword}
               onChange={handleInputChange}
+              onKeyUp={handleKeyPress}
               placeholder="찾고 싶은 광고 컨셉 혹은 산업을 검색하세요"
             />
           </ContainInputDiv>
           <SearchBtn onClick={handleAddKeyword}>검색</SearchBtn>
         </TotalSearchComponentLeftDiv>
+
+        {/* 드롭다운 */}
         <TotalSearchComponentRightDiv>
+          {/* 토픽 선택 드롭다운 */}
           <StyledSelectBackground
             margin="0px 15px 0px 0px"
             onChange={handleSelectType}
@@ -86,6 +118,7 @@ const TotalVideo = ({ videos }: any) => {
               </option>
             ))}
           </StyledSelectBackground>
+          {/* 산업군 선택 드롭다운 */}
           <StyledSelectBackground
             onChange={handleSelectIndustry}
             value={selectedIndustry}
@@ -105,36 +138,41 @@ const TotalVideo = ({ videos }: any) => {
           </StyledSelectBackground>
         </TotalSearchComponentRightDiv>
       </TotalSearchComponent>
+
+      {/* 키워드리스트 보여주는 부분 */}
+      {/* 검색 키워드 입력시 키워드리스트, 없을 시 기본추천 키워드리스트 */}
       <KeywordsComponent>
-        <BasicKeywordsComponent>
-          {recommendKeywordsList.map((item) => {
-            return <BasicKeyword>#{item}</BasicKeyword>;
-          })}
-        </BasicKeywordsComponent>
-
-        <SearchedKeywordsComponent>
-          {keywordsArray.map((item) => {
-            return (
-              <ContainSearchedKeywordDiv>
-                <SearchedKeyword>#{item}</SearchedKeyword>
-                <XImg src={XImage} alt="X" />
-              </ContainSearchedKeywordDiv>
-            );
-          })}
-        </SearchedKeywordsComponent>
-
-        {/* {keywordsArray.length > 0 ? (
-          <SearchedKeywordsComponent></SearchedKeywordsComponent>
+        {keywordsArray.length > 0 ? (
+          <SearchedKeywordsComponent>
+            {keywordsArray.map((item, index) => {
+              return (
+                <ContainSearchedKeywordDiv key={index}>
+                  <SearchedKeyword>#{item}</SearchedKeyword>
+                  <XImg
+                    onClick={() => handleRemoveKeyword(index)}
+                    src={XImage}
+                    alt="X"
+                  />
+                </ContainSearchedKeywordDiv>
+              );
+            })}
+          </SearchedKeywordsComponent>
         ) : (
-          <BasicKeywordsComponent></BasicKeywordsComponent>
-        )} */}
+          <BasicKeywordsComponent>
+            {recommendKeywordsList.map((item) => {
+              return <BasicKeyword>#{item}</BasicKeyword>;
+            })}
+          </BasicKeywordsComponent>
+        )}
       </KeywordsComponent>
+
+      {/* 동영상 보여주는 기준 설정 드롭다운 */}
       <RecentRegisteredComponent>
         <StyledSelectNotBackground
           onChange={handleSelectOrder}
           value={selectedOrder}
         >
-          {industryList.map((item) => (
+          {videoOrderList.map((item) => (
             <option
               style={{ width: "10px" }}
               value={item.value}
@@ -145,11 +183,14 @@ const TotalVideo = ({ videos }: any) => {
           ))}
         </StyledSelectNotBackground>
       </RecentRegisteredComponent>
+
+      {/* 동영상 리스트들 보내줘서 보내주기 */}
       <SearchedTotalVideos videos={totalVideos} />
+      {/* 페이지 처리 부분 */}
+      {/* 이후 아이템 개수 받아와서 바꿔주기 */}
       <div
         style={{
           display: "flex",
-
           justifyContent: "center",
           marginTop: "14px",
         }}
@@ -174,15 +215,18 @@ const TotalComponent = styled.div`
   height: 100%;
 `;
 
+// 상단 sector
 const TotalTopLabel = styled.div`
   color: var(--Gray-9, #27272e);
   font-family: "Noto Sans KR";
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
-  line-height: 140%; /* 33.6px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
+
+//검색 부분
 const TotalSearchComponent = styled.div`
   display: flex;
   position: relative;
@@ -226,7 +270,7 @@ const TotalSearchInput = styled.input`
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
-  line-height: 140%; /* 22.4px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   outline: none;
   border: none;
@@ -248,10 +292,11 @@ const SearchBtn = styled.button`
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 28px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
 
+// 드롭다운 부분
 // 스타일드 컴포넌트로 select 스타일 정의
 const StyledSelectBackground = styled.select<{ margin?: any }>`
   display: inline-flex;
@@ -264,13 +309,14 @@ const StyledSelectBackground = styled.select<{ margin?: any }>`
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
-  line-height: 140%; /* 22.4px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   border: none;
   outline: none;
   margin: ${(props) => props.margin || "0px"};
 `;
 
+// 키워드 부분
 const KeywordsComponent = styled.div`
   display: flex;
   margin-top: 21px;
@@ -278,6 +324,7 @@ const KeywordsComponent = styled.div`
   height: 26px;
 `;
 
+// 기본 추천 키워드
 const BasicKeywordsComponent = styled.div`
   display: flex;
   height: 26px;
@@ -298,10 +345,11 @@ const BasicKeyword = styled.div`
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 19.6px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
 
+// 내가 입력한 키워드
 const SearchedKeywordsComponent = styled.div`
   display: flex;
   height: 26px;
@@ -326,7 +374,7 @@ const SearchedKeyword = styled.div`
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 19.6px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
 
@@ -336,6 +384,7 @@ const XImg = styled.img`
   object-fit: cover;
 `;
 
+// 드롭다운
 const RecentRegisteredComponent = styled.div`
   position: relative;
   width: 100%;
@@ -350,12 +399,11 @@ const StyledSelectNotBackground = styled.select<{ margin?: any }>`
   gap: 8px;
   border-radius: 8px;
   color: var(--Gray-9, #27272e);
-  /* Body/4 */
   font-family: "Noto Sans KR";
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 22.4px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   border: none;
   outline: none;

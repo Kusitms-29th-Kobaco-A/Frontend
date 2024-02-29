@@ -2,45 +2,44 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from "styled-components";
 import YouTube, { YouTubeProps } from "react-youtube";
+import YouTubeThumbnail from "./YoutubeThumnail";
 
+// 비디오 정보 받기
 const EachVideo = ({ videoInfo }: any) => {
+  // 비디오 고유 아이디 추출하기
   const url = videoInfo.videoUrl;
   const extractVideoId = (url: string): string | undefined => {
     const urlObj = new URL(url);
     return urlObj.pathname.substring(1);
   };
-
   const videoId = extractVideoId(url);
 
-  const onPlayerReady: YouTubeProps["onReady"] = (event) => {
-    // access to player in all event handlers via event.target
-    event.target.pauseVideo();
-  };
+  // const onPlayerReady: YouTubeProps["onReady"] = (event) => {
+  //   event.target.pauseVideo();
+  // };
 
-  const opts: YouTubeProps["opts"] = {
-    height: "135",
-    width: "100%",
-    playerVars: {
-      // https://developers.google.com/youtube/player_parameters
-      autoplay: 0,
-      rel: 0,
-      modestbranding: 1,
-    },
-  };
+  // const opts: YouTubeProps["opts"] = {
+  //   height: "135",
+  //   width: "100%",
+  //   playerVars: {
+  //     autoplay: 0,
+  //     rel: 0,
+  //     modestbranding: 1,
+  //   },
+  // };
 
   return (
     <TotalComponent>
       <VideoFrame>
-        <YouTube
-          // https://youtu.be/NFcp_8np3e8
-          //videoId : https://www.youtube.com/watch?v={videoId} 유튜브 링크의 끝부분에 있는 고유한 아이디
+        <YouTubeThumbnail videoId={videoId} />
+        {/* <YouTube
+          // https://youtu.be/NFcp_8np3e8 //마지막 슬래쉬 뒤에 있는 것이 id이다.
           videoId={videoId}
           //opts(옵션들): 플레이어의 크기나 다양한 플레이어 매개 변수를 사용할 수 있음.
-          //밑에서 더 설명하겠습니다.
           opts={opts}
           //이벤트 리스너
           onReady={onPlayerReady}
-        />
+        /> */}
         <VideoTime>{videoInfo.videoTime}</VideoTime>
       </VideoFrame>
       <KeywordComponent>
@@ -60,6 +59,7 @@ const TotalComponent = styled.div`
   height: 241px;
 `;
 
+// 비디오 부분
 const VideoFrame = styled.div`
   position: relative;
   width: 100%;
@@ -84,10 +84,10 @@ const VideoTime = styled.div`
   font-size: 12px;
   font-style: normal;
   font-weight: 350;
-  /* line-height: 140%; 16.8px */
   letter-spacing: -0.4px;
 `;
 
+// 아래 비디오 설명 부분
 const KeywordComponent = styled.div`
   margin: 10px 0px 0px 4px;
   display: flex;
@@ -108,11 +108,12 @@ const EachKeyword = styled.div`
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 19.6px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   margin-left: 6px;
 `;
 
+// 영상 제목 이름 두줄로 표시하고 넘을 때 ...으러 표시
 const VideoTitle = styled.div`
   margin: 8px 0px 0px 10px;
   color: var(--Gray-9, #27272e);
@@ -120,13 +121,16 @@ const VideoTitle = styled.div`
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 22.4px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: normal; /* nowrap을 normal로 변경하여 텍스트가 래핑될 수 있도록 함 */
+  /* nowrap을 normal로 변경하여 텍스트가 래핑될 수 있도록 함 */
+  white-space: normal;
+
+  /* 두줄로 표시 시 아래와 같은 -webkit-box가 있어야함 */
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2; /* 2줄로 제한 */
+  -webkit-line-clamp: 2;
   width: 17vw;
 `;

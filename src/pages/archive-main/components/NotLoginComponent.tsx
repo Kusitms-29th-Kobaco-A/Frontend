@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// 로그인 하지 않았을 경우 보이는 컴포넌트
 const NotLoginComponent = () => {
   return (
     <TotalComponent>
@@ -23,7 +24,7 @@ const TopLabel = styled.div`
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
-  line-height: 140%; /* 33.6px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
 
@@ -39,11 +40,10 @@ const BlankComponent = styled.div`
   background: var(--White-1, #fff);
   color: var(--Gray-7, #707887);
   margin-top: 33px;
-  /* Body/3 */
   font-family: "Noto Sans KR";
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 28px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
