@@ -6,13 +6,10 @@ import glass from "../../../assets/archive/Glass.svg";
 import XImage from "../../../assets/archive/XImg.svg";
 import questionImg from "../../../assets/archive/Question.svg";
 
-// react-tooltip 가져오기
-
 // 드롭다운 리스트 받아오기
 import {
   industryList,
   recommendKeywordsList,
-  videoOrderList,
   videoTypeList,
 } from "../../../data/ArchiveData";
 
@@ -21,17 +18,16 @@ import SearchedTotalVideos from "./SearchedTotalVideos";
 // 페이지네이션
 import Pagination from "react-js-pagination";
 import "../../archive-main/components/paging.css";
-import { Tooltip } from "react-tooltip";
 
 // 전체 광고 컴포넌트
 const RecentPopularVideosTotal = () => {
   // 비디오리스트 저장하는 곳
-  const [recentPopularVideos, setRecentPopularVideos] = useState<any>([]);
+  const [totalVideos, setTotalVideos] = useState<any>([]);
 
   // 여기서 한번에 모든 비디오 정보들 받음
   const getArchiveMainVideos = useCallback(async () => {
     try {
-      setRecentPopularVideos([
+      setTotalVideos([
         {
           videoId: 1,
 
@@ -289,16 +285,12 @@ const RecentPopularVideosTotal = () => {
   // 선택된 드롭다운 value값
   const [selectedType, setSelectedType] = useState("토픽 선택");
   const [selectedIndustry, setSelectedIndustry] = useState("산업군");
-  const [selectedOrder, setSelectedOrder] = useState("최근 등록순");
 
   const handleSelectType = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedType(e.target.value);
   };
   const handleSelectIndustry = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedIndustry(e.target.value);
-  };
-  const handleSelectOrder = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOrder(e.target.value);
   };
 
   //페이징을 위한 page 변수선언
@@ -312,22 +304,7 @@ const RecentPopularVideosTotal = () => {
   return (
     <TotalComponent>
       <TotalTopRowFlexComponent>
-        <TotalTopLabel>최근 인기있는 영상</TotalTopLabel>
-
-        <TotalTopQuestionImgBox
-          src={questionImg}
-          alt="?"
-          data-tooltip-id="question-tooltip"
-          data-tooltip-place="bottom"
-        />
-
-        {/* 물음표 툴팁 구현 */}
-        <Tooltip style={{ zIndex: "1" }} id="question-tooltip">
-          <TooltipComponent>
-            <div>최근 한 달 동안 가장 많이 시청된</div>
-            <div>영상으로 정렬되었습니다.</div>
-          </TooltipComponent>
-        </Tooltip>
+        <TotalTopLabel>전체 광고</TotalTopLabel>
       </TotalTopRowFlexComponent>
 
       {/* 검색 컴포넌트 */}
@@ -415,25 +392,10 @@ const RecentPopularVideosTotal = () => {
       </KeywordsComponent>
 
       {/* 동영상 보여주는 기준 설정 드롭다운 */}
-      <RecentRegisteredComponent>
-        <StyledSelectNotBackground
-          onChange={handleSelectOrder}
-          value={selectedOrder}
-        >
-          {videoOrderList.map((item) => (
-            <option
-              style={{ width: "10px" }}
-              value={item.value}
-              key={item.value}
-            >
-              {item.label}
-            </option>
-          ))}
-        </StyledSelectNotBackground>
-      </RecentRegisteredComponent>
+      <RecentRegisteredComponent></RecentRegisteredComponent>
 
       {/* 동영상 리스트들 보내줘서 보내주기 */}
-      <SearchedTotalVideos videos={recentPopularVideos} />
+      <SearchedTotalVideos videos={totalVideos} />
       {/* 페이지 처리 부분 */}
       {/* 이후 아이템 개수 받아와서 바꿔주기 */}
       <div
@@ -667,23 +629,4 @@ const RecentRegisteredComponent = styled.div`
   position: relative;
   width: 100%;
   height: 30px;
-`;
-
-const StyledSelectNotBackground = styled.select<{ margin?: any }>`
-  position: absolute;
-  right: 0;
-  display: inline-flex;
-  padding: 10px 10px 10px 20px;
-  gap: 8px;
-  border-radius: 8px;
-  color: var(--Gray-9, #27272e);
-  font-family: "Noto Sans KR";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 140%;
-  letter-spacing: -0.4px;
-  border: none;
-  outline: none;
-  margin: ${(props) => props.margin || "0px"};
 `;

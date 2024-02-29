@@ -18,9 +18,12 @@ import SearchedTotalVideos from "./SearchedTotalVideos";
 // 페이지네이션
 import Pagination from "react-js-pagination";
 import "./paging.css";
+import { useNavigate } from "react-router-dom";
 
 // 전체 광고 컴포넌트
 const TotalVideo = ({ videos }: any) => {
+  const navigate = useNavigate();
+
   //비디오 받고 나중에 또 업데이트
   const [totalVideos, setTotalVideos] = useState(videos);
 
@@ -183,7 +186,19 @@ const TotalVideo = ({ videos }: any) => {
           ))}
         </StyledSelectNotBackground>
       </RecentRegisteredComponent>
-
+      <RecentRegisteredComponent>
+        <AdditionalVideo
+          onClick={() => {
+            navigate("/archive/totalVideos", {
+              state: {
+                menuState: "archive",
+              },
+            });
+          }}
+        >
+          전체 보기
+        </AdditionalVideo>
+      </RecentRegisteredComponent>
       {/* 동영상 리스트들 보내줘서 보내주기 */}
       <SearchedTotalVideos videos={totalVideos} />
       {/* 페이지 처리 부분 */}
@@ -408,4 +423,19 @@ const StyledSelectNotBackground = styled.select<{ margin?: any }>`
   border: none;
   outline: none;
   margin: ${(props) => props.margin || "0px"};
+`;
+
+// 전체보기 버튼
+const AdditionalVideo = styled.div`
+  position: absolute;
+  top: 15px;
+  right: 0;
+  color: var(--Gray-9, #27272e);
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: -0.4px;
+  cursor: pointer;
 `;
