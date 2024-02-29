@@ -4,6 +4,7 @@ import Landing from "./pages/landing/Landing";
 import ArchiveMain from "./pages/archive-main/ArchiveMain";
 import ArchivePopularVideos from "./pages/archive-popular-videos/ArchivePopularVidoes";
 import ArchiveTotalVideos from "./pages/archive-total-videos/ArchiveTotalVidoes";
+import ArchiveSavedVideos from "./pages/archive-saved-videos/ArchiveSavedVideos";
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
         <Route
           path="/archive/totalVideos"
           element={<ArchiveTotalVideos />}
+        ></Route>
+        <Route
+          path="/archive/savedVideos"
+          element={<ArchiveSavedVideos />}
         ></Route>
       </Routes>
     </Router>
