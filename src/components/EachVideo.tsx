@@ -57,7 +57,7 @@ export default EachVideo;
 
 const TotalComponent = styled.div`
   width: 100%;
-  height: 201px;
+  height: 241px;
 `;
 
 const VideoFrame = styled.div`
@@ -104,7 +104,6 @@ const EachKeyword = styled.div`
   color: var(--Main-1, #d33b4d);
   text-align: center;
 
-  /* Body/5 */
   font-family: "Noto Sans KR";
   font-size: 14px;
   font-style: normal;
@@ -117,12 +116,17 @@ const EachKeyword = styled.div`
 const VideoTitle = styled.div`
   margin: 8px 0px 0px 10px;
   color: var(--Gray-9, #27272e);
-
-  /* Body/4 */
   font-family: "Noto Sans KR";
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: 140%; /* 22.4px */
   letter-spacing: -0.4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal; /* nowrap을 normal로 변경하여 텍스트가 래핑될 수 있도록 함 */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* 2줄로 제한 */
+  width: 17vw;
 `;

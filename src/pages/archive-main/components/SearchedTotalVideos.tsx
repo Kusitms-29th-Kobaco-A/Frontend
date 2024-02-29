@@ -23,5 +23,5 @@ const TotalComponent = styled.div`
   gap: 0px 1.205%;
   margin: 42px 0px 0px 0px;
   width: 100%;
-  height: 100%;
+  height: 79.537%;
 `;

@@ -11,8 +11,11 @@ import {
   videoTypeList,
 } from "../../../data/ArchiveData";
 import SearchedTotalVideos from "./SearchedTotalVideos";
+import Pagination from "react-js-pagination";
+import "./paging.css";
+const TotalVideo = ({ videos }: any) => {
+  const [totalVideos, setTotalVideos] = useState(videos);
 
-const TotalVideo = ({ totalVideos }: any) => {
   const [searchedKeyword, setSearchedKeyword] = useState<string>("");
   const [keywordsArray, setKeywordsArray] = useState<string[]>([]);
 
@@ -40,6 +43,15 @@ const TotalVideo = ({ totalVideos }: any) => {
   const handleSelectOrder = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOrder(e.target.value);
   };
+
+  //페이징을 위한 page 변수선언
+  const [page, setPage] = useState<number>(1);
+  // 페이지 이동함수
+  const handlePageChange = (page: number) => {
+    setPage(page);
+    console.log(page);
+  };
+
   return (
     <TotalComponent>
       <TotalTopLabel>전체 광고</TotalTopLabel>
@@ -134,6 +146,24 @@ const TotalVideo = ({ totalVideos }: any) => {
         </StyledSelectNotBackground>
       </RecentRegisteredComponent>
       <SearchedTotalVideos videos={totalVideos} />
+      <div
+        style={{
+          display: "flex",
+
+          justifyContent: "center",
+          marginTop: "14px",
+        }}
+      >
+        <Pagination
+          activePage={page}
+          itemsCountPerPage={20}
+          totalItemsCount={139}
+          pageRangeDisplayed={3}
+          prevPageText={"‹"}
+          nextPageText={"›"}
+          onChange={handlePageChange}
+        />
+      </div>
     </TotalComponent>
   );
 };

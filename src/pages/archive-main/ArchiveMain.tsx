@@ -9,14 +9,11 @@ import SwiperVideo from "./components/SwiperVideo";
 import NotLoginComponent from "./components/NotLoginComponent";
 import TotalVideo from "./components/TotalVideo";
 
-import "./paging.css";
-
 const ArchiveMain = () => {
   const token = localStorage.getItem("token");
   const [recentPopularVideos, setRecentPopularVideos] = useState<any>([]);
   const [savedVideos, setSavedVideos] = useState<any>([]);
   const [totalVideos, setTotalVideos] = useState<any>([]);
-  //   const [page, setPage] = useState<number>(1);
 
   const getArchiveMainVideos = useCallback(async () => {
     try {
@@ -392,7 +389,7 @@ const ArchiveMain = () => {
 
       <TotalVideoComponent>
         <CenteredInnerComponent>
-          {totalVideos.length > 0 && <TotalVideo totalVideos={totalVideos} />}
+          {totalVideos.length > 0 && <TotalVideo videos={totalVideos} />}
         </CenteredInnerComponent>
       </TotalVideoComponent>
       <Footer />
@@ -441,5 +438,4 @@ const TotalVideoComponent = styled(RecentPopularVideoComponent)`
 const CenteredInnerComponent = styled.div`
   width: 77.813vw;
   height: 100%;
-  border: 1px solid black;
 `;
