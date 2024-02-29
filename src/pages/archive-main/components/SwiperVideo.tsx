@@ -8,10 +8,17 @@ import { Navigation } from "swiper/modules";
 import EachVideo from "../../../components/EachVideo";
 SwiperCore.use([Navigation]);
 
-const RecentPopularVideo = ({ videos }: any) => {
+const SwiperVideo = ({ sector, videos }: any) => {
   return (
     <TotalComponent>
-      <TopLabel>최근 인기있는 영상</TopLabel>
+      <TopRowFlexComponent>
+        <TopLabel>
+          {sector === "popular" ? "최근 인기있는 영상" : "내가 찜한 영상"}
+        </TopLabel>
+
+        <AdditionalVideo>전체 보기</AdditionalVideo>
+      </TopRowFlexComponent>
+
       <VideosComponent>
         <Swiper
           navigation={{
@@ -40,11 +47,17 @@ const RecentPopularVideo = ({ videos }: any) => {
   );
 };
 
-export default RecentPopularVideo;
+export default SwiperVideo;
 
 const TotalComponent = styled.div`
   width: 100%;
   height: 100%;
+`;
+
+const TopRowFlexComponent = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
 `;
 
 const TopLabel = styled.div`
@@ -78,6 +91,7 @@ const VideosComponent = styled.div`
 // `;
 
 const NextSlide = styled.div`
+  z-index: 1;
   position: absolute;
   top: 30%;
   right: 75px;
@@ -87,5 +101,18 @@ const NextSlide = styled.div`
   width: 30px;
   height: 30px;
   font-size: 3px;
+  cursor: pointer;
+`;
+
+const AdditionalVideo = styled.div`
+  position: absolute;
+  right: 11.875vw;
+  color: var(--Gray-9, #27272e);
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 22.4px */
+  letter-spacing: -0.4px;
   cursor: pointer;
 `;

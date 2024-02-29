@@ -3,9 +3,14 @@
 import styled from "styled-components";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import RecentPopularVideo from "./components/RecentPopularVideo";
 
 import { useCallback, useEffect, useState } from "react";
+import SwiperVideo from "./components/SwiperVideo";
+import NotLoginComponent from "./components/NotLoginComponent";
+import TotalVideo from "./components/TotalVideo";
+
+import "./paging.css";
+
 const ArchiveMain = () => {
   const token = localStorage.getItem("token");
   const [recentPopularVideos, setRecentPopularVideos] = useState<any>([]);
@@ -110,6 +115,14 @@ const ArchiveMain = () => {
       ]);
       setSavedVideos([
         {
+          videoId: 12,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          videoTitle:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          videoTime: "40:32",
+          keyword: ["커피", "유머있는"],
+        },
+        {
           videoId: 1,
           videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
           videoTitle: "빵빵이의 옥지 사용법 ~!",
@@ -189,14 +202,6 @@ const ArchiveMain = () => {
           videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
           videoTitle: "빵빵이의 옥지 사용법 ~!",
           videoTime: "02:49",
-          keyword: ["커피", "유머있는"],
-        },
-        {
-          videoId: 12,
-          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          videoTitle:
-            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-          videoTime: "40:32",
           keyword: ["커피", "유머있는"],
         },
       ]);
@@ -291,6 +296,66 @@ const ArchiveMain = () => {
           videoTime: "40:32",
           keyword: ["커피", "유머있는"],
         },
+        {
+          videoId: 13,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          videoTitle: "빵빵이의 옥지 사용법 ~!",
+          videoTime: "02:49",
+          keyword: ["커피", "유머있는"],
+        },
+        {
+          videoId: 14,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          videoTitle:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          videoTime: "40:32",
+          keyword: ["커피", "유머있는"],
+        },
+        {
+          videoId: 15,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          videoTitle: "빵빵이의 옥지 사용법 ~!",
+          videoTime: "02:49",
+          keyword: ["커피", "유머있는"],
+        },
+        {
+          videoId: 16,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          videoTitle:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          videoTime: "40:32",
+          keyword: ["커피", "유머있는"],
+        },
+        {
+          videoId: 17,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          videoTitle: "빵빵이의 옥지 사용법 ~!",
+          videoTime: "02:49",
+          keyword: ["커피", "유머있는"],
+        },
+        {
+          videoId: 18,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          videoTitle:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          videoTime: "40:32",
+          keyword: ["커피", "유머있는"],
+        },
+        {
+          videoId: 19,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          videoTitle: "빵빵이의 옥지 사용법 ~!",
+          videoTime: "02:49",
+          keyword: ["커피", "유머있는"],
+        },
+        {
+          videoId: 20,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          videoTitle:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          videoTime: "40:32",
+          keyword: ["커피", "유머있는"],
+        },
       ]);
     } catch (err) {
       console.log(err);
@@ -307,27 +372,28 @@ const ArchiveMain = () => {
 
       <OnLoginRecentPopularVideoComponent>
         {recentPopularVideos.length > 0 && (
-          <RecentPopularVideo videos={recentPopularVideos} />
+          <SwiperVideo sector="popular" videos={recentPopularVideos} />
         )}
       </OnLoginRecentPopularVideoComponent>
 
-      {/* <RecentPopularVideoComponent>
-        <CenteredInnerComponent>
-          {recentPopularVideos.length > 0 && (
-            <RecentPopularVideo recentPopularVideos={recentPopularVideos} />
+      {token ? (
+        <OnLoginSavedVideoComponrnt>
+          {savedVideos.length > 0 && (
+            <SwiperVideo sector="save" videos={savedVideos} />
           )}
-        </CenteredInnerComponent>
-      </RecentPopularVideoComponent> */}
-      <OnLoginSavedVideoComponrnt>
-        {recentPopularVideos.length > 0 && (
-          <RecentPopularVideo videos={recentPopularVideos} />
-        )}
-      </OnLoginSavedVideoComponrnt>
-      {/* <SavedVideoComponent>
-        <CenteredInnerComponent></CenteredInnerComponent>
-      </SavedVideoComponent> */}
+        </OnLoginSavedVideoComponrnt>
+      ) : (
+        <SavedVideoComponent>
+          <CenteredInnerComponent>
+            <NotLoginComponent />
+          </CenteredInnerComponent>
+        </SavedVideoComponent>
+      )}
+
       <TotalVideoComponent>
-        <CenteredInnerComponent></CenteredInnerComponent>
+        <CenteredInnerComponent>
+          {totalVideos.length > 0 && <TotalVideo totalVideos={totalVideos} />}
+        </CenteredInnerComponent>
       </TotalVideoComponent>
       <Footer />
     </ArchiveComponent>
