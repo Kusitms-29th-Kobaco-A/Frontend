@@ -16,5 +16,6 @@ export default YouTubeThumbnail;
 
 const ThumnailImg = styled.img`
   width: 100%;
-  height: 135px;
+  min-height: 135px;
+  height: 10.546875vw;
 `;

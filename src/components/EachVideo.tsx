@@ -63,7 +63,8 @@ const TotalComponent = styled.div`
 const VideoFrame = styled.div`
   position: relative;
   width: 100%;
-  height: 135px;
+  height: 10.546875vw;
+  min-height: 135px;
   border-radius: 10px;
   background: #d9d9d9;
   overflow: hidden;

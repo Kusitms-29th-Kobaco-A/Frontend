@@ -62,7 +62,7 @@ const SwiperVideo = ({ sector, videos }: any) => {
           }}
           style={{ width: "100%", margin: "33px 0px 0px" }}
           spaceBetween={16}
-          slidesPerView={4.4}
+          slidesPerView={4.5}
           onSwiper={(swiper) => console.log(swiper)}
           onSlideChange={() => console.log("slide change")}
         >

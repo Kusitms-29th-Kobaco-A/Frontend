@@ -19,7 +19,10 @@ export default SearchedTotalVideos;
 
 const TotalComponent = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+
+  grid-template-columns: repeat(4, 1fr);
+  /* grid-template-columns: repeat(4, 18.75vw); */
+
   grid-template-rows: 281px 281px 281px 281px 296px;
   gap: 0px 1.205%;
   margin: 12px 0px 0px 0px;
