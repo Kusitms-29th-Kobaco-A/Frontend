@@ -443,7 +443,7 @@ const OnLoginSavedVideoComponrnt = styled(OnLoginRecentPopularVideoComponent)`
 
 const TotalVideoComponent = styled(RecentPopularVideoComponent)`
   margin-top: 103px;
-  height: 1749px;
+  height: 1779px;
 `;
 
 // 내부 일정 너비로 가운데 정렬

@@ -93,6 +93,7 @@ const HeaderComponent = styled.header`
   top: 0;
   background-color: #fff;
   z-index: 2;
+  border-bottom: 1px solid var(--Gray-2, #e6e6e6);
 `;
 
 //제일 위 탑 부분

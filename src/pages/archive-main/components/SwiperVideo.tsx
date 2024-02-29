@@ -8,11 +8,14 @@ import "swiper/css";
 import SwiperCore from "swiper";
 import { Navigation } from "swiper/modules";
 import EachVideo from "../../../components/EachVideo";
+import { useNavigate } from "react-router-dom";
 SwiperCore.use([Navigation]);
 
 // 슬라이드 컴포넌트(인기있는인지, 내가 찜한인지 sector로 확인)
 //popular:인기있는, save:내가 찜한
 const SwiperVideo = ({ sector, videos }: any) => {
+  const navigate = useNavigate();
+
   return (
     <TotalComponent>
       {/* 제일 위 sector 표시 */}
@@ -22,7 +25,31 @@ const SwiperVideo = ({ sector, videos }: any) => {
         </TopLabel>
 
         {/* sector state로 넘겨주기 */}
-        <AdditionalVideo>전체 보기</AdditionalVideo>
+        {sector === "popular" ? (
+          <AdditionalVideo
+            onClick={() => {
+              navigate("/archive/popularVideos", {
+                state: {
+                  menuState: "archive",
+                },
+              });
+            }}
+          >
+            전체 보기
+          </AdditionalVideo>
+        ) : (
+          <AdditionalVideo
+            onClick={() => {
+              navigate("/", {
+                state: {
+                  menuState: "archive",
+                },
+              });
+            }}
+          >
+            전체 보기
+          </AdditionalVideo>
+        )}
       </TopRowFlexComponent>
 
       {/* 비디오 슬라이드 처리 */}
