@@ -2,9 +2,13 @@
 import styled from "styled-components";
 import Header from "../../components/Header";
 import { ChangeEvent, useState } from "react";
+import { IoIosArrowForward } from "react-icons/io";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // 랜딩페이지
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -13,6 +17,23 @@ const Login = () => {
   };
   const handleChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
+  };
+
+  const login = async () => {
+    try {
+      await axios
+        .post("https://dev.simproject.kr/api/users/login", {
+          email: email,
+          password: password,
+        })
+        .then((res) => {
+          localStorage.setItem("token", res.data.accessToken);
+          navigate("/");
+          // console.log(res.data.accessToken);
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -37,13 +58,17 @@ const Login = () => {
                 placeholder="비밀번호를 입력하세요"
               />
             </ContainerLeftBox>
-            <LoginBtn>로그인</LoginBtn>
+            <LoginBtn onClick={login}>로그인</LoginBtn>
           </ContainerBox>
-          <ForgetIdText>아이디를 잊으셨나요?</ForgetIdText>
-          <ForgetPasswordText>비밀번호를 잊으셨나요?</ForgetPasswordText>
+          <ForgetIdText>
+            <IoIosArrowForward size="15" fill="#D33B4D" />
+            아이디를 잊으셨나요?
+          </ForgetIdText>
+          <ForgetPasswordText>
+            <IoIosArrowForward size="15" fill="#D33B4D" />
+            비밀번호를 잊으셨나요?
+          </ForgetPasswordText>
           <SignUpBtn>회원가입</SignUpBtn>
-          <div>{email}</div>
-          <div>{password}</div>
         </TotalLoginBox>
       </UnderHeaderComponent>
     </TotalComponent>
@@ -119,6 +144,8 @@ const LoginBtn = styled.button`
 `;
 
 const ForgetIdText = styled.div`
+  display: flex;
+  align-items: center;
   margin: 26px 0px 0px 50px;
   font-size: 14px;
   color: #000;

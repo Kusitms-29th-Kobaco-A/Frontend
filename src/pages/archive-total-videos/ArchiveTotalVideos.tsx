@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import Header from "../../components/Header";
-import RecentPopularVideosTotal from "./components/RecentPopularVideosTotal";
+import TotalVideos from "./components/TotalVideos";
 import Footer from "../../components/Footer";
 
 // 랜딩페이지
-const ArchivePopularVideos = () => {
+const ArchiveTotalVideos = () => {
   return (
     <ArchivePopularVideosComponent>
       <Header />
       <TotalVideoComponent>
         <CenteredInnerComponent>
-          <RecentPopularVideosTotal />
+          <TotalVideos />
         </CenteredInnerComponent>
       </TotalVideoComponent>
       <Footer />
@@ -18,7 +18,7 @@ const ArchivePopularVideos = () => {
   );
 };
 
-export default ArchivePopularVideos;
+export default ArchiveTotalVideos;
 
 const ArchivePopularVideosComponent = styled.div`
   width: 100vw;

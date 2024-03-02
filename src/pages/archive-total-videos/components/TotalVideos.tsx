@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import glass from "../../../assets/archive/Glass.svg";
 import XImage from "../../../assets/archive/XImg.svg";
+import questionImg from "../../../assets/archive/Question.svg";
 
 // 드롭다운 리스트 받아오기
 import {
@@ -17,15 +18,236 @@ import SearchedTotalVideos from "./SearchedTotalVideos";
 
 // 페이지네이션
 import Pagination from "react-js-pagination";
-import "./paging.css";
-import { useNavigate } from "react-router-dom";
+import "../../archive-main/components/paging.css";
 
 // 전체 광고 컴포넌트
-const TotalVideo = ({ videos }: any) => {
-  const navigate = useNavigate();
+const RecentPopularVideosTotal = () => {
+  // 비디오리스트 저장하는 곳
+  const [totalVideos, setTotalVideos] = useState<any>([]);
 
-  //비디오 받고 나중에 또 업데이트
-  const [totalVideos, setTotalVideos] = useState(videos);
+  // 여기서 한번에 모든 비디오 정보들 받음
+  const getArchiveMainVideos = useCallback(async () => {
+    try {
+      setTotalVideos([
+        {
+          advertiseId: 1,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          videoTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 2,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          videoTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 3,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 4,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 5,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 6,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 7,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 8,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 9,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 10,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 11,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 12,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 13,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 14,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 15,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 16,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 17,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 18,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 19,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 20,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 21,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          videoTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 22,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          videoTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 23,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 24,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 25,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 26,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 27,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 28,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+      ]);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  useEffect(() => {
+    getArchiveMainVideos();
+  }, [getArchiveMainVideos]);
 
   // 키워드 검색후 리스트에 추가,삭제
   const [searchedKeyword, setSearchedKeyword] = useState<string>("");
@@ -67,8 +289,8 @@ const TotalVideo = ({ videos }: any) => {
   };
 
   // 선택된 드롭다운 value값
-  const [selectedType, setSelectedType] = useState<string>("");
-  const [selectedIndustry, setSelectedIndustry] = useState<string>("");
+  const [selectedType, setSelectedType] = useState("");
+  const [selectedIndustry, setSelectedIndustry] = useState("");
   const [selectedOrder, setSelectedOrder] = useState("최근 등록순");
 
   const handleSelectType = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -93,20 +315,9 @@ const TotalVideo = ({ videos }: any) => {
 
   return (
     <TotalComponent>
-      <RowComponent>
+      <TotalTopRowFlexComponent>
         <TotalTopLabel>전체 광고</TotalTopLabel>
-        <AdditionalVideo
-          onClick={() => {
-            navigate("/archive/totalVideos", {
-              state: {
-                menuState: "archive",
-              },
-            });
-          }}
-        >
-          전체 보기
-        </AdditionalVideo>
-      </RowComponent>
+      </TotalTopRowFlexComponent>
 
       <TotalFilterComponent>
         <RowComponent style={{ height: "62px" }}>
@@ -175,9 +386,6 @@ const TotalVideo = ({ videos }: any) => {
         </RowComponent>
       </TotalFilterComponent>
 
-      {/* 키워드리스트 보여주는 부분 */}
-      {/* 검색 키워드 입력시 키워드리스트, 없을 시 기본추천 키워드리스트 */}
-
       {/* 동영상 보여주는 기준 설정 드롭다운 */}
       <RecentRegisteredComponent>
         <StyledSelectNotBackground
@@ -195,7 +403,7 @@ const TotalVideo = ({ videos }: any) => {
           ))}
         </StyledSelectNotBackground>
       </RecentRegisteredComponent>
-      <RecentRegisteredComponent></RecentRegisteredComponent>
+
       {/* 동영상 리스트들 보내줘서 보내주기 */}
       <SearchedTotalVideos videos={totalVideos} />
       {/* 페이지 처리 부분 */}
@@ -209,7 +417,7 @@ const TotalVideo = ({ videos }: any) => {
       >
         <Pagination
           activePage={page}
-          itemsCountPerPage={20}
+          itemsCountPerPage={28}
           totalItemsCount={139}
           pageRangeDisplayed={3}
           prevPageText={"‹"}
@@ -220,21 +428,19 @@ const TotalVideo = ({ videos }: any) => {
     </TotalComponent>
   );
 };
-export default TotalVideo;
+export default RecentPopularVideosTotal;
 
 const TotalComponent = styled.div`
   width: 100%;
   height: 100%;
 `;
 
-const RowComponent = styled.div`
-  position: relative;
+// 상단 sector
+const TotalTopRowFlexComponent = styled.div`
   display: flex;
   align-items: center;
-  width: 100%;
 `;
 
-// 상단 sector
 const TotalTopLabel = styled.div`
   color: var(--Gray-9, #27272e);
   font-family: "Noto Sans KR";
@@ -245,57 +451,28 @@ const TotalTopLabel = styled.div`
   letter-spacing: -0.4px;
 `;
 
-const TotalFilterComponent = styled.div`
+const TotalTopQuestionImgBox = styled.img`
+  margin: 0px 0px 0px 12px;
+  width: 23px;
+  height: 23px;
+  flex-shrink: 0;
+  fill: var(--Gray-3, #bebebe);
+`;
+const TooltipComponent = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin: 19px 0px 0px 0px;
-  width: 100%;
-  height: 257px;
-  flex-shrink: 0;
-  border-radius: 10px;
-  background: var(--Gray-2, #e6e6e6);
-`;
+  width: 200px;
+  fill: var(--Gray-8, #373d49);
+  color: var(--Gray-1, #f4f6f6);
+  text-align: center;
 
-const DottedLine = styled.div`
-  width: 92%;
-  height: 0px;
-  border: 1px dotted #bebebe;
-`;
-
-const FilterLabel = styled.div`
-  display: flex;
-  width: 116px;
-  margin-left: 28px;
-  height: 28px;
-  flex-direction: column;
-  justify-content: center;
-  flex-shrink: 0;
-  color: var(--Gray-9, #27272e);
-
-  /* Body/4 */
   font-family: "Noto Sans KR";
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
-  font-weight: 500;
-  line-height: 140%; /* 22.4px */
-  letter-spacing: -0.4px;
-`;
-
-const FilterAns = styled.button`
-  display: inline-flex;
-  height: 28px;
-  flex-direction: column;
-  justify-content: center;
-  flex-shrink: 0;
-  color: var(--Gray-9, #27272e);
-  margin-left: 5px;
-  /* Body/4 */
-  font-family: "Noto Sans KR";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 140%; /* 22.4px */
+  font-weight: 350;
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
 
@@ -464,6 +641,25 @@ const RecentRegisteredComponent = styled.div`
   height: 30px;
 `;
 
+const RowComponent = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+`;
+
+const TotalFilterComponent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 19px 0px 0px 0px;
+  width: 100%;
+  height: 257px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--Gray-2, #e6e6e6);
+`;
+
 const StyledSelectNotBackground = styled.select<{ margin?: any }>`
   position: absolute;
   right: 0;
@@ -482,18 +678,44 @@ const StyledSelectNotBackground = styled.select<{ margin?: any }>`
   outline: none;
   margin: ${(props) => props.margin || "0px"};
 `;
+const DottedLine = styled.div`
+  width: 92%;
+  height: 0px;
+  border: 1px dotted #bebebe;
+`;
 
-// 전체보기 버튼
-const AdditionalVideo = styled.div`
-  position: absolute;
-  top: 15px;
-  right: 0;
+const FilterLabel = styled.div`
+  display: flex;
+  width: 116px;
+  margin-left: 28px;
+  height: 28px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
   color: var(--Gray-9, #27272e);
+
+  /* Body/4 */
   font-family: "Noto Sans KR";
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%;
+  line-height: 140%; /* 22.4px */
   letter-spacing: -0.4px;
-  cursor: pointer;
+`;
+
+const FilterAns = styled.button`
+  display: inline-flex;
+  height: 28px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--Gray-9, #27272e);
+  margin-left: 5px;
+  /* Body/4 */
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 22.4px */
+  letter-spacing: -0.4px;
 `;

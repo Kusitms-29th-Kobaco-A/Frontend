@@ -33,217 +33,214 @@ const RecentPopularVideosTotal = () => {
     try {
       setRecentPopularVideos([
         {
-          videoId: 1,
-
+          advertiseId: 1,
           videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          videoTitle: "빵빵이의 옥지 사용법 ~!",
+          title: "빵빵이의 옥지 사용법 ~!",
           videoTime: "02:49",
-          keyword: ["커피", "유머있는"],
+          keywordList: ["커피", "유머있는"],
         },
         {
-          videoId: 2,
+          advertiseId: 2,
           videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          videoTitle:
+          title:
             "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
           videoTime: "40:32",
-          keyword: ["커피", "유머있는"],
+          keywordList: ["커피", "유머있는"],
         },
         {
-          videoId: 3,
+          advertiseId: 3,
           videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          videoTitle: "빵빵이의 옥지 사용법 ~!",
-          videoTime: "02:49",
-          keyword: ["커피", "유머있는"],
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
         },
         {
-          videoId: 4,
+          advertiseId: 4,
           videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          videoTitle:
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 5,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 6,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 7,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 8,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 9,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 10,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 11,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 12,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 13,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 14,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 15,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 16,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 17,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 18,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 19,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 20,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
+            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 21,
+          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+          title: "빵빵이의 옥지 사용법 ~!",
+          videoTime: "02:49",
+          keywordList: ["커피", "유머있는"],
+        },
+        {
+          advertiseId: 22,
+          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+          title:
             "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
           videoTime: "40:32",
-          keyword: ["커피", "유머있는"],
+          keywordList: ["커피", "유머있는"],
         },
         {
-          videoId: 5,
+          advertiseId: 23,
           videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          videoTitle: "빵빵이의 옥지 사용법 ~!",
-          videoTime: "02:49",
-          keyword: ["커피", "유머있는"],
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
         },
         {
-          videoId: 6,
+          advertiseId: 24,
           videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          videoTitle:
+          title:
             "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-          videoTime: "40:32",
-          keyword: ["커피", "유머있는"],
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
         },
         {
-          videoId: 7,
+          advertiseId: 25,
           videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          videoTitle: "빵빵이의 옥지 사용법 ~!",
-          videoTime: "02:49",
-          keyword: ["커피", "유머있는"],
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
         },
         {
-          videoId: 8,
+          advertiseId: 26,
           videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          videoTitle:
+          title:
             "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-          videoTime: "40:32",
-          keyword: ["커피", "유머있는"],
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
         },
         {
-          videoId: 9,
+          advertiseId: 27,
           videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          videoTitle: "빵빵이의 옥지 사용법 ~!",
-          videoTime: "02:49",
-          keyword: ["커피", "유머있는"],
+          title: "빵빵이의 옥지 사용법 ~!",
+          advertiseTime: "02:49",
+          keywordList: ["커피", "유머있는"],
         },
         {
-          videoId: 10,
+          advertiseId: 28,
           videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          videoTitle:
+          title:
             "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-          videoTime: "40:32",
-          keyword: ["커피", "유머있는"],
-        },
-        {
-          videoId: 11,
-
-          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          videoTitle: "빵빵이의 옥지 사용법 ~!",
-          videoTime: "02:49",
-          keyword: ["커피", "유머있는"],
-        },
-        {
-          videoId: 12,
-          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          videoTitle:
-            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-          videoTime: "40:32",
-          keyword: ["커피", "유머있는"],
-        },
-        {
-          videoId: 13,
-          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          videoTitle: "빵빵이의 옥지 사용법 ~!",
-          videoTime: "02:49",
-          keyword: ["커피", "유머있는"],
-        },
-        {
-          videoId: 14,
-          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          videoTitle:
-            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-          videoTime: "40:32",
-          keyword: ["커피", "유머있는"],
-        },
-        {
-          videoId: 15,
-          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          videoTitle: "빵빵이의 옥지 사용법 ~!",
-          videoTime: "02:49",
-          keyword: ["커피", "유머있는"],
-        },
-        {
-          videoId: 16,
-          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          videoTitle:
-            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-          videoTime: "40:32",
-          keyword: ["커피", "유머있는"],
-        },
-        {
-          videoId: 17,
-          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          videoTitle: "빵빵이의 옥지 사용법 ~!",
-          videoTime: "02:49",
-          keyword: ["커피", "유머있는"],
-        },
-        {
-          videoId: 18,
-          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          videoTitle:
-            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-          videoTime: "40:32",
-          keyword: ["커피", "유머있는"],
-        },
-        {
-          videoId: 19,
-          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          videoTitle: "빵빵이의 옥지 사용법 ~!",
-          videoTime: "02:49",
-          keyword: ["커피", "유머있는"],
-        },
-        {
-          videoId: 20,
-          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          videoTitle:
-            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-          videoTime: "40:32",
-          keyword: ["커피", "유머있는"],
-        },
-        {
-          videoId: 21,
-
-          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          videoTitle: "빵빵이의 옥지 사용법 ~!",
-          videoTime: "02:49",
-          keyword: ["커피", "유머있는"],
-        },
-        {
-          videoId: 22,
-          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          videoTitle:
-            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-          videoTime: "40:32",
-          keyword: ["커피", "유머있는"],
-        },
-        {
-          videoId: 23,
-          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          videoTitle: "빵빵이의 옥지 사용법 ~!",
-          videoTime: "02:49",
-          keyword: ["커피", "유머있는"],
-        },
-        {
-          videoId: 24,
-          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          videoTitle:
-            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-          videoTime: "40:32",
-          keyword: ["커피", "유머있는"],
-        },
-        {
-          videoId: 25,
-          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          videoTitle: "빵빵이의 옥지 사용법 ~!",
-          videoTime: "02:49",
-          keyword: ["커피", "유머있는"],
-        },
-        {
-          videoId: 26,
-          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          videoTitle:
-            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-          videoTime: "40:32",
-          keyword: ["커피", "유머있는"],
-        },
-        {
-          videoId: 27,
-          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          videoTitle: "빵빵이의 옥지 사용법 ~!",
-          videoTime: "02:49",
-          keyword: ["커피", "유머있는"],
-        },
-        {
-          videoId: 28,
-          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          videoTitle:
-            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-          videoTime: "40:32",
-          keyword: ["커피", "유머있는"],
+          advertiseTime: "40:32",
+          keywordList: ["커피", "유머있는"],
         },
       ]);
     } catch (err) {
@@ -286,16 +283,26 @@ const RecentPopularVideosTotal = () => {
     }
   };
 
+  // 추천 키워드에 있는 버튼 클릭 시 리스트에 추가
+  const handleAddRecommendKeyword = (keyword: string = searchedKeyword) => {
+    if (keyword.trim() !== "" && !keywordsArray.includes(keyword)) {
+      setKeywordsArray((prevKeywords) => [...prevKeywords, keyword]);
+      setSearchedKeyword(""); // 입력 필드 초기화
+    }
+  };
+
   // 선택된 드롭다운 value값
-  const [selectedType, setSelectedType] = useState("토픽 선택");
-  const [selectedIndustry, setSelectedIndustry] = useState("산업군");
+  const [selectedType, setSelectedType] = useState<string>("");
+  const [selectedIndustry, setSelectedIndustry] = useState<string>("");
   const [selectedOrder, setSelectedOrder] = useState("최근 등록순");
 
-  const handleSelectType = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedType(e.target.value);
+  const handleSelectType = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const value = event.currentTarget.value; // 버튼의 value 속성 값 가져오기
+    setSelectedType(value);
   };
-  const handleSelectIndustry = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedIndustry(e.target.value);
+  const handleSelectIndustry = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const value = event.currentTarget.value; // 버튼의 value 속성 값 가져오기
+    setSelectedIndustry(value);
   };
   const handleSelectOrder = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOrder(e.target.value);
@@ -330,89 +337,72 @@ const RecentPopularVideosTotal = () => {
         </Tooltip>
       </TotalTopRowFlexComponent>
 
-      {/* 검색 컴포넌트 */}
-      <TotalSearchComponent>
-        <TotalSearchComponentLeftDiv>
-          <ContainInputDiv>
-            <GlassImg src={glass} alt="glass" />
-            <TotalSearchInput
-              value={searchedKeyword}
-              onChange={handleInputChange}
-              onKeyUp={handleKeyPress}
-              placeholder="찾고 싶은 광고 컨셉 혹은 산업을 검색하세요"
-            />
-          </ContainInputDiv>
+      <TotalFilterComponent>
+        <RowComponent style={{ height: "62px" }}>
+          <FilterLabel>컨셉</FilterLabel>
+          {videoTypeList.map((item: any) => {
+            return (
+              <FilterAns value={item.value} onClick={handleSelectType}>
+                {item.label}
+              </FilterAns>
+            );
+          })}
+        </RowComponent>
+        <DottedLine />
+        <RowComponent style={{ height: "68px" }}>
+          <FilterLabel>산업군</FilterLabel>
+          {industryList.map((item: any) => {
+            return (
+              <FilterAns value={item.value} onClick={handleSelectIndustry}>
+                {item.label}
+              </FilterAns>
+            );
+          })}
+        </RowComponent>
+        <DottedLine />
+        <RowComponent style={{ marginTop: "15px", height: "44px" }}>
+          <FilterLabel>검색</FilterLabel>
+          <TotalSearchInput
+            value={searchedKeyword}
+            onChange={handleInputChange}
+            onKeyUp={handleKeyPress}
+            placeholder="찾고 싶은 광고 컨셉 혹은 산업을 검색하세요"
+          />
           <SearchBtn onClick={handleAddKeyword}>검색</SearchBtn>
-        </TotalSearchComponentLeftDiv>
-
-        {/* 드롭다운 */}
-        <TotalSearchComponentRightDiv>
-          {/* 토픽 선택 드롭다운 */}
-          <StyledSelectBackground
-            margin="0px 15px 0px 0px"
-            onChange={handleSelectType}
-            value={selectedType}
-          >
-            <option value="토픽 선택" disabled>
-              토픽 선택
-            </option>
-            {videoTypeList.map((item) => (
-              <option
-                style={{ width: "10px" }}
-                value={item.value}
-                key={item.value}
-              >
-                {item.label}
-              </option>
-            ))}
-          </StyledSelectBackground>
-          {/* 산업군 선택 드롭다운 */}
-          <StyledSelectBackground
-            onChange={handleSelectIndustry}
-            value={selectedIndustry}
-          >
-            <option value="산업군" disabled>
-              산업군
-            </option>
-            {industryList.map((item) => (
-              <option
-                style={{ width: "10px" }}
-                value={item.value}
-                key={item.value}
-              >
-                {item.label}
-              </option>
-            ))}
-          </StyledSelectBackground>
-        </TotalSearchComponentRightDiv>
-      </TotalSearchComponent>
-
-      {/* 키워드리스트 보여주는 부분 */}
-      {/* 검색 키워드 입력시 키워드리스트, 없을 시 기본추천 키워드리스트 */}
-      <KeywordsComponent>
-        {keywordsArray.length > 0 ? (
-          <SearchedKeywordsComponent>
-            {keywordsArray.map((item, index) => {
-              return (
-                <ContainSearchedKeywordDiv key={index}>
-                  <SearchedKeyword>#{item}</SearchedKeyword>
-                  <XImg
-                    onClick={() => handleRemoveKeyword(index)}
-                    src={XImage}
-                    alt="X"
-                  />
-                </ContainSearchedKeywordDiv>
-              );
-            })}
-          </SearchedKeywordsComponent>
-        ) : (
-          <BasicKeywordsComponent>
-            {recommendKeywordsList.map((item) => {
-              return <BasicKeyword>#{item}</BasicKeyword>;
-            })}
-          </BasicKeywordsComponent>
-        )}
-      </KeywordsComponent>
+        </RowComponent>
+        <RowComponent style={{ margin: "15px 0px 0px 169px" }}>
+          <FilterLabel>추천 검색어</FilterLabel>
+          <KeywordsComponent>
+            {keywordsArray.length > 0 ? (
+              <SearchedKeywordsComponent>
+                {keywordsArray.map((item, index) => {
+                  return (
+                    <ContainSearchedKeywordDiv key={index}>
+                      <SearchedKeyword>#{item}</SearchedKeyword>
+                      <XImg
+                        onClick={() => handleRemoveKeyword(index)}
+                        src={XImage}
+                        alt="X"
+                      />
+                    </ContainSearchedKeywordDiv>
+                  );
+                })}
+              </SearchedKeywordsComponent>
+            ) : (
+              <BasicKeywordsComponent>
+                {recommendKeywordsList.map((keyword, index) => (
+                  <BasicKeyword
+                    key={index}
+                    onClick={() => handleAddRecommendKeyword(keyword)}
+                  >
+                    #{keyword}
+                  </BasicKeyword>
+                ))}
+              </BasicKeywordsComponent>
+            )}
+          </KeywordsComponent>
+        </RowComponent>
+      </TotalFilterComponent>
 
       {/* 동영상 보여주는 기준 설정 드롭다운 */}
       <RecentRegisteredComponent>
@@ -487,11 +477,10 @@ const TotalTopQuestionImgBox = styled.img`
   fill: var(--Gray-3, #bebebe);
 `;
 const TooltipComponent = styled.div`
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 200px;
   fill: var(--Gray-8, #373d49);
   color: var(--Gray-1, #f4f6f6);
   text-align: center;
@@ -537,8 +526,8 @@ const GlassImg = styled.img`
 `;
 
 const TotalSearchInput = styled.input`
-  padding-left: 49px;
-  width: 359px;
+  padding-left: 76.98px;
+  width: 641px;
   height: 44px;
   flex-shrink: 0;
   border-radius: 24px;
@@ -555,7 +544,7 @@ const TotalSearchInput = styled.input`
 `;
 
 const SearchBtn = styled.button`
-  margin-left: 12px;
+  margin-left: 17px;
   display: inline-flex;
   padding: 8px 21px;
   justify-content: center;
@@ -593,15 +582,12 @@ const StyledSelectBackground = styled.select<{ margin?: any }>`
   outline: none;
   margin: ${(props) => props.margin || "0px"};
 `;
-
 // 키워드 부분
 const KeywordsComponent = styled.div`
   display: flex;
-  margin-top: 21px;
   width: 100%;
   height: 26px;
 `;
-
 // 기본 추천 키워드
 const BasicKeywordsComponent = styled.div`
   display: flex;
@@ -625,6 +611,7 @@ const BasicKeyword = styled.div`
   font-weight: 500;
   line-height: 140%;
   letter-spacing: -0.4px;
+  cursor: pointer;
 `;
 
 // 내가 입력한 키워드
@@ -686,4 +673,65 @@ const StyledSelectNotBackground = styled.select<{ margin?: any }>`
   border: none;
   outline: none;
   margin: ${(props) => props.margin || "0px"};
+`;
+
+const RowComponent = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+`;
+
+const TotalFilterComponent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 19px 0px 0px 0px;
+  width: 100%;
+  height: 257px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--Gray-2, #e6e6e6);
+`;
+
+const DottedLine = styled.div`
+  width: 92%;
+  height: 0px;
+  border: 1px dotted #bebebe;
+`;
+
+const FilterLabel = styled.div`
+  display: flex;
+  width: 116px;
+  margin-left: 28px;
+  height: 28px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--Gray-9, #27272e);
+
+  /* Body/4 */
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 22.4px */
+  letter-spacing: -0.4px;
+`;
+
+const FilterAns = styled.button`
+  display: inline-flex;
+  height: 28px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--Gray-9, #27272e);
+  margin-left: 5px;
+  /* Body/4 */
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 22.4px */
+  letter-spacing: -0.4px;
 `;

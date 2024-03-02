@@ -4,7 +4,7 @@ import RecentPopularVideosTotal from "./components/RecentPopularVideosTotal";
 import Footer from "../../components/Footer";
 
 // 랜딩페이지
-const ArchiveTotalVideos = () => {
+const ArchiveTrendVideos = () => {
   return (
     <ArchivePopularVideosComponent>
       <Header />
@@ -18,7 +18,7 @@ const ArchiveTotalVideos = () => {
   );
 };
 
-export default ArchiveTotalVideos;
+export default ArchiveTrendVideos;
 
 const ArchivePopularVideosComponent = styled.div`
   width: 100vw;
@@ -29,7 +29,7 @@ const TotalVideoComponent = styled.div`
   justify-content: center;
   margin-top: 199px;
   width: 100vw;
-  height: 2300px;
+  height: 2420px;
   background-color: #fff;
 `;
 

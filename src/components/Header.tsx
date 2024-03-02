@@ -98,7 +98,7 @@ const HeaderComponent = styled.header`
   height: 162px;
   top: 0;
   background-color: #fff;
-  z-index: 2;
+  z-index: 10;
   border-bottom: 1px solid var(--Gray-2, #e6e6e6);
 `;
 

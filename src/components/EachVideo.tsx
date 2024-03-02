@@ -3,9 +3,13 @@
 import styled from "styled-components";
 import YouTube, { YouTubeProps } from "react-youtube";
 import YouTubeThumbnail from "./YoutubeThumnail";
+import { useNavigate } from "react-router-dom";
+import brandingImg from "../assets/archive/Branding.svg";
 
 // 비디오 정보 받기
-const EachVideo = ({ videoInfo }: any) => {
+const EachVideo = ({ sector, videoInfo }: any) => {
+  const navigate = useNavigate();
+
   // 비디오 고유 아이디 추출하기
   const url = videoInfo.videoUrl;
   const extractVideoId = (url: string): string | undefined => {
@@ -30,7 +34,16 @@ const EachVideo = ({ videoInfo }: any) => {
 
   return (
     <TotalComponent>
-      <VideoFrame>
+      <VideoFrame
+        onClick={() => {
+          navigate(`/archive/detail/${videoInfo.advertiseId}`, {
+            state: {
+              menuState: "archive",
+              videoInfo: videoInfo,
+            },
+          });
+        }}
+      >
         <YouTubeThumbnail videoId={videoId} />
         {/* <YouTube
           // https://youtu.be/NFcp_8np3e8 //마지막 슬래쉬 뒤에 있는 것이 id이다.
@@ -43,11 +56,23 @@ const EachVideo = ({ videoInfo }: any) => {
         <VideoTime>{videoInfo.videoTime}</VideoTime>
       </VideoFrame>
       <KeywordComponent>
-        {videoInfo.keyword?.map((item: any) => {
+        {videoInfo.keywordList?.map((item: any) => {
           return <EachKeyword>#{item}</EachKeyword>;
         })}
       </KeywordComponent>
-      <VideoTitle>{videoInfo.videoTitle}</VideoTitle>
+      {sector === "trend" && (
+        <BrandingRowComponent>
+          <BrandingImgBox src={brandingImg} alt="brand" />
+          <VideoTrendType>{videoInfo.prizeType}</VideoTrendType>
+        </BrandingRowComponent>
+      )}
+      {sector === "trend" ? (
+        <VideoTitle style={{ margin: "4px 0px 0px 10px" }}>
+          {videoInfo.title}
+        </VideoTitle>
+      ) : (
+        <VideoTitle>{videoInfo.title}</VideoTitle>
+      )}
     </TotalComponent>
   );
 };
@@ -56,7 +81,7 @@ export default EachVideo;
 
 const TotalComponent = styled.div`
   width: 100%;
-  height: 241px;
+  height: 277px;
 `;
 
 // 비디오 부분
@@ -112,6 +137,30 @@ const EachKeyword = styled.div`
   line-height: 140%;
   letter-spacing: -0.4px;
   margin-left: 6px;
+`;
+
+const BrandingRowComponent = styled.div`
+  margin: 11px 0px 0px 10px;
+  display: flex;
+  align-items: center;
+`;
+
+const BrandingImgBox = styled.img`
+  width: 27px;
+  height: 27px;
+  flex-shrink: 0;
+`;
+
+const VideoTrendType = styled.div`
+  color: #27272e;
+  margin: 0px 0px 0px 9px;
+  /* Body/5 */
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 19.6px */
+  letter-spacing: -0.4px;
 `;
 
 // 영상 제목 이름 두줄로 표시하고 넘을 때 ...으러 표시
