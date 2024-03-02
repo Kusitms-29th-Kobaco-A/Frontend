@@ -1,14 +1,22 @@
 import styled from 'styled-components';
 
 import SearchBar from '../../components/trend-analysis/search/SearchBar';
-import RelatedKeywords from '../../components/trend-analysis/search/RelatedKeywords';
+import TADashboard from '../../components/trend-analysis/dashboard/TADashboard';
+import KeywordTrend from '../../components/trend-analysis/keyword-trend/KeywordTrend';
+import KeywordDetailTrend from '../../components/trend-analysis/keyword-detail-trend/KeywordDetailTrend';
+import RelatedKeyword from '../../components/trend-analysis/related-keyword/RelatedKeyword';
+import KeywordRank from '../../components/trend-analysis/keyword-rank/KeywordRank';
 
 const TAHome = () => {
   return (
     <main>
       <InnerArea>
         <SearchBar />
-        <RelatedKeywords />
+        <TADashboard />
+        <KeywordTrend />
+        <KeywordDetailTrend />
+        <RelatedKeyword />
+        <KeywordRank />
       </InnerArea>
     </main>
   );

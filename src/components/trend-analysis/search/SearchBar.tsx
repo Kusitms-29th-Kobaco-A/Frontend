@@ -1,21 +1,26 @@
 import styled from 'styled-components';
 
+import RelatedKeywords from './RelatedKeywords';
+
 const SearchBar = () => {
   return (
-    <SearchBarBlock>
-      <SearchBarContentBlock>
-        <SearchBarInputBlock>
-          <i>
-            <img src="/icons/search-icon.svg" alt="검색 아이콘" />
-          </i>
-          <SearchBarInput
-            type="text"
-            placeholder="검색어를 입력하세요. (예시: 케이크)"
-          />
-        </SearchBarInputBlock>
-        <SearchBarButton>검색</SearchBarButton>
-      </SearchBarContentBlock>
-    </SearchBarBlock>
+    <>
+      <SearchBarBlock>
+        <SearchBarContentBlock>
+          <SearchBarInputBlock>
+            <i>
+              <img src="/icons/search-icon.svg" alt="검색 아이콘" />
+            </i>
+            <SearchBarInput
+              type="text"
+              placeholder="검색어를 입력하세요. (예시: 케이크)"
+            />
+          </SearchBarInputBlock>
+          <SearchBarButton>검색</SearchBarButton>
+        </SearchBarContentBlock>
+      </SearchBarBlock>
+      <RelatedKeywords />
+    </>
   );
 };
 
