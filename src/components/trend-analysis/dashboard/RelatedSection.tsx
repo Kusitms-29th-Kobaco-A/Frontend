@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import RelatedBubbleChart from './RelatedBubbleChart';
+
 const RelatedSection = () => {
   return (
     <WhiteRoundedBox>
@@ -9,12 +11,9 @@ const RelatedSection = () => {
       <Description>
         (언제부터 언제까지 검색된 연관어임을 알려야 하는 부분)
       </Description>
-      <PlaceholderBubble>
-        <img
-          src="/images/graph-placeholder/bubble-placeholder.svg"
-          alt="버블 차트 임시"
-        />
-      </PlaceholderBubble>
+      <ChartWrapper>
+        <RelatedBubbleChart />
+      </ChartWrapper>
       <BottomText>연관된 검색어를 찾아보았어요. (워딩 수정)</BottomText>
     </WhiteRoundedBox>
   );
@@ -47,13 +46,12 @@ const Description = styled.p`
   text-align: center;
 `;
 
-const PlaceholderBubble = styled.div`
+const ChartWrapper = styled.div`
   color: #a0a0a0;
-  width: 100%;
+  width: 500px;
   flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding-bottom: 1.5rem;
+  margin-top: -3rem;
 `;
 
 const BottomText = styled.p`

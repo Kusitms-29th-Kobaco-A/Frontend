@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import styled from "styled-components";
-import kobaco from "../assets/header/KobacoLogo.svg";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import styled from 'styled-components';
+import kobaco from '../assets/header/KobacoLogo.svg';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const Header = () => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   const navigate = useNavigate();
   const [mouseOverMenu, setMouseOverMenu] = useState<boolean>(false);
   return (
@@ -13,7 +13,7 @@ const Header = () => {
       <HeaderTopBar>
         <TopBarIcon
           onClick={() => {
-            navigate("/");
+            navigate('/');
           }}
           src={kobaco}
           alt="icon"
@@ -32,12 +32,20 @@ const Header = () => {
           <TotalMenuComponent>
             <MenuBox
               onClick={() => {
-                navigate("/archive");
+                navigate('/archive');
+                setMouseOverMenu(false);
               }}
             >
               레퍼런스 탐색
             </MenuBox>
-            <MenuBox>검색어 트렌드</MenuBox>
+            <MenuBox
+              onClick={() => {
+                navigate('/trend-analysis');
+                setMouseOverMenu(false);
+              }}
+            >
+              검색어 트렌드
+            </MenuBox>
             <MenuBox>광고 카피 제작</MenuBox>
             <MenuBox>스토리보드 제작</MenuBox>
             <MenuBox>소통공간</MenuBox>
@@ -53,9 +61,30 @@ const Header = () => {
               <HiddenMenuDiv></HiddenMenuDiv>
             </HiddenMenuBox>
             <HiddenMenuBox>
-              <HiddenMenuDiv>쇼핑 트렌드</HiddenMenuDiv>
-              <HiddenMenuDiv>관심사 트렌드</HiddenMenuDiv>
-              <HiddenMenuDiv>키워드 인사이트</HiddenMenuDiv>
+              <HiddenMenuDiv
+                onClick={() => {
+                  navigate('/trend-analysis');
+                  setMouseOverMenu(false);
+                }}
+              >
+                쇼핑 트렌드
+              </HiddenMenuDiv>
+              <HiddenMenuDiv
+                onClick={() => {
+                  navigate('/trend-analysis');
+                  setMouseOverMenu(false);
+                }}
+              >
+                관심사 트렌드
+              </HiddenMenuDiv>
+              <HiddenMenuDiv
+                onClick={() => {
+                  navigate('/trend-analysis');
+                  setMouseOverMenu(false);
+                }}
+              >
+                키워드 인사이트
+              </HiddenMenuDiv>
               <HiddenMenuDiv></HiddenMenuDiv>
             </HiddenMenuBox>
             <HiddenMenuBox>
@@ -118,6 +147,7 @@ const TopBarIcon = styled.img`
   height: 40px;
   flex-shrink: 0;
   object-fit: cover;
+  cursor: pointer;
 `;
 const TopBarUser = styled.div`
   display: flex;
@@ -129,7 +159,7 @@ const TopBarUser = styled.div`
   width: 44px;
   height: 40px;
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
@@ -159,7 +189,7 @@ const HiddenMenuComponent = styled.div<{ mouseOverMenu: boolean }>`
   width: 100%;
   height: 220px;
   background-color: #f3f3f3;
-  display: ${(props) => (props.mouseOverMenu ? "block" : "none")};
+  display: ${(props) => (props.mouseOverMenu ? 'block' : 'none')};
 `;
 
 const TotalHiddenMenuComponent = styled.div`
@@ -181,7 +211,7 @@ const MenuBox = styled.div`
   align-items: center;
   color: var(--Gray-9, #27272e);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -205,7 +235,7 @@ const HiddenMenuDiv = styled.div`
     color: #d33b4d;
   }
   &:hover::after {
-    content: ">";
+    content: '>';
     transform: translateX(30%);
   }
 `;

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import KeywordBarChart from '../keyword-detail-trend/BarChart';
 
 const KeywordSection = () => {
   return (
@@ -13,10 +14,7 @@ const KeywordSection = () => {
         <span>네이버 연관 키워드</span>
       </IconWrapper>
       <PlaceholderGraph>
-        <img
-          src="/images/graph-placeholder/bar-graph-placeholder.svg"
-          alt="바 그래프 임시"
-        />
+        <KeywordBarChart />
       </PlaceholderGraph>
     </WhiteRoundedBox>
   );
@@ -30,6 +28,8 @@ const WhiteRoundedBox = styled.div`
   background-color: white;
   padding: 2rem 4rem;
   border-radius: 16px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Heading = styled.h2`
@@ -60,4 +60,5 @@ const PlaceholderGraph = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex: 1;
 `;
