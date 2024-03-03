@@ -9,6 +9,7 @@ import ArchiveTotalVideos from "./pages/archive-total-videos/ArchiveTotalVideos"
 import ArchiveSavedVideos from "./pages/archive-saved-videos/ArchiveSavedVideos";
 import ArchiveDetail from "./pages/archive-detail/ArchiveDetail";
 import ArchiveTrendVideos from "./pages/archive-trend-videos/ArchiveTrendVidoes";
+import ArchiveSavedVideosDetail from "./pages/archive-saved-videos-detail/ArchiveSavedVideosDetail";
 
 function App() {
   return (
@@ -33,6 +34,10 @@ function App() {
         <Route
           path="/archive/savedVideos"
           element={<ArchiveSavedVideos />}
+        ></Route>
+        <Route
+          path="/archive/savedVideos/inFolder"
+          element={<ArchiveSavedVideosDetail />}
         ></Route>
         <Route
           path="/archive/totalVideos"
