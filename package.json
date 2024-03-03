@@ -10,6 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@amcharts/amcharts4": "^4.10.38",
+    "@types/d3": "^7.4.3",
+    "@visx/group": "^3.3.0",
+    "@visx/hierarchy": "^3.3.0",
+    "@visx/mock-data": "^3.3.0",
+    "@visx/scale": "^3.5.0",
+    "@weknow/react-bubble-chart-d3": "^1.0.12",
+    "clsx": "^2.1.0",
+    "d3": "^7.8.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.2",

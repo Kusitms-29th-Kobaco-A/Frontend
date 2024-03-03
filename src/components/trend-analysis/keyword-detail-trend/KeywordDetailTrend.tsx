@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 import BottomArea from './BottomArea';
+import BarChart from './BarChart';
+import DoughnutChart from './DoughnutChart';
 
 const KeywordDetailTrend = () => {
   return (
@@ -21,10 +23,7 @@ const KeywordDetailTrend = () => {
             <span>성별 검색 비중</span>
           </IconWrapper>
           <ChartPlaceholder>
-            <img
-              src="/images/graph-placeholder/circle-graph-placeholder.svg"
-              alt="원형 차트 임시"
-            />
+            <DoughnutChart />
           </ChartPlaceholder>
         </WhiteRoundedBox>
         <WhiteRoundedBox>
@@ -35,10 +34,7 @@ const KeywordDetailTrend = () => {
             <span>연령별 검색량</span>
           </IconWrapper>
           <ChartPlaceholder>
-            <img
-              src="/images/graph-placeholder/bar-chart-placeholder.svg"
-              alt="원형 차트 임시"
-            />
+            <BarChart />
           </ChartPlaceholder>
         </WhiteRoundedBox>
       </WhiteBoxGroupTop>
