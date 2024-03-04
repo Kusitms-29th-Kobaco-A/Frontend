@@ -1,44 +1,11 @@
 import clsx from 'clsx';
 import { styled } from 'styled-components';
 
-interface ChartBarProps {
-  y: number;
+interface Props {
+  data: any;
 }
 
-const BarChart = () => {
-  const data = [
-    {
-      age: '10대',
-      value: 30,
-      isActive: false,
-    },
-    {
-      age: '20대',
-      value: 90,
-      isActive: true,
-    },
-    {
-      age: '30대',
-      value: 62,
-      isActive: false,
-    },
-    {
-      age: '40대',
-      value: 80,
-      isActive: false,
-    },
-    {
-      age: '50대',
-      value: 50,
-      isActive: false,
-    },
-    {
-      age: '60대',
-      value: 30,
-      isActive: false,
-    },
-  ];
-
+const BarChart = ({ data }: Props) => {
   let max = 0;
   let maxIndex = 0;
   for (let i = 0; i < data.length; i++) {
@@ -132,6 +99,10 @@ const ChartBarGroup = styled.div`
     }
   }
 `;
+
+interface ChartBarProps {
+  y: number;
+}
 
 const ChartBar = styled.div<ChartBarProps>`
   width: 2.5rem;
