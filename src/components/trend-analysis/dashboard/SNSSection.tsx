@@ -10,7 +10,7 @@ const SNSSection = () => {
         <i>
           <img src="/icons/instagram-icon.svg" alt="인스타그램 아이콘" />
         </i>
-        <span>인스타그램 게시글 업로드 현황 (워딩 수정)</span>
+        <span>인스타그램 게시글 수 추이</span>
       </IconWrapper>
       <PlaceholderGraph>
         <img
@@ -49,6 +49,7 @@ const IconWrapper = styled.div`
 
   span {
     color: #a0a0a0;
+    font-size: 0.875rem;
   }
 `;
 

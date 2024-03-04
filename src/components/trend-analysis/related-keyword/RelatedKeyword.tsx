@@ -85,7 +85,6 @@ const WhiteRoundedBox = styled.div`
   background-color: white;
   padding: 1rem 1.75rem;
   border-radius: 16px;
-  margin-top: 1.5rem;
 `;
 
 const IconWrapper = styled.div`

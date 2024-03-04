@@ -1,6 +1,6 @@
 import BubbleChart from '@weknow/react-bubble-chart-d3';
 
-const RelatedBubbleChart = () => {
+const BubbleForceChart = () => {
   return (
     <BubbleChart
       graph={{
@@ -39,4 +39,4 @@ const RelatedBubbleChart = () => {
   );
 };
 
-export default RelatedBubbleChart;
+export default BubbleForceChart;
