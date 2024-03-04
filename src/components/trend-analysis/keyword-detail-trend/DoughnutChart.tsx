@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 interface ChartCircleProps {
   yValueLeft: number;

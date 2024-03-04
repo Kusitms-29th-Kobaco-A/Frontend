@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import RelatedBubbleChart from './RelatedBubbleChart';
+import BubbleForceChart from './BubbleForceChart';
 
 const RelatedSection = () => {
   return (
@@ -12,7 +12,7 @@ const RelatedSection = () => {
         (언제부터 언제까지 검색된 연관어임을 알려야 하는 부분)
       </Description>
       <ChartWrapper>
-        <RelatedBubbleChart />
+        <BubbleForceChart />
       </ChartWrapper>
       <BottomText>연관된 검색어를 찾아보았어요. (워딩 수정)</BottomText>
     </WhiteRoundedBox>

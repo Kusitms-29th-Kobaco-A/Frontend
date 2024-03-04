@@ -4,9 +4,9 @@ import RelatedSection from './RelatedSection';
 import KeywordSection from './KeywordSection';
 import SNSSection from './SNSSection';
 
-const TADashboard = () => {
+const Dashboard = () => {
   return (
-    <TADashboardBlock>
+    <DashboardBlock>
       <Left>
         <RelatedSection />
       </Left>
@@ -14,13 +14,13 @@ const TADashboard = () => {
         <KeywordSection />
         <SNSSection />
       </Right>
-    </TADashboardBlock>
+    </DashboardBlock>
   );
 };
 
-export default TADashboard;
+export default Dashboard;
 
-const TADashboardBlock = styled.header`
+const DashboardBlock = styled.header`
   margin-top: 1.5rem;
   display: flex;
   gap: 1rem;

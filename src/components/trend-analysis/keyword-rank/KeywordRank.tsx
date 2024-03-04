@@ -66,7 +66,6 @@ const WhiteRoundedBox = styled.div`
   background-color: white;
   padding: 1.5rem 2rem;
   border-radius: 16px;
-  margin-top: 1.5rem;
 `;
 
 const BoxHeading = styled.h3`
