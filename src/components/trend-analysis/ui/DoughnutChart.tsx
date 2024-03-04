@@ -1,25 +1,11 @@
 import clsx from 'clsx';
 import styled from 'styled-components';
 
-interface ChartCircleProps {
-  yValueLeft: number;
-  yValueRight: number;
+interface Props {
+  data: any;
 }
 
-const DoughnutChart = () => {
-  const data = [
-    {
-      xLabel: '여성',
-      yValue: 33,
-      isActive: false,
-    },
-    {
-      xLabel: '남성',
-      yValue: 67,
-      isActive: true,
-    },
-  ];
-
+const DoughnutChart = ({ data }: Props) => {
   data[1].yValue = 100 - data[0].yValue;
 
   if (data[0].yValue > data[1].yValue) {
@@ -65,6 +51,11 @@ const Label = styled.span`
     color: #d33b4d;
   }
 `;
+
+interface ChartCircleProps {
+  yValueLeft: number;
+  yValueRight: number;
+}
 
 const ChartCircle = styled.div<ChartCircleProps>`
   width: 12rem;

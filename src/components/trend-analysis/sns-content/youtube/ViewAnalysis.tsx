@@ -1,24 +1,22 @@
 import styled from 'styled-components';
+import DoughnutChart from '../../ui/DoughnutChart';
+import BarChart from '../../ui/BarChart';
 
-import BottomArea from './BottomArea';
-import BarChart from '../ui/BarChart';
-import DoughnutChart from '../ui/DoughnutChart';
-
-const KeywordDetailTrend = () => {
+const ViewAnalysis = () => {
   const barData = [
     {
       age: '10대',
-      value: 30,
+      value: 20,
       isActive: false,
     },
     {
       age: '20대',
-      value: 90,
-      isActive: true,
+      value: 60,
+      isActive: false,
     },
     {
       age: '30대',
-      value: 62,
+      value: 70,
       isActive: false,
     },
     {
@@ -41,18 +39,18 @@ const KeywordDetailTrend = () => {
   const doughnutData = [
     {
       xLabel: '여성',
-      yValue: 55,
+      yValue: 33,
       isActive: false,
     },
     {
       xLabel: '남성',
-      yValue: 45,
-      isActive: false,
+      yValue: 67,
+      isActive: true,
     },
   ];
 
   return (
-    <KeywordTrendDetailSection>
+    <ViewAnalysisSection>
       <Heading>
         <span>케이크</span> 검색량 세부 트렌드
       </Heading>
@@ -84,14 +82,13 @@ const KeywordDetailTrend = () => {
           </ChartPlaceholder>
         </WhiteRoundedBox>
       </WhiteBoxGroupTop>
-      <BottomArea />
-    </KeywordTrendDetailSection>
+    </ViewAnalysisSection>
   );
 };
 
-export default KeywordDetailTrend;
+export default ViewAnalysis;
 
-const KeywordTrendDetailSection = styled.section`
+const ViewAnalysisSection = styled.section`
   margin-top: 4.5rem;
 `;
 

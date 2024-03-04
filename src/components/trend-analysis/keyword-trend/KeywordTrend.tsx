@@ -1,6 +1,78 @@
+import {
+  Chart,
+  CategoryScale,
+  LineElement,
+  LinearScale,
+  PointElement,
+  Title,
+  Tooltip,
+  Filler,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
 import styled from 'styled-components';
 
+Chart.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Filler,
+);
+
 const KeywordTrend = () => {
+  const options = {
+    scales: {
+      x: {
+        display: false,
+      },
+      y: {
+        min: 0,
+        max: 100,
+      },
+    },
+    elements: {
+      line: {
+        tension: 0.3,
+      },
+      point: {
+        radius: 0,
+      },
+    },
+    ticks: {
+      stepSize: 20,
+    },
+  };
+
+  const graphData = {
+    labels: [
+      1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1,
+    ],
+    datasets: [
+      {
+        data: [
+          80, 50, 40, 14, 40, 20, 80, 50, 10, 40, 50, 40, 20, 80, 10, 80, 20,
+          20, 40, 10, 50, 50, 10, 80, 20,
+        ],
+        fill: true,
+        backgroundColor: ({
+          chart: { ctx },
+        }: {
+          chart: { ctx: CanvasRenderingContext2D };
+        }) => {
+          const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+          gradient.addColorStop(0.2, 'rgb(255, 159, 159)');
+          gradient.addColorStop(0.9, 'rgba(255, 255, 255, 0)');
+          return gradient;
+        },
+        borderColor: 'rgba(225,116,103)',
+        borderWidth: 1,
+        color: '#000',
+      },
+    ],
+  };
+
   return (
     <KeywordTrendSection>
       <Heading>
@@ -24,12 +96,14 @@ const KeywordTrend = () => {
             <li>월간</li>
           </TimeChoice>
         </BoxTop>
-        <ChartPlaceholder>
-          <img
-            src="/images/graph-placeholder/empty-chart-placeholder.svg"
-            alt="빈 차트 이미지"
+        <LineWrapper>
+          <Line
+            width="100%"
+            height="30rem"
+            options={options}
+            data={graphData}
           />
-        </ChartPlaceholder>
+        </LineWrapper>
       </WhiteRoundedBox>
     </KeywordTrendSection>
   );
@@ -104,6 +178,6 @@ const TimeChoice = styled.ul`
   }
 `;
 
-const ChartPlaceholder = styled.div`
+const LineWrapper = styled.div`
   margin-top: 1rem;
 `;
