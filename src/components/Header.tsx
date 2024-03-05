@@ -11,6 +11,12 @@ const Header = () => {
   // 로그인 성공시 토큰 여부로 확인
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
     <HeaderComponent>
       {/* 제일 상단 부분 */}
@@ -26,7 +32,7 @@ const Header = () => {
         {/* 로그인 여부에 따라 다르게 표현 */}
         {token ? (
           <TopBarRightComponent>
-            <TopBarText>로그아웃</TopBarText>
+            <TopBarText onClick={logout}>로그아웃</TopBarText>
             <TopBarText>|</TopBarText>
             <TopBarText>마이페이지</TopBarText>
           </TopBarRightComponent>

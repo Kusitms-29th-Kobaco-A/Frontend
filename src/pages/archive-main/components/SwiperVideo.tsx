@@ -69,18 +69,19 @@ const SwiperVideo = ({ sector, videos }: any) => {
 
         {/* sector state로 넘겨주기 */}
         {sector === "trend" ? (
-          <AdditionalVideo
-            onClick={() => {
-              navigate("/archive/trendVideos", {
-                state: {
-                  menuState: "archive",
-                },
-              });
-            }}
-          >
-            전체 보기
-          </AdditionalVideo>
-        ) : sector === "popular" ? (
+          <></>
+        ) : // <AdditionalVideo
+        //   onClick={() => {
+        //     navigate("/archive/trendVideos", {
+        //       state: {
+        //         menuState: "archive",
+        //       },
+        //     });
+        //   }}
+        // >
+        //   전체 보기
+        // </AdditionalVideo>
+        sector === "popular" ? (
           <AdditionalVideo
             onClick={() => {
               navigate("/archive/popularVideos", {

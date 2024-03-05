@@ -28,12 +28,11 @@ export const industryList: VideoTypeOption[] = [
   { value: "산업군7", label: "산업군7" },
   { value: "산업군8", label: "산업군8" },
   { value: "산업군9", label: "산업군9" },
-  { value: "산업군10", label: "산업군10" },
 ];
 
 //비디오 조회 순서
 export const videoOrderList: VideoTypeOption[] = [
-  { value: "최근 등록순", label: "최근 등록순" },
+  { value: "최근등록순", label: "최근등록순" },
   { value: "조회순", label: "조회순" },
   { value: "추천순", label: "추천순" },
 ];

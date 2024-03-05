@@ -6,7 +6,7 @@ import styled from "styled-components";
 import dotImg from "../../../assets/archive/DotDotDot.svg";
 import folderImg from "../../../assets/archive/Folder.svg";
 import fillFolderImg from "../../../assets/archive/FillFolder.svg";
-
+import starImg from "../../../assets/archive/Star.svg";
 import plusImg from "../../../assets/archive/Plus.svg";
 import Footer from "../../../components/Footer";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,7 @@ const SavedVideosTotal = () => {
   const token = localStorage.getItem("token");
   console.log(token);
   const [directoryInfo, setDirectoryInfo] = useState<any>([]);
-  const prarentDirectoryId = directoryInfo.directoryId;
+  const parentDirectoryId = directoryInfo.directoryId;
   console.log(directoryInfo);
 
   const navigate = useNavigate();
@@ -133,26 +133,29 @@ const SavedVideosTotal = () => {
     setIsOpenDeleteModal(false);
   };
 
-  // const deleteDirectoryName = useCallback(async (fileId: number) => {
-  //   try {
-  //     await axios
-  //       .delete(
-  //         `https://dev.simproject.kr/api/namespaces/${fileId}`,
+  const deleteDirectoryName = useCallback(
+    async (fileId: number) => {
+      try {
+        await axios
+          .delete(
+            `https://dev.simproject.kr/api/namespaces/${fileId}`,
 
-  //         {
-  //           headers: {
-  //             Authorization: `${token}`,
-  //           },
-  //         }
-  //       )
-  //       .then((res) => {
-  //         setIsOpenPatchModal(false); // 모달 닫기
-  //         getSavedVidosFolder();
-  //       });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }, [token]);
+            {
+              headers: {
+                Authorization: `${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            setIsOpenDeleteModal(false); // 모달 닫기
+            getSavedVidosFolder();
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    [token]
+  );
 
   const [isOpenPlusModal, setIsOpenPlusModal] = useState<boolean>(false);
   const handleOpenPlusModal = (event: React.MouseEvent) => {
@@ -171,7 +174,7 @@ const SavedVideosTotal = () => {
       try {
         await axios
           .post(
-            `https://dev.simproject.kr/api/namespaces/${prarentDirectoryId}`,
+            `https://dev.simproject.kr/api/namespaces/${parentDirectoryId}`,
             {
               directoryName: directoryName,
             },
@@ -189,7 +192,7 @@ const SavedVideosTotal = () => {
         console.log(err);
       }
     },
-    [token, prarentDirectoryId]
+    [token, parentDirectoryId]
   );
 
   useEffect(() => {
@@ -228,21 +231,11 @@ const SavedVideosTotal = () => {
     isOpenPlusModal,
   ]);
 
-  // 폴더 클릭 이벤트 핸들러
-  const handleFolderClick = ({ item }: any) => {
-    // 화면 이동 로직 추가 (예: 라우터를 사용한 페이지 이동)
-    navigate("/archive/savedVideos/inFolder", {
-      state: {
-        folderInfo: item,
-      },
-    });
-  };
-
   return (
     <TotalComponent>
       <TotalTopRowFlexComponent>
         <TotalTopLabel>내가 찜한 영상</TotalTopLabel>
-        <TotalTopBtn>검색</TotalTopBtn>
+        {/* <TotalTopBtn>검색</TotalTopBtn> */}
       </TotalTopRowFlexComponent>
       <RootDirectoryComponent>
         {isOpenPatchModal && (
@@ -286,7 +279,14 @@ const SavedVideosTotal = () => {
                 </PatchModalBtnText>
               </PatchModalBtn>
               <PatchModalBtn>
-                <PatchModalBtnText style={{ color: "#D33B4D" }}>
+                <PatchModalBtnText
+                  style={{ color: "#D33B4D" }}
+                  onClick={() =>
+                    currentEditingId
+                      ? deleteDirectoryName(currentEditingId)
+                      : null
+                  }
+                >
                   확인
                 </PatchModalBtnText>
               </PatchModalBtn>
@@ -335,36 +335,48 @@ const SavedVideosTotal = () => {
                   onClick={(event) => event.stopPropagation()}
                 >
                   <ModalInTextBox>
-                    <ModalInText onClick={handleOpenPatchModal(item.fileId)}>
-                      수정하기
-                    </ModalInText>
-                  </ModalInTextBox>
-                  <ModalInTextBox>
                     <ModalInText onClick={handleOpenDeleteModal(item.fileId)}>
                       삭제하기
                     </ModalInText>
                   </ModalInTextBox>
                   <ModalInTextBox>
-                    <ModalInText>이름 바꾸기</ModalInText>
+                    <ModalInText onClick={handleOpenPatchModal(item.fileId)}>
+                      이름 바꾸기
+                    </ModalInText>
                   </ModalInTextBox>
                 </ModalBox>
               )}
               {currentEditingId === item.fileId &&
               (isOpenPatchModal || isOpenDeleteModal) ? (
                 <DirectoryImgBox
-                  onClick={() => handleFolderClick(item)}
+                  onClick={() =>
+                    navigate(`/archive/savedVideos/inFolder/${item.fileId}`, {
+                      state: {
+                        menuState: "archive",
+                        prarentDirectoryId: parentDirectoryId,
+                      },
+                    })
+                  }
                   src={fillFolderImg}
                   alt="folder"
                 />
               ) : (
                 <DirectoryImgBox
-                  onClick={() => handleFolderClick(item)}
+                  onClick={() =>
+                    navigate(`/archive/savedVideos/inFolder/${item.fileId}`, {
+                      state: {
+                        menuState: "archive",
+                        parentDirectoryId: parentDirectoryId,
+                      },
+                    })
+                  }
                   src={folderImg}
                   alt="folder"
                 />
               )}
 
               <DirectoryName>{item.fileName}</DirectoryName>
+              {/* <StarIcon src={starImg} alt="star" /> */}
             </DirectoryBox>
           );
         })}
@@ -441,9 +453,11 @@ const RootDirectoryComponent = styled.div`
 `;
 
 const DirectoryBox = styled.div`
+  display: flex;
+  justify-content: center;
   position: relative;
-  width: 220px;
-  height: 220px;
+  width: 17.188vw; //220px;
+  height: 17.188vw; //220px;
   flex-shrink: 0;
   border-radius: 10px;
   border: 1px solid var(--Gray-2, #e6e6e6);
@@ -455,8 +469,8 @@ const DirectoryImgBox = styled.img`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 88px;
-  height: 88px;
+  width: 40%;
+  height: 40%;
   flex-shrink: 0;
   cursor: pointer;
 `;
@@ -481,12 +495,11 @@ const DotImgBox = styled.img`
 `;
 
 const DirectoryName = styled.div`
-  width: 100%;
+  width: 160px;
   text-align: center;
   position: absolute;
   bottom: 25px;
   color: var(--Gray-8, #373d49);
-
   /* Body/4 */
   font-family: "Noto Sans KR";
   font-size: 16px;
@@ -502,7 +515,7 @@ const ModalBox = styled.div`
   top: 33px;
   right: -39px;
   width: 119px;
-  height: 122px;
+  height: 85px;
   flex-shrink: 0;
   border-radius: 8px;
   background: #f4f6f6;
@@ -512,7 +525,7 @@ const ModalInTextBox = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 40.66px;
+  height: 42.5px;
 `;
 
 const ModalInText = styled.div`
@@ -610,4 +623,12 @@ const PatchModalBtnText = styled.div`
   line-height: 140%; /* 33.6px */
   letter-spacing: -0.4px;
   cursor: pointer;
+`;
+
+const StarIcon = styled.img`
+  position: absolute;
+  bottom: 23px;
+  left: 18px;
+  width: 30px;
+  height: 30px;
 `;

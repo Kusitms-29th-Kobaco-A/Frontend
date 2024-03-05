@@ -1,119 +1,135 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const SideBar = ({ advertiseId }: any) => {
   const navigate = useNavigate();
-
+  const token = localStorage.getItem("token");
+  console.log(advertiseId);
   const [otherVideos, setOtherVideos] = useState<any>([]);
   const getOtherVideos = useCallback(async () => {
     try {
-      setOtherVideos([
-        {
-          advertiseId: 1,
-          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          prizeType: "Best Brending 신규 론칭 부문",
-          title: "빵빵이의 옥지 사용법 ~!",
-          videoTime: "02:49",
-          keywordList: ["커피", "유머있는"],
-        },
-        {
-          advertiseId: 2,
-          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          prizeType: "Best Brending 신규 론칭 부문",
-          title:
-            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-          videoTime: "40:32",
-          keywordList: ["커피", "유머있는"],
-        },
-        {
-          advertiseId: 3,
-          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          prizeType: "Best Brending 신규 론칭 부문",
-          title: "빵빵이의 옥지 사용법 ~!",
-          videoTime: "02:49",
-          keywordList: ["커피", "유머있는"],
-        },
-        {
-          advertiseId: 4,
-          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          prizeType: "Best Brending 신규 론칭 부문",
-          title:
-            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-          videoTime: "40:32",
-          keywordList: ["커피", "유머있는"],
-        },
-        {
-          advertiseId: 5,
-          prizeType: "Best Brending 신규 론칭 부문",
-          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          title: "빵빵이의 옥지 사용법 ~!",
-          videoTime: "02:49",
-          keywordList: ["커피", "유머있는"],
-        },
-        {
-          advertiseId: 6,
-          prizeType: "Best Brending 신규 론칭 부문",
-          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          title:
-            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-          videoTime: "40:32",
-          keywordList: ["커피", "유머있는"],
-        },
-        {
-          advertiseId: 7,
-          prizeType: "Best Brending 신규 론칭 부문",
-          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          title: "빵빵이의 옥지 사용법 ~!",
-          videoTime: "02:49",
-          keywordList: ["커피", "유머있는"],
-        },
-        {
-          advertiseId: 8,
-          prizeType: "Best Brending 신규 론칭 부문",
-          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          title:
-            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-          videoTime: "40:32",
-          keywordList: ["커피", "유머있는"],
-        },
-        {
-          advertiseId: 9,
-          prizeType: "Best Brending 신규 론칭 부문",
-          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          title: "빵빵이의 옥지 사용법 ~!",
-          videoTime: "02:49",
-          keywordList: ["커피", "유머있는"],
-        },
-        {
-          advertiseId: 10,
-          prizeType: "Best Brending 신규 론칭 부문",
-          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          title:
-            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-          videoTime: "40:32",
-          keywordList: ["커피", "유머있는"],
-        },
-        {
-          advertiseId: 11,
-          prizeType: "Best Brending 신규 론칭 부문",
-          videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-          title: "빵빵이의 옥지 사용법 ~!",
-          videoTime: "02:49",
-          keywordList: ["커피", "유머있는"],
-        },
-        {
-          advertiseId: 12,
-          prizeType: "Best Brending 신규 론칭 부문",
-          videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-          title:
-            "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-          videoTime: "40:32",
-          keywordList: ["커피", "유머있는"],
-        },
-      ]);
+      await axios
+        .get(
+          `https://dev.simproject.kr/api/advertises/${advertiseId}/recommend?page=0&size=14`,
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          setOtherVideos(res.data.content);
+        });
+
+      // setOtherVideos([
+      //   {
+      //     advertiseId: 1,
+      //     videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+      //     prizeType: "Best Brending 신규 론칭 부문",
+      //     title: "빵빵이의 옥지 사용법 ~!",
+      //     videoTime: "02:49",
+      //     keywordList: ["커피", "유머있는"],
+      //   },
+      //   {
+      //     advertiseId: 2,
+      //     videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+      //     prizeType: "Best Brending 신규 론칭 부문",
+      //     title:
+      //       "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+      //     videoTime: "40:32",
+      //     keywordList: ["커피", "유머있는"],
+      //   },
+      //   {
+      //     advertiseId: 3,
+      //     videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+      //     prizeType: "Best Brending 신규 론칭 부문",
+      //     title: "빵빵이의 옥지 사용법 ~!",
+      //     videoTime: "02:49",
+      //     keywordList: ["커피", "유머있는"],
+      //   },
+      //   {
+      //     advertiseId: 4,
+      //     videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+      //     prizeType: "Best Brending 신규 론칭 부문",
+      //     title:
+      //       "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+      //     videoTime: "40:32",
+      //     keywordList: ["커피", "유머있는"],
+      //   },
+      //   {
+      //     advertiseId: 5,
+      //     prizeType: "Best Brending 신규 론칭 부문",
+      //     videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+      //     title: "빵빵이의 옥지 사용법 ~!",
+      //     videoTime: "02:49",
+      //     keywordList: ["커피", "유머있는"],
+      //   },
+      //   {
+      //     advertiseId: 6,
+      //     prizeType: "Best Brending 신규 론칭 부문",
+      //     videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+      //     title:
+      //       "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+      //     videoTime: "40:32",
+      //     keywordList: ["커피", "유머있는"],
+      //   },
+      //   {
+      //     advertiseId: 7,
+      //     prizeType: "Best Brending 신규 론칭 부문",
+      //     videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+      //     title: "빵빵이의 옥지 사용법 ~!",
+      //     videoTime: "02:49",
+      //     keywordList: ["커피", "유머있는"],
+      //   },
+      //   {
+      //     advertiseId: 8,
+      //     prizeType: "Best Brending 신규 론칭 부문",
+      //     videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+      //     title:
+      //       "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+      //     videoTime: "40:32",
+      //     keywordList: ["커피", "유머있는"],
+      //   },
+      //   {
+      //     advertiseId: 9,
+      //     prizeType: "Best Brending 신규 론칭 부문",
+      //     videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+      //     title: "빵빵이의 옥지 사용법 ~!",
+      //     videoTime: "02:49",
+      //     keywordList: ["커피", "유머있는"],
+      //   },
+      //   {
+      //     advertiseId: 10,
+      //     prizeType: "Best Brending 신규 론칭 부문",
+      //     videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+      //     title:
+      //       "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+      //     videoTime: "40:32",
+      //     keywordList: ["커피", "유머있는"],
+      //   },
+      //   {
+      //     advertiseId: 11,
+      //     prizeType: "Best Brending 신규 론칭 부문",
+      //     videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
+      //     title: "빵빵이의 옥지 사용법 ~!",
+      //     videoTime: "02:49",
+      //     keywordList: ["커피", "유머있는"],
+      //   },
+      //   {
+      //     advertiseId: 12,
+      //     prizeType: "Best Brending 신규 론칭 부문",
+      //     videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
+      //     title:
+      //       "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
+      //     videoTime: "40:32",
+      //     keywordList: ["커피", "유머있는"],
+      //   },
+      // ]);
     } catch (err) {
       console.log(err);
     }
@@ -212,7 +228,7 @@ const VideoTime = styled.div`
   position: absolute;
   bottom: 8px;
   right: 8px;
-  width: 34px;
+  width: 51px;
   height: 15px;
   flex-shrink: 0;
   border-radius: 3px;

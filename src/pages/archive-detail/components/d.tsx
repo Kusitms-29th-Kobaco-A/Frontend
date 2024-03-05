@@ -195,7 +195,6 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
         .then((res) => {
           console.log(res);
           alert("영상 저장완료");
-          setIsOpenSaveModal(false);
         });
     } catch (err) {
       console.log(err);
@@ -322,7 +321,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
             type="text"
             placeholder="폴더명"
           />
-          <NewModalButtonComponent>
+          <PatchModalButtonComponent>
             <NewFolderModalBtn style={{ borderRight: "2px solid #e6e6e6" }}>
               <PatchModalBtnText onClick={handleCloseNewFolder}>
                 취소
@@ -336,7 +335,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
                 확인
               </PatchModalBtnText>
             </NewFolderModalBtn>
-          </NewModalButtonComponent>
+          </PatchModalButtonComponent>
         </CompleteModal>
       )}
 
@@ -514,7 +513,7 @@ const VideoTitle = styled.div`
   margin: 16px 0px 0px 0px;
   color: var(--Gray-9, #27272e);
   font-family: "Noto Sans KR";
-  font-size: 24px; //2.813vw; //36px
+  font-size: 2.813vw; //36px
   font-style: normal;
   font-weight: 700;
   line-height: 140%;
@@ -525,7 +524,7 @@ const VideoDate = styled.div`
   margin: 16px 0px 0px 0px;
   color: var(--Gray-7, #707887);
   font-family: "Noto Sans KR";
-  font-size: 20px; //20px;
+  font-size: 1.563vw; //20px;
   font-style: normal;
   font-weight: 350;
   line-height: 140%;
@@ -649,7 +648,7 @@ const AdCopyBtn = styled.button`
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  /* line-height: 140%; 22.4px */
+  line-height: 140%; /* 22.4px */
   letter-spacing: -0.4px;
   cursor: pointer;
 `;
@@ -799,10 +798,6 @@ const PatchModalButtonComponent = styled.div`
   width: 100%;
   display: flex;
   border-top: 2px solid #e6e6e6;
-`;
-
-const NewModalButtonComponent = styled(PatchModalButtonComponent)`
-  margin: 65px 0px 0px 0px;
 `;
 
 const PatchModalBtn = styled.div`
@@ -1011,7 +1006,7 @@ const GraphSecondBox = styled.img`
 `;
 
 const CompleteModal = styled.div`
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

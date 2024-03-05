@@ -8,7 +8,6 @@ import ArchivePopularVideos from "./pages/archive-popular-videos/ArchivePopularV
 import ArchiveTotalVideos from "./pages/archive-total-videos/ArchiveTotalVideos";
 import ArchiveSavedVideos from "./pages/archive-saved-videos/ArchiveSavedVideos";
 import ArchiveDetail from "./pages/archive-detail/ArchiveDetail";
-import ArchiveTrendVideos from "./pages/archive-trend-videos/ArchiveTrendVidoes";
 import ArchiveSavedVideosDetail from "./pages/archive-saved-videos-detail/ArchiveSavedVideosDetail";
 
 function App() {
@@ -24,10 +23,6 @@ function App() {
           element={<ArchiveDetail />}
         ></Route>
         <Route
-          path="/archive/trendVideos"
-          element={<ArchiveTrendVideos />}
-        ></Route>
-        <Route
           path="/archive/popularVideos"
           element={<ArchivePopularVideos />}
         ></Route>
@@ -36,7 +31,7 @@ function App() {
           element={<ArchiveSavedVideos />}
         ></Route>
         <Route
-          path="/archive/savedVideos/inFolder"
+          path="/archive/savedVideos/inFolder/:directoryId"
           element={<ArchiveSavedVideosDetail />}
         ></Route>
         <Route

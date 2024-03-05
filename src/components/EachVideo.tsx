@@ -63,7 +63,7 @@ const EachVideo = ({ sector, videoInfo }: any) => {
       {sector === "trend" && (
         <BrandingRowComponent>
           <BrandingImgBox src={brandingImg} alt="brand" />
-          <VideoTrendType>{videoInfo.prizeType}</VideoTrendType>
+          <VideoTrendType>{videoInfo.trendTitle}</VideoTrendType>
         </BrandingRowComponent>
       )}
       {sector === "trend" ? (
@@ -100,7 +100,7 @@ const VideoTime = styled.div`
   position: absolute;
   bottom: 7px;
   right: 10px;
-  width: 34px;
+  width: 50px;
   height: 15px;
   flex-shrink: 0;
   border-radius: 4px;

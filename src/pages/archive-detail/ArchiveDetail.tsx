@@ -35,23 +35,6 @@ const ArchiveDetail = () => {
             console.log(res.data);
           }
         });
-      // setVideoInfo({
-      //   advertiseId: 1,
-      //   videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-      //   title:
-      //     "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-      //   uploadDate: "2024.02.29",
-
-      //   copy: "광고 카피 제목부분이에요",
-      //   copyDetail:
-      //     "광고에 나오는 자막이에요 이거는 자막이에요 안녕하세요 이거는 자막이에요 하하하하 이건 자막이구나 자막을 얼마나 길게 해야할까요 저도 잘 모르겠네요 네네 광고에 나오는 자막이에요 이거는 자막이에요 안녕하세요 이거는 자막이에요 하하하하 이건 자막이구나 자막을 얼마나 길게 해야할까요 저도 잘 모르겠네요",
-      //   peopleList: ["김태희", "10대 여아", "하이"],
-      //   objectList: ["침대", "화분"],
-      //   owner: "광고주 이름이 뭘까요",
-      //   ownerCompany: "광고회사 이름이 뭘까",
-      //   makerCompany: "제작사는?",
-      //   keywordList: ["커피", "유머있는", "신뢰감있는"],
-      // });
     } catch (err) {
       console.log(err);
     }

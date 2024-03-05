@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import glass from "../../../assets/archive/Glass.svg";
 import XImage from "../../../assets/archive/XImg.svg";
@@ -19,13 +19,22 @@ import SearchedTotalVideos from "./SearchedTotalVideos";
 import Pagination from "react-js-pagination";
 import "./paging.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // 전체 광고 컴포넌트
-const TotalVideo = ({ videos }: any) => {
+const TotalVideo = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  //페이징을 위한 page 변수선언
+  const [page, setPage] = useState<number>(1);
+  // 페이지 이동함수
+  const handlePageChange = (page: number) => {
+    setPage(page);
+    console.log(page);
+  };
 
   //비디오 받고 나중에 또 업데이트
-  const [totalVideos, setTotalVideos] = useState(videos);
+  const [totalVideos, setTotalVideos] = useState<any>([]);
 
   // 키워드 검색후 리스트에 추가,삭제
   const [searchedKeyword, setSearchedKeyword] = useState<string>("");
@@ -69,7 +78,7 @@ const TotalVideo = ({ videos }: any) => {
   // 선택된 드롭다운 value값
   const [selectedType, setSelectedType] = useState<string>("");
   const [selectedIndustry, setSelectedIndustry] = useState<string>("");
-  const [selectedOrder, setSelectedOrder] = useState("최근 등록순");
+  const [selectedOrder, setSelectedOrder] = useState("최근등록순");
 
   const handleSelectType = (event: React.MouseEvent<HTMLButtonElement>) => {
     const value = event.currentTarget.value; // 버튼의 value 속성 값 가져오기
@@ -83,13 +92,71 @@ const TotalVideo = ({ videos }: any) => {
     setSelectedOrder(e.target.value);
   };
 
-  //페이징을 위한 page 변수선언
-  const [page, setPage] = useState<number>(1);
-  // 페이지 이동함수
-  const handlePageChange = (page: number) => {
-    setPage(page);
-    console.log(page);
-  };
+  const [numberOfElements, setNumberOfElements] = useState<number>(0);
+
+  // 여기서 한번에 모든 비디오 정보들 받음
+  const getArchiveMainVideos = useCallback(async () => {
+    const baseUrl = `https://dev.simproject.kr/api/advertises?page=${
+      page - 1
+    }&size=20`;
+
+    // 키워드 배열을 쿼리 스트링으로 변환
+    const keywordQueryString =
+      keywordsArray.length > 0 ? `&keywordList=${keywordsArray.join(",")}` : "";
+
+    // 선택된 타입이 있는 경우 쿼리 스트링에 추가
+    const typeQueryString = selectedType ? `&keywordList=${selectedType}` : "";
+
+    // 선택된 산업 분야가 있는 경우 쿼리 스트링에 추가
+    const industryQueryString = selectedIndustry
+      ? `&keywordList=${selectedIndustry}`
+      : "";
+
+    const orderName =
+      selectedOrder === "최근등록순"
+        ? "RECENT"
+        : selectedOrder === "조회순"
+        ? "VIEW"
+        : "POPULAR";
+
+    // 선택된 정렬 순서가 있는 경우 쿼리 스트링에 추가
+    const orderQueryString = selectedOrder ? `&orderType=${orderName}` : "";
+
+    // 최종 URL 구성
+    const finalUrl =
+      baseUrl +
+      keywordQueryString +
+      typeQueryString +
+      industryQueryString +
+      orderQueryString;
+
+    try {
+      console.log(finalUrl);
+      await axios
+        .get(finalUrl, {
+          headers: {
+            Authorization: `${token}`,
+          },
+        })
+        .then((res: any) => {
+          setTotalVideos(res.data.content);
+          setNumberOfElements(res.data.totalElements);
+          console.log(res);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }, [
+    page,
+    keywordsArray,
+    selectedType,
+    selectedIndustry,
+    selectedOrder,
+    token,
+  ]);
+  useEffect(() => {
+    getArchiveMainVideos();
+  }, [getArchiveMainVideos]);
 
   return (
     <TotalComponent>
@@ -108,72 +175,99 @@ const TotalVideo = ({ videos }: any) => {
         </AdditionalVideo>
       </RowComponent>
 
-      <TotalFilterComponent>
-        <RowComponent style={{ height: "62px" }}>
-          <FilterLabel>컨셉</FilterLabel>
-          {videoTypeList.map((item: any) => {
+      <RowComponent style={{ marginTop: "33px" }}>
+        <FilterLabel>컨셉</FilterLabel>
+
+        {videoTypeList.map((item: any) => {
+          if (selectedType === item.value) {
             return (
-              <FilterAns value={item.value} onClick={handleSelectType}>
-                {item.label}
-              </FilterAns>
+              <FilterAnsBox>
+                <SelectedFilterAns
+                  value={item.value}
+                  onClick={handleSelectType}
+                >
+                  {item.label}
+                </SelectedFilterAns>
+              </FilterAnsBox>
             );
-          })}
-        </RowComponent>
-        <DottedLine />
-        <RowComponent style={{ height: "68px" }}>
-          <FilterLabel>산업군</FilterLabel>
-          {industryList.map((item: any) => {
+          } else {
             return (
-              <FilterAns value={item.value} onClick={handleSelectIndustry}>
-                {item.label}
-              </FilterAns>
+              <FilterAnsBox>
+                <FilterAns value={item.value} onClick={handleSelectType}>
+                  {item.label}
+                </FilterAns>
+              </FilterAnsBox>
             );
-          })}
-        </RowComponent>
-        <DottedLine />
-        <RowComponent style={{ marginTop: "15px", height: "44px" }}>
-          <FilterLabel>검색</FilterLabel>
-          <TotalSearchInput
-            value={searchedKeyword}
-            onChange={handleInputChange}
-            onKeyUp={handleKeyPress}
-            placeholder="찾고 싶은 광고 컨셉 혹은 산업을 검색하세요"
-          />
-          <SearchBtn onClick={handleAddKeyword}>검색</SearchBtn>
-        </RowComponent>
-        <RowComponent style={{ margin: "15px 0px 0px 169px" }}>
-          <FilterLabel>추천 검색어</FilterLabel>
-          <KeywordsComponent>
-            {keywordsArray.length > 0 ? (
-              <SearchedKeywordsComponent>
-                {keywordsArray.map((item, index) => {
-                  return (
-                    <ContainSearchedKeywordDiv key={index}>
-                      <SearchedKeyword>#{item}</SearchedKeyword>
-                      <XImg
-                        onClick={() => handleRemoveKeyword(index)}
-                        src={XImage}
-                        alt="X"
-                      />
-                    </ContainSearchedKeywordDiv>
-                  );
-                })}
-              </SearchedKeywordsComponent>
-            ) : (
-              <BasicKeywordsComponent>
-                {recommendKeywordsList.map((keyword, index) => (
-                  <BasicKeyword
-                    key={index}
-                    onClick={() => handleAddRecommendKeyword(keyword)}
-                  >
-                    #{keyword}
-                  </BasicKeyword>
-                ))}
-              </BasicKeywordsComponent>
-            )}
-          </KeywordsComponent>
-        </RowComponent>
-      </TotalFilterComponent>
+          }
+        })}
+      </RowComponent>
+      <RowComponent style={{ marginTop: "11px" }}>
+        <FilterLabel>산업군</FilterLabel>
+        {industryList.map((item: any) => {
+          if (selectedIndustry === item.value) {
+            return (
+              <FilterAnsBox>
+                <SelectedFilterAns
+                  value={item.value}
+                  onClick={handleSelectIndustry}
+                >
+                  {item.label}
+                </SelectedFilterAns>
+              </FilterAnsBox>
+            );
+          } else {
+            return (
+              <FilterAnsBox>
+                <FilterAns value={item.value} onClick={handleSelectIndustry}>
+                  {item.label}
+                </FilterAns>
+              </FilterAnsBox>
+            );
+          }
+        })}
+      </RowComponent>
+      <RowComponent style={{ marginTop: "48px", height: "44px" }}>
+        <TotalSearchInput
+          value={searchedKeyword}
+          onChange={handleInputChange}
+          onKeyUp={handleKeyPress}
+          placeholder="찾고 싶은 광고 컨셉 혹은 산업을 검색하세요"
+        />
+        <GlassImgBox src={glass} alt="glass" />
+        <SearchBtn onClick={handleAddKeyword}>검색</SearchBtn>
+      </RowComponent>
+      <RowComponent style={{ margin: "20px 0px 0px 17px" }}>
+        <FilterLabel>추천 검색어</FilterLabel>
+        <KeywordsComponent>
+          {keywordsArray.length > 0 ? (
+            <SearchedKeywordsComponent>
+              {keywordsArray.map((item, index) => {
+                return (
+                  <ContainSearchedKeywordDiv key={index}>
+                    <SearchedKeyword>#{item}</SearchedKeyword>
+                    <XImg
+                      onClick={() => handleRemoveKeyword(index)}
+                      src={XImage}
+                      alt="X"
+                    />
+                  </ContainSearchedKeywordDiv>
+                );
+              })}
+            </SearchedKeywordsComponent>
+          ) : (
+            <BasicKeywordsComponent>
+              {recommendKeywordsList.map((keyword, index) => (
+                <BasicKeyword
+                  key={index}
+                  onClick={() => handleAddRecommendKeyword(keyword)}
+                >
+                  #{keyword}
+                </BasicKeyword>
+              ))}
+            </BasicKeywordsComponent>
+          )}
+        </KeywordsComponent>
+      </RowComponent>
 
       {/* 키워드리스트 보여주는 부분 */}
       {/* 검색 키워드 입력시 키워드리스트, 없을 시 기본추천 키워드리스트 */}
@@ -210,7 +304,7 @@ const TotalVideo = ({ videos }: any) => {
         <Pagination
           activePage={page}
           itemsCountPerPage={20}
-          totalItemsCount={139}
+          totalItemsCount={numberOfElements}
           pageRangeDisplayed={3}
           prevPageText={"‹"}
           nextPageText={"›"}
@@ -228,6 +322,7 @@ const TotalComponent = styled.div`
 `;
 
 const RowComponent = styled.div`
+  height: 36px;
   position: relative;
   display: flex;
   align-items: center;
@@ -264,16 +359,8 @@ const DottedLine = styled.div`
 `;
 
 const FilterLabel = styled.div`
-  display: flex;
-  width: 116px;
-  margin-left: 28px;
-  height: 28px;
-  flex-direction: column;
-  justify-content: center;
-  flex-shrink: 0;
   color: var(--Gray-9, #27272e);
-
-  /* Body/4 */
+  width: 129px;
   font-family: "Noto Sans KR";
   font-size: 16px;
   font-style: normal;
@@ -282,19 +369,37 @@ const FilterLabel = styled.div`
   letter-spacing: -0.4px;
 `;
 
-const FilterAns = styled.button`
-  display: inline-flex;
-  height: 28px;
-  flex-direction: column;
+const FilterAnsBox = styled.div`
+  display: flex;
   justify-content: center;
+  width: 116px;
+`;
+
+const FilterAns = styled.button`
+  display: flex;
+  height: 22px;
+  justify-content: center;
+  align-items: center;
   flex-shrink: 0;
-  color: var(--Gray-9, #27272e);
-  margin-left: 5px;
-  /* Body/4 */
+  background-color: #fff;
+  border: none;
+`;
+const SelectedFilterAns = styled.button`
+  display: inline-flex;
+  padding: 7px 15px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 18px;
+  background: var(--Sub-2, #ffecee);
+  color: var(--Main-1, #d33b4d);
+  border: none;
+
+  /* Detail/3 */
   font-family: "Noto Sans KR";
   font-size: 16px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 350;
   line-height: 140%; /* 22.4px */
   letter-spacing: -0.4px;
 `;
@@ -332,8 +437,8 @@ const GlassImg = styled.img`
 `;
 
 const TotalSearchInput = styled.input`
-  padding-left: 76.98px;
-  width: 641px;
+  padding-left: 49px;
+  width: 359px;
   height: 44px;
   flex-shrink: 0;
   border-radius: 24px;
@@ -350,7 +455,7 @@ const TotalSearchInput = styled.input`
 `;
 
 const SearchBtn = styled.button`
-  margin-left: 17px;
+  margin-left: 12px;
   display: inline-flex;
   padding: 8px 21px;
   justify-content: center;
@@ -401,6 +506,7 @@ const BasicKeywordsComponent = styled.div`
   display: flex;
   height: 26px;
 `;
+
 const BasicKeyword = styled.div`
   margin: 0px 3px;
   display: inline-flex;
@@ -496,4 +602,12 @@ const AdditionalVideo = styled.div`
   line-height: 140%;
   letter-spacing: -0.4px;
   cursor: pointer;
+`;
+
+const GlassImgBox = styled.img`
+  position: absolute;
+  left: 17px;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
 `;
