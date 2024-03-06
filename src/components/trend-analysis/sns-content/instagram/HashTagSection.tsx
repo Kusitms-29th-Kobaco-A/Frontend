@@ -11,6 +11,7 @@ const HashTagSection = () => {
     { name: '컵케이크', isActive: false },
     { name: '층케이크', isActive: true },
     { name: '과일케이크', isActive: false },
+    { name: '😀', isActive: true },
     { name: '스펀지케이크', isActive: false },
     { name: '크림케이크', isActive: false },
     { name: '레드벨벳케이크', isActive: true },
@@ -18,6 +19,7 @@ const HashTagSection = () => {
     { name: '아이스크림케이크', isActive: false },
     { name: '무스케이크', isActive: false },
     { name: '캐롯케이크', isActive: false },
+    { name: '👍', isActive: false },
   ];
 
   return (

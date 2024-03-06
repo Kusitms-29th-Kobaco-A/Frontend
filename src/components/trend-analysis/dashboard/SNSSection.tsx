@@ -25,10 +25,10 @@ const SNSSection = () => {
   const options = {
     scales: {
       x: {
-        display: false,
+        // display: false,
       },
       y: {
-        display: false,
+        // display: false,
         min: 0,
         max: 100,
       },
@@ -47,7 +47,7 @@ const SNSSection = () => {
     labels: [1, 2, 3, 4, 1, 2, 3],
     datasets: [
       {
-        data: [80, 50, 40, 14, 40, 20, 80],
+        data: [80, 50, 40, 90, 40, 20, 80],
         fill: true,
         backgroundColor: ({
           chart: { ctx },
@@ -78,7 +78,7 @@ const SNSSection = () => {
         <span>인스타그램 게시글 수 추이</span>
       </IconWrapper>
       <LineWrapper>
-        <Line width="100%" height="30rem" options={options} data={graphData} />
+        <Line width="100%" height="40rem" options={options} data={graphData} />
       </LineWrapper>
     </WhiteRoundedBox>
   );
@@ -91,6 +91,11 @@ const WhiteRoundedBox = styled.div`
   background-color: white;
   padding: 2rem 4rem;
   border-radius: 16px;
+
+  &:hover {
+    box-shadow: 0 0 0 1px #d33b4d;
+    transition: 0.3s;
+  }
 `;
 
 const Heading = styled.h2`
