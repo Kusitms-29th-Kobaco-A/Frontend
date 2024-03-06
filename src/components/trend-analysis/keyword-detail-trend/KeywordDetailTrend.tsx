@@ -13,8 +13,8 @@ const KeywordDetailTrend = () => {
     },
     {
       age: '20대',
-      value: 90,
-      isActive: true,
+      value: 30,
+      isActive: false,
     },
     {
       age: '30대',

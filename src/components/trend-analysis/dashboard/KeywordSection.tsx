@@ -42,6 +42,11 @@ const WhiteRoundedBox = styled.div`
   border-radius: 16px;
   display: flex;
   flex-direction: column;
+
+  &:hover {
+    box-shadow: 0 0 0 1px #d33b4d;
+    transition: 0.3s;
+  }
 `;
 
 const Heading = styled.h2`
