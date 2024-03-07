@@ -5,6 +5,7 @@ import YouTube, { YouTubeProps } from "react-youtube";
 import YouTubeThumbnail from "./YoutubeThumnail";
 import { useNavigate } from "react-router-dom";
 import brandingImg from "../assets/archive/Branding.svg";
+import { useEffect, useState } from "react";
 
 // 비디오 정보 받기
 const EachVideo = ({ sector, videoInfo }: any) => {
@@ -14,9 +15,13 @@ const EachVideo = ({ sector, videoInfo }: any) => {
   const url = videoInfo.videoUrl;
   const extractVideoId = (url: string): string | undefined => {
     const urlObj = new URL(url);
-    return urlObj.pathname.substring(1);
+    const videoID = urlObj.searchParams.get("v");
+    return videoID || undefined;
+
+    // return urlObj.pathname.substring(1);
   };
   const videoId = extractVideoId(url);
+  // const videoId = "Of-v4W1aWB0";
 
   // const onPlayerReady: YouTubeProps["onReady"] = (event) => {
   //   event.target.pauseVideo();
@@ -31,6 +36,18 @@ const EachVideo = ({ sector, videoInfo }: any) => {
   //     modestbranding: 1,
   //   },
   // };
+  const [lastTwoKeywords, setLastTwoKeywords] = useState<string[]>([]);
+
+  useEffect(() => {
+    // keywordList의 길이가 2 이상인 경우, 배열의 뒤에서부터 두 개의 요소를 추출합니다.
+    if (videoInfo.keywordList.length >= 2) {
+      const extractedKeywords = videoInfo.keywordList.slice(-2);
+      setLastTwoKeywords(extractedKeywords);
+    } else {
+      // keywordList의 길이가 2 미만인 경우, 전체 배열을 사용합니다.
+      setLastTwoKeywords(videoInfo.keywordList);
+    }
+  }, [videoInfo]);
 
   return (
     <TotalComponent>
@@ -56,7 +73,7 @@ const EachVideo = ({ sector, videoInfo }: any) => {
         <VideoTime>{videoInfo.videoTime}</VideoTime>
       </VideoFrame>
       <KeywordComponent>
-        {videoInfo.keywordList?.map((item: any) => {
+        {lastTwoKeywords?.map((item: any) => {
           return <EachKeyword>#{item}</EachKeyword>;
         })}
       </KeywordComponent>

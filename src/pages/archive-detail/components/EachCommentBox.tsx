@@ -26,6 +26,7 @@ const EachCommentBox = ({ item }: any) => {
         })
         .then((res: any) => {
           console.log(res);
+          console.log("성공");
           setLikeState(res.data);
         });
     } catch (err) {
@@ -60,7 +61,7 @@ const EachCommentBox = ({ item }: any) => {
 
   return (
     <CommentBox>
-      <CommentId>@user-{item.userId}</CommentId>
+      <CommentId>{item.userEmail}</CommentId>
       <CommentContent>{item.content}</CommentContent>
       <RowComponent>
         {likeState.isLike ? (
@@ -107,7 +108,7 @@ const CommentId = styled.div`
 const CommentContent = styled.div`
   width: 100%;
   color: var(--Gray-7, #707887);
-
+  margin-top: 7px;
   /* Detail/4 */
   font-family: "Noto Sans KR";
   font-size: 14px;
@@ -118,6 +119,8 @@ const CommentContent = styled.div`
 `;
 
 const RowComponent = styled.div`
+  margin-top: 4px;
+
   display: flex;
   align-items: center;
 `;
@@ -126,12 +129,13 @@ const ThumbsUpIcon = styled.img`
   width: 20px;
   height: 20px;
   flex-shrink: 0;
+  cursor: pointer;
 `;
 
 const ThumbsCountText = styled.div`
   color: var(--Gray-7, #707887);
   text-align: center;
-  margin-left: 4px;
+  margin-left: 2px;
   /* Detail/5 */
   font-family: "Noto Sans KR";
   font-size: 12px;

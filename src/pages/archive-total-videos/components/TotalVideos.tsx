@@ -223,7 +223,7 @@ const RecentPopularVideosTotal = () => {
         <SearchBtn onClick={handleAddKeyword}>검색</SearchBtn>
       </RowComponent>
       <RowComponent style={{ margin: "20px 0px 0px 17px" }}>
-        <FilterLabel>추천 검색어</FilterLabel>
+        {keywordsArray.length <= 0 && <FilterLabel>추천 검색어</FilterLabel>}
         <KeywordsComponent>
           {keywordsArray.length > 0 ? (
             <SearchedKeywordsComponent>

@@ -9,6 +9,7 @@ import ArchiveTotalVideos from "./pages/archive-total-videos/ArchiveTotalVideos"
 import ArchiveSavedVideos from "./pages/archive-saved-videos/ArchiveSavedVideos";
 import ArchiveDetail from "./pages/archive-detail/ArchiveDetail";
 import ArchiveSavedVideosDetail from "./pages/archive-saved-videos-detail/ArchiveSavedVideosDetail";
+import ArchiveDetailSample from "./pages/sample-detail/SampleDetail";
 
 function App() {
   return (
@@ -37,6 +38,10 @@ function App() {
         <Route
           path="/archive/totalVideos"
           element={<ArchiveTotalVideos />}
+        ></Route>
+        <Route
+          path="/archive/detail/sample"
+          element={<ArchiveDetailSample />}
         ></Route>
       </Routes>
     </Router>

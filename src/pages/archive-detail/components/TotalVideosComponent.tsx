@@ -56,7 +56,8 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
   const url = videoInfo.videoUrl;
   const extractVideoId = (url: string): string | undefined => {
     const urlObj = new URL(url);
-    return urlObj.pathname.substring(1);
+    const videoID = urlObj.searchParams.get("v");
+    return videoID || undefined;
   };
   const videoId = extractVideoId(url);
 
@@ -64,11 +65,13 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
     event.target.pauseVideo();
   };
 
-  const opts: YouTubeProps["opts"] = {
+  const opts = {
     width: "100%",
     height: "100%",
     playerVars: {
       autoplay: 0,
+      // cc_load_policy: 1,
+
       rel: 0,
       modestbranding: 1,
     },
@@ -194,8 +197,8 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
         )
         .then((res) => {
           console.log(res);
-          alert("영상 저장완료");
           setIsOpenSaveModal(false);
+          setIsConfirmSaveModal(true);
         });
     } catch (err) {
       console.log(err);
@@ -221,13 +224,14 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
             console.log(res);
             getRootDirectoryInfo();
             setIsOpenNewFolder(false);
+            setFolderName("");
             setIsOpenSaveModal(true);
           });
       } catch (err) {
         console.log(err);
       }
     },
-    [token]
+    [token, getRootDirectoryInfo]
   );
 
   const handleCloseNewFolder = () => {
@@ -236,8 +240,23 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
     setFolderName("");
   };
 
+  const [isConfirmSaveModal, setIsConfirmSaveModal] = useState<boolean>(false);
+
   return (
     <TotalComponent>
+      {isConfirmSaveModal && (
+        <PatchTotalModal>
+          <ConfirmSaveModalText>찜하기가 완료되었습니다.</ConfirmSaveModalText>
+          <ConfirmSaveModalConfirm
+            onClick={() => {
+              setIsConfirmSaveModal(false);
+            }}
+          >
+            확인
+          </ConfirmSaveModalConfirm>
+        </PatchTotalModal>
+      )}
+
       {isOpenLoginWarning && (
         <PatchTotalModal>
           <WarningIcon src={warning} alt="warning" />
@@ -430,7 +449,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
                 return <KeywordText>#{item}</KeywordText>;
               })}
             </KeywordListRowComponent>
-            <AdCopyLabel>{videoInfo.copy}</AdCopyLabel>
+            <AdCopyLabel>카피 저장</AdCopyLabel>
             <AdCopyContent>{videoInfo.copyDetail}</AdCopyContent>
             <AdCopyRowComponent>
               <AdCopyBtn onClick={handleClickCopyBtn}>카피 저장</AdCopyBtn>
@@ -454,7 +473,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
                 </UnderCopyAnswerRowComponent>
               </UnderCopyEachBox>
             </UnderCopyRowComponent>
-            <OtherInfoRowComponent margin="78px 0px 0px 35px">
+            <OtherInfoRowComponent margin="78px 0px 0px 10px">
               <OtherInfoLabel>광고주</OtherInfoLabel>
               <OtherInfoAnswer>{videoInfo.owner}</OtherInfoAnswer>
             </OtherInfoRowComponent>
@@ -586,7 +605,7 @@ const EtcInfoComponent = styled.div`
 
 const KeywordListRowComponent = styled.div`
   display: flex;
-  margin: 0px 0px 0px 25px;
+  margin: 0px 0px 0px 0px;
 `;
 
 const KeywordText = styled.div`
@@ -604,7 +623,7 @@ const KeywordText = styled.div`
 `;
 
 const AdCopyLabel = styled.div`
-  margin: 28px 0px 0px 35px;
+  margin: 28px 0px 0px 10px;
   color: var(--Gray-9, #27272e);
 
   /* Subtitle/1 */
@@ -617,7 +636,7 @@ const AdCopyLabel = styled.div`
 `;
 
 const AdCopyContent = styled.div`
-  margin: 0px 0px 0px 35px;
+  margin: 0px 0px 0px 10px;
   width: 479px;
   display: inline-flex;
   color: var(--Gray-8, #373d49);
@@ -630,7 +649,7 @@ const AdCopyContent = styled.div`
 `;
 
 const AdCopyRowComponent = styled.div`
-  margin: 15px 0px 0px 35px;
+  margin: 15px 0px 0px 10px;
   display: flex;
   align-items: center;
 `;
@@ -655,7 +674,7 @@ const AdCopyBtn = styled.button`
 `;
 
 const UnderCopyRowComponent = styled.div`
-  margin: 78px 0px 0px 35px;
+  margin: 78px 0px 0px 10px;
   display: inline-flex;
 `;
 
@@ -706,7 +725,7 @@ const UnderCopyAnswerText = styled.div`
 const OtherInfoRowComponent = styled.div<{ margin?: any }>`
   display: flex;
   height: 22px;
-  margin: ${(props) => props.margin || "10px 0px 0px 35px"};
+  margin: ${(props) => props.margin || "10px 0px 0px 10px"};
 `;
 
 const OtherInfoLabel = styled.div`
@@ -854,6 +873,7 @@ const EachFolderImg = styled.img`
   width: 120px;
   height: 120px;
   flex-shrink: 0;
+  cursor: pointer;
 `;
 const PlusImg = styled.img`
   position: absolute;
@@ -862,6 +882,7 @@ const PlusImg = styled.img`
   transform: translate(-50%, -50%);
   width: 30px;
   height: 30px;
+  cursor: pointer;
 `;
 
 const EachFolderName = styled.div`
@@ -1063,4 +1084,37 @@ const NewFolderInputDiv = styled.input`
 
 const NewFolderModalBtn = styled(PatchModalBtn)`
   height: 86px;
+`;
+
+const ConfirmSaveModalText = styled.div`
+  margin-top: 126px;
+  color: var(--Gray-8, #373d49);
+  text-align: center;
+
+  /* Body/1 */
+  font-family: "Noto Sans KR";
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 39.2px */
+  letter-spacing: -0.4px;
+`;
+
+const ConfirmSaveModalConfirm = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  height: 93px;
+  color: var(--Main-1, #d33b4d);
+  margin-top: 72px;
+  border-top: 1px solid #e6e6e6;
+  /* Body/1 */
+  font-family: "Noto Sans KR";
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 39.2px */
+  letter-spacing: -0.4px;
+  cursor: pointer;
 `;

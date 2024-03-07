@@ -5,7 +5,7 @@ import styled from "styled-components";
 import thumbsUp from "../../../assets/archive/BlankThumbsUp.svg";
 // 페이지네이션
 import Pagination from "react-js-pagination";
-import "../../archive-main/components/paging.css";
+import "./paging.css";
 import axios from "axios";
 import warning from "../../../assets/archive/Warning.svg";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,6 @@ const TotalCommentComponent = ({ advertiseId }: any) => {
   console.log(advertiseId.advertiseId);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-
   const [commentList, setCommentList] = useState<any>([]);
   const [commentItemCount, setCommentItemCount] = useState<number>(50);
 
@@ -38,8 +37,8 @@ const TotalCommentComponent = ({ advertiseId }: any) => {
       if (token) {
         await axios
           .post(
-            `https://dev.simproject.kr/api/comments/create`,
-            { inputComment: inputComment },
+            `https://dev.simproject.kr/api/comments/${advertiseId.advertiseId}`,
+            { content: inputComment },
             {
               headers: {
                 Authorization: `${token}`,
@@ -48,23 +47,12 @@ const TotalCommentComponent = ({ advertiseId }: any) => {
           )
           .then((res) => {
             console.log(res);
+            getCommentList();
+            setInputComment("");
           });
       } else {
         isOpenLoginWarning();
       }
-
-      // API 엔드포인트와 메서드를 실제 사용 사례에 맞게 수정하세요.
-      const response = await axios.post(
-        "여기에_당신의_API_엔드포인트를_입력하세요",
-        {
-          inputComment,
-          // 여기에 필요한 추가 데이터를 입력하세요.
-        }
-      );
-
-      console.log(response.data);
-      alert("댓글이 등록되었습니다.");
-      setInputComment(""); // 댓글 등록 후 입력 필드 초기화
     } catch (error) {
       console.error("댓글 등록에 실패했습니다.", error);
       alert("댓글 등록에 실패했습니다.");
@@ -74,76 +62,19 @@ const TotalCommentComponent = ({ advertiseId }: any) => {
   const getCommentList = useCallback(async () => {
     try {
       await axios
-        .get(`https://dev.simproject.kr/api/comments/all`, {
-          headers: {
-            Authorization: `${token}`,
-          },
-        })
+        .get(
+          `https://dev.simproject.kr/api/comments/${advertiseId.advertiseId}`,
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        )
         .then((res) => {
           console.log(res);
           setCommentList(res.data);
+          setCommentItemCount(res.data.length);
         });
-      setCommentList([
-        {
-          userId: 1,
-          content:
-            "댓글내용을 뭐라 작성해야 할 지 모르겠어서 무엇을 작성을 해야할까요? 정말로 무엇을 작성해야 할지 모르겠습니다.",
-          commentId: 12,
-        },
-        {
-          userId: 2,
-          content: "댓글내용을해야 할지 모르겠습니다.",
-          commentId: 10,
-        },
-        {
-          userId: 3,
-          content:
-            "댓글내용을 뭐라 작성해야 할 지 모르겠어서 무엇을 작성을 해야할까요? 정말로 무엇을 작성해야 할지 모르겠습니다.",
-          commentId: 5,
-        },
-        {
-          userId: 4,
-          content:
-            "댓글내용을 뭐라 작성해야 할 지 모르겠어서 무엇을 작성을 해야할까요? 정말로 무엇을 작성해야 할지 모르겠습니다.",
-          commentId: 12,
-        },
-        {
-          userId: 5,
-          content:
-            "댓글내용을 뭐라 작성해야 할 지 모르겠어서 무엇을 작성을 해야할까요? 정말로 무엇을 작성해야 할지 모르겠습니다.",
-          commentId: 12,
-        },
-        {
-          userId: 6,
-          content:
-            "댓글내용을 뭐라 작성해야 할 지 모르겠어서 무엇을 작성을 해야할까요? 정말로 무엇을 작성해야 할지 모르겠습니다.",
-          commentId: 12,
-        },
-        {
-          userId: 7,
-          content:
-            "댓글내용을 뭐라 작성해야 할 지 모르겠어서 무엇을 작성을 해야할까요? 정말로 무엇을 작성해야 할지 모르겠습니다.",
-          commentId: 12,
-        },
-        {
-          userId: 8,
-          content:
-            "댓글내용을 뭐라 작성해야 할 지 모르겠어서 무엇을 작성을 해야할까요? 정말로 무엇을 작성해야 할지 모르겠습니다.",
-          commentId: 12,
-        },
-        {
-          userId: 9,
-          content:
-            "댓글내용을 뭐라 작성해야 할 지 모르겠어서 무엇을 작성을 해야할까요? 정말로 무엇을 작성해야 할지 모르겠습니다.",
-          commentId: 12,
-        },
-        {
-          userId: 10,
-          content:
-            "댓글내용을 뭐라 작성해야 할 지 모르겠어서 무엇을 작성을 해야할까요? 정말로 무엇을 작성해야 할지 모르겠습니다.",
-          commentId: 12,
-        },
-      ]);
     } catch (err) {
       console.log(err);
     }

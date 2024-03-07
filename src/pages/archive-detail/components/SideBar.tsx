@@ -147,7 +147,8 @@ const SideBar = ({ advertiseId }: any) => {
         const url = item.videoUrl;
         const extractVideoId = (url: string): string | undefined => {
           const urlObj = new URL(url);
-          return urlObj.pathname.substring(1);
+          const videoID = urlObj.searchParams.get("v");
+          return videoID || undefined; // 'null' 대신 'undefined' 반환
         };
         const videoId = extractVideoId(url);
         // YouTube 썸네일 URL 생성

@@ -38,7 +38,7 @@ const ArchiveDetail = () => {
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [advertiseId]);
 
   useEffect(() => {
     getVideoInfo();
