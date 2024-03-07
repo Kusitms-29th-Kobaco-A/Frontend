@@ -53,7 +53,7 @@ const RelatedKeyword = () => {
 
 export default RelatedKeyword;
 
-const RelatedKeywordBlock = styled.section`
+const RelatedKeywordBlock = styled.div`
   margin-top: 4.5rem;
   margin-bottom: 5rem;
 `;

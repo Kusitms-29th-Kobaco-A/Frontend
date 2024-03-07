@@ -88,7 +88,7 @@ const ViewAnalysis = () => {
 
 export default ViewAnalysis;
 
-const ViewAnalysisSection = styled.section`
+const ViewAnalysisSection = styled.div`
   margin-top: 4.5rem;
 `;
 

@@ -91,7 +91,7 @@ const KeywordDetailTrend = () => {
 
 export default KeywordDetailTrend;
 
-const KeywordTrendDetailSection = styled.section`
+const KeywordTrendDetailSection = styled.div`
   margin-top: 4.5rem;
 `;
 
