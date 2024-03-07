@@ -2,31 +2,24 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from "styled-components";
 import SideBar from "./SideBar";
-import YouTube, { YouTubeProps } from "react-youtube";
 import thumbsUp from "../../../assets/archive/ThumbsUp.svg";
 import heart from "../../../assets/archive/Heart.svg";
-import folder from "../../../assets/archive/Folder.svg";
 import camera from "../../../assets/archive/Camera.svg";
 import fillThumbsUp from "../../../assets/archive/FillThumbsUp.svg";
-import fillHeart from "../../../assets/archive/FillHeart.svg";
-import plusImg from "../../../assets/archive/Plus.svg";
-import fillCamera from "../../../assets/archive/FillCamera.svg";
 import question from "../../../assets/archive/Question.svg";
-import warning from "../../../assets/archive/Warning.svg";
-import xIcon from "../../../assets/archive/XIcon.svg";
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SelectDirectory from "../../../components/SelectDirectory";
 import chartFirst from "../../../assets/archive/ChartFirst.svg";
 import chartSecond from "../../../assets/archive/ChartSecond.svg";
-import fillFolder from "../../../assets/archive/FillFolder.svg";
+
+import html2canvas from "html2canvas";
+import newYoutubeUrl from "../../../assets//archive/cocacola.mp4";
 
 const TotalVideosComponent = ({ videoInfo }: any) => {
   const token = localStorage.getItem("token");
   // console.log(token);
   const navigate = useNavigate();
-
   const [rootDirectoryInfo, setRootDirectoryInfo] = useState<any>({});
 
   const getRootDirectoryInfo = useCallback(async () => {
@@ -62,6 +55,63 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
     getRootDirectoryInfo();
   }, [getRootDirectoryInfo]);
 
+  const [capturedImage, setCapturedImage] = useState<string | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const handleCapture = async () => {
+    if (videoRef.current) {
+      const videoElement = videoRef.current;
+
+      // 동영상 요소를 캡쳐합니다.
+      html2canvas(videoElement).then(async (canvas) => {
+        // 캡쳐된 이미지를 base64 형태로 가져옵니다.
+        const capturedImageUrl = canvas.toDataURL("image/png");
+        setCapturedImage(capturedImageUrl);
+        console.log(capturedImageUrl);
+
+        // Base64 문자열에서 데이터 URL 접두어를 제거합니다.
+        const base64Data = capturedImageUrl.split(",")[1];
+
+        // base64 문자열을 바이너리 형태로 변환합니다.
+        const byteCharacters = atob(base64Data);
+        const byteArrays = [];
+
+        for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+          const slice = byteCharacters.slice(offset, offset + 512);
+          const byteNumbers = new Array(slice.length);
+          for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          byteArrays.push(byteArray);
+        }
+
+        // Blob 객체를 생성합니다.
+        const blob = new Blob(byteArrays, { type: "image/png" });
+
+        // FormData 객체를 생성하고 Blob을 추가합니다.
+        const formData = new FormData();
+        formData.append("imageFile", blob, "capture.png");
+
+        // FormData를 사용하여 백엔드로 파일을 전송합니다.
+        try {
+          const response = await axios.post(
+            `https://dev.simproject.kr/api/saves/advertises/8/capture`,
+            formData,
+            {
+              headers: {
+                Authorization: token,
+                // 'Content-Type': 'multipart/form-data' 헤더는 Axios가 FormData 객체를 감지하면 자동으로 설정합니다.
+              },
+            }
+          );
+          console.log("캡쳐 및 전송 성공", response.data);
+        } catch (error) {
+          console.error("캡쳐 및 전송 실패", error);
+        }
+      });
+    }
+  };
+
   return (
     <TotalComponent>
       {/* {isConfirmSaveModal && (
@@ -80,7 +130,24 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
       {/* 왼쪽 영상정보 보여주는 부분 */}
       <LeftInfoComponent>
         {/* 유튜브 영상 띄워주는 부분 */}
-        <YoutubeFrameBox></YoutubeFrameBox>
+        <YoutubeFrameBox>
+          <video
+            width="100%"
+            ref={videoRef}
+            src={newYoutubeUrl}
+            controls
+            loop
+          />
+        </YoutubeFrameBox>
+
+        {/* {capturedImage && (
+          <img
+            style={{ width: "400px", height: "300px" }}
+            src={capturedImage}
+            alt="캡쳐된 이미지"
+          />
+        )} */}
+
         {/* 제목 */}
         <VideoTitle>{videoInfo.title}</VideoTitle>
         {/* 영상 날짜 */}
@@ -105,7 +172,7 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
             <UnderDateBtnIcon src={heart} alt="heart" />
             <UnderDateBtnText>찜</UnderDateBtnText>
           </UnderDateBtn>
-          <UnderDateBtn margin="0px 0px 0px 12px">
+          <UnderDateBtn onClick={handleCapture} margin="0px 0px 0px 12px">
             <UnderDateBtnIcon src={camera} alt="camera" />
             <UnderDateBtnText>장면 캡쳐</UnderDateBtnText>
           </UnderDateBtn>
