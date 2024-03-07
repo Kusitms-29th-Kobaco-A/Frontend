@@ -56,7 +56,7 @@ const SearchTopFixed = () => {
       {shouldRender && (
         <SearchTopFixedBlock
           className={clsx(
-            'fade-in fixed top-[10.125rem] z-50 w-full bg-white py-4 transition duration-200',
+            'fade-in fixed top-[10.125rem] z-30 w-full bg-white py-4 transition duration-200',
             {
               'fade-in': !isAtTop,
               'fade-out': isAtTop,

@@ -111,7 +111,7 @@ const KeywordTrend = () => {
 
 export default KeywordTrend;
 
-const KeywordTrendSection = styled.section`
+const KeywordTrendSection = styled.div`
   margin-top: 4.5rem;
 `;
 

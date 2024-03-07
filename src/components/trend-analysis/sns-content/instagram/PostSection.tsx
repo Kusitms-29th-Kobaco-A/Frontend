@@ -134,7 +134,7 @@ const PostSection = () => {
 
 export default PostSection;
 
-const PostSectionBlock = styled.section`
+const PostSectionBlock = styled.div`
   margin-top: 4.5rem;
 `;
 

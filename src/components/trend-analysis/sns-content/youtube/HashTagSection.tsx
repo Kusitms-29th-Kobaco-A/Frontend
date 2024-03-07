@@ -44,7 +44,7 @@ const HashTagSection = () => {
 
 export default HashTagSection;
 
-const HashTagSectionBlock = styled.section`
+const HashTagSectionBlock = styled.div`
   margin-top: 4.5rem;
 `;
 

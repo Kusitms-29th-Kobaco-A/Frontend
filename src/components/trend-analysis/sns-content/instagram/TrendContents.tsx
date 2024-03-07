@@ -44,7 +44,7 @@ const TrendContents = () => {
 
 export default TrendContents;
 
-const TrendContentsBlock = styled.section`
+const TrendContentsBlock = styled.div`
   margin-top: 4.5rem;
 `;
 

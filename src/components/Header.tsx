@@ -1,13 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import styled from 'styled-components';
-import kobaco from '../assets/header/KobacoLogo.svg';
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+import kobaco from '../assets/header/KobacoLogo.svg';
+import clsx from 'clsx';
+import useTAStep from '../hooks/useTAStep';
+import HeaderTAOnboarding from './HeaderTAOnboarding';
 
 const Header = () => {
-  const token = localStorage.getItem('token');
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [mouseOverMenu, setMouseOverMenu] = useState<boolean>(false);
+
+  const { taStep, setTAStep, totalTAStep, handleDismiss } = useTAStep();
+
+  const token = localStorage.getItem('token');
+
   return (
     <HeaderComponent>
       <HeaderTopBar>
@@ -25,7 +35,9 @@ const Header = () => {
         )}
       </HeaderTopBar>
       <HeaderMenuBar
-        onMouseEnter={() => setMouseOverMenu(true)}
+        onMouseEnter={() => {
+          if (taStep !== 1) setMouseOverMenu(true);
+        }}
         onMouseLeave={() => setMouseOverMenu(false)}
       >
         <VisibleMenuComponent>
@@ -38,14 +50,31 @@ const Header = () => {
             >
               레퍼런스 탐색
             </MenuBox>
-            <MenuBox
-              onClick={() => {
-                navigate('/trend-analysis');
+            <HeaderTAOnboarding
+              isVisible={
+                localStorage.getItem('ta-step-boarding') !== 'true' &&
+                location.pathname === '/trend-analysis' &&
+                taStep === 1
+              }
+              currentStep={taStep}
+              totalStep={totalTAStep}
+              onConfirm={() => {
+                setTAStep(taStep + 1);
                 setMouseOverMenu(false);
               }}
+              onDismiss={handleDismiss}
             >
-              검색어 트렌드
-            </MenuBox>
+              <MenuBox
+                onClick={() => {
+                  navigate('/trend-analysis');
+                  setMouseOverMenu(false);
+                }}
+              >
+                <span className={clsx({ 'bg-white px-4 py-2': taStep === 1 })}>
+                  검색어 트렌드
+                </span>
+              </MenuBox>
+            </HeaderTAOnboarding>
             <MenuBox>광고 카피 제작</MenuBox>
             <MenuBox>스토리보드 제작</MenuBox>
             <MenuBox>소통공간</MenuBox>
