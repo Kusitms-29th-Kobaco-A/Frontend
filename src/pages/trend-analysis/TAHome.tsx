@@ -10,9 +10,12 @@ import RelatedKeyword from '../../components/trend-analysis/related-keyword/Rela
 import KeywordRank from '../../components/trend-analysis/keyword-rank/KeywordRank';
 import SNSContent from '../../components/trend-analysis/sns-content/root/SNSContent';
 import SearchTopFixed from '../../components/trend-analysis/search/SearchTopFixed';
+import useTAStep from '../../hooks/useTAStep';
 
 const TAHome = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const { taStep, totalTAStep, setTAStep } = useTAStep();
 
   const keywordTrendRef = useRef<HTMLDivElement>(null);
   const relatedTrendRef = useRef<HTMLDivElement>(null);
@@ -36,6 +39,24 @@ const TAHome = () => {
       }
     }
   }, [searchParams]);
+
+  useEffect(() => {
+    if (localStorage.getItem('ta-step-boarding') === null) {
+      localStorage.setItem('ta-step-boarding', 'false');
+    }
+    if (localStorage.getItem('ta-step-boarding') === 'true') {
+      document.body.style.overflow = 'auto';
+      setTAStep(0);
+      return;
+    }
+    if (taStep === 0 || taStep > totalTAStep) {
+      document.body.style.overflow = 'auto';
+      localStorage.setItem('ta-step-boarding', 'true');
+    } else {
+      document.body.style.overflow = 'hidden';
+      localStorage.setItem('ta-step-boarding', 'false');
+    }
+  }, [taStep, totalTAStep]);
 
   return (
     <>

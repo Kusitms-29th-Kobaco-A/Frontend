@@ -34,7 +34,7 @@ const KeywordRank = () => {
 
 export default KeywordRank;
 
-const KeywordRankBlock = styled.section`
+const KeywordRankBlock = styled.div`
   margin-top: 4.5rem;
   margin-bottom: 5rem;
 `;

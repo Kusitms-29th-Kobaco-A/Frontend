@@ -72,7 +72,7 @@ const AdGraphSection = () => {
 
 export default AdGraphSection;
 
-const AdGraphSectionBlock = styled.section`
+const AdGraphSectionBlock = styled.div`
   margin-top: 4.5rem;
 `;
 

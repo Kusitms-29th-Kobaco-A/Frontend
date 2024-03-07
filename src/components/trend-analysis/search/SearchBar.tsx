@@ -1,23 +1,35 @@
 import styled from 'styled-components';
 
 import RelatedKeywords from './RelatedKeywords';
+import useTAStep from '../../../hooks/useTAStep';
+import SearchBarOnboarding from './SearchBarOnboarding';
 
 const SearchBar = () => {
+  const { taStep, setTAStep, totalTAStep, handleDismiss } = useTAStep();
+
   return (
     <>
       <SearchBarBlock>
-        <SearchBarContentBlock>
-          <SearchBarInputBlock>
-            <i>
-              <img src="/icons/search-icon.svg" alt="검색 아이콘" />
-            </i>
-            <SearchBarInput
-              type="text"
-              placeholder="검색어를 입력하세요. (예시: 케이크)"
-            />
-          </SearchBarInputBlock>
-          <SearchBarButton>검색</SearchBarButton>
-        </SearchBarContentBlock>
+        <SearchBarOnboarding
+          isVisible={taStep === 2}
+          currentStep={taStep}
+          totalStep={totalTAStep}
+          onConfirm={() => setTAStep(taStep + 1)}
+          onDismiss={handleDismiss}
+        >
+          <SearchBarContentBlock>
+            <SearchBarInputBlock>
+              <i>
+                <img src="/icons/search-icon.svg" alt="검색 아이콘" />
+              </i>
+              <SearchBarInput
+                type="text"
+                placeholder="검색어를 입력하세요. (예시: 케이크)"
+              />
+            </SearchBarInputBlock>
+            <SearchBarButton>검색</SearchBarButton>
+          </SearchBarContentBlock>
+        </SearchBarOnboarding>
       </SearchBarBlock>
       <RelatedKeywords />
     </>
