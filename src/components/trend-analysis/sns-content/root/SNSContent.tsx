@@ -14,7 +14,7 @@ const SNSContent = ({ data }: Props) => {
   );
 
   return (
-    <SNSContentBlock>
+    <div>
       <TopMenuWrapper>
         <TopMenu>
           <MenuItem
@@ -36,15 +36,11 @@ const SNSContent = ({ data }: Props) => {
       ) : (
         activeMenu === 'YOUTUBE' && <YoutubeContent data={data} />
       )}
-    </SNSContentBlock>
+    </div>
   );
 };
 
 export default SNSContent;
-
-const SNSContentBlock = styled.div`
-  margin-bottom: 10rem;
-`;
 
 const TopMenuWrapper = styled.div`
   text-align: center;

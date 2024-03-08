@@ -82,7 +82,7 @@ const TAHome = () => {
   const isLoading = !data;
 
   return (
-    <div className="min-h-[calc(100vh-10.125rem)] bg-[#F5F6F6]">
+    <div className="min-h-[calc(100vh-10.125rem)] bg-[#F5F6F6] pb-[10rem]">
       <SearchTopFixed searchKeyword={searchKeyword} />
       <main>
         <InnerArea>
