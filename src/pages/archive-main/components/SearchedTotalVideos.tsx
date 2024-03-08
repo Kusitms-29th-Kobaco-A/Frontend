@@ -2,14 +2,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from "styled-components";
 import EachVideo from "../../../components/EachVideo";
-import EachVideoSample from "../../../components/EachVideoSample";
+// import EachVideoSample from "../../../components/EachVideoSample";
 
 // 실제 동영상 리스트 보여주는 부분
 // 리스트를 받아서 보여준다
 const SearchedTotalVideos = ({ videos }: any) => {
   return (
     <TotalComponent>
-      <EachVideoSample />
+      {/* <EachVideoSample /> */}
       {videos?.map((videoInfo: any) => {
         return <EachVideo videoInfo={videoInfo} />;
       })}

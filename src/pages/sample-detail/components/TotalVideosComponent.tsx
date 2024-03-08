@@ -38,7 +38,7 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
 
   const [videoLike, setVideoLike] = useState({
     isLike: false,
-    likeCount: 0,
+    likeCount: 8,
   });
 
   const [selectedSector, setSelectedSector] = useState("기본정보");
