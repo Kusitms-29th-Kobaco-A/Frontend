@@ -3,7 +3,11 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const SearchTopFixed = () => {
+interface Props {
+  searchKeyword: string;
+}
+
+const SearchTopFixed = ({ searchKeyword }: Props) => {
   const [isAtTop, setIsAtTop] = useState(true);
   const [shouldRender, setShouldRender] = useState(!isAtTop);
   const [activeSection, setActiveSection] = useState('');
@@ -64,7 +68,7 @@ const SearchTopFixed = () => {
               <i>
                 <img src="/icons/search-icon.svg" alt="검색 아이콘" />
               </i>
-              <span>케이크</span>
+              <span>{searchKeyword}</span>
             </div>
             <ul className="ml-12 flex items-center gap-6">
               <li>

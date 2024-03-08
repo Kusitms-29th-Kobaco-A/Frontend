@@ -54,13 +54,13 @@ export default SearchBar;
 
 const SearchBarBlock = styled.div`
   margin: 0 auto;
+  padding-top: 1rem;
   max-width: 768px;
   width: 100%;
 `;
 
 const SearchBarContentBlock = styled.form`
   background-color: #fff;
-  margin: 1rem 0;
   width: 100%;
   font-size: 1.25rem;
   border-radius: 1rem;
