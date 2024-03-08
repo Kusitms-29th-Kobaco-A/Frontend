@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
 import styled from "styled-components";
 import kobaco from "../assets/header/KobacoLogo.svg";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -17,13 +18,14 @@ const Header = () => {
     navigate("/");
   };
 
+
   return (
     <HeaderComponent>
       {/* 제일 상단 부분 */}
       <HeaderTopBar>
         <TopBarIcon
           onClick={() => {
-            navigate("/");
+            navigate('/');
           }}
           src={kobaco}
           alt="icon"
@@ -50,6 +52,7 @@ const Header = () => {
           </TopBarRightComponent>
         )}
       </HeaderTopBar>
+
 
       {/* 메뉴바 부분 표현 */}
       {/* 어떤 페이지인지에 따라 붉은색으로 텍스트 표시 */}
@@ -84,6 +87,8 @@ const Header = () => {
             )}
 
             <MenuBox>검색어 트렌드</MenuBox>
+
+     
             <MenuBox>광고 카피 제작</MenuBox>
             <MenuBox>스토리보드 제작</MenuBox>
             <MenuBox>소통공간</MenuBox>
@@ -139,7 +144,7 @@ const TopBarText = styled.div`
   height: 40px;
   margin: 0px 6px;
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
@@ -162,7 +167,9 @@ const VisibleMenuComponent = styled.section`
   width: 100%;
   height: 100%;
 `;
+
 const TotalMenuComponent = styled.div`
+
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -177,7 +184,7 @@ const MenuBox = styled.div<{ menuColor?: string }>`
   justify-content: center;
   align-items: center;
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -185,3 +192,4 @@ const MenuBox = styled.div<{ menuColor?: string }>`
   letter-spacing: -0.4px;
   cursor: pointer;
 `;
+

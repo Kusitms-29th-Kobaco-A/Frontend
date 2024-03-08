@@ -1,5 +1,7 @@
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { RecoilRoot } from 'recoil';
 import ScrollToTop from "./hooks/ScrollToTop";
 import Landing from "./pages/landing/Landing";
 import Login from "./pages/login/Login";
@@ -13,38 +15,41 @@ import ArchiveDetailSample from "./pages/sample-detail/SampleDetail";
 
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Landing />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/archive" element={<ArchiveMain />}></Route>
-        <Route
-          path="/archive/detail/:advertiseId"
-          element={<ArchiveDetail />}
-        ></Route>
-        <Route
-          path="/archive/popularVideos"
-          element={<ArchivePopularVideos />}
-        ></Route>
-        <Route
-          path="/archive/savedVideos"
-          element={<ArchiveSavedVideos />}
-        ></Route>
-        <Route
-          path="/archive/savedVideos/inFolder/:directoryId"
-          element={<ArchiveSavedVideosDetail />}
-        ></Route>
-        <Route
-          path="/archive/totalVideos"
-          element={<ArchiveTotalVideos />}
-        ></Route>
-        <Route
-          path="/archive/detail/sample"
-          element={<ArchiveDetailSample />}
-        ></Route>
-      </Routes>
-    </Router>
+    <RecoilRoot>
+      <Router>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<Landing />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/archive" element={<ArchiveMain />}></Route>
+          <Route
+            path="/archive/detail/:advertiseId"
+            element={<ArchiveDetail />}
+          ></Route>
+          <Route
+            path="/archive/popularVideos"
+            element={<ArchivePopularVideos />}
+          ></Route>
+          <Route
+            path="/archive/savedVideos"
+            element={<ArchiveSavedVideos />}
+          ></Route>
+          <Route
+            path="/archive/savedVideos/inFolder/:directoryId"
+            element={<ArchiveSavedVideosDetail />}
+          ></Route>
+          <Route
+            path="/archive/totalVideos"
+            element={<ArchiveTotalVideos />}
+          ></Route>
+          <Route
+            path="/archive/detail/sample"
+            element={<ArchiveDetailSample />}
+          ></Route>
+        </Routes>
+      </Router>
+  </RecoilRoot>
+
   );
 }
 
