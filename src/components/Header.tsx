@@ -85,8 +85,26 @@ const Header = () => {
                 레퍼런스 탐색
               </MenuBox>
             )}
+            {menuState==="trend"?
+            <MenuBox
+            menuColor="#D33B4D"
+            onClick={()=>{
+              navigate("/trend-analysis",{
+                state:{
+                  menuState:"trend",
+                }
+              })
+            }}>검색어 트렌드</MenuBox>: <MenuBox
+            onClick={()=>{
+              navigate("/trend-analysis",{
+                state:{
+                  menuState:"trend",
+                }
+              })
+            }}>검색어 트렌드</MenuBox>
+          }
 
-            <MenuBox>검색어 트렌드</MenuBox>
+          
 
      
             <MenuBox>광고 카피 제작</MenuBox>
