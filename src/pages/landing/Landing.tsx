@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 import Header from '../../components/Header';
 
+// 랜딩페이지
 const Landing = () => {
   return (
     <LandingComponent>
