@@ -4,7 +4,6 @@ import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 // 페이지네이션
 import Pagination from "react-js-pagination";
-import "./paging.css";
 import warning from "../../../assets/archive/Warning.svg";
 import { useNavigate } from "react-router-dom";
 import EachCommentBox from "./EachCommentBox";
@@ -103,12 +102,8 @@ const TotalCommentComponent = () => {
             return <EachCommentBox item={item} />;
           })}
         </CommentComponent>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "14px",
-          }}
+        <ParentPageStyle
+        
         >
           <Pagination
             activePage={page}
@@ -119,7 +114,7 @@ const TotalCommentComponent = () => {
             nextPageText={"›"}
             onChange={handlePageChange}
           />
-        </div>
+        </ParentPageStyle>
       </CenteredInnerComponent>
     </TotalComponent>
   );
@@ -288,3 +283,55 @@ const PatchModalBtnText = styled.div`
   letter-spacing: -0.4px;
   cursor: pointer;
 `;
+
+
+// 페이지 처리
+const ParentPageStyle=styled.div`
+  display:flex;
+  justify-content: center;
+  margin-top: 14px;
+
+  /* 페이지네이션 전체 부분 */
+ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* 페이지네이션 각자 부분 */
+li {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 0px 3.019vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+
+/* 제일 앞으로 부분 */
+li:first-child {
+  display: none;
+}
+
+/* 제일 뒤로 부분 */
+li:last-child {
+  display: none;
+}
+
+
+
+/* 선택된 페이지, 비선택된 페이지 구분하기 */
+li a {
+  text-decoration: none;
+  color: var(--Gray-7, #707887);
+}
+li.active a {
+  color: black;
+  font-weight: 600;
+}
+
+`
