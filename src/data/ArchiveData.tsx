@@ -6,28 +6,26 @@ export interface VideoTypeOption {
 
 // 토픽선택
 export const videoTypeList: VideoTypeOption[] = [
-  { value: "컨셉1", label: "컨셉1" },
-  { value: "컨셉2", label: "컨셉2" },
-  { value: "컨셉3", label: "컨셉3" },
-  { value: "컨셉4", label: "컨셉4" },
-  { value: "컨셉5", label: "컨셉5" },
-  { value: "컨셉6", label: "컨셉6" },
-  { value: "컨셉7", label: "컨셉7" },
-  { value: "컨셉8", label: "컨셉8" },
-  { value: "컨셉9", label: "컨셉9" },
+  { value: "감동적인", label: "감동적인" },
+  { value: "상황극", label: "상황극" },
+  { value: "신나는", label: "신나는" },
+  { value: "유머있는", label: "유머있는" },
+  { value: "정극", label: "정극" },
+  { value: "반전있는", label: "반전있는" },
+  { value: "판타지", label: "판타지" },
+  { value: "패러디", label: "패러디" },
 ];
 
 //산업군
 export const industryList: VideoTypeOption[] = [
-  { value: "산업군1", label: "산업군1" },
-  { value: "산업군2", label: "산업군2" },
-  { value: "산업군3", label: "산업군3" },
-  { value: "산업군4", label: "산업군4" },
-  { value: "산업군5", label: "산업군5" },
-  { value: "산업군6", label: "산업군6" },
-  { value: "산업군7", label: "산업군7" },
-  { value: "산업군8", label: "산업군8" },
-  { value: "산업군9", label: "산업군9" },
+  { value: "디지털/가전", label: "디지털/가전" },
+  { value: "서비스업", label: "서비스업" },
+  { value: "생활/건강", label: "생활/건강" },
+  { value: "숙박업", label: "숙박업" },
+  { value: "식품/외식업", label: "식품/외식업" },
+  { value: "유통업", label: "유통업" },
+  { value: "중공업", label: "중공업" },
+  { value: "패션의류/미용", label: "패션의류/미용" },
 ];
 
 //비디오 조회 순서
