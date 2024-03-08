@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import StackedBarChart from './StackedBarChart';
 
-const KeywordSection = () => {
+interface Props {
+  genderAgeTrend: any;
+}
+
+const KeywordSection = ({ genderAgeTrend }: Props) => {
   return (
     <WhiteRoundedBox>
       <Heading>
@@ -26,7 +30,7 @@ const KeywordSection = () => {
         </Legend>
       </BoxTop>
       <PlaceholderGraph>
-        <StackedBarChart />
+        <StackedBarChart genderAgeTrend={genderAgeTrend} />
       </PlaceholderGraph>
     </WhiteRoundedBox>
   );

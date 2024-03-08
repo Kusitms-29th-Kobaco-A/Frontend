@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useSearchParams } from 'react-router-dom';
 
@@ -12,6 +12,7 @@ import KeywordRank from '../../components/trend-analysis/keyword-rank/KeywordRan
 import SNSContent from '../../components/trend-analysis/sns-content/root/SNSContent';
 import SearchTopFixed from '../../components/trend-analysis/search/SearchTopFixed';
 import useTAStep from '../../hooks/useTAStep';
+import axios from 'axios';
 
 const TAHome = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -21,6 +22,9 @@ const TAHome = () => {
   const keywordTrendRef = useRef<HTMLDivElement>(null);
   const relatedTrendRef = useRef<HTMLDivElement>(null);
   const snsTrendRef = useRef<HTMLDivElement>(null);
+
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [data, setData] = useState<any>(null);
 
   useEffect(() => {
     const scrollToMission = searchParams.get('scroll_to');
@@ -59,36 +63,70 @@ const TAHome = () => {
     // }
   }, [taStep, totalTAStep]);
 
+  const handleSearchSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchKeyword === '케이크') {
+      const res = await axios.get('/src/data/cake.json');
+      setData(res.data);
+    } else if (searchKeyword === '비건') {
+      const res = await axios.get('/src/data/vegon.json');
+      setData(res.data);
+    } else {
+      setData(null);
+    }
+  };
+
+  const isLoading = !data;
+
   return (
     <>
       <SearchTopFixed />
       <main>
         <InnerArea>
-          <SearchBar />
-          <Dashboard />
-          <section
-            id="keyword-trend"
-            className="scroll-mt-[16rem]"
-            ref={keywordTrendRef}
-          >
-            <KeywordTrend />
-            <KeywordDetailTrend />
-          </section>
-          <section
-            id="related-trend"
-            className="scroll-mt-[16rem]"
-            ref={relatedTrendRef}
-          >
-            <RelatedKeyword />
-            <KeywordRank />
-          </section>
-          <section
-            id="sns-trend"
-            className="scroll-mt-[16rem]"
-            ref={snsTrendRef}
-          >
-            <SNSContent />
-          </section>
+          <SearchBar
+            searchKeyword={searchKeyword}
+            setSearchKeyword={setSearchKeyword}
+            handleSearchSubmit={handleSearchSubmit}
+            isLoading={isLoading}
+          />
+          {!isLoading && (
+            <>
+              <Dashboard
+                relatedTrendBubble={data.relatedTrendBubble}
+                genderAgeTrend={data.genderAgeTrend}
+                snsTrend={data.snsTrend}
+              />
+              <section
+                id="keyword-trend"
+                className="scroll-mt-[16rem]"
+                ref={keywordTrendRef}
+              >
+                <KeywordTrend searchTrend={data.searchTrend} />
+                <KeywordDetailTrend
+                  genderTrend={data.genderTrend}
+                  ageTrend={data.ageTrend}
+                />
+              </section>
+              <section
+                id="related-trend"
+                className="scroll-mt-[16rem]"
+                ref={relatedTrendRef}
+              >
+                <RelatedKeyword
+                  naverBubble={data.naverBubble}
+                  googleBubble={data.googleBubble}
+                />
+                <KeywordRank keywordLank={data.keywordLank} />
+              </section>
+              <section
+                id="sns-trend"
+                className="scroll-mt-[16rem]"
+                ref={snsTrendRef}
+              >
+                <SNSContent data={data} />
+              </section>
+            </>
+          )}
         </InnerArea>
       </main>
     </>

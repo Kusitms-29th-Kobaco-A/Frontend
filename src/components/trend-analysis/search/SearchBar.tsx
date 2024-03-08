@@ -4,7 +4,19 @@ import RelatedKeywords from './RelatedKeywords';
 import useTAStep from '../../../hooks/useTAStep';
 import SearchBarOnboarding from './SearchBarOnboarding';
 
-const SearchBar = () => {
+interface Props {
+  searchKeyword: string;
+  setSearchKeyword: (searchKeyword: string) => void;
+  handleSearchSubmit: (e: React.FormEvent) => void;
+  isLoading: boolean;
+}
+
+const SearchBar = ({
+  searchKeyword,
+  setSearchKeyword,
+  handleSearchSubmit,
+  isLoading,
+}: Props) => {
   const { taStep, setTAStep, totalTAStep, handleDismiss } = useTAStep();
 
   return (
@@ -17,7 +29,7 @@ const SearchBar = () => {
           onConfirm={() => setTAStep(taStep + 1)}
           onDismiss={handleDismiss}
         >
-          <SearchBarContentBlock>
+          <SearchBarContentBlock onSubmit={handleSearchSubmit}>
             <SearchBarInputBlock>
               <i>
                 <img src="/icons/search-icon.svg" alt="검색 아이콘" />
@@ -25,13 +37,15 @@ const SearchBar = () => {
               <SearchBarInput
                 type="text"
                 placeholder="검색어를 입력하세요. (예시: 케이크)"
+                value={searchKeyword}
+                onChange={(e) => setSearchKeyword(e.target.value)}
               />
             </SearchBarInputBlock>
-            <SearchBarButton>검색</SearchBarButton>
+            <SearchBarButton type="submit">검색</SearchBarButton>
           </SearchBarContentBlock>
         </SearchBarOnboarding>
       </SearchBarBlock>
-      <RelatedKeywords />
+      {!isLoading && <RelatedKeywords />}
     </>
   );
 };
@@ -44,7 +58,7 @@ const SearchBarBlock = styled.div`
   width: 100%;
 `;
 
-const SearchBarContentBlock = styled.div`
+const SearchBarContentBlock = styled.form`
   background-color: #fff;
   margin: 1rem 0;
   width: 100%;

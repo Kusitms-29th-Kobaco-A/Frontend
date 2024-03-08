@@ -47,10 +47,6 @@ const SearchTopFixed = () => {
     };
   }, []);
 
-  useEffect(() => {
-    console.log(activeSection);
-  }, [activeSection]);
-
   return (
     <>
       {shouldRender && (

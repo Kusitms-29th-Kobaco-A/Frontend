@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-const KeywordRank = () => {
+interface Props {
+  keywordLank: any;
+}
+
+const KeywordRank = ({ keywordLank }: Props) => {
   return (
     <KeywordRankBlock>
       <Heading>
@@ -10,19 +14,17 @@ const KeywordRank = () => {
         구글에서 검색한 키워드의 연관 키워드 상위 10개를 기간별로 제공합니다.
       </Description>
       <WhiteBoxGroup>
-        {Array.from({ length: 4 }, (_, index) => index + 1).map((index) => (
+        {keywordLank.map((element: any, index: number) => (
           <WhiteRoundedBox key={index}>
-            <BoxHeading>2024.02.02 - 2024.02.10</BoxHeading>
+            <BoxHeading>{element.period}</BoxHeading>
             <RankListWrapper>
               <RankList>
-                {Array.from({ length: 10 }, (_, index) => index + 1).map(
-                  (th) => (
-                    <RankListItem key={th}>
-                      <b>{th}</b>
-                      <span>최대글자수는12자까지임</span>
-                    </RankListItem>
-                  ),
-                )}
+                {element.rankList.map((element: any) => (
+                  <RankListItem key={element.rank}>
+                    <b>{element.rank}</b>
+                    <span>{element.keyword}</span>
+                  </RankListItem>
+                ))}
               </RankList>
             </RankListWrapper>
           </WhiteRoundedBox>
@@ -73,15 +75,16 @@ const BoxHeading = styled.h3`
   text-align: center;
   font-weight: 700;
   line-height: 140%;
+  white-space: nowrap;
 `;
 
 const RankListWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: start;
 `;
 
 const RankList = styled.ul`
-  margin-top: 2.25rem;
+  margin-top: 1.5rem;
   color: #707887;
   line-height: 140%;
 `;

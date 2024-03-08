@@ -2,52 +2,15 @@ import styled from 'styled-components';
 import DoughnutChart from '../../ui/DoughnutChart';
 import BarChart from '../../ui/BarChart';
 
-const ViewAnalysis = () => {
-  const barData = [
-    {
-      age: '10대',
-      value: 20,
-      isActive: false,
-    },
-    {
-      age: '20대',
-      value: 60,
-      isActive: false,
-    },
-    {
-      age: '30대',
-      value: 70,
-      isActive: false,
-    },
-    {
-      age: '40대',
-      value: 80,
-      isActive: false,
-    },
-    {
-      age: '50대',
-      value: 50,
-      isActive: false,
-    },
-    {
-      age: '60대',
-      value: 30,
-      isActive: false,
-    },
-  ];
+interface Props {
+  youtubeGenderTrend: any;
+  youtubeAgeTrend: any;
+}
 
-  const doughnutData = [
-    {
-      xLabel: '여성',
-      yValue: 33,
-      isActive: false,
-    },
-    {
-      xLabel: '남성',
-      yValue: 67,
-      isActive: true,
-    },
-  ];
+const ViewAnalysis = ({ youtubeGenderTrend, youtubeAgeTrend }: Props) => {
+  const barData = youtubeAgeTrend;
+
+  const doughnutData = youtubeGenderTrend;
 
   return (
     <ViewAnalysisSection>

@@ -9,7 +9,13 @@ import RelatedOnboarding from './RelatedOnboarding';
 import KeywordOnboarding from './KeywordOnboarding';
 import SNSOnboarding from './SNSOnboarding';
 
-const Dashboard = () => {
+interface Props {
+  relatedTrendBubble: any;
+  genderAgeTrend: any;
+  snsTrend: any;
+}
+
+const Dashboard = ({ relatedTrendBubble, genderAgeTrend, snsTrend }: Props) => {
   const { taStep, setTAStep, totalTAStep, handleDismiss } = useTAStep();
 
   useEffect(() => {
@@ -29,7 +35,7 @@ const Dashboard = () => {
           onConfirm={() => setTAStep(taStep + 1)}
           onDismiss={handleDismiss}
         >
-          <RelatedSection />
+          <RelatedSection relatedTrendBubble={relatedTrendBubble} />
         </RelatedOnboarding>
       </Left>
       <Right>
@@ -40,7 +46,7 @@ const Dashboard = () => {
           onConfirm={() => setTAStep(taStep + 1)}
           onDismiss={handleDismiss}
         >
-          <KeywordSection />
+          <KeywordSection genderAgeTrend={genderAgeTrend} />
         </KeywordOnboarding>
         <SNSOnboarding
           isVisible={taStep === 5}
@@ -49,7 +55,7 @@ const Dashboard = () => {
           onConfirm={() => setTAStep(taStep + 1)}
           onDismiss={handleDismiss}
         >
-          <SNSSection />
+          <SNSSection snsTrend={snsTrend} />
         </SNSOnboarding>
       </Right>
     </DashboardBlock>
