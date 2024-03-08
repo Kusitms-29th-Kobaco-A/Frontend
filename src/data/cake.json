@@ -15,27 +15,27 @@
   "genderAgeTrend": [
     {
       "xLabel": "10대",
-      "yValue": [4, 16]
+      "yValue": [2, 8]
     },
     {
       "xLabel": "20대",
-      "yValue": [20, 40]
+      "yValue": [10, 20]
     },
     {
       "xLabel": "30대",
-      "yValue": [10, 60]
+      "yValue": [5, 30]
     },
     {
       "xLabel": "40대",
-      "yValue": [6, 24]
+      "yValue": [3, 12]
     },
     {
       "xLabel": "50대",
-      "yValue": [2, 8]
+      "yValue": [1, 4]
     },
     {
       "xLabel": "60대",
-      "yValue": [2, 8]
+      "yValue": [1, 4]
     }
   ],
   "snsTrend": [
@@ -111,7 +111,7 @@
   "ageTrend": [
     {
       "xLabel": "10대",
-      "yValue": 30
+      "yValue": 10
     },
     {
       "xLabel": "20대",
@@ -119,19 +119,19 @@
     },
     {
       "xLabel": "30대",
-      "yValue": 62
+      "yValue": 35
     },
     {
       "xLabel": "40대",
-      "yValue": 80
+      "yValue": 15
     },
     {
       "xLabel": "50대",
-      "yValue": 50
+      "yValue": 5
     },
     {
       "xLabel": "60대",
-      "yValue": 30
+      "yValue": 5
     }
   ],
   "naverBubble": [
@@ -505,27 +505,27 @@
   "youtubeAgeTrend": [
     {
       "xLabel": "10대",
-      "yValue": 60
+      "yValue": 30
     },
     {
       "xLabel": "20대",
-      "yValue": 80
+      "yValue": 40
     },
     {
       "xLabel": "30대",
-      "yValue": 20
+      "yValue": 10
     },
     {
       "xLabel": "40대",
-      "yValue": 20
+      "yValue": 10
     },
     {
       "xLabel": "50대",
-      "yValue": 10
+      "yValue": 5
     },
     {
       "xLabel": "60대",
-      "yValue": 10
+      "yValue": 5
     }
   ]
 }

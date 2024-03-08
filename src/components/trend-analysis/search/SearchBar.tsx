@@ -36,7 +36,7 @@ const SearchBar = ({
               </i>
               <SearchBarInput
                 type="text"
-                placeholder="검색어를 입력하세요. (예시: 케이크)"
+                placeholder="검색어를 입력하세요. (예시: 케이크, 비건)"
                 value={searchKeyword}
                 onChange={(e) => setSearchKeyword(e.target.value)}
               />
