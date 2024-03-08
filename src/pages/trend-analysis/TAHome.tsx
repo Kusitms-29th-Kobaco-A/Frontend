@@ -23,7 +23,9 @@ const TAHome = () => {
   const relatedTrendRef = useRef<HTMLDivElement>(null);
   const snsTrendRef = useRef<HTMLDivElement>(null);
 
-  const [searchKeyword, setSearchKeyword] = useState('');
+  const [searchKeyword, setSearchKeyword] = useState(
+    localStorage.getItem('ta-step-boarding') !== 'true' ? '케이크' : '',
+  );
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {
@@ -48,23 +50,24 @@ const TAHome = () => {
   useEffect(() => {
     if (localStorage.getItem('ta-step-boarding') === null) {
       localStorage.setItem('ta-step-boarding', 'false');
+      handleSearchSubmit();
     }
-    // if (localStorage.getItem('ta-step-boarding') === 'true') {
-    //   document.body.style.overflow = 'auto';
-    //   setTAStep(0);
-    //   return;
-    // }
-    // if (taStep === 0 || taStep > totalTAStep) {
-    //   document.body.style.overflow = 'auto';
-    //   localStorage.setItem('ta-step-boarding', 'true');
-    // } else {
-    //   document.body.style.overflow = 'hidden';
-    //   localStorage.setItem('ta-step-boarding', 'false');
-    // }
+    if (localStorage.getItem('ta-step-boarding') === 'true') {
+      document.body.style.overflow = 'auto';
+      setTAStep(0);
+      return;
+    }
+    if (taStep === 0 || taStep > totalTAStep) {
+      document.body.style.overflow = 'auto';
+      localStorage.setItem('ta-step-boarding', 'true');
+    } else {
+      document.body.style.overflow = 'hidden';
+      localStorage.setItem('ta-step-boarding', 'false');
+    }
   }, [taStep, totalTAStep]);
 
-  const handleSearchSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSearchSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     if (searchKeyword === '케이크') {
       const res = await axios.get('/src/data/cake.json');
       setData(res.data);
@@ -79,8 +82,8 @@ const TAHome = () => {
   const isLoading = !data;
 
   return (
-    <>
-      <SearchTopFixed />
+    <div className="min-h-[calc(100vh-10.125rem)] bg-[#F5F6F6] pb-[10rem]">
+      <SearchTopFixed searchKeyword={searchKeyword} />
       <main>
         <InnerArea>
           <SearchBar
@@ -129,7 +132,7 @@ const TAHome = () => {
           )}
         </InnerArea>
       </main>
-    </>
+    </div>
   );
 };
 

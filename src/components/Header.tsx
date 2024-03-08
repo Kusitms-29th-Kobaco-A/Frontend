@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import styled from "styled-components";
-import kobaco from "../assets/header/KobacoLogo.svg";
-import { useLocation, useNavigate } from "react-router-dom";
+import styled from 'styled-components';
+import kobaco from '../assets/header/KobacoLogo.svg';
+import { useLocation, useNavigate } from 'react-router-dom';
+import HeaderTAOnboarding from './HeaderTAOnboarding';
+import useTAStep from '../hooks/useTAStep';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -10,14 +12,15 @@ const Header = () => {
   const location = useLocation();
   const menuState = location.state?.menuState;
   // 로그인 성공시 토큰 여부로 확인
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
+
+  const { taStep, setTAStep, totalTAStep, handleDismiss } = useTAStep();
 
   // 로그아웃
   const logout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
+    localStorage.removeItem('token');
+    navigate('/');
   };
-
 
   return (
     <HeaderComponent>
@@ -42,7 +45,7 @@ const Header = () => {
           <TopBarRightComponent>
             <TopBarText
               onClick={() => {
-                navigate("/login");
+                navigate('/login');
               }}
             >
               로그인
@@ -53,60 +56,47 @@ const Header = () => {
         )}
       </HeaderTopBar>
 
-
       {/* 메뉴바 부분 표현 */}
       {/* 어떤 페이지인지에 따라 붉은색으로 텍스트 표시 */}
       <HeaderMenuBar>
         <VisibleMenuComponent>
           <TotalMenuComponent>
-            {menuState === "archive" ? (
-              <MenuBox
-                menuColor="#D33B4D"
-                onClick={() => {
-                  navigate("/archive", {
-                    state: {
-                      menuState: "archive",
-                    },
-                  });
-                }}
-              >
-                레퍼런스 탐색
-              </MenuBox>
-            ) : (
-              <MenuBox
-                onClick={() => {
-                  navigate("/archive", {
-                    state: {
-                      menuState: "archive",
-                    },
-                  });
-                }}
-              >
-                레퍼런스 탐색
-              </MenuBox>
-            )}
-            {menuState==="trend"?
             <MenuBox
-            menuColor="#D33B4D"
-            onClick={()=>{
-              navigate("/trend-analysis",{
-                state:{
-                  menuState:"trend",
-                }
-              })
-            }}>검색어 트렌드</MenuBox>: <MenuBox
-            onClick={()=>{
-              navigate("/trend-analysis",{
-                state:{
-                  menuState:"trend",
-                }
-              })
-            }}>검색어 트렌드</MenuBox>
-          }
-
-          
-
-     
+              menuColor={menuState === 'archive' ? '#D33B4D' : undefined}
+              onClick={() => {
+                navigate('/archive', {
+                  state: {
+                    menuState: 'archive',
+                  },
+                });
+              }}
+            >
+              레퍼런스 탐색
+            </MenuBox>
+            <HeaderTAOnboarding
+              isVisible={
+                localStorage.getItem('ta-step-boarding') !== 'true' &&
+                location.pathname === '/trend-analysis' &&
+                taStep === 1
+              }
+              currentStep={taStep}
+              totalStep={totalTAStep}
+              onConfirm={() => setTAStep(taStep + 1)}
+              onDismiss={handleDismiss}
+            >
+              <MenuBox
+                menuColor={menuState === 'trend' ? '#D33B4D' : undefined}
+                onClick={() => {
+                  navigate('/trend-analysis', {
+                    state: {
+                      menuState: 'trend',
+                    },
+                  });
+                }}
+              >
+                검색어 트렌드
+              </MenuBox>
+            </HeaderTAOnboarding>
             <MenuBox>광고 카피 제작</MenuBox>
             <MenuBox>스토리보드 제작</MenuBox>
             <MenuBox>소통공간</MenuBox>
@@ -187,7 +177,6 @@ const VisibleMenuComponent = styled.section`
 `;
 
 const TotalMenuComponent = styled.div`
-
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -197,7 +186,7 @@ const TotalMenuComponent = styled.div`
   width: 100%;
 `;
 const MenuBox = styled.div<{ menuColor?: string }>`
-  color: ${(props) => props.menuColor || " #27272e"};
+  color: ${(props) => props.menuColor || ' #27272e'};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -209,5 +198,5 @@ const MenuBox = styled.div<{ menuColor?: string }>`
   line-height: 140%;
   letter-spacing: -0.4px;
   cursor: pointer;
+  background-color: white;
 `;
-

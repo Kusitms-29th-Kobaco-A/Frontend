@@ -26,6 +26,7 @@ const RelatedKeywordsBlock = styled.div`
   gap: 0.75rem;
   color: #707887;
   font-weight: 300;
+  margin-top: 1rem;
 
   .label {
     font-weight: 600;
