@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useSearchParams } from 'react-router-dom';
@@ -48,18 +49,18 @@ const TAHome = () => {
     if (localStorage.getItem('ta-step-boarding') === null) {
       localStorage.setItem('ta-step-boarding', 'false');
     }
-    if (localStorage.getItem('ta-step-boarding') === 'true') {
-      document.body.style.overflow = 'auto';
-      setTAStep(0);
-      return;
-    }
-    if (taStep === 0 || taStep > totalTAStep) {
-      document.body.style.overflow = 'auto';
-      localStorage.setItem('ta-step-boarding', 'true');
-    } else {
-      document.body.style.overflow = 'hidden';
-      localStorage.setItem('ta-step-boarding', 'false');
-    }
+    // if (localStorage.getItem('ta-step-boarding') === 'true') {
+    //   document.body.style.overflow = 'auto';
+    //   setTAStep(0);
+    //   return;
+    // }
+    // if (taStep === 0 || taStep > totalTAStep) {
+    //   document.body.style.overflow = 'auto';
+    //   localStorage.setItem('ta-step-boarding', 'true');
+    // } else {
+    //   document.body.style.overflow = 'hidden';
+    //   localStorage.setItem('ta-step-boarding', 'false');
+    // }
   }, [taStep, totalTAStep]);
 
   const handleSearchSubmit = async (e: React.FormEvent) => {
