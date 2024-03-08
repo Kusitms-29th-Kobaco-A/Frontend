@@ -3,12 +3,16 @@ import HashTagSection from './HashTagSection';
 import PostSection from './PostSection';
 import TrendContents from './TrendContents';
 
-const InstagramContent = () => {
+interface Props {
+  data: any;
+}
+
+const InstagramContent = ({ data }: Props) => {
   return (
     <>
-      <HashTagSection />
-      <AdGraphSection />
-      <PostSection />
+      <HashTagSection instagramHashTag={data.instagramHashTag} />
+      <AdGraphSection instagramAd={data.instagramAd} />
+      <PostSection instagramPost={data.instagramPost} />
       <TrendContents />
     </>
   );

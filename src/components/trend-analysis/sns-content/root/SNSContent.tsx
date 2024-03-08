@@ -4,7 +4,11 @@ import InstagramContent from '../instagram/InstagramContent';
 import { useState } from 'react';
 import YoutubeContent from '../youtube/YoutubeContent';
 
-const SNSContent = () => {
+interface Props {
+  data: any;
+}
+
+const SNSContent = ({ data }: Props) => {
   const [activeMenu, setActiveMenu] = useState<'INSTAGRAM' | 'YOUTUBE'>(
     'INSTAGRAM',
   );
@@ -28,9 +32,9 @@ const SNSContent = () => {
         </TopMenu>
       </TopMenuWrapper>
       {activeMenu === 'INSTAGRAM' ? (
-        <InstagramContent />
+        <InstagramContent data={data} />
       ) : (
-        activeMenu === 'YOUTUBE' && <YoutubeContent />
+        activeMenu === 'YOUTUBE' && <YoutubeContent data={data} />
       )}
     </SNSContentBlock>
   );

@@ -1,26 +1,12 @@
 import clsx from 'clsx';
 import styled from 'styled-components';
 
-const HashTagSection = () => {
-  const tagList = [
-    { name: '생일케이크', isActive: true },
-    { name: '결혼식케이크', isActive: false },
-    { name: '초콜릿케이크', isActive: true },
-    { name: '바닐라케이크', isActive: false },
-    { name: '치즈케이크', isActive: true },
-    { name: '컵케이크', isActive: false },
-    { name: '층케이크', isActive: true },
-    { name: '과일케이크', isActive: false },
-    { name: '😀', isActive: true },
-    { name: '스펀지케이크', isActive: false },
-    { name: '크림케이크', isActive: false },
-    { name: '레드벨벳케이크', isActive: true },
-    { name: '마카롱케이크', isActive: false },
-    { name: '아이스크림케이크', isActive: false },
-    { name: '무스케이크', isActive: false },
-    { name: '캐롯케이크', isActive: false },
-    { name: '👍', isActive: false },
-  ];
+interface Props {
+  instagramHashTag: any;
+}
+
+const HashTagSection = ({ instagramHashTag }: Props) => {
+  const tagList = instagramHashTag;
 
   return (
     <HashTagSectionBlock>
@@ -33,11 +19,13 @@ const HashTagSection = () => {
       </Description>
       <WhiteRoundedBox>
         <TagList>
-          {tagList.map((tag, index) => (
-            <li key={index} className={clsx({ active: tag.isActive })}>
-              #{tag.name}
-            </li>
-          ))}
+          {tagList.map(
+            (tag: { name: string; isActive: boolean }, index: number) => (
+              <li key={index} className={clsx({ active: tag.isActive })}>
+                #{tag.name}
+              </li>
+            ),
+          )}
         </TagList>
       </WhiteRoundedBox>
       <BottomText>

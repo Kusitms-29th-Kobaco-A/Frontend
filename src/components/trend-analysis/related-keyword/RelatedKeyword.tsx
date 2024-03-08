@@ -1,6 +1,13 @@
 import styled from 'styled-components';
+import NaverBubble from './NaverBubble';
+import GoogleBubble from './GoogleBubble';
 
-const RelatedKeyword = () => {
+interface Props {
+  naverBubble: any;
+  googleBubble: any;
+}
+
+const RelatedKeyword = ({ naverBubble, googleBubble }: Props) => {
   return (
     <RelatedKeywordBlock>
       <Heading>
@@ -18,12 +25,9 @@ const RelatedKeyword = () => {
             </i>
             <span>네이버 연관 키워드</span>
           </IconWrapper>
-          <ChartPlaceholder>
-            <img
-              src="/images/graph-placeholder/bubble-naver.svg"
-              alt="네이버 버블 차트 이미지"
-            />
-          </ChartPlaceholder>
+          <ChartWrapper>
+            <NaverBubble naverBubble={naverBubble} />
+          </ChartWrapper>
         </WhiteRoundedBox>
         <WhiteRoundedBox>
           <IconWrapper>
@@ -32,12 +36,9 @@ const RelatedKeyword = () => {
             </i>
             <span>구글 연관 키워드</span>
           </IconWrapper>
-          <ChartPlaceholder>
-            <img
-              src="/images/graph-placeholder/bubble-google.svg"
-              alt="구글 버블 차트 이미지"
-            />
-          </ChartPlaceholder>
+          <ChartWrapper>
+            <GoogleBubble googleBubble={googleBubble} />
+          </ChartWrapper>
         </WhiteRoundedBox>
       </WhiteBoxGroup>
       <BottomText>
@@ -99,13 +100,8 @@ const IconWrapper = styled.div`
   }
 `;
 
-const ChartPlaceholder = styled.div`
-  margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 1rem;
-  padding-bottom: 3rem;
+const ChartWrapper = styled.div`
+  padding-bottom: 2rem;
 `;
 
 const BottomText = styled.p`

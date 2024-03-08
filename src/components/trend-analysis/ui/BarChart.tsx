@@ -9,18 +9,23 @@ const BarChart = ({ data }: Props) => {
   let max = 0;
   let maxIndex = 0;
   for (let i = 0; i < data.length; i++) {
-    if (data[i].value > max) {
-      max = data[i].value;
+    if (data[i].yValue > max) {
+      max = data[i].yValue;
       maxIndex = i;
     }
   }
-  data[maxIndex].isActive = true;
+  data = data.map(
+    (
+      item: { age: string; value: number; isActive: boolean },
+      index: number,
+    ) => ({ ...item, isActive: index === maxIndex }),
+  );
 
   return (
     <ChartWrapper>
       {data.map(
         (
-          item: { age: string; value: number; isActive: boolean },
+          item: { xLabel: string; yValue: number; isActive: boolean },
           index: number,
         ) => (
           <ChartBarGroup key={index}>
@@ -29,10 +34,10 @@ const BarChart = ({ data }: Props) => {
                 active: item.isActive,
               })}
             >
-              {item.value}%
+              {item.yValue}%
             </span>
             <ChartBar
-              y={item.value}
+              y={item.yValue}
               className={clsx({
                 active: item.isActive,
               })}
@@ -42,7 +47,7 @@ const BarChart = ({ data }: Props) => {
                 active: item.isActive,
               })}
             >
-              {item.age}
+              {item.xLabel}
             </span>
           </ChartBarGroup>
         ),

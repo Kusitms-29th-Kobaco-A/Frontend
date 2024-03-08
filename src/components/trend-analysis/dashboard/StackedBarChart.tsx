@@ -1,73 +1,51 @@
 import clsx from 'clsx';
 import { styled } from 'styled-components';
 
-const StackedBarChart = () => {
-  const data = [
-    {
-      age: '10대',
-      value: [30, 20],
-      isActive: false,
-    },
-    {
-      age: '20대',
-      value: [50, 20],
-      isActive: false,
-    },
-    {
-      age: '30대',
-      value: [10, 20],
-      isActive: false,
-    },
-    {
-      age: '40대',
-      value: [30, 40],
-      isActive: false,
-    },
-    {
-      age: '50대',
-      value: [20, 60],
-      isActive: false,
-    },
-    {
-      age: '60대',
-      value: [10, 50],
-      isActive: false,
-    },
-  ];
+interface Props {
+  genderAgeTrend: any;
+}
+
+const StackedBarChart = ({ genderAgeTrend }: Props) => {
+  let data = genderAgeTrend;
 
   let max = 0;
   let maxIndex = 0;
   for (let i = 0; i < data.length; i++) {
-    const sum = data[i].value[0] + data[i].value[1];
+    const sum = data[i].yValue[0] + data[i].yValue[1];
     if (sum > max) {
       max = sum;
       maxIndex = i;
     }
   }
-  data[maxIndex].isActive = true;
+  data = data.map(
+    (item: { xLabel: string; yValue: number[] }, index: number) => ({
+      ...item,
+      isActive: index === maxIndex ? true : false,
+    }),
+  );
 
   return (
     <ChartWrapper>
       {data.map(
         (
-          item: { age: string; value: number[]; isActive: boolean },
+          item: { xLabel: string; yValue: number[]; isActive: boolean },
           index: number,
         ) => (
           <ChartBarGroup key={index}>
             <ChartBar
-              y={item.value[0] + item.value[1]}
+              y={item.yValue[0] + item.yValue[1]}
               className={clsx({
                 active: item.isActive,
               })}
             >
               <ChartTopBar
                 yPercent={
-                  (item.value[0] / (item.value[0] + item.value[1])) * 100
+                  (item.yValue[0] / (item.yValue[0] + item.yValue[1])) * 100
                 }
               />
               <ChartBottomBar
                 yPercent={
-                  (item.value[1] / (item.value[0] + item.value[1])) * 100
+                  (item.yValue[1] / (item.yValue[0] + item.yValue[1])) * 100
                 }
               />
             </ChartBar>
@@ -76,7 +54,7 @@ const StackedBarChart = () => {
                 active: item.isActive,
               })}
             >
-              {item.age}
+              {item.xLabel}
             </span>
           </ChartBarGroup>
         ),

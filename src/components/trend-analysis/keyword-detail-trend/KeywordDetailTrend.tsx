@@ -4,52 +4,15 @@ import BottomArea from './BottomArea';
 import BarChart from '../ui/BarChart';
 import DoughnutChart from '../ui/DoughnutChart';
 
-const KeywordDetailTrend = () => {
-  const barData = [
-    {
-      age: '10대',
-      value: 30,
-      isActive: false,
-    },
-    {
-      age: '20대',
-      value: 30,
-      isActive: false,
-    },
-    {
-      age: '30대',
-      value: 62,
-      isActive: false,
-    },
-    {
-      age: '40대',
-      value: 80,
-      isActive: false,
-    },
-    {
-      age: '50대',
-      value: 50,
-      isActive: false,
-    },
-    {
-      age: '60대',
-      value: 30,
-      isActive: false,
-    },
-  ];
+interface Props {
+  genderTrend: any;
+  ageTrend: any;
+}
 
-  const doughnutData = [
-    {
-      xLabel: '여성',
-      yValue: 55,
-      isActive: false,
-    },
-    {
-      xLabel: '남성',
-      yValue: 45,
-      isActive: false,
-    },
-  ];
+const KeywordDetailTrend = ({ genderTrend, ageTrend }: Props) => {
+  const barData = ageTrend;
+
+  const doughnutData = genderTrend;
 
   return (
     <KeywordTrendDetailSection>
