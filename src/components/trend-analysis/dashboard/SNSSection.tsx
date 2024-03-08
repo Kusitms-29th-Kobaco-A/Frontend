@@ -11,6 +11,10 @@ import {
 import { Line } from 'react-chartjs-2';
 import styled from 'styled-components';
 
+interface Props {
+  snsTrend: any;
+}
+
 Chart.register(
   CategoryScale,
   LinearScale,
@@ -21,7 +25,7 @@ Chart.register(
   Filler,
 );
 
-const SNSSection = () => {
+const SNSSection = ({ snsTrend }: Props) => {
   const options = {
     scales: {
       x: {
@@ -44,10 +48,14 @@ const SNSSection = () => {
   };
 
   const graphData = {
-    labels: [1, 2, 3, 4, 1, 2, 3],
+    labels: snsTrend.map(
+      (item: { xLabel: string; yValue: number }) => item.xLabel,
+    ),
     datasets: [
       {
-        data: [80, 50, 40, 90, 40, 20, 80],
+        data: snsTrend.map(
+          (item: { xLabel: string; yValue: number }) => item.yValue,
+        ),
         fill: true,
         backgroundColor: ({
           chart: { ctx },

@@ -2,11 +2,18 @@ import HashTagSection from './HashTagSection';
 import TrendContents from './TrendContents';
 import ViewAnalysis from './ViewAnalysis';
 
-const YoutubeContent = () => {
+interface Props {
+  data: any;
+}
+
+const YoutubeContent = ({ data }: Props) => {
   return (
     <>
-      <HashTagSection />
-      <ViewAnalysis />
+      <HashTagSection youtubeHashTag={data.youtubeHashTag} />
+      <ViewAnalysis
+        youtubeGenderTrend={data.youtubeGenderTrend}
+        youtubeAgeTrend={data.youtubeAgeTrend}
+      />
       <TrendContents />
     </>
   );

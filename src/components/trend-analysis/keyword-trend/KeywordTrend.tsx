@@ -21,7 +21,11 @@ Chart.register(
   Filler,
 );
 
-const KeywordTrend = () => {
+interface Props {
+  searchTrend: any;
+}
+
+const KeywordTrend = ({ searchTrend }: Props) => {
   const options = {
     scales: {
       x: {
@@ -46,15 +50,14 @@ const KeywordTrend = () => {
   };
 
   const graphData = {
-    labels: [
-      1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1,
-    ],
+    labels: searchTrend.map(
+      (item: { xLabel: string; yValue: number }) => item.xLabel,
+    ),
     datasets: [
       {
-        data: [
-          80, 50, 40, 14, 40, 20, 80, 50, 10, 40, 50, 40, 20, 80, 10, 80, 20,
-          20, 40, 10, 50, 50, 10, 80, 20,
-        ],
+        data: searchTrend.map(
+          (item: { xLabel: string; yValue: number }) => item.yValue,
+        ),
         fill: true,
         backgroundColor: ({
           chart: { ctx },

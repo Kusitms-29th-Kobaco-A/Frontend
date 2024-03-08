@@ -1,16 +1,11 @@
 import styled from 'styled-components';
 
-const AdGraphSection = () => {
-  const data = [
-    {
-      label: '광고',
-      value: 20,
-    },
-    {
-      label: '비광고',
-      value: 80,
-    },
-  ];
+interface Props {
+  instagramAd: any;
+}
+
+const AdGraphSection = ({ instagramAd }: Props) => {
+  const data = instagramAd;
 
   return (
     <AdGraphSectionBlock>
@@ -25,11 +20,11 @@ const AdGraphSection = () => {
         <Legend>
           <LegendItem>
             <div className="color-box ad" />
-            <span className="label">{data[0].label}</span>
+            <span className="label">{data[0].xLabel}</span>
           </LegendItem>
           <LegendItem>
             <div className="color-box no-ad" />
-            <span className="label">{data[1].label}</span>
+            <span className="label">{data[1].xLabel}</span>
           </LegendItem>
         </Legend>
         <ChartContent>
@@ -54,14 +49,14 @@ const AdGraphSection = () => {
           </BackgroundLine>
           <ChartBarGroup>
             <ChartBar yPercent={20} color="#FD929F">
-              <span className="top-label">{data[0].value}%</span>
+              <span className="top-label">{data[0].yValue}%</span>
               <div className="bar" />
-              <span className="bottom-label">{data[0].label}</span>
+              <span className="bottom-label">{data[0].xLabel}</span>
             </ChartBar>
             <ChartBar yPercent={80} color="#D33B4D">
-              <span className="top-label">{data[1].value}%</span>
+              <span className="top-label">{data[1].yValue}%</span>
               <div className="bar" />
-              <span className="bottom-label">{data[0].label}</span>
+              <span className="bottom-label">{data[1].xLabel}</span>
             </ChartBar>
           </ChartBarGroup>
         </ChartContent>

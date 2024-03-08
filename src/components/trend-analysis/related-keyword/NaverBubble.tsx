@@ -1,10 +1,10 @@
 import BubbleChart from '@weknow/react-bubble-chart-d3';
 
 interface Props {
-  relatedTrendBubble: any;
+  naverBubble: any;
 }
 
-const BubbleForceChart = ({ relatedTrendBubble }: Props) => {
+const NaverBubble = ({ naverBubble }: Props) => {
   return (
     <BubbleChart
       graph={{
@@ -29,9 +29,9 @@ const BubbleForceChart = ({ relatedTrendBubble }: Props) => {
         weight: 'bold',
       }}
       //Custom bubble/legend click functions such as searching using the label, redirecting to other page
-      data={relatedTrendBubble}
+      data={naverBubble}
     />
   );
 };
 
-export default BubbleForceChart;
+export default NaverBubble;
