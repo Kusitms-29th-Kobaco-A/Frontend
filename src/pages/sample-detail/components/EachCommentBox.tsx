@@ -96,8 +96,6 @@ const CommentBox = styled.div`
 
 const CommentId = styled.div`
   color: var(--Gray-9, #27272e);
-
-  /* Body/6 */
   font-family: "Noto Sans KR";
   font-size: 12px;
   font-style: normal;
@@ -109,7 +107,6 @@ const CommentContent = styled.div`
   width: 100%;
   color: var(--Gray-7, #707887);
   margin-top: 7px;
-  /* Detail/4 */
   font-family: "Noto Sans KR";
   font-size: 14px;
   font-style: normal;
@@ -120,7 +117,6 @@ const CommentContent = styled.div`
 
 const RowComponent = styled.div`
   margin-top: 4px;
-
   display: flex;
   align-items: center;
 `;
@@ -136,7 +132,6 @@ const ThumbsCountText = styled.div`
   color: var(--Gray-7, #707887);
   text-align: center;
   margin-left: 2px;
-  /* Detail/5 */
   font-family: "Noto Sans KR";
   font-size: 12px;
   font-style: normal;

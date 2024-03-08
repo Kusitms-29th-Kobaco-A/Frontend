@@ -1,45 +1,74 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from "styled-components";
-import Header from "../../components/Header";
-// import TotalVideos from "./components/TotalVideos";
-import Footer from "../../components/Footer";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import bottomArrow from "../../assets/archive/BottomArrow.svg";
-import dotImg from "../../assets/archive/DotDotDot.svg";
-import folder from "../../assets/archive/Folder.svg";
-import fillFolder from "../../assets/archive/FillFolder.svg";
-import rightArrow from "../../assets/archive/PlayBtn.svg";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import Pagination from "react-js-pagination";
 import "../archive-main/components/paging.css";
 
+import bottomArrow from "../../assets/archive/BottomArrow.svg";
+import dotImg from "../../assets/archive/DotDotDot.svg";
+import folder from "../../assets/archive/Folder.svg";
+import fillFolder from "../../assets/archive/FillFolder.svg";
+import rightArrow from "../../assets/archive/PlayBtn.svg";
 import trash from "../../assets/archive/Trash.svg";
 import move from "../../assets/archive/Move.svg";
 import xCircle from "../../assets/archive/XCircle.svg";
-import SelectDirectory from "../../components/SelectDirectory";
 import plusImg from "../../assets/archive/Plus.svg";
 
-// 랜딩페이지
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+
 const ArchiveSavedVideosDetail = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   const { state } = useLocation();
   const parentDirectoryId = state.parentDirectoryId;
   const id = useParams();
   console.log(id);
+
   //   여기서는 string형이므로 나중에 꼭 number로 바꿔주기
   const directoryIdString = id.directoryId;
   const directoryId = directoryIdString
     ? parseInt(directoryIdString, 10)
     : null;
-
-  const token = localStorage.getItem("token");
-  console.log(directoryId);
+  // 최상단 디렉토리 정보
   const [rootDirectoryInfo, setRootDirectoryInfo] = useState<any>({});
+  // 현재 작업중인 디렉토리 정보
   const [currentDirectoryInfo, setCurrentDirectoryInfo] = useState<any>({});
+  // 최상단 디렉토리 내부 폴더들 열린 상태
+  const [isOpenRootDirectory, setIsOpenRootDirectory] =
+    useState<boolean>(false);
+  // 세팅 (삭제,이동) 등 모달 오픈 상태
+  const [isOpenSettingDirectory, setIsOpenSettingDirectory] =
+    useState<boolean>(false);
+  // 어떤 파일인지 파일타입 지정
+  type SelectedType = "전체" | "폴더" | "영상" | "캡쳐화면";
+  // 선택된 타입
+  const [selectedType, setSelectedType] = useState<SelectedType>("전체");
+  //페이징을 위한 page 변수선언
+  const [page, setPage] = useState<number>(1);
+  // 파일 삭제 및 이동 선택할 수 있는 상태
+  const [isSelectState, setIsSelectState] = useState<boolean>(false);
+  const [selectedFileIds, setSelectedFileIds] = useState<any>([]);
+  // 폴더 이동 시 선택된 폴더 정보
+  const [selectedFolder, setSelectedFolder] = useState<number | null>(null);
+  // 파일 이동 완료 시 상태
+  const [isOpenMoveConfirmModal, setIsOpenMoveConfirmModal] = useState(false);
+  // 디렉토리 이동 모달 상태
+  const [isOpenMoveDirectoryModal, setIsOpenMoveDirectoryModal] =
+    useState<boolean>(false);
+  // 파일 삭제 완료 시 상태
+  const [isOpenConfirmDeleteModal, setIsOpenConfirmDeleteModal] =
+    useState<boolean>(false);
+  // 새 폴더 만들기 선택 시
+  const [isOpenNewFolder, setIsOpenNewFolder] = useState<boolean>(false);
+  // 폴더 이름을 관리할 상태
+  const [folderName, setFolderName] = useState("");
 
+  // 현재 정보 받기 api
   const getCurrentDirectoryInfo = useCallback(async () => {
     try {
       await axios
@@ -57,6 +86,7 @@ const ArchiveSavedVideosDetail = () => {
     }
   }, [directoryId, token]);
 
+  // 최상단 정보 받기 api
   const getRootDirectoryInfo = useCallback(async () => {
     try {
       await axios
@@ -74,11 +104,7 @@ const ArchiveSavedVideosDetail = () => {
     }
   }, [token]);
 
-  const [isOpenRootDirectory, setIsOpenRootDirectory] =
-    useState<boolean>(false);
-  const [isOpenSettingDirectory, setIsOpenSettingDirectory] =
-    useState<boolean>(false);
-
+  // 하나만 열리도록
   const handleRootDirectory = () => {
     if (!isOpenRootDirectory) {
       setIsOpenSettingDirectory(false);
@@ -97,16 +123,10 @@ const ArchiveSavedVideosDetail = () => {
     getRootDirectoryInfo();
   }, [getCurrentDirectoryInfo, getRootDirectoryInfo, directoryId]);
 
-  type SelectedType = "전체" | "폴더" | "영상" | "캡쳐화면";
-
-  const [selectedType, setSelectedType] = useState<SelectedType>("전체");
-
+  // 타입 선택
   const handleSelectType = (type: SelectedType) => {
     setSelectedType(type);
   };
-
-  //페이징을 위한 page 변수선언
-  const [page, setPage] = useState<number>(1);
 
   // 페이지 이동함수
   const handlePageChange = (page: number) => {
@@ -114,20 +134,17 @@ const ArchiveSavedVideosDetail = () => {
     console.log(page);
   };
 
-  // 파일 삭제 및 이동 선택할 수 있는 상태
-  const [isSelectState, setIsSelectState] = useState<boolean>(false);
-  const [selectedFileIds, setSelectedFileIds] = useState<any>([]);
-
+  // 파일을 선택할 수 있는 모드 open, close
   const selectModeOpen = () => {
     setIsSelectState(true);
     setIsOpenSettingDirectory(false);
   };
-
   const selectModeClose = () => {
     setIsSelectState(false);
     setSelectedFileIds([]);
   };
 
+  // 파일 선택 부분
   const handleFileClick = (fileId: number) => {
     if (isSelectState) {
       setSelectedFileIds((prev: any) => {
@@ -142,6 +159,7 @@ const ArchiveSavedVideosDetail = () => {
     }
   };
 
+  // 파일 삭제 시 api
   const deleteSelectedFiles = useCallback(async () => {
     try {
       if (selectedFileIds.length === 0) {
@@ -168,9 +186,7 @@ const ArchiveSavedVideosDetail = () => {
     }
   }, [selectedFileIds, token, getCurrentDirectoryInfo]);
 
-  const [selectedFolder, setSelectedFolder] = useState<number | null>(null);
-  const [isOpenMoveConfirmModal, setIsOpenMoveConfirmModal] = useState(false);
-
+  // 파일 이동 모달창
   const openMoveDirectoryModal = () => {
     if (selectedFileIds.length === 0) {
       alert("파일을 선택해주세요.");
@@ -180,6 +196,7 @@ const ArchiveSavedVideosDetail = () => {
     }
   };
 
+  // 파일 이동 api
   const moveDirectory = async () => {
     try {
       for (const fileId of selectedFileIds) {
@@ -208,25 +225,16 @@ const ArchiveSavedVideosDetail = () => {
     }
   };
 
-  const [isOpenMoveDirectoryModal, setIsOpenMoveDirectoryModal] =
-    useState<boolean>(false);
-
+  // 디렉 토리 이동 창 취소
   const closeMoveDirectoryModal = () => {
     setIsOpenMoveDirectoryModal(false);
   };
 
-  const [isOpenConfirmDeleteModal, setIsOpenConfirmDeleteModal] =
-    useState<boolean>(false);
-
-  const [isOpenNewFolder, setIsOpenNewFolder] = useState<boolean>(false);
-
+  // 새 폴더 만들기 누를 시
   const handleOpenNewFolder = () => {
     setIsOpenNewFolder(true);
     setIsOpenMoveDirectoryModal(false);
   };
-
-  // 기존 상태들...
-  const [folderName, setFolderName] = useState(""); // 폴더 이름을 관리할 상태
 
   // 모달을 닫고 input 값을 초기화하는 함수
   const handleClosePatchModal = () => {
@@ -240,6 +248,7 @@ const ArchiveSavedVideosDetail = () => {
     setFolderName(event.target.value);
   };
 
+  // 새 폴더 만드는 api
   const plusDirectoryName = useCallback(
     async (directoryName: string) => {
       try {
@@ -268,6 +277,7 @@ const ArchiveSavedVideosDetail = () => {
     [token, parentDirectoryId]
   );
 
+  // 새폴더 만들기 취소
   const handleCloseNewFolder = () => {
     setIsOpenNewFolder(false);
     setIsOpenMoveDirectoryModal(true);
@@ -277,6 +287,7 @@ const ArchiveSavedVideosDetail = () => {
   return (
     <ArchivePopularVideosComponent>
       <Header />
+      {/* 파일 이동 모달 */}
       {isOpenMoveConfirmModal && (
         <CompleteModal>
           <MiddleText>이동이 완료되었습니다.</MiddleText>
@@ -289,6 +300,7 @@ const ArchiveSavedVideosDetail = () => {
           </ConfirmDiv>
         </CompleteModal>
       )}
+      {/* 파일 삭제 완료 시 모달 */}
       {isOpenConfirmDeleteModal && (
         <CompleteModal>
           <MiddleText>삭제가 완료되었습니다.</MiddleText>
@@ -302,6 +314,7 @@ const ArchiveSavedVideosDetail = () => {
         </CompleteModal>
       )}
 
+      {/* 파일 이동 모달 */}
       {isOpenMoveDirectoryModal && (
         <SaveModalComponent>
           <OnLoginModalText marginTop="49px">이동할 폴더 선택</OnLoginModalText>
@@ -353,6 +366,7 @@ const ArchiveSavedVideosDetail = () => {
           </PatchModalButtonComponent>
         </SaveModalComponent>
       )}
+      {/* 새폴더 만들기 모달 */}
       {isOpenNewFolder && (
         <CompleteModal>
           <NewFolderTopText>새 폴더 만들기</NewFolderTopText>
@@ -381,7 +395,7 @@ const ArchiveSavedVideosDetail = () => {
       )}
       <TotalVideoComponent>
         <CenteredInnerComponent>
-          {/* <SelectDirectory /> */}
+          {/* 최상단 */}
           <RowComponent>
             <FolderName>{currentDirectoryInfo.directoryName}</FolderName>
             <TopFolderArrow
@@ -389,6 +403,7 @@ const ArchiveSavedVideosDetail = () => {
               alt="arrow"
               onClick={handleRootDirectory}
             />
+            {/* 오른쪽 화살표 클릭 시 */}
             {isOpenRootDirectory && (
               <RootDirectoryModal>
                 {rootDirectoryInfo.fileList?.map((item: any) => {
@@ -480,6 +495,7 @@ const ArchiveSavedVideosDetail = () => {
               alt="..."
               onClick={handleSettingDirectory}
             />
+            {/* 세팅 점세개 클릭 시 */}
             {isOpenSettingDirectory && (
               <SettingModal>
                 <SettingRowComponent>
@@ -556,6 +572,8 @@ const ArchiveSavedVideosDetail = () => {
               <></>
             )}
           </RowComponent>
+
+          {/* 파일 리스틔 띄워주기 */}
           <FileListComponent>
             {currentDirectoryInfo?.fileList?.map((item: any) => {
               console.log(item);
@@ -612,7 +630,8 @@ const ArchiveSavedVideosDetail = () => {
                 const url = item.videoUrl;
                 const extractVideoId = (url: string): string | undefined => {
                   const urlObj = new URL(url);
-                  return urlObj.pathname.substring(1);
+                  const videoID = urlObj.searchParams.get("v");
+                  return videoID || undefined;
                 };
                 const videoId = extractVideoId(url);
                 const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/0.jpg`;
@@ -757,8 +776,6 @@ const RowComponent = styled.div`
 
 const FolderName = styled.div`
   color: var(--Gray-9, #27272e);
-
-  /* Heading/3 */
   font-family: "Noto Sans KR";
   font-size: 24px;
   font-style: normal;
@@ -811,7 +828,6 @@ const FolderImgSecond = styled.img`
 const RootOtherFolderName = styled.div`
   color: var(--Gray-7, #707887);
   margin-left: 10px;
-  /* Body/3 */
   font-family: "Noto Sans KR";
   font-size: 20px;
   font-style: normal;
@@ -842,7 +858,6 @@ const SettingRowComponent = styled.div`
 
 const SettingText = styled.div`
   color: var(--Gray-8, #373d49);
-  /* Detail/3 */
   font-family: "Noto Sans KR";
   font-size: 16px;
   font-style: normal;
@@ -865,8 +880,6 @@ const BlankFileType = styled.button`
   background: var(--White-1, #fff);
   color: var(--Main-1, #d33b4d);
   text-align: center;
-
-  /* Subtitle/1 */
   font-family: "Noto Sans KR";
   font-size: 20px;
   font-style: normal;
@@ -879,7 +892,6 @@ const BlankFileType = styled.button`
 const FillFileType = styled(BlankFileType)`
   background: var(--Main-1, #d33b4d);
   color: var(--White-1, #fff);
-
   border: 2px solid var(--Main-1, #d33b4d);
 `;
 
@@ -929,8 +941,6 @@ const InLineFlex = styled.div`
   background: var(--Sub-2, #ffecee);
   color: var(--Main-1, #d33b4d);
   text-align: center;
-
-  /* Body/5 */
   font-family: "Noto Sans KR";
   font-size: 14px;
   font-style: normal;
@@ -942,8 +952,6 @@ const InLineFlex = styled.div`
 const FileTitle = styled.div`
   margin: 8px 0px 0px 10px;
   color: var(--Gray-9, #27272e);
-
-  /* Body/4 */
   font-family: "Noto Sans KR";
   font-size: 16px;
   font-style: normal;
@@ -1002,7 +1010,6 @@ const MiddleText = styled.div`
   color: var(--Gray-8, #373d49);
   text-align: center;
   margin-top: 126px;
-  /* Body/1 */
   font-family: "Noto Sans KR";
   font-size: 28px;
   font-style: normal;
@@ -1015,8 +1022,6 @@ const ConfirmDiv = styled.div`
   width: 100%;
   height: 93px;
   color: var(--Main-1, #d33b4d);
-
-  /* Body/1 */
   font-family: "Noto Sans KR";
   font-size: 28px;
   font-style: normal;
@@ -1088,8 +1093,6 @@ const PlusImg = styled.img`
 const EachFolderName = styled.div`
   color: var(--Gray-9, #27272e);
   text-align: center;
-
-  /* Detail/3 */
   font-family: "Noto Sans KR";
   font-size: 16px;
   font-style: normal;
@@ -1103,8 +1106,6 @@ const OnLoginModalText = styled.div<{ marginTop?: string }>`
   margin-top: 49px;
   color: var(--Gray-8, #373d49);
   text-align: center;
-
-  /* Body/1 */
   font-family: "Noto Sans KR";
   font-size: 28px;
   font-style: normal;
@@ -1117,8 +1118,6 @@ const OnLoginModalText = styled.div<{ marginTop?: string }>`
 const NewFolderTopText = styled.div`
   color: var(--Gray-8, #373d49);
   text-align: center;
-
-  /* Body/1 */
   font-family: "Noto Sans KR";
   font-size: 28px;
   font-style: normal;
@@ -1139,7 +1138,6 @@ const NewFolderInputDiv = styled.input`
   color: var(--Gray-9, #27272e);
   border: none;
   outline: none;
-  /* Detail/1 */
   font-family: "Noto Sans KR";
   font-size: 24px;
   font-style: normal;
@@ -1170,8 +1168,6 @@ const NewFolderModalBtn = styled(PatchModalBtn)`
 
 const PatchModalBtnText = styled.div`
   color: var(--Gray-7, #707887);
-
-  /* Body/2 */
   font-family: "Noto Sans KR";
   font-size: 24px;
   font-style: normal;

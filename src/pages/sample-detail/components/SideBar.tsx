@@ -25,111 +25,6 @@ const SideBar = ({ advertiseId }: any) => {
           console.log(res);
           setOtherVideos(res.data.content);
         });
-
-      // setOtherVideos([
-      //   {
-      //     advertiseId: 1,
-      //     videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-      //     prizeType: "Best Brending 신규 론칭 부문",
-      //     title: "빵빵이의 옥지 사용법 ~!",
-      //     videoTime: "02:49",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 2,
-      //     videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-      //     prizeType: "Best Brending 신규 론칭 부문",
-      //     title:
-      //       "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-      //     videoTime: "40:32",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 3,
-      //     videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-      //     prizeType: "Best Brending 신규 론칭 부문",
-      //     title: "빵빵이의 옥지 사용법 ~!",
-      //     videoTime: "02:49",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 4,
-      //     videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-      //     prizeType: "Best Brending 신규 론칭 부문",
-      //     title:
-      //       "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-      //     videoTime: "40:32",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 5,
-      //     prizeType: "Best Brending 신규 론칭 부문",
-      //     videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-      //     title: "빵빵이의 옥지 사용법 ~!",
-      //     videoTime: "02:49",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 6,
-      //     prizeType: "Best Brending 신규 론칭 부문",
-      //     videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-      //     title:
-      //       "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-      //     videoTime: "40:32",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 7,
-      //     prizeType: "Best Brending 신규 론칭 부문",
-      //     videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-      //     title: "빵빵이의 옥지 사용법 ~!",
-      //     videoTime: "02:49",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 8,
-      //     prizeType: "Best Brending 신규 론칭 부문",
-      //     videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-      //     title:
-      //       "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-      //     videoTime: "40:32",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 9,
-      //     prizeType: "Best Brending 신규 론칭 부문",
-      //     videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-      //     title: "빵빵이의 옥지 사용법 ~!",
-      //     videoTime: "02:49",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 10,
-      //     prizeType: "Best Brending 신규 론칭 부문",
-      //     videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-      //     title:
-      //       "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-      //     videoTime: "40:32",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 11,
-      //     prizeType: "Best Brending 신규 론칭 부문",
-      //     videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-      //     title: "빵빵이의 옥지 사용법 ~!",
-      //     videoTime: "02:49",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 12,
-      //     prizeType: "Best Brending 신규 론칭 부문",
-      //     videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-      //     title:
-      //       "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-      //     videoTime: "40:32",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      // ]);
     } catch (err) {
       console.log(err);
     }
@@ -187,8 +82,6 @@ const OtherInfoComponent = styled.div`
 
 const RecommendVideosText = styled.div`
   color: var(--Gray-9, #27272e);
-
-  /* Subtitle/1 */
   font-family: "Noto Sans KR";
   font-size: 20px;
   font-style: normal;
@@ -216,15 +109,12 @@ const VideoFrame = styled.div`
 
 const VideoTime = styled.div`
   color: var(--White-1, #fff);
-
-  /* Detail/5 */
   font-family: "Noto Sans KR";
   font-size: 12px;
   font-style: normal;
   font-weight: 350;
   line-height: 140%; /* 16.8px */
   letter-spacing: -0.4px;
-
   text-align: center;
   position: absolute;
   bottom: 8px;
@@ -251,8 +141,6 @@ const VideoTitle = styled.div`
   margin: 0px 0px 0px 8px;
   width: 118px;
   color: var(--Gray-9, #27272e);
-
-  /* Body/5 */
   font-family: "Noto Sans KR";
   font-size: 14px;
   font-style: normal;

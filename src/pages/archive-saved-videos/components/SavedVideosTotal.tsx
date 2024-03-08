@@ -3,27 +3,34 @@
 import axios from "axios";
 import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+
 import dotImg from "../../../assets/archive/DotDotDot.svg";
 import folderImg from "../../../assets/archive/Folder.svg";
 import fillFolderImg from "../../../assets/archive/FillFolder.svg";
-import starImg from "../../../assets/archive/Star.svg";
 import plusImg from "../../../assets/archive/Plus.svg";
-import Footer from "../../../components/Footer";
-import { useNavigate } from "react-router-dom";
 
 const SavedVideosTotal = () => {
   const modalRef = useRef<HTMLDivElement>(null);
   const token = localStorage.getItem("token");
-  console.log(token);
-  const [directoryInfo, setDirectoryInfo] = useState<any>([]);
-  const parentDirectoryId = directoryInfo.directoryId;
-  console.log(directoryInfo);
-
   const navigate = useNavigate();
 
-  const [isOpenDotModal, setIsOpenDotModal] = useState<boolean>(false);
+  const [directoryInfo, setDirectoryInfo] = useState<any>([]);
+  const parentDirectoryId = directoryInfo.directoryId;
   // 모달 상태를 관리하기 위한 새로운 상태 추가
+  const [isOpenDotModal, setIsOpenDotModal] = useState<boolean>(false);
   const [openModalId, setOpenModalId] = useState<null | number>(null);
+  // 수정 모달 상태
+  const [isOpenPatchModal, setIsOpenPatchModal] = useState<boolean>(false);
+  // 현재 수정 중인 디렉토리id저장 부분
+  const [currentEditingId, setCurrentEditingId] = useState<number | null>(null);
+  // 폴더 이름을 관리할 상태
+  const [folderName, setFolderName] = useState("");
+  // 폴더 삭제 상태
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState<boolean>(false);
+  // 새폴더 만들기 상태
+  const [isOpenPlusModal, setIsOpenPlusModal] = useState<boolean>(false);
+
   // 이벤트 전파를 막는 로직을 toggleModal과 ModalBox의 클릭 이벤트 핸들러에 추가합니다.
   // toggleModal 함수 수정
   const toggleModal = (event: React.MouseEvent, fileId: number) => {
@@ -42,12 +49,14 @@ const SavedVideosTotal = () => {
     }
   };
 
+  // 모달 바깥 선택 시
   const handleClickOutside = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
       setIsOpenDotModal(false);
     }
   };
 
+  // 폴더 목록 받기 api
   const getSavedVidosFolder = useCallback(async () => {
     try {
       await axios
@@ -65,8 +74,7 @@ const SavedVideosTotal = () => {
     }
   }, [token]);
 
-  const [isOpenPatchModal, setIsOpenPatchModal] = useState<boolean>(false);
-  const [currentEditingId, setCurrentEditingId] = useState<number | null>(null);
+  // 모달 이외 부분 선택 시
   const handleOpenPatchModal =
     (fileId: number) => (event: React.MouseEvent) => {
       event.stopPropagation(); // 이벤트 버블링을 막음
@@ -75,9 +83,6 @@ const SavedVideosTotal = () => {
       setIsOpenPatchModal(true); // patchModal 열기
       // 필요한 경우 여기서 fileId를 사용하여 추가 로직 처리
     };
-
-  // 기존 상태들...
-  const [folderName, setFolderName] = useState(""); // 폴더 이름을 관리할 상태
 
   // 모달을 닫고 input 값을 초기화하는 함수
   const handleClosePatchModal = () => {
@@ -92,6 +97,7 @@ const SavedVideosTotal = () => {
     setFolderName(event.target.value);
   };
 
+  // 디렉토리 이름 수정 api
   const patchDirectoryName = useCallback(
     async (fileId: number, directoryName: string) => {
       try {
@@ -118,7 +124,7 @@ const SavedVideosTotal = () => {
     [token]
   );
 
-  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState<boolean>(false);
+  // delete모달 이외부분 클릭 시
   const handleOpenDeleteModal =
     (fileId: number) => (event: React.MouseEvent) => {
       event.stopPropagation(); // 이벤트 버블링을 막음
@@ -133,6 +139,7 @@ const SavedVideosTotal = () => {
     setIsOpenDeleteModal(false);
   };
 
+  // 디렉토리 삭제 api
   const deleteDirectoryName = useCallback(
     async (fileId: number) => {
       try {
@@ -157,7 +164,6 @@ const SavedVideosTotal = () => {
     [token]
   );
 
-  const [isOpenPlusModal, setIsOpenPlusModal] = useState<boolean>(false);
   const handleOpenPlusModal = (event: React.MouseEvent) => {
     event.stopPropagation(); // 이벤트 버블링을 막음
     setIsOpenPlusModal(true); // patchModal 열기
@@ -169,6 +175,7 @@ const SavedVideosTotal = () => {
     setIsOpenPlusModal(false);
   };
 
+  // 새폴더 만들기 api
   const plusDirectoryName = useCallback(
     async (directoryName: string) => {
       try {
@@ -235,9 +242,9 @@ const SavedVideosTotal = () => {
     <TotalComponent>
       <TotalTopRowFlexComponent>
         <TotalTopLabel>내가 찜한 영상</TotalTopLabel>
-        {/* <TotalTopBtn>검색</TotalTopBtn> */}
       </TotalTopRowFlexComponent>
       <RootDirectoryComponent>
+        {/* 디렉토리 이름 수정 */}
         {isOpenPatchModal && (
           <PatchTotalModal>
             <PatchTopText>폴더 이름 수정하기</PatchTopText>
@@ -269,6 +276,7 @@ const SavedVideosTotal = () => {
             </PatchModalButtonComponent>
           </PatchTotalModal>
         )}
+        {/* 디렉토리 삭제 */}
         {isOpenDeleteModal && (
           <PatchTotalModal>
             <DeleteMiddleText>해당 폴더를 삭제하시겠습니까?</DeleteMiddleText>
@@ -293,6 +301,7 @@ const SavedVideosTotal = () => {
             </PatchModalButtonComponent>
           </PatchTotalModal>
         )}
+        {/* 새 폴더 만들기 */}
         {isOpenPlusModal && (
           <PatchTotalModal>
             <PatchTopText>새 폴더명을 입력해주세요</PatchTopText>
@@ -321,6 +330,7 @@ const SavedVideosTotal = () => {
           </PatchTotalModal>
         )}
 
+        {/* 디렉토리 리스트 화면에 보여주기 */}
         {directoryInfo.fileList?.map((item: any) => {
           return (
             <DirectoryBox key={item.fileId}>
@@ -420,28 +430,6 @@ const TotalTopLabel = styled.div`
   letter-spacing: -0.4px;
 `;
 
-const TotalTopBtn = styled.button`
-  position: absolute;
-  right: 0;
-  display: inline-flex;
-  padding: 8px 21px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  border-radius: 8px;
-  background: var(--Main-1, #d33b4d);
-  color: var(--White-1, #fff);
-  border: none;
-  /* Body/3 */
-  font-family: "Noto Sans KR";
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 140%; /* 28px */
-  letter-spacing: -0.4px;
-  cursor: pointer;
-`;
-
 const RootDirectoryComponent = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -463,7 +451,6 @@ const DirectoryBox = styled.div`
   border: 1px solid var(--Gray-2, #e6e6e6);
   background: var(--White-1, #fff);
 `;
-
 const DirectoryImgBox = styled.img`
   position: absolute;
   left: 50%;
@@ -474,7 +461,6 @@ const DirectoryImgBox = styled.img`
   flex-shrink: 0;
   cursor: pointer;
 `;
-
 const PlusImgBox = styled.img`
   position: absolute;
   left: 50%;
@@ -485,7 +471,6 @@ const PlusImgBox = styled.img`
   flex-shrink: 0;
   cursor: pointer;
 `;
-
 const DotImgBox = styled.img`
   position: absolute;
   right: 17px;
@@ -500,12 +485,11 @@ const DirectoryName = styled.div`
   position: absolute;
   bottom: 25px;
   color: var(--Gray-8, #373d49);
-  /* Body/4 */
   font-family: "Noto Sans KR";
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 22.4px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
 
@@ -531,12 +515,11 @@ const ModalInTextBox = styled.div`
 const ModalInText = styled.div`
   color: var(--Gray-8, #373d49);
   margin: 0px 0px 0px 20px;
-  /* Detail/3 */
   font-family: "Noto Sans KR";
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
-  line-height: 140%; /* 22.4px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   cursor: pointer;
 `;
@@ -562,13 +545,11 @@ const PatchTopText = styled.div`
   margin-top: 49px;
   color: var(--Gray-8, #373d49);
   text-align: center;
-
-  /* Body/1 */
   font-family: "Noto Sans KR";
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 39.2px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
 
@@ -586,12 +567,11 @@ const PatchTitleInput = styled.input`
   background: var(--Gray-2, #e6e6e6);
   color: var(--Gray-9, #27272e);
 
-  /* Detail/1 */
   font-family: "Noto Sans KR";
   font-size: 24px;
   font-style: normal;
   font-weight: 350;
-  line-height: 140%; /* 33.6px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   outline: none;
   border: none;
@@ -614,21 +594,11 @@ const PatchModalBtn = styled.div`
 
 const PatchModalBtnText = styled.div`
   color: var(--Gray-7, #707887);
-
-  /* Body/2 */
   font-family: "Noto Sans KR";
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 33.6px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   cursor: pointer;
-`;
-
-const StarIcon = styled.img`
-  position: absolute;
-  bottom: 23px;
-  left: 18px;
-  width: 30px;
-  height: 30px;
 `;

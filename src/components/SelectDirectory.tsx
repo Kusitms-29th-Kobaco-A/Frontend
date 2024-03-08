@@ -7,6 +7,7 @@ import fillFolder from "../assets/archive/FillFolder.svg";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 
+// 폴더 이동시, 영상 찜하기 시 폴더 선택 컴포넌트
 const SelectDirectory = ({
   selectedFileIds,
   state,
@@ -14,12 +15,8 @@ const SelectDirectory = ({
 }: any) => {
   const token = localStorage.getItem("token");
   const [rootDirectoryInfo, setRootDirectoryInfo] = useState<any>({});
-  // const [currentDirectoryInfo, setCurrentDirectoryInfo] = useState<any>({});
-  // const [currentDirectoryId, SetCurrentDirectoryId] = useState<number>();
-  // const [currentDirectoryName, SetCurrentDirectoryName] = useState<string>("");
 
-  console.log(selectedFileIds);
-
+  // 최상단 폴더 정보 받기
   const getRootDirectoryInfo = useCallback(async () => {
     try {
       await axios
@@ -31,9 +28,6 @@ const SelectDirectory = ({
         .then((res) => {
           console.log(res);
           setRootDirectoryInfo(res.data);
-          // SetCurrentDirectoryId(res.data.directoryId);
-          // SetCurrentDirectoryName(res.data.directoryName);
-
           console.log(res.data);
         });
     } catch (err) {
@@ -41,14 +35,16 @@ const SelectDirectory = ({
     }
   }, [token]);
 
+  // 폴더 선택시 선택된 폴더 변수명
   const [selectedFolder, setSelectedFolder] = useState<number | null>(null);
-  console.log(selectedFolder);
+
   useEffect(() => {
     getRootDirectoryInfo();
   }, [getRootDirectoryInfo]);
 
   const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false);
 
+  // 폴더 이동 api
   const moveDirectory = async () => {
     try {
       for (const fileId of selectedFileIds) {
@@ -69,7 +65,6 @@ const SelectDirectory = ({
           });
       }
       setIsOpenConfirmModal(true);
-      // closeMoveDirectoryModal();
     } catch (err) {
       console.log(err);
     }
@@ -77,15 +72,21 @@ const SelectDirectory = ({
 
   return (
     <SaveModalComponent>
+      {/* 최상단 텍스트 */}
       <OnLoginModalText marginTop="49px">
         {state === "move" ? "이동할 폴더 선택" : "찜할 폴더 선택"}
       </OnLoginModalText>
+
+      {/* 중간 폴더 리스트 그려주는 컴포넌트 */}
       <SaveModalMiddleComponent>
+        {/* 새로운 폴더 만드는 곳 1개 */}
         <EachSaveFolderComponent>
           <EachFolderImg src={folder} alt="folder" />
           <PlusImg src={plusImg} alt="+" />
           <EachFolderName>새 폴더</EachFolderName>
         </EachSaveFolderComponent>
+
+        {/* 나머지 현재 있는 폴더들 리스트 뿌려주기 */}
         {rootDirectoryInfo?.fileList?.map((item: any) => {
           if (selectedFolder === item.fileId) {
             return (
@@ -110,6 +111,8 @@ const SelectDirectory = ({
           }
         })}
       </SaveModalMiddleComponent>
+
+      {/* 취소, 이동 선택 버튼 컴포넌트 */}
       <PatchModalButtonComponent>
         {state === "move" ? (
           <PatchModalBtn style={{ borderRight: "2px solid #e6e6e6" }}>
@@ -148,15 +151,7 @@ const SelectDirectory = ({
 
 export default SelectDirectory;
 
-const ConfirmWindow = () => {
-  return (
-    <CompleteModal>
-      <MiddleText>이동이 완료되었습니다.</MiddleText>
-      <ConfirmDiv>확인</ConfirmDiv>
-    </CompleteModal>
-  );
-};
-
+// 모달 컴포넌트
 const SaveModalComponent = styled.div`
   display: flex;
   flex-direction: column;
@@ -171,10 +166,8 @@ const SaveModalComponent = styled.div`
   border-radius: 10px;
   border: 2px solid var(--Gray-2, #e6e6e6);
   background: #fff;
-
   height: 480px;
 `;
-
 const SaveModalMiddleComponent = styled.div`
   width: 460px;
   height: 180px;
@@ -185,7 +178,6 @@ const SaveModalMiddleComponent = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 `;
-
 const EachSaveFolderComponent = styled.div`
   position: relative;
   width: 120px;
@@ -194,7 +186,6 @@ const EachSaveFolderComponent = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-
 const EachFolderImg = styled.img`
   width: 120px;
   height: 120px;
@@ -210,17 +201,14 @@ const PlusImg = styled.img`
   height: 30px;
   cursor: pointer;
 `;
-
 const EachFolderName = styled.div`
   color: var(--Gray-9, #27272e);
   text-align: center;
-
-  /* Detail/3 */
   font-family: "Noto Sans KR";
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
-  line-height: 140%; /* 22.4px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   overflow: hidden;
 `;
@@ -231,7 +219,6 @@ const PatchModalButtonComponent = styled.div`
   display: flex;
   border-top: 2px solid #e6e6e6;
 `;
-
 const PatchModalBtn = styled.div`
   display: flex;
   align-items: center;
@@ -239,16 +226,13 @@ const PatchModalBtn = styled.div`
   width: 281px;
   height: 93px;
 `;
-
 const PatchModalBtnText = styled.div`
   color: var(--Gray-7, #707887);
-
-  /* Body/2 */
   font-family: "Noto Sans KR";
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 33.6px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   cursor: pointer;
 `;
@@ -257,57 +241,11 @@ const OnLoginModalText = styled.div<{ marginTop?: string }>`
   margin-top: 49px;
   color: var(--Gray-8, #373d49);
   text-align: center;
-
-  /* Body/1 */
   font-family: "Noto Sans KR";
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 39.2px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   margin-top: ${(props) => props.marginTop || "0px"};
-`;
-
-const CompleteModal = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 560px;
-  height: 330px;
-  flex-shrink: 0;
-  border-radius: 10px;
-  border: 2px solid var(--Gray-2, #e6e6e6);
-  background: #fff;
-`;
-
-const MiddleText = styled.div`
-  color: var(--Gray-8, #373d49);
-  text-align: center;
-  margin-top: 126px;
-  /* Body/1 */
-  font-family: "Noto Sans KR";
-  font-size: 28px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 140%; /* 39.2px */
-  letter-spacing: -0.4px;
-`;
-
-const ConfirmDiv = styled.div`
-  width: 100%;
-  height: 93px;
-  color: var(--Main-1, #d33b4d);
-
-  /* Body/1 */
-  font-family: "Noto Sans KR";
-  font-size: 28px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 140%; /* 39.2px */
-  letter-spacing: -0.4px;
-
-  border-top: 1px solid #e6e6e6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;

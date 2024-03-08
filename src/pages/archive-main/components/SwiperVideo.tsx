@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from "styled-components";
-
-// 슬라이드 처리 위한 Swiper 임포트
+import { Navigation } from "swiper/modules";
+import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
+
+import questionImg from "../../../assets/archive/Question.svg";
+
 import "swiper/swiper-bundle.css";
 import "swiper/css";
 import SwiperCore from "swiper";
-import { Navigation } from "swiper/modules";
 import EachVideo from "../../../components/EachVideo";
-import { useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
-import questionImg from "../../../assets/archive/Question.svg";
 
 SwiperCore.use([Navigation]);
 
@@ -70,18 +70,7 @@ const SwiperVideo = ({ sector, videos }: any) => {
         {/* sector state로 넘겨주기 */}
         {sector === "trend" ? (
           <></>
-        ) : // <AdditionalVideo
-        //   onClick={() => {
-        //     navigate("/archive/trendVideos", {
-        //       state: {
-        //         menuState: "archive",
-        //       },
-        //     });
-        //   }}
-        // >
-        //   전체 보기
-        // </AdditionalVideo>
-        sector === "popular" ? (
+        ) : sector === "popular" ? (
           <AdditionalVideo
             onClick={() => {
               navigate("/archive/popularVideos", {
@@ -191,6 +180,7 @@ const TooltipComponent = styled.div`
   line-height: 140%;
   letter-spacing: -0.4px;
 `;
+
 const VideosComponent = styled.div`
   position: relative;
   width: 100%;

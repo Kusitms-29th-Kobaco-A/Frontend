@@ -9,7 +9,7 @@ import TotalVideosComponent from "./components/TotalVideosComponent";
 import axios from "axios";
 import TotalCommentComponent from "./components/TotalCommentComponent";
 
-// 랜딩페이지
+//광고 상세페이지 화면
 const ArchiveDetail = () => {
   // menuState추출하기
   const location = useLocation();
@@ -17,12 +17,13 @@ const ArchiveDetail = () => {
 
   const advertiseId = useParams();
 
+  // 비디오 info  받았을 경우 넘겨주기
   const [videoInfo, setVideoInfo] = useState<Record<string, any>>({});
-
   const checkIfNotEmpty = (obj: Record<string, any>): boolean => {
     return Object.keys(obj).length !== 0;
   };
 
+  // 광고 정보받기
   const getVideoInfo = useCallback(async () => {
     try {
       await axios
@@ -50,6 +51,7 @@ const ArchiveDetail = () => {
 
       <TotalComponent>
         <CenteredInnerComponent>
+          {/* 비디오 정보 부분 */}
           {checkIfNotEmpty(videoInfo) && (
             <TotalVideosComponent
               advertiseId={advertiseId}
@@ -58,6 +60,7 @@ const ArchiveDetail = () => {
           )}
         </CenteredInnerComponent>
       </TotalComponent>
+      {/* 비디오 댓글 부분  */}
       <TotalCommentComponent advertiseId={advertiseId} />
       <Footer />
     </ArchiveDetailComponent>

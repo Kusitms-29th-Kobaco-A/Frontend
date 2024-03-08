@@ -2,16 +2,16 @@
 import styled from "styled-components";
 import kobaco from "../assets/header/KobacoLogo.svg";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 const Header = () => {
+  const navigate = useNavigate();
   // menuState추출하기
   const location = useLocation();
   const menuState = location.state?.menuState;
   // 로그인 성공시 토큰 여부로 확인
   const token = localStorage.getItem("token");
-  const navigate = useNavigate();
 
+  // 로그아웃
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/");
@@ -116,26 +116,23 @@ const HeaderTopBar = styled.section`
   width: 100%;
   height: 80px;
 `;
-
 const TopBarIcon = styled.img`
   position: absolute;
   top: 29px;
-  left: 4.219vw; /* left: 54px; */
+  left: 4.219vw;
   width: 226px;
   height: 40px;
   flex-shrink: 0;
   object-fit: cover;
   cursor: pointer;
 `;
-
 const TopBarRightComponent = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
   top: 29px;
-  right: 11.094vw; /* right: 142px; */
+  right: 11.094vw;
 `;
-
 const TopBarText = styled.div`
   display: inline-flex;
   color: var(--Gray-7, #707887);
@@ -159,24 +156,21 @@ const HeaderMenuBar = styled.div`
   top: 80px;
   background-color: #fff;
 `;
-
 const VisibleMenuComponent = styled.section`
   display: flex;
   justify-content: center;
   width: 100%;
   height: 100%;
 `;
-
 const TotalMenuComponent = styled.div`
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   height: 100%;
-  padding: 0px 11.094vw; /* padding: 0px 142px; */
+  padding: 0px 11.094vw;
   z-index: 2;
   width: 100%;
 `;
-
 const MenuBox = styled.div<{ menuColor?: string }>`
   color: ${(props) => props.menuColor || " #27272e"};
   display: flex;
@@ -187,7 +181,7 @@ const MenuBox = styled.div<{ menuColor?: string }>`
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 22.4px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   cursor: pointer;
 `;

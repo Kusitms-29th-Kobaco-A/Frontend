@@ -7,10 +7,12 @@ import fillThumbsUp from "../../../assets/archive/FillThumbsUp.svg";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 
+// 하나의 댓글 컴포넌트
 const EachCommentBox = ({ item }: any) => {
   const [likeState, setLikeState] = useState<any>({});
   const token = localStorage.getItem("token");
 
+  // 좋아요 상태 api로 받기
   const getLikeCount = useCallback(async () => {
     setLikeState({
       isLike: true,
@@ -34,6 +36,7 @@ const EachCommentBox = ({ item }: any) => {
     }
   }, [token]);
 
+  // 댓글 좋아요 누르기 api
   const clickThumbsUp = async () => {
     try {
       await axios
@@ -86,6 +89,7 @@ const EachCommentBox = ({ item }: any) => {
 
 export default EachCommentBox;
 
+// 댓글 하나의 박스
 const CommentBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -94,57 +98,52 @@ const CommentBox = styled.div`
   width: 100%;
 `;
 
+// 실제론 email부분
 const CommentId = styled.div`
   color: var(--Gray-9, #27272e);
-
-  /* Body/6 */
   font-family: "Noto Sans KR";
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 16.8px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
+
 const CommentContent = styled.div`
   width: 100%;
   color: var(--Gray-7, #707887);
   margin-top: 7px;
-  /* Detail/4 */
   font-family: "Noto Sans KR";
   font-size: 14px;
   font-style: normal;
   font-weight: 350;
-  line-height: 140%; /* 19.6px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
 
+// 좋아요 따봉 부분 컴포넌트
 const RowComponent = styled.div`
   margin-top: 4px;
-
   display: flex;
   align-items: center;
 `;
-
 const ThumbsUpIcon = styled.img`
   width: 20px;
   height: 20px;
   flex-shrink: 0;
   cursor: pointer;
 `;
-
 const ThumbsCountText = styled.div`
   color: var(--Gray-7, #707887);
   text-align: center;
   margin-left: 2px;
-  /* Detail/5 */
   font-family: "Noto Sans KR";
   font-size: 12px;
   font-style: normal;
   font-weight: 350;
-  line-height: 140%; /* 16.8px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
-
 const FillThumbsCountText = styled(ThumbsCountText)`
   color: #d33b4d;
 `;

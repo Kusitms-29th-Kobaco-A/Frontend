@@ -2,18 +2,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import thumbsUp from "../../../assets/archive/BlankThumbsUp.svg";
 // 페이지네이션
 import Pagination from "react-js-pagination";
 import "./paging.css";
-import axios from "axios";
 import warning from "../../../assets/archive/Warning.svg";
 import { useNavigate } from "react-router-dom";
 import EachCommentBox from "./EachCommentBox";
 
 const TotalCommentComponent = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
   const [commentList, setCommentList] = useState<any>([]);
   const [commentItemCount, setCommentItemCount] = useState<number>(2);
 
@@ -22,41 +19,6 @@ const TotalCommentComponent = () => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputComment(event.target.value);
   };
-
-  // const handleCancelComment = () => {
-  //   setInputComment("");
-  // };
-
-  // const handleSubmitComment = async () => {
-  //   if (!inputComment) {
-  //     alert("댓글을 입력해주세요.");
-  //     return;
-  //   }
-  //   try {
-  //     if (token) {
-  //       await axios
-  //         .post(
-  //           `https://dev.simproject.kr/api/comments/${advertiseId.advertiseId}`,
-  //           { content: inputComment },
-  //           {
-  //             headers: {
-  //               Authorization: `${token}`,
-  //             },
-  //           }
-  //         )
-  //         .then((res) => {
-  //           console.log(res);
-  //           getCommentList();
-  //           setInputComment("");
-  //         });
-  //     } else {
-  //       isOpenLoginWarning();
-  //     }
-  //   } catch (error) {
-  //     console.error("댓글 등록에 실패했습니다.", error);
-  //     alert("댓글 등록에 실패했습니다.");
-  //   }
-  // };
 
   const getCommentList = useCallback(async () => {
     try {
@@ -72,17 +34,6 @@ const TotalCommentComponent = () => {
           userEmail: "wnsgud1234@naver.com",
         },
       ]);
-      // await axios
-      //   .get(`https://dev.simproject.kr/api/comments/`, {
-      //     headers: {
-      //       Authorization: `${token}`,
-      //     },
-      //   })
-      //   .then((res) => {
-      //     console.log(res);
-      //     setCommentList(res.data);
-      //     setCommentItemCount(res.data.length);
-      //   });
     } catch (err) {
       console.log(err);
     }
@@ -191,8 +142,6 @@ const CenteredInnerComponent = styled.div`
 
 const ItemCountText = styled.div`
   color: var(--Gray-9, #27272e);
-
-  /* Heading/3 */
   font-family: "Noto Sans KR";
   font-size: 24px;
   font-style: normal;
@@ -203,26 +152,6 @@ const ItemCountText = styled.div`
 
 const WriteCommentComponent = styled.div`
   margin: 16px 0px 12px 0px;
-`;
-
-const WriteCommentBtn = styled.button`
-  border: none;
-  display: inline-flex;
-  padding: 8px 12px;
-  align-items: center;
-  gap: 4px;
-  border-radius: 21.5px;
-  background: var(--Main-1, #d33b4d);
-  color: var(--Gray-1, #f4f6f6);
-  text-align: center;
-  cursor: pointer;
-  /* Body/4 */
-  font-family: "Noto Sans KR";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 140%; /* 22.4px */
-  letter-spacing: -0.4px;
 `;
 
 const LineDiv = styled.div`
@@ -236,62 +165,6 @@ const CommentComponent = styled.div`
   margin-top: -32px;
 `;
 
-const CommentBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 16px 0px 0px 0px;
-  height: 68px;
-  width: 100%;
-`;
-
-const CommentId = styled.div`
-  color: var(--Gray-9, #27272e);
-
-  /* Body/6 */
-  font-family: "Noto Sans KR";
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 140%; /* 16.8px */
-  letter-spacing: -0.4px;
-`;
-const CommentContent = styled.div`
-  width: 100%;
-  color: var(--Gray-7, #707887);
-
-  /* Detail/4 */
-  font-family: "Noto Sans KR";
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 350;
-  line-height: 140%; /* 19.6px */
-  letter-spacing: -0.4px;
-`;
-
-const RowComponent = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const ThumbsUpIcon = styled.img`
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-`;
-
-const ThumbsCountText = styled.div`
-  color: var(--Gray-7, #707887);
-  text-align: center;
-
-  /* Detail/5 */
-  font-family: "Noto Sans KR";
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 350;
-  line-height: 140%; /* 16.8px */
-  letter-spacing: -0.4px;
-`;
-
 const CommentInput = styled.input`
   width: 714px;
   height: 32px;
@@ -302,7 +175,6 @@ const CommentInput = styled.input`
   padding-left: 9px;
   outline: none;
   border: none;
-  /* Detail/3 */
   font-family: "Noto Sans KR";
   font-size: 16px;
   font-style: normal;
@@ -344,7 +216,6 @@ const EnrollBtn = styled.button`
   margin-left: 39px;
   border: none;
   outline: none;
-  /* Body/4 */
   font-family: "Noto Sans KR";
   font-size: 16px;
   font-style: normal;
@@ -409,8 +280,6 @@ const PatchModalBtn = styled.div`
 
 const PatchModalBtnText = styled.div`
   color: var(--Gray-7, #707887);
-
-  /* Body/2 */
   font-family: "Noto Sans KR";
   font-size: 24px;
   font-style: normal;

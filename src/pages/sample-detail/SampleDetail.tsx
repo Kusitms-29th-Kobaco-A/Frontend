@@ -5,7 +5,6 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { useCallback, useEffect, useState } from "react";
 import TotalVideosComponent from "./components/TotalVideosComponent";
-import axios from "axios";
 import TotalCommentComponent from "./components/TotalCommentComponent";
 import SampleVideo from "../../assets/archive/cocacola.mp4";
 

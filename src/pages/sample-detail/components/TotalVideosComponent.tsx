@@ -9,7 +9,6 @@ import fillThumbsUp from "../../../assets/archive/FillThumbsUp.svg";
 import question from "../../../assets/archive/Question.svg";
 import axios from "axios";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import chartFirst from "../../../assets/archive/ChartFirst.svg";
 import chartSecond from "../../../assets/archive/ChartSecond.svg";
 
@@ -18,8 +17,6 @@ import newYoutubeUrl from "../../../assets//archive/cocacola.mp4";
 
 const TotalVideosComponent = ({ videoInfo }: any) => {
   const token = localStorage.getItem("token");
-  // console.log(token);
-  const navigate = useNavigate();
   const [rootDirectoryInfo, setRootDirectoryInfo] = useState<any>({});
 
   const getRootDirectoryInfo = useCallback(async () => {
@@ -151,7 +148,11 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
         {/* 제목 */}
         <VideoTitle>{videoInfo.title}</VideoTitle>
         {/* 영상 날짜 */}
-        <VideoDate>{videoInfo.uploadDate}</VideoDate>
+        <UnderTitleRowDiv>
+          <VideoView>조회수</VideoView>
+          <VideoView style={{ marginLeft: "6px" }}>22회</VideoView>
+          <VideoDate>{videoInfo.uploadDate}</VideoDate>
+        </UnderTitleRowDiv>
         {/* 추천,찜,캡처 */}
         <UnderDateRowComponent>
           {videoLike.isLike ? (
@@ -299,8 +300,27 @@ const VideoTitle = styled.div`
   letter-spacing: -0.4px;
 `;
 
+const UnderTitleRowDiv = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+`;
+
+const VideoView = styled.div`
+  color: var(--Gray-7, #707887);
+
+  /* Body/3 */
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 28px */
+  letter-spacing: -0.4px;
+`;
+
 const VideoDate = styled.div`
-  margin: 16px 0px 0px 0px;
+  margin: 0px 0px 0px 30.38px;
   color: var(--Gray-7, #707887);
   font-family: "Noto Sans KR";
   font-size: 20px; //20px;
@@ -527,11 +547,6 @@ const PatchTotalModal = styled.div`
   border: 2px solid var(--Gray-2, #e6e6e6);
   background: #fff;
 `;
-const WarningIcon = styled.img`
-  margin: 27px 0px 0px 0px;
-  width: 80px;
-  height: 80px;
-`;
 
 const PatchTopText = styled.div`
   margin-top: 49px;
@@ -547,40 +562,11 @@ const PatchTopText = styled.div`
   letter-spacing: -0.4px;
 `;
 
-const OnLoginModalText = styled(PatchTopText)<{ marginTop?: string }>`
-  margin-top: ${(props) => props.marginTop || "0px"};
-`;
-
-const PatchTitleInput = styled.input`
-  margin-top: 30px;
-  padding-left: 14px;
-  width: 452px;
-  height: 56px;
-  flex-shrink: 0;
-  border-radius: 8px;
-  background: var(--Gray-2, #e6e6e6);
-  color: var(--Gray-9, #27272e);
-
-  /* Detail/1 */
-  font-family: "Noto Sans KR";
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 350;
-  line-height: 140%; /* 33.6px */
-  letter-spacing: -0.4px;
-  outline: none;
-  border: none;
-`;
-
 const PatchModalButtonComponent = styled.div`
   margin: 35px 0px 0px 0px;
   width: 100%;
   display: flex;
   border-top: 2px solid #e6e6e6;
-`;
-
-const NewModalButtonComponent = styled(PatchModalButtonComponent)`
-  margin: 65px 0px 0px 0px;
 `;
 
 const PatchModalBtn = styled.div`
@@ -589,118 +575,6 @@ const PatchModalBtn = styled.div`
   justify-content: center;
   width: 281px;
   height: 93px;
-`;
-
-const PatchModalBtnText = styled.div`
-  color: var(--Gray-7, #707887);
-
-  /* Body/2 */
-  font-family: "Noto Sans KR";
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 140%; /* 33.6px */
-  letter-spacing: -0.4px;
-  cursor: pointer;
-`;
-
-const SaveModalComponent = styled(PatchTotalModal)`
-  height: 500px;
-`;
-
-const SaveModalMiddleComponent = styled.div`
-  width: 460px;
-  height: 175px;
-  padding: 0px 0px 30px 0px;
-  overflow-y: auto;
-  margin: 51px 0px 71px;
-  gap: 0px 40px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-`;
-
-const EachSaveFolderComponent = styled.div`
-  position: relative;
-  width: 120px;
-  height: 142px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const EachFolderImg = styled.img`
-  width: 120px;
-  height: 120px;
-  flex-shrink: 0;
-  cursor: pointer;
-`;
-const PlusImg = styled.img`
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-`;
-
-const EachFolderName = styled.div`
-  color: var(--Gray-9, #27272e);
-  text-align: center;
-
-  /* Detail/3 */
-  font-family: "Noto Sans KR";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 350;
-  line-height: 140%; /* 22.4px */
-  letter-spacing: -0.4px;
-  overflow: hidden;
-`;
-
-const CopyModalComponent = styled(PatchTotalModal)``;
-
-const CopyContent = styled.div`
-  margin-top: 28px;
-  color: var(--Gray-8, #373d49);
-  text-align: center;
-  width: 401px;
-  /* Detail/1 */
-  font-family: "Noto Sans KR";
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 350;
-  line-height: 140%; /* 33.6px */
-  letter-spacing: -0.4px;
-`;
-
-const CopyModalBottom = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid #e6e6e6;
-  color: var(--Main-1, #d33b4d);
-  text-align: center;
-  margin: 39px 0px 0px 0px;
-  width: 100%;
-  height: 93px;
-  /* Body/1 */
-  font-family: "Noto Sans KR";
-  font-size: 28px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 140%; /* 39.2px */
-  letter-spacing: -0.4px;
-  cursor: pointer;
-`;
-
-const XImg = styled.img`
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  top: 28px;
-  right: 28px;
-  cursor: pointer;
 `;
 
 const SelectSectorComponent = styled.div`
@@ -788,92 +662,4 @@ const GraphSecondBox = styled.img`
   margin-top: 46px;
   width: 637px;
   height: 238px;
-`;
-
-const CompleteModal = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 560px;
-  height: 330px;
-  flex-shrink: 0;
-  border-radius: 10px;
-  border: 2px solid var(--Gray-2, #e6e6e6);
-  background: #fff;
-  z-index: 3;
-`;
-
-const NewFolderTopText = styled.div`
-  color: var(--Gray-8, #373d49);
-  text-align: center;
-
-  /* Body/1 */
-  font-family: "Noto Sans KR";
-  font-size: 28px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 140%; /* 39.2px */
-  letter-spacing: -0.4px;
-  margin-top: 49px;
-`;
-
-const NewFolderInputDiv = styled.input`
-  padding-left: 14px;
-  margin-top: 30px;
-  width: 452px;
-  height: 56px;
-  flex-shrink: 0;
-  border-radius: 8px;
-  background: var(--Gray-2, #e6e6e6);
-  color: var(--Gray-9, #27272e);
-  border: none;
-  outline: none;
-  /* Detail/1 */
-  font-family: "Noto Sans KR";
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 350;
-  line-height: 140%; /* 33.6px */
-  letter-spacing: -0.4px;
-`;
-
-const NewFolderModalBtn = styled(PatchModalBtn)`
-  height: 86px;
-`;
-
-const ConfirmSaveModalText = styled.div`
-  margin-top: 126px;
-  color: var(--Gray-8, #373d49);
-  text-align: center;
-
-  /* Body/1 */
-  font-family: "Noto Sans KR";
-  font-size: 28px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 140%; /* 39.2px */
-  letter-spacing: -0.4px;
-`;
-
-const ConfirmSaveModalConfirm = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  height: 93px;
-  color: var(--Main-1, #d33b4d);
-  margin-top: 72px;
-  border-top: 1px solid #e6e6e6;
-  /* Body/1 */
-  font-family: "Noto Sans KR";
-  font-size: 28px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 140%; /* 39.2px */
-  letter-spacing: -0.4px;
-  cursor: pointer;
 `;

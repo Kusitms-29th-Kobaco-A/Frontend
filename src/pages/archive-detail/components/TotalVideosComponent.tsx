@@ -1,35 +1,55 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from "styled-components";
-import SideBar from "./SideBar";
+
+import axios from "axios";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import YouTube, { YouTubeProps } from "react-youtube";
+
 import thumbsUp from "../../../assets/archive/ThumbsUp.svg";
 import heart from "../../../assets/archive/Heart.svg";
 import folder from "../../../assets/archive/Folder.svg";
 import camera from "../../../assets/archive/Camera.svg";
 import fillThumbsUp from "../../../assets/archive/FillThumbsUp.svg";
-import fillHeart from "../../../assets/archive/FillHeart.svg";
 import plusImg from "../../../assets/archive/Plus.svg";
-import fillCamera from "../../../assets/archive/FillCamera.svg";
 import question from "../../../assets/archive/Question.svg";
 import warning from "../../../assets/archive/Warning.svg";
 import xIcon from "../../../assets/archive/XIcon.svg";
-import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import SelectDirectory from "../../../components/SelectDirectory";
 import chartFirst from "../../../assets/archive/ChartFirst.svg";
 import chartSecond from "../../../assets/archive/ChartSecond.svg";
 import fillFolder from "../../../assets/archive/FillFolder.svg";
 
+import SideBar from "./SideBar";
+
 const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
-  const token = localStorage.getItem("token");
-  // console.log(token);
-  const id = advertiseId.advertiseId;
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  const id = advertiseId.advertiseId;
 
+  // 최상단 폴더 정보
   const [rootDirectoryInfo, setRootDirectoryInfo] = useState<any>({});
+  // 비디오 좋아요 정보
+  const [videoLike, setVideoLike] = useState({
+    isLike: false,
+    likeCount: 0,
+  });
+  // 모달창 관련 상태 정보
+  const [isOpenLoginWarning, setIsOpenLoginWarning] = useState<any>(false);
+  const [isOpenSaveModal, setIsOpenSaveModal] = useState<any>(false);
+  const [isOpenCopyModal, setIsOpenCopyModal] = useState<any>(false);
+  //아래 Etc 영상관련 정보에서 어느 부분을 보여줄 지 상태 정보
+  const [selectedSector, setSelectedSector] = useState("기본정보");
+  // 찜하기 시 선택된 폴더 정보
+  const [selectedFolder, setSelectedFolder] = useState<number | null>(null);
+  // 찜하기에서 새 폴더 만들기 클릭 시 정보
+  const [isOpenNewFolder, setIsOpenNewFolder] = useState<boolean>(false);
+  // 폴더 이름을 관리할 상태
+  const [folderName, setFolderName] = useState("");
+  // 찜하기 완료 되었다는 모달 상태
+  const [isConfirmSaveModal, setIsConfirmSaveModal] = useState<boolean>(false);
 
+  //  최상단 폴더 정보 받기 api
   const getRootDirectoryInfo = useCallback(async () => {
     try {
       await axios
@@ -46,11 +66,6 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
       console.log(err);
     }
   }, [token]);
-
-  const [videoLike, setVideoLike] = useState({
-    isLike: false,
-    likeCount: 0,
-  });
 
   // 비디오 고유 아이디 추출하기
   const url = videoInfo.videoUrl;
@@ -77,6 +92,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
     },
   };
 
+  // 좋아요 정보 받기 api
   const getIsLike = useCallback(async () => {
     try {
       await axios
@@ -92,6 +108,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
     }
   }, []);
 
+  // 좋아요 버튼 누르기 api
   const modifyVideoLike = useCallback(async () => {
     if (token) {
       try {
@@ -117,24 +134,17 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
     }
   }, []);
 
-  useEffect(() => {
-    getRootDirectoryInfo();
-    getIsLike();
-  }, [getRootDirectoryInfo, getIsLike]);
-
-  const [isOpenLoginWarning, setIsOpenLoginWarning] = useState<any>(false);
-  const [isOpenSaveModal, setIsOpenSaveModal] = useState<any>(false);
-  const [isOpenCopyModal, setIsOpenCopyModal] = useState<any>(false);
-
-  // 모달을 닫고 input 값을 초기화하는 함수
+  // 로그인 경고 모달 지우기
   const handleCloseLoginWarninghModal = () => {
     setIsOpenLoginWarning(false);
   };
 
+  // 로그인 경고 모달 띄우기
   const handleLoginWarningModal = () => {
     setIsOpenLoginWarning(true);
   };
 
+  // 찜하기 버튼 클릭 시
   const handleClickSaveBtn = () => {
     if (token) {
       setIsOpenSaveModal(true);
@@ -143,6 +153,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
     }
   };
 
+  // 카피 저장 부분 클릭 시
   const handleClickCopyBtn = () => {
     if (token) {
       setIsOpenCopyModal(true);
@@ -151,27 +162,22 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
     }
   };
 
-  const [selectedSector, setSelectedSector] = useState("기본정보");
-
+  // 섹터 선택 부분
   const handleClickSector = (event: React.MouseEvent<HTMLButtonElement>) => {
     const value = event.currentTarget.value;
     setSelectedSector(value);
   };
 
-  const [selectedFolder, setSelectedFolder] = useState<number | null>(null);
-
-  const [isOpenNewFolder, setIsOpenNewFolder] = useState<boolean>(false);
-
+  // 찜하기 선택 시
   const handleOpenNewFolder = () => {
     setIsOpenNewFolder(true);
     setIsOpenSaveModal(false);
   };
 
+  // 찜하기 선택 후 취소 버튼
   const closeSaveModal = () => {
     setIsOpenSaveModal(false);
   };
-
-  const [folderName, setFolderName] = useState(""); // 폴더 이름을 관리할 상태
 
   // 폴더 이름 input 변경 핸들러
   const handleFolderNameChange = (
@@ -180,6 +186,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
     setFolderName(event.target.value);
   };
 
+  // 찜하기에서 폴더 선택 후 찜하기 누를 시 api
   const saveDirectory = async () => {
     try {
       await axios
@@ -205,6 +212,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
     }
   };
 
+  // 새 폴더 만들기 시 폴더 만드는 api
   const plusDirectoryName = useCallback(
     async (directoryName: string) => {
       try {
@@ -234,16 +242,21 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
     [token, getRootDirectoryInfo]
   );
 
+  // 새 폴더 만들기 취소 시
   const handleCloseNewFolder = () => {
     setIsOpenNewFolder(false);
     setIsOpenSaveModal(true);
     setFolderName("");
   };
 
-  const [isConfirmSaveModal, setIsConfirmSaveModal] = useState<boolean>(false);
+  useEffect(() => {
+    getRootDirectoryInfo();
+    getIsLike();
+  }, [getRootDirectoryInfo, getIsLike]);
 
   return (
     <TotalComponent>
+      {/* 찜하기 완료 모달 */}
       {isConfirmSaveModal && (
         <PatchTotalModal>
           <ConfirmSaveModalText>찜하기가 완료되었습니다.</ConfirmSaveModalText>
@@ -257,6 +270,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
         </PatchTotalModal>
       )}
 
+      {/* 로그인 경고 창 모달 */}
       {isOpenLoginWarning && (
         <PatchTotalModal>
           <WarningIcon src={warning} alt="warning" />
@@ -281,6 +295,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
           </PatchModalButtonComponent>
         </PatchTotalModal>
       )}
+      {/* 찜하기 누를시 나오는 모달 */}
       {isOpenSaveModal && (
         <SaveModalComponent>
           <OnLoginModalText marginTop="49px">찜할 폴더 선택</OnLoginModalText>
@@ -332,6 +347,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
           </PatchModalButtonComponent>
         </SaveModalComponent>
       )}
+      {/* 새폴더 만들기 누를 시 나오는 모달 */}
       {isOpenNewFolder && (
         <CompleteModal>
           <NewFolderTopText>새 폴더 만들기</NewFolderTopText>
@@ -359,6 +375,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
         </CompleteModal>
       )}
 
+      {/* 카피 저장  모달 */}
       {isOpenCopyModal && (
         <CopyModalComponent>
           <XImg onClick={() => setIsOpenCopyModal(false)} src={xIcon} alt="X" />
@@ -371,6 +388,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
           <CopyModalBottom>보러가기</CopyModalBottom>
         </CopyModalComponent>
       )}
+
       {/* 왼쪽 영상정보 보여주는 부분 */}
       <LeftInfoComponent>
         {/* 유튜브 영상 띄워주는 부분 */}
@@ -387,8 +405,15 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
         </YoutubeFrameBox>
         {/* 제목 */}
         <VideoTitle>{videoInfo.title}</VideoTitle>
-        {/* 영상 날짜 */}
-        <VideoDate>{videoInfo.uploadDate}</VideoDate>
+        {/* 조회수 및 영상날짜 */}
+        <UnderTitleRowDiv>
+          <VideoView>조회수</VideoView>
+          <VideoView style={{ marginLeft: "6px" }}>
+            {videoInfo.viewCount}회
+          </VideoView>
+          <VideoDate>{videoInfo.uploadDate}</VideoDate>
+        </UnderTitleRowDiv>
+
         {/* 추천,찜,캡처 */}
         <UnderDateRowComponent>
           {videoLike.isLike ? (
@@ -419,6 +444,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
           <UnderDateQuestionImg src={question} alt="?" />
         </UnderDateRowComponent>
 
+        {/* 기본정보 또는 광고효과 섹터 선택 부분 */}
         <SelectSectorComponent>
           {selectedSector === "기본정보" ? (
             <SelectedSector value="기본정보">기본 정보</SelectedSector>
@@ -442,19 +468,25 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
           )}
         </SelectSectorComponent>
 
+        {/* 기본 정보 일 경우 */}
         {selectedSector === "기본정보" ? (
           <EtcInfoComponent>
+            {/* 키워드 리스트 보여주기 */}
             <KeywordListRowComponent>
               {videoInfo.keywordList?.map((item: any) => {
                 return <KeywordText>#{item}</KeywordText>;
               })}
             </KeywordListRowComponent>
+
+            {/* 카피 저장 부분 보여주기 */}
             <AdCopyLabel>카피 저장</AdCopyLabel>
             <AdCopyContent>{videoInfo.copyDetail}</AdCopyContent>
             <AdCopyRowComponent>
               <AdCopyBtn onClick={handleClickCopyBtn}>카피 저장</AdCopyBtn>
               <UnderDateQuestionImg src={question} alt="?" />
             </AdCopyRowComponent>
+
+            {/* 영상에 나온 인물과 사물 정보 */}
             <UnderCopyRowComponent>
               <UnderCopyEachBox>
                 <UnderCopyLabelText>인물</UnderCopyLabelText>
@@ -473,6 +505,8 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
                 </UnderCopyAnswerRowComponent>
               </UnderCopyEachBox>
             </UnderCopyRowComponent>
+
+            {/* 광고주,광고회사,제작사 보여주기 */}
             <OtherInfoRowComponent margin="78px 0px 0px 10px">
               <OtherInfoLabel>광고주</OtherInfoLabel>
               <OtherInfoAnswer>{videoInfo.owner}</OtherInfoAnswer>
@@ -487,6 +521,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
             </OtherInfoRowComponent>
           </EtcInfoComponent>
         ) : (
+          // 광고효과 섹터 누를 경우
           <EtcInfoComponent>
             <TextBox>
               <GraphTextRed>외식업</GraphTextRed>
@@ -515,11 +550,13 @@ const TotalComponent = styled.div`
   min-height: 1228px;
 `;
 
+// 왼쪽 영상 정보 보여주기 컴포넌트
 const LeftInfoComponent = styled.div`
-  width: 71.68675%; //55.78vw;
+  width: 71.68675%;
   height: 100%;
 `;
 
+// 영상 부분
 const YoutubeFrameBox = styled.div`
   width: 55.78vw;
   height: 31.377vw;
@@ -528,38 +565,53 @@ const YoutubeFrameBox = styled.div`
   background: #d9d9d9;
 `;
 
+//제목
 const VideoTitle = styled.div`
   display: inline-flex;
   margin: 16px 0px 0px 0px;
   color: var(--Gray-9, #27272e);
   font-family: "Noto Sans KR";
-  font-size: 24px; //2.813vw; //36px
+  font-size: 24px;
   font-style: normal;
   font-weight: 700;
   line-height: 140%;
   letter-spacing: -0.4px;
 `;
 
-const VideoDate = styled.div`
-  margin: 16px 0px 0px 0px;
+// 제목 아래 조회수와 년도 보여주는 컴포넌트
+const UnderTitleRowDiv = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+`;
+const VideoView = styled.div`
   color: var(--Gray-7, #707887);
   font-family: "Noto Sans KR";
-  font-size: 20px; //20px;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: -0.4px;
+`;
+const VideoDate = styled.div`
+  margin: 0px 0px 0px 30.38px;
+  color: var(--Gray-7, #707887);
+  font-family: "Noto Sans KR";
+  font-size: 20px;
   font-style: normal;
   font-weight: 350;
   line-height: 140%;
   letter-spacing: -0.4px;
 `;
 
-// 날짜 밑 row 컴포넌트
+// 좋아요, 찜하기, 장면 캡쳐 부분 컴포넌트
 const UnderDateRowComponent = styled.div`
   height: 42px;
   margin: 30px 0px 0px 0px;
   display: flex;
   align-items: center;
 `;
-
-// 버튼 내부요소
 const UnderDateBtn = styled.div<{ margin?: any }>`
   height: 42px;
   margin: ${(props) => props.margin || "0px"};
@@ -571,12 +623,10 @@ const UnderDateBtn = styled.div<{ margin?: any }>`
   border: 1px solid var(--Gray-6, #bfc7d1);
   cursor: pointer;
 `;
-
 const UnderDateBtnIcon = styled.img`
   width: 24px;
   height: 24px;
 `;
-
 const UnderDateBtnText = styled.div`
   color: var(--Gray-7, #707887);
   text-align: center;
@@ -587,7 +637,6 @@ const UnderDateBtnText = styled.div`
   line-height: 140%;
   letter-spacing: -0.4px;
 `;
-
 const UnderDateQuestionImg = styled.img`
   width: 23px;
   height: 23px;
@@ -603,38 +652,34 @@ const EtcInfoComponent = styled.div`
   border-radius: 16px;
 `;
 
+// 키워드 정보 보여주는 부분
 const KeywordListRowComponent = styled.div`
   display: flex;
   margin: 0px 0px 0px 0px;
 `;
-
 const KeywordText = styled.div`
   margin: 0px 0px 0px 10px;
   color: var(--Main-1, #d33b4d);
   text-align: center;
-
-  /* Body/3 */
   font-family: "Noto Sans KR";
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 28px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
 
+// 카피 저장 부분
 const AdCopyLabel = styled.div`
   margin: 28px 0px 0px 10px;
   color: var(--Gray-9, #27272e);
-
-  /* Subtitle/1 */
   font-family: "Noto Sans KR";
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
-  line-height: 140%; /* 28px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
-
 const AdCopyContent = styled.div`
   margin: 0px 0px 0px 10px;
   width: 479px;
@@ -644,10 +689,9 @@ const AdCopyContent = styled.div`
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
-  line-height: 177%; /* 28.32px */
+  line-height: 177%;
   letter-spacing: -0.4px;
 `;
-
 const AdCopyRowComponent = styled.div`
   margin: 15px 0px 0px 10px;
   display: flex;
@@ -663,71 +707,61 @@ const AdCopyBtn = styled.button`
   color: var(--Main-1, #d33b4d);
   text-align: center;
   background-color: #fff;
-  /* Body/4 */
   font-family: "Noto Sans KR";
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  /* line-height: 140%; 22.4px */
   letter-spacing: -0.4px;
   cursor: pointer;
 `;
 
+// 영상에 나온 인물,사물 관련 부분
 const UnderCopyRowComponent = styled.div`
   margin: 78px 0px 0px 10px;
   display: inline-flex;
 `;
-
 const UnderCopyEachBox = styled.div`
   width: 211px;
 `;
-
 const UnderCopyLabelText = styled.div`
   color: var(--Gray-9, #27272e);
-
-  /* Subtitle/1 */
   font-family: "Noto Sans KR";
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
-  line-height: 140%; /* 28px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
-
 const UnderCopyAnswerRowComponent = styled.div`
   margin: 20px 0px 0px 0px;
   display: grid;
   grid-template-columns: max-content max-content;
   gap: 4px;
 `;
-
 const UnderCopyAnswerText = styled.div`
   display: inline-flex;
   padding: 3px 10px;
   justify-content: center;
   align-items: center;
   gap: 8px;
-
   border-radius: 20px;
   background: var(--Sub-2, #ffecee);
   color: var(--Main-1, #d33b4d);
   text-align: center;
-
-  /* Body/5 */
   font-family: "Noto Sans KR";
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 19.6px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
 
+// 광고주, 제작사 등 이외 정보
 const OtherInfoRowComponent = styled.div<{ margin?: any }>`
   display: flex;
   height: 22px;
   margin: ${(props) => props.margin || "10px 0px 0px 10px"};
 `;
-
 const OtherInfoLabel = styled.div`
   color: var(--Gray-9, #27272e);
   width: 58px;
@@ -739,7 +773,6 @@ const OtherInfoLabel = styled.div`
   line-height: 140%; /* 22.4px */
   letter-spacing: -0.4px;
 `;
-
 const OtherInfoAnswer = styled.div`
   color: var(--Gray-9, #27272e);
   /* Body/4 */
@@ -752,6 +785,7 @@ const OtherInfoAnswer = styled.div`
   margin: 0px 0px 0px 22px;
 `;
 
+// 모달창
 const PatchTotalModal = styled.div`
   display: flex;
   flex-direction: column;
@@ -773,44 +807,20 @@ const WarningIcon = styled.img`
   width: 80px;
   height: 80px;
 `;
-
 const PatchTopText = styled.div`
   margin-top: 49px;
   color: var(--Gray-8, #373d49);
   text-align: center;
-
-  /* Body/1 */
   font-family: "Noto Sans KR";
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 39.2px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
 
 const OnLoginModalText = styled(PatchTopText)<{ marginTop?: string }>`
   margin-top: ${(props) => props.marginTop || "0px"};
-`;
-
-const PatchTitleInput = styled.input`
-  margin-top: 30px;
-  padding-left: 14px;
-  width: 452px;
-  height: 56px;
-  flex-shrink: 0;
-  border-radius: 8px;
-  background: var(--Gray-2, #e6e6e6);
-  color: var(--Gray-9, #27272e);
-
-  /* Detail/1 */
-  font-family: "Noto Sans KR";
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 350;
-  line-height: 140%; /* 33.6px */
-  letter-spacing: -0.4px;
-  outline: none;
-  border: none;
 `;
 
 const PatchModalButtonComponent = styled.div`
@@ -819,11 +829,9 @@ const PatchModalButtonComponent = styled.div`
   display: flex;
   border-top: 2px solid #e6e6e6;
 `;
-
 const NewModalButtonComponent = styled(PatchModalButtonComponent)`
   margin: 65px 0px 0px 0px;
 `;
-
 const PatchModalBtn = styled.div`
   display: flex;
   align-items: center;
@@ -831,16 +839,13 @@ const PatchModalBtn = styled.div`
   width: 281px;
   height: 93px;
 `;
-
 const PatchModalBtnText = styled.div`
   color: var(--Gray-7, #707887);
-
-  /* Body/2 */
   font-family: "Noto Sans KR";
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 33.6px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   cursor: pointer;
 `;
@@ -848,7 +853,6 @@ const PatchModalBtnText = styled.div`
 const SaveModalComponent = styled(PatchTotalModal)`
   height: 500px;
 `;
-
 const SaveModalMiddleComponent = styled.div`
   width: 460px;
   height: 175px;
@@ -859,7 +863,6 @@ const SaveModalMiddleComponent = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 `;
-
 const EachSaveFolderComponent = styled.div`
   position: relative;
   width: 120px;
@@ -888,33 +891,28 @@ const PlusImg = styled.img`
 const EachFolderName = styled.div`
   color: var(--Gray-9, #27272e);
   text-align: center;
-
-  /* Detail/3 */
   font-family: "Noto Sans KR";
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
-  line-height: 140%; /* 22.4px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   overflow: hidden;
 `;
 
 const CopyModalComponent = styled(PatchTotalModal)``;
-
 const CopyContent = styled.div`
   margin-top: 28px;
   color: var(--Gray-8, #373d49);
   text-align: center;
   width: 401px;
-  /* Detail/1 */
   font-family: "Noto Sans KR";
   font-size: 24px;
   font-style: normal;
   font-weight: 350;
-  line-height: 140%; /* 33.6px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
-
 const CopyModalBottom = styled.div`
   display: flex;
   justify-content: center;
@@ -925,16 +923,14 @@ const CopyModalBottom = styled.div`
   margin: 39px 0px 0px 0px;
   width: 100%;
   height: 93px;
-  /* Body/1 */
   font-family: "Noto Sans KR";
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 39.2px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   cursor: pointer;
 `;
-
 const XImg = styled.img`
   width: 30px;
   height: 30px;
@@ -944,12 +940,12 @@ const XImg = styled.img`
   cursor: pointer;
 `;
 
+// 섹터 선택 부분
 const SelectSectorComponent = styled.div`
   margin-top: 41px;
   display: flex;
   align-items: center;
 `;
-
 const SelectedSector = styled.button`
   display: flex;
   width: 85px;
@@ -960,20 +956,17 @@ const SelectedSector = styled.button`
   color: var(--Gray-8, #373d49);
   text-align: center;
   padding-bottom: 2px;
-
-  /* Body/3 */
   font-family: "Noto Sans KR";
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 28px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   border: none;
   border-bottom: 2px solid var(--Main-1, #d33b4d);
   background-color: #fff;
   cursor: pointer;
 `;
-
 const UnSelectedSector = styled.button`
   display: flex;
   width: 85px;
@@ -985,25 +978,23 @@ const UnSelectedSector = styled.button`
   text-align: center;
   border: none;
   background-color: #fff;
-  /* Body/3 */
   font-family: "Noto Sans KR";
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 28px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   cursor: pointer;
 `;
 
+// 광고효과 섹터 부분
 const TextBox = styled.div`
   display: flex;
   align-items: center;
 `;
-
 const GraphText = styled.div`
   color: #000;
   margin-left: 8px;
-  /* Subtitle/1 */
   font-family: "Noto Sans KR";
   font-size: 20px;
   font-style: normal;
@@ -1011,19 +1002,16 @@ const GraphText = styled.div`
   line-height: 140%;
   letter-spacing: -0.4px;
 `;
-
 const GraphTextRed = styled(GraphText)`
   color: #d33b4d;
   margin-left: 0px;
 `;
-
 const GraphFirstBox = styled.img`
   margin-top: 38px;
   display: block;
   width: 667px;
   height: 298px;
 `;
-
 const GraphSecondBox = styled.img`
   display: block;
   margin-top: 46px;
@@ -1051,17 +1039,14 @@ const CompleteModal = styled.div`
 const NewFolderTopText = styled.div`
   color: var(--Gray-8, #373d49);
   text-align: center;
-
-  /* Body/1 */
   font-family: "Noto Sans KR";
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 39.2px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   margin-top: 49px;
 `;
-
 const NewFolderInputDiv = styled.input`
   padding-left: 14px;
   margin-top: 30px;
@@ -1073,33 +1058,27 @@ const NewFolderInputDiv = styled.input`
   color: var(--Gray-9, #27272e);
   border: none;
   outline: none;
-  /* Detail/1 */
   font-family: "Noto Sans KR";
   font-size: 24px;
   font-style: normal;
   font-weight: 350;
-  line-height: 140%; /* 33.6px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
-
 const NewFolderModalBtn = styled(PatchModalBtn)`
   height: 86px;
 `;
-
 const ConfirmSaveModalText = styled.div`
   margin-top: 126px;
   color: var(--Gray-8, #373d49);
   text-align: center;
-
-  /* Body/1 */
   font-family: "Noto Sans KR";
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 39.2px */
+  line-height: 140%;
   letter-spacing: -0.4px;
 `;
-
 const ConfirmSaveModalConfirm = styled.div`
   display: flex;
   width: 100%;
@@ -1109,12 +1088,11 @@ const ConfirmSaveModalConfirm = styled.div`
   color: var(--Main-1, #d33b4d);
   margin-top: 72px;
   border-top: 1px solid #e6e6e6;
-  /* Body/1 */
   font-family: "Noto Sans KR";
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 39.2px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   cursor: pointer;
 `;

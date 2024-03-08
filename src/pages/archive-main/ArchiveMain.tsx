@@ -1,16 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useCallback, useEffect, useState } from "react";
-
+import axios from "axios";
 import styled from "styled-components";
+
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import SwiperVideo from "./components/SwiperVideo";
 import NotLoginComponent from "./components/NotLoginComponent";
 import TotalVideo from "./components/TotalVideo";
-import question from "../../../assets/archive/Question.svg";
-import axios from "axios";
-import SelectDirectory from "../../components/SelectDirectory";
 
 // 아카이브 메인페이지
 const ArchiveMain = () => {
@@ -21,8 +19,8 @@ const ArchiveMain = () => {
   const [trendVideos, setTrendVideos] = useState<any>([]);
   const [recentPopularVideos, setRecentPopularVideos] = useState<any>([]);
   const [savedVideos, setSavedVideos] = useState<any>([]);
-  const [totalVideos, setTotalVideos] = useState<any>([]);
 
+  // 트렌드 영상 받기 api
   const getTrendVideos = useCallback(async () => {
     try {
       await axios
@@ -40,6 +38,7 @@ const ArchiveMain = () => {
     }
   }, []);
 
+  // 최근 인기있는 영상 받기 api
   const getRecentPopularVideos = useCallback(async () => {
     try {
       await axios
@@ -57,6 +56,7 @@ const ArchiveMain = () => {
     }
   }, []);
 
+  // 내가 찜한 영상 받기 api
   const getSavedVideos = useCallback(async () => {
     try {
       await axios
@@ -69,99 +69,6 @@ const ArchiveMain = () => {
           setSavedVideos(res.data.content);
           console.log(res);
         });
-
-      // setSavedVideos([
-      //   {
-      //     advertiseId: 1,
-      //     videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-      //     title: "빵빵이의 옥지 사용법 ~!",
-      //     videoTime: "02:49",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 2,
-      //     videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-      //     title:
-      //       "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-      //     videoTime: "40:32",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 3,
-      //     videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-      //     title: "빵빵이의 옥지 사용법 ~!",
-      //     videoTime: "02:49",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 4,
-      //     videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-      //     title:
-      //       "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-      //     videoTime: "40:32",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 5,
-      //     videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-      //     title: "빵빵이의 옥지 사용법 ~!",
-      //     videoTime: "02:49",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 6,
-      //     videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-      //     title:
-      //       "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-      //     videoTime: "40:32",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 7,
-      //     videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-      //     title: "빵빵이의 옥지 사용법 ~!",
-      //     videoTime: "02:49",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 8,
-      //     videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-      //     title:
-      //       "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-      //     videoTime: "40:32",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 9,
-      //     videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-      //     title: "빵빵이의 옥지 사용법 ~!",
-      //     videoTime: "02:49",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 10,
-      //     videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-      //     title:
-      //       "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-      //     videoTime: "40:32",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 11,
-      //     videoUrl: "https://youtu.be/3Hj7VwdYy4A?si=CFY4XDE_UYlkScWx",
-      //     title: "빵빵이의 옥지 사용법 ~!",
-      //     videoTime: "02:49",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      //   {
-      //     advertiseId: 12,
-      //     videoUrl: "https://youtu.be/NFcp_8np3e8?si=boqQB_OgrBpP_ru5",
-      //     title:
-      //       "[sub] 이건와글와글이아니라우르릉쾅카ㅇ왕 | 👅나영석의 우르르쾅쾅",
-      //     videoTime: "40:32",
-      //     keywordList: ["커피", "유머있는"],
-      //   },
-      // ]);
     } catch (err) {
       console.log(err);
     }
@@ -176,8 +83,7 @@ const ArchiveMain = () => {
   return (
     <ArchiveComponent>
       <Header />
-      {/* <SelectDirectory /> */}
-      {/* 최근 인기있는 영상 컴포넌트 */}
+      {/* 트렌드 영상 컴포넌트 */}
       <AdTrendVideoComponent>
         {trendVideos.length > 0 && (
           <SwiperVideo sector="trend" videos={trendVideos} />
@@ -209,12 +115,9 @@ const ArchiveMain = () => {
       )}
 
       {/* 전체 비디오 영상 컴포넌트 */}
-      {/* videos 보내주고 페이지 바뀌거나 검색어 입력시 TotalVideo 내부에서 다시 받아 렌더링 */}
       <TotalVideoComponent>
         <CenteredInnerComponent>
           <TotalVideo />
-
-          {/* {totalVideos.length > 0 && <TotalVideo videos={totalVideos} />} */}
         </CenteredInnerComponent>
       </TotalVideoComponent>
       <Footer />

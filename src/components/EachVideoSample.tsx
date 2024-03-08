@@ -1,14 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from "styled-components";
+
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+
 import SamepleVideo from "../assets/archive/cocacola.mp4";
 
-// 비디오 정보 받기
+// 샘플 비디오 보여주는 컴포넌트
 const EachVideoSample = () => {
   const navigate = useNavigate();
 
+  // 비디오 정보 설정
   const [videoInfo, setVideoInfo] = useState({
     videoUrl: SamepleVideo,
     keywordList: ["콜라", "사이다"],
@@ -16,6 +19,8 @@ const EachVideoSample = () => {
     videoTime: "00:03:18",
     title: "맛도 좋은 콜라, 시원해요",
   });
+
+  // 마지막 두개 키워드 설정
   const [lastTwoKeywords, setLastTwoKeywords] = useState<string[]>([]);
 
   useEffect(() => {
@@ -31,6 +36,7 @@ const EachVideoSample = () => {
 
   return (
     <TotalComponent>
+      {/* 전체 비디오 영상 부분 */}
       <VideoFrame
         onClick={() => {
           navigate(`/archive/detail/sample`, {
@@ -44,12 +50,15 @@ const EachVideoSample = () => {
         <SampleVideoComponent src={SamepleVideo} preload="metadata" />
         <VideoTime>{videoInfo.videoTime}</VideoTime>
       </VideoFrame>
+
+      {/* 키워드 부분 */}
       <KeywordComponent>
         {lastTwoKeywords?.map((item: any) => {
           return <EachKeyword>#{item}</EachKeyword>;
         })}
       </KeywordComponent>
 
+      {/* 제목 부분 */}
       <VideoTitle>{videoInfo.title}</VideoTitle>
     </TotalComponent>
   );
@@ -72,7 +81,12 @@ const VideoFrame = styled.div`
   background: #d9d9d9;
   overflow: hidden;
 `;
-
+// 비디오 띄워주기
+const SampleVideoComponent = styled.video`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
 const VideoTime = styled.div`
   text-align: center;
   position: absolute;
@@ -97,6 +111,7 @@ const KeywordComponent = styled.div`
   display: flex;
 `;
 
+// 각자 키워드 부분
 const EachKeyword = styled.div`
   display: inline-flex;
   padding: 3px 10px;
@@ -117,30 +132,6 @@ const EachKeyword = styled.div`
   margin-left: 6px;
 `;
 
-const BrandingRowComponent = styled.div`
-  margin: 11px 0px 0px 10px;
-  display: flex;
-  align-items: center;
-`;
-
-const BrandingImgBox = styled.img`
-  width: 27px;
-  height: 27px;
-  flex-shrink: 0;
-`;
-
-const VideoTrendType = styled.div`
-  color: #27272e;
-  margin: 0px 0px 0px 9px;
-  /* Body/5 */
-  font-family: "Noto Sans KR";
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 140%; /* 19.6px */
-  letter-spacing: -0.4px;
-`;
-
 // 영상 제목 이름 두줄로 표시하고 넘을 때 ...으러 표시
 const VideoTitle = styled.div`
   margin: 8px 0px 0px 10px;
@@ -153,18 +144,10 @@ const VideoTitle = styled.div`
   letter-spacing: -0.4px;
   overflow: hidden;
   text-overflow: ellipsis;
-  /* nowrap을 normal로 변경하여 텍스트가 래핑될 수 있도록 함 */
   white-space: normal;
-
   /* 두줄로 표시 시 아래와 같은 -webkit-box가 있어야함 */
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   width: 17vw;
-`;
-
-const SampleVideoComponent = styled.video`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 `;

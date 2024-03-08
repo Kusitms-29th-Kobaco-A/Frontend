@@ -4,7 +4,6 @@ import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import glass from "../../../assets/archive/Glass.svg";
 import XImage from "../../../assets/archive/XImg.svg";
-import questionImg from "../../../assets/archive/Question.svg";
 
 // 드롭다운 리스트 받아오기
 import {
@@ -320,63 +319,6 @@ const TotalTopLabel = styled.div`
   letter-spacing: -0.4px;
 `;
 
-const TotalTopQuestionImgBox = styled.img`
-  margin: 0px 0px 0px 12px;
-  width: 23px;
-  height: 23px;
-  flex-shrink: 0;
-  fill: var(--Gray-3, #bebebe);
-`;
-const TooltipComponent = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 200px;
-  fill: var(--Gray-8, #373d49);
-  color: var(--Gray-1, #f4f6f6);
-  text-align: center;
-
-  font-family: "Noto Sans KR";
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 350;
-  line-height: 140%;
-  letter-spacing: -0.4px;
-`;
-
-//검색 부분
-const TotalSearchComponent = styled.div`
-  display: flex;
-  position: relative;
-  margin: 41px 0px 0px 0px;
-  width: 100%;
-  height: 44px;
-`;
-
-const TotalSearchComponentLeftDiv = styled.div`
-  display: flex;
-`;
-const TotalSearchComponentRightDiv = styled.div`
-  position: absolute;
-  right: 0;
-  display: flex;
-`;
-
-const ContainInputDiv = styled.div`
-  position: relative;
-`;
-
-const GlassImg = styled.img`
-  position: absolute;
-  top: 11px;
-  left: 17px;
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-  object-fit: cover;
-`;
-
 const TotalSearchInput = styled.input`
   padding-left: 49px;
   width: 359px;
@@ -413,26 +355,6 @@ const SearchBtn = styled.button`
   font-weight: 500;
   line-height: 140%;
   letter-spacing: -0.4px;
-`;
-
-// 드롭다운 부분
-// 스타일드 컴포넌트로 select 스타일 정의
-const StyledSelectBackground = styled.select<{ margin?: any }>`
-  display: inline-flex;
-  padding: 10px 10px 10px 20px;
-  align-items: center;
-  gap: 4px;
-  border-radius: 8px;
-  background: var(--Gray-1, #f4f6f6);
-  font-family: "Noto Sans KR";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 350;
-  line-height: 140%;
-  letter-spacing: -0.4px;
-  border: none;
-  outline: none;
-  margin: ${(props) => props.margin || "0px"};
 `;
 
 // 키워드 부분
@@ -518,18 +440,6 @@ const RowComponent = styled.div`
   height: 36px;
 `;
 
-const TotalFilterComponent = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 19px 0px 0px 0px;
-  width: 100%;
-  height: 257px;
-  flex-shrink: 0;
-  border-radius: 10px;
-  background: var(--Gray-2, #e6e6e6);
-`;
-
 const StyledSelectNotBackground = styled.select<{ margin?: any }>`
   position: absolute;
   right: 0;
@@ -547,11 +457,6 @@ const StyledSelectNotBackground = styled.select<{ margin?: any }>`
   border: none;
   outline: none;
   margin: ${(props) => props.margin || "0px"};
-`;
-const DottedLine = styled.div`
-  width: 92%;
-  height: 0px;
-  border: 1px dotted #bebebe;
 `;
 
 const FilterLabel = styled.div`
@@ -590,8 +495,6 @@ const SelectedFilterAns = styled.button`
   background: var(--Sub-2, #ffecee);
   color: var(--Main-1, #d33b4d);
   border: none;
-
-  /* Detail/3 */
   font-family: "Noto Sans KR";
   font-size: 16px;
   font-style: normal;

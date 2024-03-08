@@ -5,6 +5,7 @@ interface YouTubeThumbnailProps {
   videoId?: string;
 }
 
+// videoId를 통해 유튜브 썸네일 받아오기 함수
 const YouTubeThumbnail: React.FC<YouTubeThumbnailProps> = ({ videoId }) => {
   // YouTube 썸네일 URL 생성
   const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/0.jpg`;

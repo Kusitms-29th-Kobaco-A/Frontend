@@ -2,32 +2,77 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import thumbsUp from "../../../assets/archive/BlankThumbsUp.svg";
-// 페이지네이션
 import Pagination from "react-js-pagination";
-import "./paging.css";
 import axios from "axios";
-import warning from "../../../assets/archive/Warning.svg";
 import { useNavigate } from "react-router-dom";
+
+import warning from "../../../assets/archive/Warning.svg";
+
+import "./paging.css";
 import EachCommentBox from "./EachCommentBox";
 
+// 해당 광고 전체 댓글 포함하는 컴포넌트
 const TotalCommentComponent = ({ advertiseId }: any) => {
   console.log(advertiseId.advertiseId);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+
+  // 리스트와 개수 받는 변수
   const [commentList, setCommentList] = useState<any>([]);
   const [commentItemCount, setCommentItemCount] = useState<number>(50);
-
+  const [totalItemCount, setTotalItemCount] = useState<number>(50);
+  // 댓글 입력 부분
   const [inputComment, setInputComment] = useState<string>("");
+  // 로그인 경고 창 변수
+  const [isOpenLoginWarning, setIsOpenLoginWarning] = useState<any>(false);
 
+  // 댓글 리스트 받기 api
+  const getCommentList = useCallback(async () => {
+    try {
+      await axios
+        .get(
+          `https://dev.simproject.kr/api/comments/${advertiseId.advertiseId}`,
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          setCommentList(res.data.content);
+          setCommentItemCount(res.data.numberOfElements);
+          setTotalItemCount(res.data.totalElements);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  // 댓글 입력 함수
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputComment(event.target.value);
   };
 
+  // 모달을 닫고 input 값을 초기화하는 함수
+  const handleCloseLoginWarninghModal = () => {
+    setIsOpenLoginWarning(false);
+  };
+
+  // 댓글 취소시
   const handleCancelComment = () => {
     setInputComment("");
   };
 
+  //페이징을 위한 page 변수선언
+  const [page, setPage] = useState<number>(1);
+  // 페이지 이동함수
+  const handlePageChange = (page: number) => {
+    setPage(page);
+    console.log(page);
+  };
+
+  // 댓글 등록 시 api
   const handleSubmitComment = async () => {
     if (!inputComment) {
       alert("댓글을 입력해주세요.");
@@ -59,47 +104,13 @@ const TotalCommentComponent = ({ advertiseId }: any) => {
     }
   };
 
-  const getCommentList = useCallback(async () => {
-    try {
-      await axios
-        .get(
-          `https://dev.simproject.kr/api/comments/${advertiseId.advertiseId}`,
-          {
-            headers: {
-              Authorization: `${token}`,
-            },
-          }
-        )
-        .then((res) => {
-          console.log(res);
-          setCommentList(res.data);
-          setCommentItemCount(res.data.length);
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
-
   useEffect(() => {
     getCommentList();
   }, [getCommentList]);
 
-  //페이징을 위한 page 변수선언
-  const [page, setPage] = useState<number>(1);
-  // 페이지 이동함수
-  const handlePageChange = (page: number) => {
-    setPage(page);
-    console.log(page);
-  };
-
-  const [isOpenLoginWarning, setIsOpenLoginWarning] = useState<any>(false);
-  // 모달을 닫고 input 값을 초기화하는 함수
-  const handleCloseLoginWarninghModal = () => {
-    setIsOpenLoginWarning(false);
-  };
-
   return (
     <TotalComponent>
+      {/* 로그인 경고 창 부분 */}
       {isOpenLoginWarning && (
         <PatchTotalModal>
           <WarningIcon src={warning} alt="warning" />
@@ -124,8 +135,11 @@ const TotalCommentComponent = ({ advertiseId }: any) => {
           </PatchModalButtonComponent>
         </PatchTotalModal>
       )}
+
       <CenteredInnerComponent>
+        {/* 댓글 개수 */}
         <ItemCountText>댓글 {commentItemCount}개</ItemCountText>
+        {/* 댓글 입력 부분 */}
         <WriteCommentComponent>
           <CommentInput
             type="text"
@@ -135,15 +149,21 @@ const TotalCommentComponent = ({ advertiseId }: any) => {
           />
         </WriteCommentComponent>
         <LineDiv />
+
+        {/* 댓글 관련 버튼 부분 */}
         <BtnDiv>
           <CancelBtn onClick={handleCancelComment}>취소</CancelBtn>
           <EnrollBtn onClick={handleSubmitComment}>등록</EnrollBtn>
         </BtnDiv>
+
+        {/* 댓글리스트 띄워주기 */}
         <CommentComponent>
           {commentList?.map((item: any) => {
             return <EachCommentBox item={item} />;
           })}
         </CommentComponent>
+
+        {/* 페이지 처리 부분 */}
         <div
           style={{
             display: "flex",
@@ -154,7 +174,7 @@ const TotalCommentComponent = ({ advertiseId }: any) => {
           <Pagination
             activePage={page}
             itemsCountPerPage={10}
-            totalItemsCount={commentItemCount}
+            totalItemsCount={totalItemCount}
             pageRangeDisplayed={3}
             prevPageText={"‹"}
             nextPageText={"›"}
@@ -181,109 +201,34 @@ const CenteredInnerComponent = styled.div`
   height: 100%;
 `;
 
+// 댓글 개수
 const ItemCountText = styled.div`
   color: var(--Gray-9, #27272e);
-
-  /* Heading/3 */
   font-family: "Noto Sans KR";
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
-  line-height: 24px; //140%; /* 33.6px */
+  line-height: 24px;
   letter-spacing: -0.4px;
 `;
 
+// 댓글 입력 부분
 const WriteCommentComponent = styled.div`
   margin: 16px 0px 12px 0px;
 `;
-
-const WriteCommentBtn = styled.button`
-  border: none;
-  display: inline-flex;
-  padding: 8px 12px;
-  align-items: center;
-  gap: 4px;
-  border-radius: 21.5px;
-  background: var(--Main-1, #d33b4d);
-  color: var(--Gray-1, #f4f6f6);
-  text-align: center;
-  cursor: pointer;
-  /* Body/4 */
-  font-family: "Noto Sans KR";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 140%; /* 22.4px */
-  letter-spacing: -0.4px;
-`;
-
 const LineDiv = styled.div`
   width: 100%;
   height: 0px;
   border: 0.3px solid #707887;
 `;
 
+// 댓글 전체 컴포넌트
 const CommentComponent = styled.div`
   width: 100%;
   margin-top: -32px;
 `;
 
-const CommentBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 16px 0px 0px 0px;
-  height: 68px;
-  width: 100%;
-`;
-
-const CommentId = styled.div`
-  color: var(--Gray-9, #27272e);
-
-  /* Body/6 */
-  font-family: "Noto Sans KR";
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 140%; /* 16.8px */
-  letter-spacing: -0.4px;
-`;
-const CommentContent = styled.div`
-  width: 100%;
-  color: var(--Gray-7, #707887);
-
-  /* Detail/4 */
-  font-family: "Noto Sans KR";
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 350;
-  line-height: 140%; /* 19.6px */
-  letter-spacing: -0.4px;
-`;
-
-const RowComponent = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const ThumbsUpIcon = styled.img`
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-`;
-
-const ThumbsCountText = styled.div`
-  color: var(--Gray-7, #707887);
-  text-align: center;
-
-  /* Detail/5 */
-  font-family: "Noto Sans KR";
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 350;
-  line-height: 140%; /* 16.8px */
-  letter-spacing: -0.4px;
-`;
-
+// 댓글 입력부분
 const CommentInput = styled.input`
   width: 714px;
   height: 32px;
@@ -306,13 +251,13 @@ const CommentInput = styled.input`
   }
 `;
 
+// 댓글 관련 버튼
 const BtnDiv = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
   margin-top: 9.94px;
 `;
-
 const CancelBtn = styled.button`
   display: flex;
   height: 22px;
@@ -323,7 +268,6 @@ const CancelBtn = styled.button`
   background-color: #fff;
   cursor: pointer;
 `;
-
 const EnrollBtn = styled.button`
   display: inline-flex;
   padding: 8px 12px;
@@ -346,6 +290,7 @@ const EnrollBtn = styled.button`
   cursor: pointer;
 `;
 
+// 모달 창
 const PatchTotalModal = styled.div`
   display: flex;
   flex-direction: column;
@@ -362,35 +307,29 @@ const PatchTotalModal = styled.div`
   border: 2px solid var(--Gray-2, #e6e6e6);
   background: #fff;
 `;
-
 const WarningIcon = styled.img`
   margin: 27px 0px 0px 0px;
   width: 80px;
   height: 80px;
 `;
-
 const OnLoginModalText = styled.div<{ marginTop?: string }>`
   margin-top: 49px;
   color: var(--Gray-8, #373d49);
   text-align: center;
-
-  /* Body/1 */
   font-family: "Noto Sans KR";
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 39.2px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   margin-top: ${(props) => props.marginTop || "0px"};
 `;
-
 const PatchModalButtonComponent = styled.div`
   margin: 35px 0px 0px 0px;
   width: 100%;
   display: flex;
   border-top: 2px solid #e6e6e6;
 `;
-
 const PatchModalBtn = styled.div`
   display: flex;
   align-items: center;
@@ -398,16 +337,13 @@ const PatchModalBtn = styled.div`
   width: 281px;
   height: 93px;
 `;
-
 const PatchModalBtnText = styled.div`
   color: var(--Gray-7, #707887);
-
-  /* Body/2 */
   font-family: "Noto Sans KR";
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 33.6px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   cursor: pointer;
 `;
