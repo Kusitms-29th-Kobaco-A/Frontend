@@ -12,6 +12,7 @@ import "swiper/css";
 import SwiperCore from "swiper";
 import EachVideo from "../../../components/EachVideo";
 import { Tooltip } from "react-tooltip";
+import EachVideoSample from "../../../components/EachVideoSample";
 
 SwiperCore.use([Navigation]);
 
@@ -111,6 +112,11 @@ const SwiperVideo = ({ sector, videos }: any) => {
           onSwiper={(swiper) => console.log(swiper)}
           onSlideChange={() => console.log("slide change")}
         >
+          {sector==="popular"&&
+            <SwiperSlide key="999">
+              <EachVideoSample />
+            </SwiperSlide>
+          }
           {videos?.map((videoInfo: any) => {
             return (
               <SwiperSlide key={videoInfo.videoId}>
