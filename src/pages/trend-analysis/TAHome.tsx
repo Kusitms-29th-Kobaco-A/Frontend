@@ -12,7 +12,8 @@ import KeywordRank from '../../components/trend-analysis/keyword-rank/KeywordRan
 import SNSContent from '../../components/trend-analysis/sns-content/root/SNSContent';
 import SearchTopFixed from '../../components/trend-analysis/search/SearchTopFixed';
 import useTAStep from '../../hooks/useTAStep';
-import axios from 'axios';
+import { cakeData } from '../../data/cake';
+import { vegonData } from '../../data/vegon';
 
 const TAHome = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -52,6 +53,9 @@ const TAHome = () => {
       localStorage.setItem('ta-step-boarding', 'false');
       handleSearchSubmit();
     }
+    if (localStorage.getItem('ta-step-boarding') === 'false') {
+      handleSearchSubmit();
+    }
     if (localStorage.getItem('ta-step-boarding') === 'true') {
       document.body.style.overflow = 'auto';
       setTAStep(0);
@@ -69,11 +73,9 @@ const TAHome = () => {
   const handleSearchSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (searchKeyword === '케이크') {
-      const res = await axios.get('/src/data/cake.json');
-      setData(res.data);
+      setData(cakeData);
     } else if (searchKeyword === '비건') {
-      const res = await axios.get('/src/data/vegon.json');
-      setData(res.data);
+      setData(vegonData);
     } else {
       setData(null);
     }
