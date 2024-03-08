@@ -1,23 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import styled from "styled-components";
-import SideBar from "./SideBar";
-import thumbsUp from "../../../assets/archive/ThumbsUp.svg";
-import heart from "../../../assets/archive/Heart.svg";
-import camera from "../../../assets/archive/Camera.svg";
-import fillThumbsUp from "../../../assets/archive/FillThumbsUp.svg";
-import question from "../../../assets/archive/Question.svg";
-import axios from "axios";
-import { useCallback, useEffect, useRef, useState } from "react";
-import chartFirst from "../../../assets/archive/ChartFirst.svg";
-import chartSecond from "../../../assets/archive/ChartSecond.svg";
+import styled from 'styled-components';
+import SideBar from './SideBar';
+import thumbsUp from '../../../assets/archive/ThumbsUp.svg';
+import heart from '../../../assets/archive/Heart.svg';
+import camera from '../../../assets/archive/Camera.svg';
+import fillThumbsUp from '../../../assets/archive/FillThumbsUp.svg';
+import question from '../../../assets/archive/Question.svg';
+import axios from 'axios';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import chartFirst from '../../../assets/archive/ChartFirst.svg';
+import chartSecond from '../../../assets/archive/ChartSecond.svg';
 
-import html2canvas from "html2canvas";
-import newYoutubeUrl from "../../../assets//archive/cocacola.mp4";
+import html2canvas from 'html2canvas';
+import newYoutubeUrl from '../../../assets//archive/cocacola.mp4';
 
 const TotalVideosComponent = ({ videoInfo }: any) => {
-  const token = localStorage.getItem("token");
-  const [rootDirectoryInfo, setRootDirectoryInfo] = useState<any>({});
+  const token = localStorage.getItem('token');
+  const [, setRootDirectoryInfo] = useState<any>({});
 
   const getRootDirectoryInfo = useCallback(async () => {
     try {
@@ -36,12 +36,12 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
     }
   }, [token]);
 
-  const [videoLike, setVideoLike] = useState({
+  const [videoLike] = useState({
     isLike: false,
     likeCount: 8,
   });
 
-  const [selectedSector, setSelectedSector] = useState("기본정보");
+  const [selectedSector, setSelectedSector] = useState('기본정보');
 
   const handleClickSector = (event: React.MouseEvent<HTMLButtonElement>) => {
     const value = event.currentTarget.value;
@@ -52,7 +52,7 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
     getRootDirectoryInfo();
   }, [getRootDirectoryInfo]);
 
-  const [capturedImage, setCapturedImage] = useState<string | null>(null);
+  const [, setCapturedImage] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const handleCapture = async () => {
     if (videoRef.current) {
@@ -61,12 +61,12 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
       // 동영상 요소를 캡쳐합니다.
       html2canvas(videoElement).then(async (canvas) => {
         // 캡쳐된 이미지를 base64 형태로 가져옵니다.
-        const capturedImageUrl = canvas.toDataURL("image/png");
+        const capturedImageUrl = canvas.toDataURL('image/png');
         setCapturedImage(capturedImageUrl);
         console.log(capturedImageUrl);
 
         // Base64 문자열에서 데이터 URL 접두어를 제거합니다.
-        const base64Data = capturedImageUrl.split(",")[1];
+        const base64Data = capturedImageUrl.split(',')[1];
 
         // base64 문자열을 바이너리 형태로 변환합니다.
         const byteCharacters = atob(base64Data);
@@ -83,11 +83,11 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
         }
 
         // Blob 객체를 생성합니다.
-        const blob = new Blob(byteArrays, { type: "image/png" });
+        const blob = new Blob(byteArrays, { type: 'image/png' });
 
         // FormData 객체를 생성하고 Blob을 추가합니다.
         const formData = new FormData();
-        formData.append("imageFile", blob, "capture.png");
+        formData.append('imageFile', blob, 'capture.png');
 
         // FormData를 사용하여 백엔드로 파일을 전송합니다.
         try {
@@ -99,11 +99,11 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
                 Authorization: token,
                 // 'Content-Type': 'multipart/form-data' 헤더는 Axios가 FormData 객체를 감지하면 자동으로 설정합니다.
               },
-            }
+            },
           );
-          console.log("캡쳐 및 전송 성공", response.data);
+          console.log('캡쳐 및 전송 성공', response.data);
         } catch (error) {
-          console.error("캡쳐 및 전송 실패", error);
+          console.error('캡쳐 및 전송 실패', error);
         }
       });
     }
@@ -150,15 +150,15 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
         {/* 영상 날짜 */}
         <UnderTitleRowDiv>
           <VideoView>조회수</VideoView>
-          <VideoView style={{ marginLeft: "6px" }}>22회</VideoView>
+          <VideoView style={{ marginLeft: '6px' }}>22회</VideoView>
           <VideoDate>{videoInfo.uploadDate}</VideoDate>
         </UnderTitleRowDiv>
         {/* 추천,찜,캡처 */}
         <UnderDateRowComponent>
           {videoLike.isLike ? (
-            <UnderDateBtn style={{ borderColor: "#d33b4d" }}>
+            <UnderDateBtn style={{ borderColor: '#d33b4d' }}>
               <UnderDateBtnIcon src={fillThumbsUp} alt="thumbsUp" />
-              <UnderDateBtnText style={{ color: "#D33B4D" }}>
+              <UnderDateBtnText style={{ color: '#D33B4D' }}>
                 {videoLike.likeCount}
               </UnderDateBtnText>
             </UnderDateBtn>
@@ -181,29 +181,29 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
         </UnderDateRowComponent>
 
         <SelectSectorComponent>
-          {selectedSector === "기본정보" ? (
+          {selectedSector === '기본정보' ? (
             <SelectedSector value="기본정보">기본 정보</SelectedSector>
           ) : (
             <UnSelectedSector onClick={handleClickSector} value="기본정보">
               기본 정보
             </UnSelectedSector>
           )}
-          {selectedSector === "광고효과" ? (
-            <SelectedSector value="광고효과" style={{ marginLeft: "39px" }}>
+          {selectedSector === '광고효과' ? (
+            <SelectedSector value="광고효과" style={{ marginLeft: '39px' }}>
               광고 효과
             </SelectedSector>
           ) : (
             <UnSelectedSector
               onClick={handleClickSector}
               value="광고효과"
-              style={{ marginLeft: "39px" }}
+              style={{ marginLeft: '39px' }}
             >
               광고 효과
             </UnSelectedSector>
           )}
         </SelectSectorComponent>
 
-        {selectedSector === "기본정보" ? (
+        {selectedSector === '기본정보' ? (
           <EtcInfoComponent>
             <KeywordListRowComponent>
               {videoInfo.keywordList?.map((item: any) => {
@@ -254,7 +254,7 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
               <GraphText>광고 소재 키워드 검색량 추이</GraphText>
             </TextBox>
             <GraphFirstBox src={chartFirst} alt="graph" />
-            <TextBox style={{ marginTop: "44px" }}>
+            <TextBox style={{ marginTop: '44px' }}>
               <GraphTextRed>치킨</GraphTextRed>
               <GraphText>소비자 구매 트렌드</GraphText>
             </TextBox>
@@ -292,7 +292,7 @@ const VideoTitle = styled.div`
   display: inline-flex;
   margin: 16px 0px 0px 0px;
   color: var(--Gray-9, #27272e);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px; //2.813vw; //36px
   font-style: normal;
   font-weight: 700;
@@ -311,7 +311,7 @@ const VideoView = styled.div`
   color: var(--Gray-7, #707887);
 
   /* Body/3 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -322,7 +322,7 @@ const VideoView = styled.div`
 const VideoDate = styled.div`
   margin: 0px 0px 0px 30.38px;
   color: var(--Gray-7, #707887);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px; //20px;
   font-style: normal;
   font-weight: 350;
@@ -341,7 +341,7 @@ const UnderDateRowComponent = styled.div`
 // 버튼 내부요소
 const UnderDateBtn = styled.div<{ margin?: any }>`
   height: 42px;
-  margin: ${(props) => props.margin || "0px"};
+  margin: ${(props) => props.margin || '0px'};
   display: inline-flex;
   padding: 0px 16px;
   align-items: center;
@@ -359,7 +359,7 @@ const UnderDateBtnIcon = styled.img`
 const UnderDateBtnText = styled.div`
   color: var(--Gray-7, #707887);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
@@ -393,7 +393,7 @@ const KeywordText = styled.div`
   text-align: center;
 
   /* Body/3 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -406,7 +406,7 @@ const AdCopyLabel = styled.div`
   color: var(--Gray-9, #27272e);
 
   /* Subtitle/1 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -419,7 +419,7 @@ const AdCopyContent = styled.div`
   width: 479px;
   display: inline-flex;
   color: var(--Gray-8, #373d49);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
@@ -443,7 +443,7 @@ const AdCopyBtn = styled.button`
   text-align: center;
   background-color: #fff;
   /* Body/4 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -465,7 +465,7 @@ const UnderCopyLabelText = styled.div`
   color: var(--Gray-9, #27272e);
 
   /* Subtitle/1 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -493,7 +493,7 @@ const UnderCopyAnswerText = styled.div`
   text-align: center;
 
   /* Body/5 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -504,14 +504,14 @@ const UnderCopyAnswerText = styled.div`
 const OtherInfoRowComponent = styled.div<{ margin?: any }>`
   display: flex;
   height: 22px;
-  margin: ${(props) => props.margin || "10px 0px 0px 10px"};
+  margin: ${(props) => props.margin || '10px 0px 0px 10px'};
 `;
 
 const OtherInfoLabel = styled.div`
   color: var(--Gray-9, #27272e);
   width: 58px;
   /* Body/4 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -522,7 +522,7 @@ const OtherInfoLabel = styled.div`
 const OtherInfoAnswer = styled.div`
   color: var(--Gray-9, #27272e);
   /* Body/4 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
@@ -531,51 +531,51 @@ const OtherInfoAnswer = styled.div`
   margin: 0px 0px 0px 22px;
 `;
 
-const PatchTotalModal = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  width: 560px;
-  height: 330px;
-  flex-shrink: 0;
-  border-radius: 10px;
-  border: 2px solid var(--Gray-2, #e6e6e6);
-  background: #fff;
-`;
+// const PatchTotalModal = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   position: fixed;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   z-index: 2;
+//   width: 560px;
+//   height: 330px;
+//   flex-shrink: 0;
+//   border-radius: 10px;
+//   border: 2px solid var(--Gray-2, #e6e6e6);
+//   background: #fff;
+// `;
 
-const PatchTopText = styled.div`
-  margin-top: 49px;
-  color: var(--Gray-8, #373d49);
-  text-align: center;
+// const PatchTopText = styled.div`
+//   margin-top: 49px;
+//   color: var(--Gray-8, #373d49);
+//   text-align: center;
 
-  /* Body/1 */
-  font-family: "Noto Sans KR";
-  font-size: 28px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 140%; /* 39.2px */
-  letter-spacing: -0.4px;
-`;
+//   /* Body/1 */
+//   font-family: "Noto Sans KR";
+//   font-size: 28px;
+//   font-style: normal;
+//   font-weight: 500;
+//   line-height: 140%; /* 39.2px */
+//   letter-spacing: -0.4px;
+// `;
 
-const PatchModalButtonComponent = styled.div`
-  margin: 35px 0px 0px 0px;
-  width: 100%;
-  display: flex;
-  border-top: 2px solid #e6e6e6;
-`;
+// const PatchModalButtonComponent = styled.div`
+//   margin: 35px 0px 0px 0px;
+//   width: 100%;
+//   display: flex;
+//   border-top: 2px solid #e6e6e6;
+// `;
 
-const PatchModalBtn = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 281px;
-  height: 93px;
-`;
+// const PatchModalBtn = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   width: 281px;
+//   height: 93px;
+// `;
 
 const SelectSectorComponent = styled.div`
   margin-top: 41px;
@@ -595,7 +595,7 @@ const SelectedSector = styled.button`
   padding-bottom: 2px;
 
   /* Body/3 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -619,7 +619,7 @@ const UnSelectedSector = styled.button`
   border: none;
   background-color: #fff;
   /* Body/3 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -637,7 +637,7 @@ const GraphText = styled.div`
   color: #000;
   margin-left: 8px;
   /* Subtitle/1 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 700;

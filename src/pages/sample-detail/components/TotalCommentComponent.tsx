@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useCallback, useEffect, useState } from "react";
-import styled from "styled-components";
+import { useCallback, useEffect, useState } from 'react';
+import styled from 'styled-components';
 // 페이지네이션
-import Pagination from "react-js-pagination";
-import warning from "../../../assets/archive/Warning.svg";
-import { useNavigate } from "react-router-dom";
-import EachCommentBox from "./EachCommentBox";
+import Pagination from 'react-js-pagination';
+import warning from '../../../assets/archive/Warning.svg';
+import { useNavigate } from 'react-router-dom';
+import EachCommentBox from './EachCommentBox';
 
 const TotalCommentComponent = () => {
   const navigate = useNavigate();
   const [commentList, setCommentList] = useState<any>([]);
-  const [commentItemCount, setCommentItemCount] = useState<number>(2);
+  const [commentItemCount] = useState<number>(2);
 
-  const [inputComment, setInputComment] = useState<string>("");
+  const [inputComment, setInputComment] = useState<string>('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputComment(event.target.value);
@@ -24,13 +24,13 @@ const TotalCommentComponent = () => {
       setCommentList([
         {
           commentId: 499,
-          content: "부럽네요",
-          userEmail: "jh981109@likelion.org",
+          content: '부럽네요',
+          userEmail: 'jh981109@likelion.org',
         },
         {
           commentId: 500,
-          content: "저도 가지고 싶은데요",
-          userEmail: "wnsgud1234@naver.com",
+          content: '저도 가지고 싶은데요',
+          userEmail: 'wnsgud1234@naver.com',
         },
       ]);
     } catch (err) {
@@ -64,7 +64,7 @@ const TotalCommentComponent = () => {
           <OnLoginModalText marginTop="17px">해당 서비스는</OnLoginModalText>
           <OnLoginModalText>로그인 후 사용할 수 있습니다.</OnLoginModalText>
           <PatchModalButtonComponent>
-            <PatchModalBtn style={{ borderRight: "2px solid #e6e6e6" }}>
+            <PatchModalBtn style={{ borderRight: '2px solid #e6e6e6' }}>
               <PatchModalBtnText onClick={handleCloseLoginWarninghModal}>
                 취소
               </PatchModalBtnText>
@@ -72,9 +72,9 @@ const TotalCommentComponent = () => {
             <PatchModalBtn>
               <PatchModalBtnText
                 onClick={() => {
-                  navigate("/login");
+                  navigate('/login');
                 }}
-                style={{ color: "#D33B4D" }}
+                style={{ color: '#D33B4D' }}
               >
                 로그인
               </PatchModalBtnText>
@@ -102,16 +102,14 @@ const TotalCommentComponent = () => {
             return <EachCommentBox item={item} />;
           })}
         </CommentComponent>
-        <ParentPageStyle
-        
-        >
+        <ParentPageStyle>
           <Pagination
             activePage={page}
             itemsCountPerPage={10}
             totalItemsCount={commentItemCount}
             pageRangeDisplayed={3}
-            prevPageText={"‹"}
-            nextPageText={"›"}
+            prevPageText={'‹'}
+            nextPageText={'›'}
             onChange={handlePageChange}
           />
         </ParentPageStyle>
@@ -137,7 +135,7 @@ const CenteredInnerComponent = styled.div`
 
 const ItemCountText = styled.div`
   color: var(--Gray-9, #27272e);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
@@ -170,7 +168,7 @@ const CommentInput = styled.input`
   padding-left: 9px;
   outline: none;
   border: none;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
@@ -211,7 +209,7 @@ const EnrollBtn = styled.button`
   margin-left: 39px;
   border: none;
   outline: none;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -249,13 +247,13 @@ const OnLoginModalText = styled.div<{ marginTop?: string }>`
   text-align: center;
 
   /* Body/1 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
   line-height: 140%; /* 39.2px */
   letter-spacing: -0.4px;
-  margin-top: ${(props) => props.marginTop || "0px"};
+  margin-top: ${(props) => props.marginTop || '0px'};
 `;
 
 const PatchModalButtonComponent = styled.div`
@@ -275,7 +273,7 @@ const PatchModalBtn = styled.div`
 
 const PatchModalBtnText = styled.div`
   color: var(--Gray-7, #707887);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
@@ -284,54 +282,50 @@ const PatchModalBtnText = styled.div`
   cursor: pointer;
 `;
 
-
 // 페이지 처리
-const ParentPageStyle=styled.div`
-  display:flex;
+const ParentPageStyle = styled.div`
+  display: flex;
   justify-content: center;
   margin-top: 14px;
 
   /* 페이지네이션 전체 부분 */
-ul {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  justify-content: flex-end;
-  align-items: center;
-}
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: flex-end;
+    align-items: center;
+  }
 
-/* 페이지네이션 각자 부분 */
-li {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  margin: 0px 3.019vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-}
+  /* 페이지네이션 각자 부분 */
+  li {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 0px 3.019vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+  }
 
-/* 제일 앞으로 부분 */
-li:first-child {
-  display: none;
-}
+  /* 제일 앞으로 부분 */
+  li:first-child {
+    display: none;
+  }
 
-/* 제일 뒤로 부분 */
-li:last-child {
-  display: none;
-}
+  /* 제일 뒤로 부분 */
+  li:last-child {
+    display: none;
+  }
 
-
-
-/* 선택된 페이지, 비선택된 페이지 구분하기 */
-li a {
-  text-decoration: none;
-  color: var(--Gray-7, #707887);
-}
-li.active a {
-  color: black;
-  font-weight: 600;
-}
-
-`
+  /* 선택된 페이지, 비선택된 페이지 구분하기 */
+  li a {
+    text-decoration: none;
+    color: var(--Gray-7, #707887);
+  }
+  li.active a {
+    color: black;
+    font-weight: 600;
+  }
+`;
