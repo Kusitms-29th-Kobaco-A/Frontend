@@ -1,27 +1,25 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
-import styled from "styled-components";
-import kobaco from "../assets/header/KobacoLogo.svg";
-import { useLocation, useNavigate } from "react-router-dom";
+import kobaco from '../assets/header/KobacoLogo.svg';
+import clsx from 'clsx';
+import useTAStep from '../hooks/useTAStep';
+import HeaderTAOnboarding from './HeaderTAOnboarding';
 
 const Header = () => {
   const navigate = useNavigate();
-  // menuState추출하기
   const location = useLocation();
-  const menuState = location.state?.menuState;
-  // 로그인 성공시 토큰 여부로 확인
-  const token = localStorage.getItem("token");
 
-  // 로그아웃
-  const logout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
-  };
+  const [mouseOverMenu, setMouseOverMenu] = useState<boolean>(false);
 
+  const { taStep, setTAStep, totalTAStep, handleDismiss } = useTAStep();
+
+  const token = localStorage.getItem('token');
 
   return (
     <HeaderComponent>
-      {/* 제일 상단 부분 */}
       <HeaderTopBar>
         <TopBarIcon
           onClick={() => {
@@ -30,71 +28,120 @@ const Header = () => {
           src={kobaco}
           alt="icon"
         />
-
-        {/* 로그인 여부에 따라 다르게 표현 */}
         {token ? (
-          <TopBarRightComponent>
-            <TopBarText onClick={logout}>로그아웃</TopBarText>
-            <TopBarText>|</TopBarText>
-            <TopBarText>마이페이지</TopBarText>
-          </TopBarRightComponent>
+          <TopBarUser>User</TopBarUser>
         ) : (
-          <TopBarRightComponent>
-            <TopBarText
-              onClick={() => {
-                navigate("/login");
-              }}
-            >
-              로그인
-            </TopBarText>
-            <TopBarText>|</TopBarText>
-            <TopBarText>회원가입</TopBarText>
-          </TopBarRightComponent>
+          <TopBarUser>로그인</TopBarUser>
         )}
       </HeaderTopBar>
-
-
-      {/* 메뉴바 부분 표현 */}
-      {/* 어떤 페이지인지에 따라 붉은색으로 텍스트 표시 */}
-      <HeaderMenuBar>
+      <HeaderMenuBar
+        onMouseEnter={() => {
+          if (taStep !== 1) setMouseOverMenu(true);
+        }}
+        onMouseLeave={() => setMouseOverMenu(false)}
+      >
         <VisibleMenuComponent>
           <TotalMenuComponent>
-            {menuState === "archive" ? (
+            <MenuBox
+              onClick={() => {
+                navigate('/archive');
+                setMouseOverMenu(false);
+              }}
+            >
+              레퍼런스 탐색
+            </MenuBox>
+            <HeaderTAOnboarding
+              isVisible={
+                localStorage.getItem('ta-step-boarding') !== 'true' &&
+                location.pathname === '/trend-analysis' &&
+                taStep === 1
+              }
+              currentStep={taStep}
+              totalStep={totalTAStep}
+              onConfirm={() => {
+                setTAStep(taStep + 1);
+                setMouseOverMenu(false);
+              }}
+              onDismiss={handleDismiss}
+            >
               <MenuBox
-                menuColor="#D33B4D"
                 onClick={() => {
-                  navigate("/archive", {
-                    state: {
-                      menuState: "archive",
-                    },
-                  });
+                  navigate('/trend-analysis');
+                  setMouseOverMenu(false);
                 }}
               >
-                레퍼런스 탐색
+                <span className={clsx({ 'bg-white px-4 py-2': taStep === 1 })}>
+                  검색어 트렌드
+                </span>
               </MenuBox>
-            ) : (
-              <MenuBox
-                onClick={() => {
-                  navigate("/archive", {
-                    state: {
-                      menuState: "archive",
-                    },
-                  });
-                }}
-              >
-                레퍼런스 탐색
-              </MenuBox>
-            )}
-
-            <MenuBox>검색어 트렌드</MenuBox>
-
-     
+            </HeaderTAOnboarding>
             <MenuBox>광고 카피 제작</MenuBox>
             <MenuBox>스토리보드 제작</MenuBox>
             <MenuBox>소통공간</MenuBox>
             <MenuBox>아이작 활용</MenuBox>
           </TotalMenuComponent>
         </VisibleMenuComponent>
+        <HiddenMenuComponent mouseOverMenu={mouseOverMenu}>
+          <TotalHiddenMenuComponent>
+            <HiddenMenuBox>
+              <HiddenMenuDiv>광고검색</HiddenMenuDiv>
+              <HiddenMenuDiv>레퍼런스 보드</HiddenMenuDiv>
+              <HiddenMenuDiv>데이터 시각화</HiddenMenuDiv>
+              <HiddenMenuDiv></HiddenMenuDiv>
+            </HiddenMenuBox>
+            <HiddenMenuBox>
+              <HiddenMenuDiv
+                onClick={() => {
+                  navigate('/trend-analysis');
+                  setMouseOverMenu(false);
+                }}
+              >
+                쇼핑 트렌드
+              </HiddenMenuDiv>
+              <HiddenMenuDiv
+                onClick={() => {
+                  navigate('/trend-analysis');
+                  setMouseOverMenu(false);
+                }}
+              >
+                관심사 트렌드
+              </HiddenMenuDiv>
+              <HiddenMenuDiv
+                onClick={() => {
+                  navigate('/trend-analysis');
+                  setMouseOverMenu(false);
+                }}
+              >
+                키워드 인사이트
+              </HiddenMenuDiv>
+              <HiddenMenuDiv></HiddenMenuDiv>
+            </HiddenMenuBox>
+            <HiddenMenuBox>
+              <HiddenMenuDiv>새 카피 만들기</HiddenMenuDiv>
+              <HiddenMenuDiv>이용 가이드</HiddenMenuDiv>
+              <HiddenMenuDiv>갤러리</HiddenMenuDiv>
+              <HiddenMenuDiv>마이 카피</HiddenMenuDiv>
+            </HiddenMenuBox>
+            <HiddenMenuBox>
+              <HiddenMenuDiv>스토리보드 만들기</HiddenMenuDiv>
+              <HiddenMenuDiv>이용 가이드</HiddenMenuDiv>
+              <HiddenMenuDiv>갤러리</HiddenMenuDiv>
+              <HiddenMenuDiv>마이 스토리보드</HiddenMenuDiv>
+            </HiddenMenuBox>
+            <HiddenMenuBox>
+              <HiddenMenuDiv>홍보영상</HiddenMenuDiv>
+              <HiddenMenuDiv>카드 뉴스</HiddenMenuDiv>
+              <HiddenMenuDiv>공지사항</HiddenMenuDiv>
+              <HiddenMenuDiv></HiddenMenuDiv>
+            </HiddenMenuBox>
+            <HiddenMenuBox>
+              <HiddenMenuDiv>공공데이터 개방</HiddenMenuDiv>
+              <HiddenMenuDiv>활용안내</HiddenMenuDiv>
+              <HiddenMenuDiv></HiddenMenuDiv>
+              <HiddenMenuDiv></HiddenMenuDiv>
+            </HiddenMenuBox>
+          </TotalHiddenMenuComponent>
+        </HiddenMenuComponent>
       </HeaderMenuBar>
     </HeaderComponent>
   );
@@ -109,8 +156,7 @@ const HeaderComponent = styled.header`
   height: 162px;
   top: 0;
   background-color: #fff;
-  z-index: 10;
-  border-bottom: 1px solid var(--Gray-2, #e6e6e6);
+  z-index: 2;
 `;
 
 //제일 위 탑 부분
@@ -121,36 +167,33 @@ const HeaderTopBar = styled.section`
   width: 100%;
   height: 80px;
 `;
+
 const TopBarIcon = styled.img`
   position: absolute;
   top: 29px;
-  left: 4.219vw;
+  left: 4.219vw; /* left: 54px; */
   width: 226px;
   height: 40px;
   flex-shrink: 0;
   object-fit: cover;
   cursor: pointer;
 `;
-const TopBarRightComponent = styled.div`
+const TopBarUser = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
   top: 29px;
-  right: 11.094vw;
-`;
-const TopBarText = styled.div`
-  display: inline-flex;
+  right: 11.094vw; /* right: 142px; */
   color: var(--Gray-7, #707887);
+  width: 44px;
   height: 40px;
-  margin: 0px 6px;
   text-align: center;
   font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
-  line-height: 140%;
+  line-height: 140%; /* 22.4px */
   letter-spacing: -0.4px;
-  cursor: pointer;
 `;
 
 //메뉴바 부분
@@ -161,35 +204,67 @@ const HeaderMenuBar = styled.div`
   top: 80px;
   background-color: #fff;
 `;
+
 const VisibleMenuComponent = styled.section`
   display: flex;
   justify-content: center;
   width: 100%;
   height: 100%;
 `;
+const HiddenMenuComponent = styled.div<{ mouseOverMenu: boolean }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 220px;
+  background-color: #f3f3f3;
+  display: ${(props) => (props.mouseOverMenu ? 'block' : 'none')};
+`;
 
-const TotalMenuComponent = styled.div`
-
+const TotalHiddenMenuComponent = styled.div`
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   height: 100%;
-  padding: 0px 11.094vw;
+  padding: 0px 11.094vw; /* padding: 0px 142px; */
   z-index: 2;
+`;
+
+const TotalMenuComponent = styled(TotalHiddenMenuComponent)`
   width: 100%;
 `;
-const MenuBox = styled.div<{ menuColor?: string }>`
-  color: ${(props) => props.menuColor || " #27272e"};
+
+const MenuBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: var(--Gray-9, #27272e);
   text-align: center;
   font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%;
+  line-height: 140%; /* 22.4px */
   letter-spacing: -0.4px;
   cursor: pointer;
 `;
 
+const HiddenMenuBox = styled(MenuBox)`
+  flex-direction: column;
+`;
+
+const HiddenMenuDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
+  font-size: 14px;
+  font-weight: 400;
+  &:hover {
+    color: #d33b4d;
+  }
+  &:hover::after {
+    content: '>';
+    transform: translateX(30%);
+  }
+`;
