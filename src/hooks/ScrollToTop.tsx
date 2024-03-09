@@ -1,14 +1,14 @@
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const ScrollToTop: React.FC = () => {
-  const { pathname } = useLocation();
+  const location = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname]); // 라우트의 pathname이 변경될 때마다 실행
+  }, [location.pathname]);
 
-  return null; // UI를 렌더링할 필요가 없으므로 null 반환
+  return null;
 };
 
 export default ScrollToTop;

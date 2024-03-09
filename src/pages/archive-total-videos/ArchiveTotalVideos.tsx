@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import Header from "../../components/Header";
-import TotalVideos from "./components/TotalVideos";
-import Footer from "../../components/Footer";
+import styled from 'styled-components';
+import Header from '../../components/Header';
+import TotalVideos from './components/TotalVideos';
+import Footer from '../../components/Footer';
 
 // 랜딩페이지
 const ArchiveTotalVideos = () => {
@@ -29,7 +29,7 @@ const TotalVideoComponent = styled.div`
   justify-content: center;
   margin-top: 199px;
   width: 100vw;
-  height: 2420px;
+  height: 2480px;
   background-color: #fff;
 `;
 

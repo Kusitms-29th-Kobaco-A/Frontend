@@ -12,9 +12,13 @@ import ArchiveDetail from './pages/archive-detail/ArchiveDetail';
 import ArchiveSavedVideosDetail from './pages/archive-saved-videos-detail/ArchiveSavedVideosDetail';
 import ArchiveDetailSample from './pages/sample-detail/SampleDetail';
 
+import ScrollToTop from './hooks/ScrollToTop';
+
+
 const Router = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Landing />}>
           <Route path="" element={<Home />} />

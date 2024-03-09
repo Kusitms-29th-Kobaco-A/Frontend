@@ -3,7 +3,11 @@
 import styled from 'styled-components';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import { useParams } from 'react-router-dom';
+
+import { useLocation, useParams } from 'react-router-dom';
+
+
+
 import { useCallback, useEffect, useState } from 'react';
 import TotalVideosComponent from './components/TotalVideosComponent';
 import axios from 'axios';
@@ -11,8 +15,15 @@ import TotalCommentComponent from './components/TotalCommentComponent';
 
 //광고 상세페이지 화면
 const ArchiveDetail = () => {
-  const advertiseId = useParams();
 
+  // menuState추출하기
+  const location = useLocation();
+  const state = location.state;
+  const token = localStorage.getItem('token');
+
+
+  const advertiseId = useParams();
+  console.log(advertiseId);
   // 비디오 info  받았을 경우 넘겨주기
   const [videoInfo, setVideoInfo] = useState<Record<string, any>>({});
   const checkIfNotEmpty = (obj: Record<string, any>): boolean => {
