@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import styled from "styled-components";
-import EachVideo from "../../../components/EachVideo";
+import styled from 'styled-components';
+import EachVideo from '../../../components/EachVideo';
 // import EachVideoSample from "../../../components/EachVideoSample";
 
 // 실제 동영상 리스트 보여주는 부분
@@ -11,7 +11,7 @@ const SearchedTotalVideos = ({ videos }: any) => {
     <TotalComponent>
       {/* <EachVideoSample /> */}
       {videos?.map((videoInfo: any) => {
-        return <EachVideo videoInfo={videoInfo} />;
+        return <EachVideo key={videoInfo.advertiseId} videoInfo={videoInfo} />;
       })}
     </TotalComponent>
   );

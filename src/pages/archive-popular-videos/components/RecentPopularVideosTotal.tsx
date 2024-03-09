@@ -31,6 +31,9 @@ const RecentPopularVideosTotal = () => {
   // 선택된 value값
   const [selectedType, setSelectedType] = useState<string>('');
   const [selectedIndustry, setSelectedIndustry] = useState<string>('');
+
+  const [selectedOrder, setSelectedOrder] = useState('최근등록순');
+
   // 페이지 처리 위한 전체 개수 부분
   const [numberOfElements, setNumberOfElements] = useState<number>(0);
 
@@ -75,13 +78,23 @@ const RecentPopularVideosTotal = () => {
     }
   };
 
+  // 컨셉 선택 부분
   const handleSelectType = (event: React.MouseEvent<HTMLButtonElement>) => {
     const value = event.currentTarget.value; // 버튼의 value 속성 값 가져오기
-    setSelectedType(value);
+    if (selectedType === value) {
+      setSelectedType('');
+    } else {
+      setSelectedType(value);
+    }
   };
+  // 산업군 선택 부분
   const handleSelectIndustry = (event: React.MouseEvent<HTMLButtonElement>) => {
     const value = event.currentTarget.value; // 버튼의 value 속성 값 가져오기
-    setSelectedIndustry(value);
+    if (selectedIndustry === value) {
+      setSelectedIndustry('');
+    } else {
+      setSelectedIndustry(value);
+    }
   };
 
   // 여기서 한번에 모든 비디오 정보들 받음
@@ -478,7 +491,9 @@ const GlassImgBox = styled.img`
 const ParentPageStyle = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 14px;
+
+  margin-top: 53px;
+
 
   /* 페이지네이션 전체 부분 */
   ul {

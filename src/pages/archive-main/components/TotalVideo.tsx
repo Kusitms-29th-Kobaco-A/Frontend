@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import styled from "styled-components";
-import Pagination from "react-js-pagination";
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import styled from 'styled-components';
+import Pagination from 'react-js-pagination';
 
-import glass from "../../../assets/archive/Glass.svg";
-import XImage from "../../../assets/archive/XImg.svg";
+import glass from '../../../assets/archive/Glass.svg';
+import XImage from '../../../assets/archive/XImg.svg';
 
 // 리스트 받아오기
 import {
@@ -15,25 +15,25 @@ import {
   recommendKeywordsList,
   videoOrderList,
   videoTypeList,
-} from "../../../data/ArchiveData";
-import SearchedTotalVideos from "./SearchedTotalVideos";
+} from '../../../data/ArchiveData';
+import SearchedTotalVideos from './SearchedTotalVideos';
 
 // 전체 광고 컴포넌트
 const TotalVideo = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
 
   //페이징을 위한 page 변수선언
   const [page, setPage] = useState<number>(1);
   //비디오 받고 나중에 또 업데이트
   const [totalVideos, setTotalVideos] = useState<any>([]);
   // 키워드 검색후 리스트에 추가,삭제
-  const [searchedKeyword, setSearchedKeyword] = useState<string>("");
+  const [searchedKeyword, setSearchedKeyword] = useState<string>('');
   const [keywordsArray, setKeywordsArray] = useState<string[]>([]);
   // 선택된 value값
-  const [selectedType, setSelectedType] = useState<string>("");
-  const [selectedIndustry, setSelectedIndustry] = useState<string>("");
-  const [selectedOrder, setSelectedOrder] = useState("최근등록순");
+  const [selectedType, setSelectedType] = useState<string>('');
+  const [selectedIndustry, setSelectedIndustry] = useState<string>('');
+  const [selectedOrder, setSelectedOrder] = useState('최근등록순');
   //페이지 처리 위한 총 개수
   const [numberOfElements, setNumberOfElements] = useState<number>(0);
 
@@ -50,7 +50,7 @@ const TotalVideo = () => {
 
   //키보드 누를 때 엔터인지 확인
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter" && searchedKeyword.trim() !== "") {
+    if (event.key === 'Enter' && searchedKeyword.trim() !== '') {
       handleAddKeyword();
     }
   };
@@ -58,35 +58,43 @@ const TotalVideo = () => {
   //X버튼 누를 때 지우기 확인
   const handleRemoveKeyword = (index: number) => {
     setKeywordsArray((prevKeywords) =>
-      prevKeywords.filter((_, i) => i !== index)
+      prevKeywords.filter((_, i) => i !== index),
     );
   };
 
   // 리스트에 추가
   const handleAddKeyword = () => {
-    if (searchedKeyword.trim() !== "") {
+    if (searchedKeyword.trim() !== '') {
       setKeywordsArray((prevKeywords) => [...prevKeywords, searchedKeyword]);
-      setSearchedKeyword(""); // 입력 필드 초기화
+      setSearchedKeyword(''); // 입력 필드 초기화
     }
   };
 
   // 추천 키워드에 있는 버튼 클릭 시 리스트에 추가
   const handleAddRecommendKeyword = (keyword: string = searchedKeyword) => {
-    if (keyword.trim() !== "" && !keywordsArray.includes(keyword)) {
+    if (keyword.trim() !== '' && !keywordsArray.includes(keyword)) {
       setKeywordsArray((prevKeywords) => [...prevKeywords, keyword]);
-      setSearchedKeyword(""); // 입력 필드 초기화
+      setSearchedKeyword(''); // 입력 필드 초기화
     }
   };
 
   // 컨셉 선택 부분
   const handleSelectType = (event: React.MouseEvent<HTMLButtonElement>) => {
     const value = event.currentTarget.value; // 버튼의 value 속성 값 가져오기
-    setSelectedType(value);
+    if (selectedType === value) {
+      setSelectedType('');
+    } else {
+      setSelectedType(value);
+    }
   };
   // 산업군 선택 부분
   const handleSelectIndustry = (event: React.MouseEvent<HTMLButtonElement>) => {
     const value = event.currentTarget.value; // 버튼의 value 속성 값 가져오기
-    setSelectedIndustry(value);
+    if (selectedIndustry === value) {
+      setSelectedIndustry('');
+    } else {
+      setSelectedIndustry(value);
+    }
   };
   // 순서 선택 부분
   const handleSelectOrder = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -101,25 +109,25 @@ const TotalVideo = () => {
 
     // 키워드 배열을 쿼리 스트링으로 변환
     const keywordQueryString =
-      keywordsArray.length > 0 ? `&keywordList=${keywordsArray.join(",")}` : "";
+      keywordsArray.length > 0 ? `&keywordList=${keywordsArray.join(',')}` : '';
 
     // 선택된 타입이 있는 경우 쿼리 스트링에 추가
-    const typeQueryString = selectedType ? `&keywordList=${selectedType}` : "";
+    const typeQueryString = selectedType ? `&keywordList=${selectedType}` : '';
 
     // 선택된 산업 분야가 있는 경우 쿼리 스트링에 추가
     const industryQueryString = selectedIndustry
       ? `&keywordList=${selectedIndustry}`
-      : "";
+      : '';
 
     const orderName =
-      selectedOrder === "최근등록순"
-        ? "RECENT"
-        : selectedOrder === "조회순"
-        ? "VIEW"
-        : "POPULAR";
+      selectedOrder === '최근등록순'
+        ? 'RECENT'
+        : selectedOrder === '조회순'
+          ? 'VIEW'
+          : 'POPULAR';
 
     // 선택된 정렬 순서가 있는 경우 쿼리 스트링에 추가
-    const orderQueryString = selectedOrder ? `&orderType=${orderName}` : "";
+    const orderQueryString = selectedOrder ? `&orderType=${orderName}` : '';
 
     // 최종 URL 구성
     const finalUrl =
@@ -130,7 +138,6 @@ const TotalVideo = () => {
       orderQueryString;
 
     try {
-      console.log(finalUrl);
       await axios
         .get(finalUrl, {
           headers: {
@@ -140,7 +147,6 @@ const TotalVideo = () => {
         .then((res: any) => {
           setTotalVideos(res.data.content);
           setNumberOfElements(res.data.totalElements);
-          console.log(res);
         });
     } catch (err) {
       console.log(err);
@@ -165,9 +171,9 @@ const TotalVideo = () => {
         <TotalTopLabel>전체 광고</TotalTopLabel>
         <AdditionalVideo
           onClick={() => {
-            navigate("/archive/totalVideos", {
+            navigate('/archive/totalVideos', {
               state: {
-                menuState: "archive",
+                menuState: 'archive',
               },
             });
           }}
@@ -177,13 +183,13 @@ const TotalVideo = () => {
       </RowComponent>
 
       {/* 컨셉 선택 */}
-      <RowComponent style={{ marginTop: "33px" }}>
+      <RowComponent style={{ marginTop: '33px' }}>
         <FilterLabel>컨셉</FilterLabel>
 
         {videoTypeList.map((item: any) => {
           if (selectedType === item.value) {
             return (
-              <FilterAnsBox>
+              <FilterAnsBox key={item}>
                 <SelectedFilterAns
                   value={item.value}
                   onClick={handleSelectType}
@@ -205,7 +211,7 @@ const TotalVideo = () => {
       </RowComponent>
 
       {/* 산업군 선택 */}
-      <RowComponent style={{ marginTop: "11px" }}>
+      <RowComponent style={{ marginTop: '11px' }}>
         <FilterLabel>산업군</FilterLabel>
         {industryList.map((item: any) => {
           if (selectedIndustry === item.value) {
@@ -232,7 +238,7 @@ const TotalVideo = () => {
       </RowComponent>
 
       {/* 검색어 부분 */}
-      <RowComponent style={{ marginTop: "48px", height: "44px" }}>
+      <RowComponent style={{ marginTop: '48px', height: '44px' }}>
         <TotalSearchInput
           value={searchedKeyword}
           onChange={handleInputChange}
@@ -242,7 +248,7 @@ const TotalVideo = () => {
         <GlassImgBox src={glass} alt="glass" />
         <SearchBtn onClick={handleAddKeyword}>검색</SearchBtn>
       </RowComponent>
-      <RowComponent style={{ margin: "20px 0px 0px 17px" }}>
+      <RowComponent style={{ margin: '20px 0px 0px 17px' }}>
         {keywordsArray.length <= 0 && <FilterLabel>추천 검색어</FilterLabel>}
 
         <KeywordsComponent>
@@ -284,7 +290,7 @@ const TotalVideo = () => {
         >
           {videoOrderList.map((item) => (
             <option
-              style={{ width: "10px" }}
+              style={{ width: '10px' }}
               value={item.value}
               key={item.value}
             >
@@ -299,15 +305,14 @@ const TotalVideo = () => {
       <SearchedTotalVideos videos={totalVideos} />
 
       {/* 페이지 처리 부분 */}
-      <ParentPageStyle
-      >
+      <ParentPageStyle>
         <Pagination
           activePage={page}
           itemsCountPerPage={20}
           totalItemsCount={numberOfElements}
           pageRangeDisplayed={3}
-          prevPageText={"‹"}
-          nextPageText={"›"}
+          prevPageText={'‹'}
+          nextPageText={'›'}
           onChange={handlePageChange}
         />
       </ParentPageStyle>
@@ -332,7 +337,7 @@ const RowComponent = styled.div`
 // 상단 sector
 const TotalTopLabel = styled.div`
   color: var(--Gray-9, #27272e);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
@@ -344,7 +349,7 @@ const TotalTopLabel = styled.div`
 const FilterLabel = styled.div`
   color: var(--Gray-9, #27272e);
   width: 129px;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -375,7 +380,7 @@ const SelectedFilterAns = styled.button`
   background: var(--Sub-2, #ffecee);
   color: var(--Main-1, #d33b4d);
   border: none;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
@@ -392,7 +397,7 @@ const TotalSearchInput = styled.input`
   border-radius: 24px;
   background: var(--Gray-1, #f4f6f6);
   color: var(--Gray-7, #707887);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
@@ -412,7 +417,7 @@ const SearchBtn = styled.button`
   background: var(--Main-1, #d33b4d);
   border: none;
   color: var(--White-1, #fff);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -442,7 +447,7 @@ const BasicKeyword = styled.div`
   background: var(--Main-1, #d33b4d);
   color: var(--White-1, #fff);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -469,7 +474,7 @@ const ContainSearchedKeywordDiv = styled.div`
   text-align: center;
 `;
 const SearchedKeyword = styled.div`
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -496,7 +501,7 @@ const StyledSelectNotBackground = styled.select<{ margin?: any }>`
   gap: 8px;
   border-radius: 8px;
   color: var(--Gray-9, #27272e);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -504,7 +509,7 @@ const StyledSelectNotBackground = styled.select<{ margin?: any }>`
   letter-spacing: -0.4px;
   border: none;
   outline: none;
-  margin: ${(props) => props.margin || "0px"};
+  margin: ${(props) => props.margin || '0px'};
 `;
 
 // 전체보기 버튼
@@ -513,7 +518,7 @@ const AdditionalVideo = styled.div`
   top: 15px;
   right: 0;
   color: var(--Gray-9, #27272e);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -530,53 +535,50 @@ const GlassImgBox = styled.img`
   flex-shrink: 0;
 `;
 
-
 // 페이지 처리
-const ParentPageStyle=styled.div`
-  display:flex;
+const ParentPageStyle = styled.div`
+  display: flex;
   justify-content: center;
   margin-top: 14px;
 
   /* 페이지네이션 전체 부분 */
-ul {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  justify-content: flex-end;
-  align-items: center;
-}
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: flex-end;
+    align-items: center;
+  }
 
-/* 페이지네이션 각자 부분 */
-li {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  margin: 0px 3.019vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-}
+  /* 페이지네이션 각자 부분 */
+  li {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 0px 3.019vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+  }
 
-/* 제일 앞으로 부분 */
-li:first-child {
-  display: none;
-}
+  /* 제일 앞으로 부분 */
+  li:first-child {
+    display: none;
+  }
 
-/* 제일 뒤로 부분 */
-li:last-child {
-  display: none;
-}
+  /* 제일 뒤로 부분 */
+  li:last-child {
+    display: none;
+  }
 
-
-/* 선택된 페이지, 비선택된 페이지 구분하기 */
-li a {
-  text-decoration: none;
-  color: var(--Gray-7, #707887);
-}
-li.active a {
-  color: black;
-  font-weight: 600;
-}
-
-`
+  /* 선택된 페이지, 비선택된 페이지 구분하기 */
+  li a {
+    text-decoration: none;
+    color: var(--Gray-7, #707887);
+  }
+  li.active a {
+    color: black;
+    font-weight: 600;
+  }
+`;

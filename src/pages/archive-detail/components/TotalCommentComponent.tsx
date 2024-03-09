@@ -1,27 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useCallback, useEffect, useState } from "react";
-import styled from "styled-components";
-import Pagination from "react-js-pagination";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useCallback, useEffect, useState } from 'react';
+import styled from 'styled-components';
+import Pagination from 'react-js-pagination';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-import warning from "../../../assets/archive/Warning.svg";
+import warning from '../../../assets/archive/Warning.svg';
 
-import EachCommentBox from "./EachCommentBox";
+import EachCommentBox from './EachCommentBox';
 
 // 해당 광고 전체 댓글 포함하는 컴포넌트
 const TotalCommentComponent = ({ advertiseId }: any) => {
   console.log(advertiseId.advertiseId);
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
 
   // 리스트와 개수 받는 변수
   const [commentList, setCommentList] = useState<any>([]);
   const [commentItemCount, setCommentItemCount] = useState<number>(50);
   const [totalItemCount, setTotalItemCount] = useState<number>(50);
   // 댓글 입력 부분
-  const [inputComment, setInputComment] = useState<string>("");
+  const [inputComment, setInputComment] = useState<string>('');
   // 로그인 경고 창 변수
   const [isOpenLoginWarning, setIsOpenLoginWarning] = useState<any>(false);
 
@@ -35,7 +35,7 @@ const TotalCommentComponent = ({ advertiseId }: any) => {
             headers: {
               Authorization: `${token}`,
             },
-          }
+          },
         )
         .then((res) => {
           console.log(res);
@@ -60,7 +60,7 @@ const TotalCommentComponent = ({ advertiseId }: any) => {
 
   // 댓글 취소시
   const handleCancelComment = () => {
-    setInputComment("");
+    setInputComment('');
   };
 
   //페이징을 위한 page 변수선언
@@ -73,33 +73,38 @@ const TotalCommentComponent = ({ advertiseId }: any) => {
 
   // 댓글 등록 시 api
   const handleSubmitComment = async () => {
-    if (!inputComment) {
-      alert("댓글을 입력해주세요.");
-      return;
-    }
-    try {
-      if (token) {
-        await axios
-          .post(
-            `https://dev.simproject.kr/api/comments/${advertiseId.advertiseId}`,
-            { content: inputComment },
-            {
-              headers: {
-                Authorization: `${token}`,
-              },
-            }
-          )
-          .then((res) => {
-            console.log(res);
-            getCommentList();
-            setInputComment("");
-          });
+    if (token) {
+      if (!inputComment) {
+        alert('댓글을 입력해주세요.');
+        return;
       } else {
-        isOpenLoginWarning();
+        try {
+          if (token) {
+            await axios
+              .post(
+                `https://dev.simproject.kr/api/comments/${advertiseId.advertiseId}`,
+                { content: inputComment },
+                {
+                  headers: {
+                    Authorization: `${token}`,
+                  },
+                },
+              )
+              .then((res) => {
+                console.log(res);
+                getCommentList();
+                setInputComment('');
+              });
+          } else {
+            isOpenLoginWarning();
+          }
+        } catch (error) {
+          console.error('댓글 등록에 실패했습니다.', error);
+          alert('댓글 등록에 실패했습니다.');
+        }
       }
-    } catch (error) {
-      console.error("댓글 등록에 실패했습니다.", error);
-      alert("댓글 등록에 실패했습니다.");
+    } else {
+      setIsOpenLoginWarning(true);
     }
   };
 
@@ -116,7 +121,7 @@ const TotalCommentComponent = ({ advertiseId }: any) => {
           <OnLoginModalText marginTop="17px">해당 서비스는</OnLoginModalText>
           <OnLoginModalText>로그인 후 사용할 수 있습니다.</OnLoginModalText>
           <PatchModalButtonComponent>
-            <PatchModalBtn style={{ borderRight: "2px solid #e6e6e6" }}>
+            <PatchModalBtn style={{ borderRight: '2px solid #e6e6e6' }}>
               <PatchModalBtnText onClick={handleCloseLoginWarninghModal}>
                 취소
               </PatchModalBtnText>
@@ -124,9 +129,9 @@ const TotalCommentComponent = ({ advertiseId }: any) => {
             <PatchModalBtn>
               <PatchModalBtnText
                 onClick={() => {
-                  navigate("/login");
+                  navigate('/login');
                 }}
-                style={{ color: "#D33B4D" }}
+                style={{ color: '#D33B4D' }}
               >
                 로그인
               </PatchModalBtnText>
@@ -163,16 +168,14 @@ const TotalCommentComponent = ({ advertiseId }: any) => {
         </CommentComponent>
 
         {/* 페이지 처리 부분 */}
-        <ParentPageStyle
-          
-        >
+        <ParentPageStyle>
           <Pagination
             activePage={page}
             itemsCountPerPage={10}
             totalItemsCount={totalItemCount}
             pageRangeDisplayed={3}
-            prevPageText={"‹"}
-            nextPageText={"›"}
+            prevPageText={'‹'}
+            nextPageText={'›'}
             onChange={handlePageChange}
           />
         </ParentPageStyle>
@@ -199,7 +202,7 @@ const CenteredInnerComponent = styled.div`
 // 댓글 개수
 const ItemCountText = styled.div`
   color: var(--Gray-9, #27272e);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
@@ -235,7 +238,7 @@ const CommentInput = styled.input`
   outline: none;
   border: none;
   /* Detail/3 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
@@ -276,7 +279,7 @@ const EnrollBtn = styled.button`
   border: none;
   outline: none;
   /* Body/4 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -311,13 +314,13 @@ const OnLoginModalText = styled.div<{ marginTop?: string }>`
   margin-top: 49px;
   color: var(--Gray-8, #373d49);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
   line-height: 140%;
   letter-spacing: -0.4px;
-  margin-top: ${(props) => props.marginTop || "0px"};
+  margin-top: ${(props) => props.marginTop || '0px'};
 `;
 const PatchModalButtonComponent = styled.div`
   margin: 35px 0px 0px 0px;
@@ -334,7 +337,7 @@ const PatchModalBtn = styled.div`
 `;
 const PatchModalBtnText = styled.div`
   color: var(--Gray-7, #707887);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
@@ -344,51 +347,49 @@ const PatchModalBtnText = styled.div`
 `;
 
 // 페이지 처리
-const ParentPageStyle=styled.div`
-  display:flex;
+const ParentPageStyle = styled.div`
+  display: flex;
   justify-content: center;
   margin-top: 14px;
 
   /* 페이지네이션 전체 부분 */
-ul {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  justify-content: flex-end;
-  align-items: center;
-}
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: flex-end;
+    align-items: center;
+  }
 
-/* 페이지네이션 각자 부분 */
-li {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  margin: 0px 3.019vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-}
+  /* 페이지네이션 각자 부분 */
+  li {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 0px 3.019vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+  }
 
-/* 제일 앞으로 부분 */
-li:first-child {
-  display: none;
-}
+  /* 제일 앞으로 부분 */
+  li:first-child {
+    display: none;
+  }
 
-/* 제일 뒤로 부분 */
-li:last-child {
-  display: none;
-}
+  /* 제일 뒤로 부분 */
+  li:last-child {
+    display: none;
+  }
 
-
-/* 선택된 페이지, 비선택된 페이지 구분하기 */
-li a {
-  text-decoration: none;
-  color: var(--Gray-7, #707887);
-}
-li.active a {
-  color: black;
-  font-weight: 600;
-}
-
-`
+  /* 선택된 페이지, 비선택된 페이지 구분하기 */
+  li a {
+    text-decoration: none;
+    color: var(--Gray-7, #707887);
+  }
+  li.active a {
+    color: black;
+    font-weight: 600;
+  }
+`;

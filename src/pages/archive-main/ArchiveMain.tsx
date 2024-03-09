@@ -1,20 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
-import styled from "styled-components";
+import { useCallback, useEffect, useState } from 'react';
+import axios from 'axios';
+import styled from 'styled-components';
 
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import SwiperVideo from "./components/SwiperVideo";
-import NotLoginComponent from "./components/NotLoginComponent";
-import TotalVideo from "./components/TotalVideo";
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import SwiperVideo from './components/SwiperVideo';
+import NotLoginComponent from './components/NotLoginComponent';
+import TotalVideo from './components/TotalVideo';
 
 // 아카이브 메인페이지
 const ArchiveMain = () => {
   // 로그인 여부에 따라 찜하기 부분 다르게 구현
-  const token = localStorage.getItem("token");
-  console.log(token);
+  const token = localStorage.getItem('token');
   // 비디오리스트 저장하는 곳
   const [trendVideos, setTrendVideos] = useState<any>([]);
   const [recentPopularVideos, setRecentPopularVideos] = useState<any>([]);
@@ -31,7 +30,6 @@ const ArchiveMain = () => {
         })
         .then((res) => {
           setTrendVideos(res.data.content);
-          console.log(res);
         });
     } catch (err) {
       console.log(err);
@@ -49,7 +47,6 @@ const ArchiveMain = () => {
         })
         .then((res) => {
           setRecentPopularVideos(res.data.content);
-          console.log(res);
         });
     } catch (err) {
       console.log(err);
@@ -67,7 +64,6 @@ const ArchiveMain = () => {
         })
         .then((res) => {
           setSavedVideos(res.data.content);
-          console.log(res);
         });
     } catch (err) {
       console.log(err);
@@ -91,7 +87,7 @@ const ArchiveMain = () => {
       </AdTrendVideoComponent>
 
       {/* 최근 인기있는 영상 컴포넌트 */}
-      <OnLoginRecentPopularVideoComponent style={{ marginTop: "130px" }}>
+      <OnLoginRecentPopularVideoComponent style={{ marginTop: '130px' }}>
         {recentPopularVideos.length > 0 && (
           <SwiperVideo sector="popular" videos={recentPopularVideos} />
         )}
