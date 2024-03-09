@@ -512,12 +512,12 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
           ) : (
             <>
               <TextBox>
-                <GraphTextRed>외식업</GraphTextRed>
+                <GraphTextRed>{videoInfo.keywordList[0]}</GraphTextRed>
                 <GraphText>광고 소재 키워드 검색량 추이</GraphText>
               </TextBox>
               <GraphFirstBox src={chartFirst} alt="graph" />
               <TextBox margin="65px 0px 0px 30px">
-                <GraphTextRed>치킨</GraphTextRed>
+                <GraphTextRed>{videoInfo.keywordList[1]}</GraphTextRed>
                 <GraphText>소비자 구매 트렌드</GraphText>
               </TextBox>
               <GraphSecondBox src={chartSecond} alt="graph" />
@@ -960,7 +960,7 @@ const SelectSectorComponent = styled.div`
 
 const SelectedSector = styled.button`
   display: flex;
-  width: 77px;
+  width: 79px;
   height: 27.99px;
   flex-direction: column;
   justify-content: center;
@@ -981,7 +981,7 @@ const SelectedSector = styled.button`
 `;
 const UnSelectedSector = styled.button`
   display: flex;
-  width: 77px;
+  width: 79px;
   height: 27.99px;
   flex-direction: column;
   justify-content: center;
