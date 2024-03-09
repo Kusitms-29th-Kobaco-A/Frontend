@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import brandingImg from "../assets/archive/Branding.svg";
-import YouTubeThumbnail from "./YoutubeThumnail";
+import brandingImg from '../assets/archive/Branding.svg';
+import YouTubeThumbnail from './YoutubeThumnail';
 
 // 비디오 정보 받기
 const EachVideo = ({ sector, videoInfo }: any) => {
@@ -16,7 +16,7 @@ const EachVideo = ({ sector, videoInfo }: any) => {
   const url = videoInfo.videoUrl;
   const extractVideoId = (url: string): string | undefined => {
     const urlObj = new URL(url);
-    const videoID = urlObj.searchParams.get("v");
+    const videoID = urlObj.searchParams.get('v');
     return videoID || undefined;
   };
   const videoId = extractVideoId(url);
@@ -42,7 +42,7 @@ const EachVideo = ({ sector, videoInfo }: any) => {
         onClick={() => {
           navigate(`/archive/detail/${videoInfo.advertiseId}`, {
             state: {
-              menuState: "archive",
+              menuState: 'archive',
               videoInfo: videoInfo,
             },
           });
@@ -55,12 +55,12 @@ const EachVideo = ({ sector, videoInfo }: any) => {
       {/* 키워드 보여주는 부분 */}
       <KeywordComponent>
         {lastTwoKeywords?.map((item: any) => {
-          return <EachKeyword>#{item}</EachKeyword>;
+          return <EachKeyword key={item}>#{item}</EachKeyword>;
         })}
       </KeywordComponent>
 
       {/* 2023 트렌드 영상 부분일 경우 아래 trendTitle 띄워주기 */}
-      {sector === "trend" && (
+      {sector === 'trend' && (
         <BrandingRowComponent>
           <BrandingImgBox src={brandingImg} alt="brand" />
           <VideoTrendType>{videoInfo.trendTitle}</VideoTrendType>
@@ -68,8 +68,8 @@ const EachVideo = ({ sector, videoInfo }: any) => {
       )}
 
       {/* 영상 제목 띄워주기 */}
-      {sector === "trend" ? (
-        <VideoTitle style={{ margin: "4px 0px 0px 10px" }}>
+      {sector === 'trend' ? (
+        <VideoTitle style={{ margin: '4px 0px 0px 10px' }}>
           {videoInfo.title}
         </VideoTitle>
       ) : (
@@ -107,7 +107,7 @@ const VideoTime = styled.div`
   border-radius: 4px;
   background: var(--Black-1, #171719);
   color: var(--White-1, #fff);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 12px;
   font-style: normal;
   font-weight: 350;
@@ -132,7 +132,7 @@ const EachKeyword = styled.div`
   color: var(--Main-1, #d33b4d);
   text-align: center;
 
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -156,10 +156,10 @@ const VideoTrendType = styled.div`
   color: #27272e;
   margin: 0px 0px 0px 9px;
   /* Body/5 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 14px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 140%; /* 19.6px */
   letter-spacing: -0.4px;
 `;
@@ -168,7 +168,7 @@ const VideoTrendType = styled.div`
 const VideoTitle = styled.div`
   margin: 8px 0px 0px 10px;
   color: var(--Gray-9, #27272e);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 500;

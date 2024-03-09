@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-import SamepleVideo from "../assets/archive/cocacola.mp4";
+import SamepleVideo from '../assets/archive/cocacola.mp4';
 
 // 샘플 비디오 보여주는 컴포넌트
 const EachVideoSample = () => {
@@ -14,10 +14,10 @@ const EachVideoSample = () => {
   // 비디오 정보 설정
   const [videoInfo, setVideoInfo] = useState({
     videoUrl: SamepleVideo,
-    keywordList: ["콜라", "사이다"],
+    keywordList: ['콜라', '사이다'],
     advertiseId: 100,
-    videoTime: "00:03:18",
-    title: "맛도 좋은 콜라, 시원해요",
+    videoTime: '00:03:18',
+    title: '맛도 좋은 콜라, 시원해요',
   });
 
   // 마지막 두개 키워드 설정
@@ -41,7 +41,7 @@ const EachVideoSample = () => {
         onClick={() => {
           navigate(`/archive/detail/sample`, {
             state: {
-              menuState: "archive",
+              menuState: 'archive',
               videoInfo: videoInfo,
             },
           });
@@ -54,7 +54,7 @@ const EachVideoSample = () => {
       {/* 키워드 부분 */}
       <KeywordComponent>
         {lastTwoKeywords?.map((item: any) => {
-          return <EachKeyword>#{item}</EachKeyword>;
+          return <EachKeyword key={item}>#{item}</EachKeyword>;
         })}
       </KeywordComponent>
 
@@ -98,7 +98,7 @@ const VideoTime = styled.div`
   border-radius: 4px;
   background: var(--Black-1, #171719);
   color: var(--White-1, #fff);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 12px;
   font-style: normal;
   font-weight: 350;
@@ -123,7 +123,7 @@ const EachKeyword = styled.div`
   color: var(--Main-1, #d33b4d);
   text-align: center;
 
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -136,7 +136,7 @@ const EachKeyword = styled.div`
 const VideoTitle = styled.div`
   margin: 8px 0px 0px 10px;
   color: var(--Gray-9, #27272e);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 500;

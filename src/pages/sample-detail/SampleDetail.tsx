@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import styled from "styled-components";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import { useCallback, useEffect, useState } from "react";
-import TotalVideosComponent from "./components/TotalVideosComponent";
-import TotalCommentComponent from "./components/TotalCommentComponent";
-import SampleVideo from "../../assets/archive/cocacola.mp4";
+import styled from 'styled-components';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import { useCallback, useEffect, useState } from 'react';
+import TotalVideosComponent from './components/TotalVideosComponent';
+import TotalCommentComponent from './components/TotalCommentComponent';
+import SampleVideo from '../../assets/archive/cocacola.mp4';
 
 // 랜딩페이지
 const SampleDetail = () => {
@@ -19,18 +19,18 @@ const SampleDetail = () => {
   const getVideoInfo = useCallback(async () => {
     setVideoInfo({
       videoUrl: SampleVideo,
-      videoTime: "00:00:18",
-      title: "맛도 좋은 코카콜라 콜라입니다",
-      uploadDate: "2024-03-05",
-      copy: "카피저장",
-      copyDetail:
-        "맛있는 코카콜라와 사이다 코카콜라도 맛있지만 사이다도 맛있으니 먹어봐요",
-      peopleList: ["뉴진스"],
-      objectList: ["코카콜라", "스프라이트"],
-      owner: "코카콜라",
-      ownerCompany: "Coke",
-      makerCompany: "코카",
-      keywordList: ["콜라", "탄산", "시원함"],
+      videoTime: '00:00:34',
+      title: '[#코카콜라] 맛있는 걸 선택해! 코카-콜라 제로!',
+      uploadDate: '2024-02-01',
+      copy: '카피저장',
+      copyDetail: '코카콜라 제로',
+      peopleList: [],
+      objectList: ['콜라'],
+      owner: '(주)코카콜라코리아',
+      ownerCompany: '(주)코카콜라코리아',
+      makerCompany: '(주)코카콜라코리아',
+      keywordList: ['식품/외식업', '탄산음료', '유머있는'],
+      viewCount: 17674680,
     });
   }, []);
 

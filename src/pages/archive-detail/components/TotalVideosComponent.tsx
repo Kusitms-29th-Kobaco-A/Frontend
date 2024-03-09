@@ -1,32 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import YouTube, { YouTubeProps } from "react-youtube";
+import axios from 'axios';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import YouTube, { YouTubeProps } from 'react-youtube';
 
-import thumbsUp from "../../../assets/archive/ThumbsUp.svg";
-import heart from "../../../assets/archive/Heart.svg";
-import folder from "../../../assets/archive/Folder.svg";
-import camera from "../../../assets/archive/Camera.svg";
-import fillThumbsUp from "../../../assets/archive/FillThumbsUp.svg";
-import plusImg from "../../../assets/archive/Plus.svg";
-import question from "../../../assets/archive/Question.svg";
-import warning from "../../../assets/archive/Warning.svg";
-import xIcon from "../../../assets/archive/XIcon.svg";
-import chartFirst from "../../../assets/archive/ChartFirst.svg";
-import chartSecond from "../../../assets/archive/ChartSecond.svg";
-import fillFolder from "../../../assets/archive/FillFolder.svg";
+import thumbsUp from '../../../assets/archive/ThumbsUp.svg';
+import heart from '../../../assets/archive/Heart.svg';
+import folder from '../../../assets/archive/Folder.svg';
+import camera from '../../../assets/archive/Camera.svg';
+import fillThumbsUp from '../../../assets/archive/FillThumbsUp.svg';
+import plusImg from '../../../assets/archive/Plus.svg';
+import question from '../../../assets/archive/Question.svg';
+import warning from '../../../assets/archive/Warning.svg';
+import xIcon from '../../../assets/archive/XIcon.svg';
+import chartFirst from '../../../assets/archive/ChartFirst.svg';
+import chartSecond from '../../../assets/archive/ChartSecond.svg';
+import fillFolder from '../../../assets/archive/FillFolder.svg';
 
-import SideBar from "./SideBar";
+import SideBar from './SideBar';
 
 const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   const id = advertiseId.advertiseId;
-
   // 최상단 폴더 정보
   const [rootDirectoryInfo, setRootDirectoryInfo] = useState<any>({});
   // 비디오 좋아요 정보
@@ -39,13 +38,13 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
   const [isOpenSaveModal, setIsOpenSaveModal] = useState<any>(false);
   const [isOpenCopyModal, setIsOpenCopyModal] = useState<any>(false);
   //아래 Etc 영상관련 정보에서 어느 부분을 보여줄 지 상태 정보
-  const [selectedSector, setSelectedSector] = useState("기본정보");
+  const [selectedSector, setSelectedSector] = useState('기본정보');
   // 찜하기 시 선택된 폴더 정보
   const [selectedFolder, setSelectedFolder] = useState<number | null>(null);
   // 찜하기에서 새 폴더 만들기 클릭 시 정보
   const [isOpenNewFolder, setIsOpenNewFolder] = useState<boolean>(false);
   // 폴더 이름을 관리할 상태
-  const [folderName, setFolderName] = useState("");
+  const [folderName, setFolderName] = useState('');
   // 찜하기 완료 되었다는 모달 상태
   const [isConfirmSaveModal, setIsConfirmSaveModal] = useState<boolean>(false);
 
@@ -71,18 +70,18 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
   const url = videoInfo.videoUrl;
   const extractVideoId = (url: string): string | undefined => {
     const urlObj = new URL(url);
-    const videoID = urlObj.searchParams.get("v");
+    const videoID = urlObj.searchParams.get('v');
     return videoID || undefined;
   };
   const videoId = extractVideoId(url);
 
-  const onPlayerReady: YouTubeProps["onReady"] = (event) => {
+  const onPlayerReady: YouTubeProps['onReady'] = (event) => {
     event.target.pauseVideo();
   };
 
   const opts = {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     playerVars: {
       autoplay: 0,
       // cc_load_policy: 1,
@@ -112,7 +111,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
   const modifyVideoLike = useCallback(async () => {
     if (token) {
       try {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem('token');
         console.log(token);
         await axios
           .patch(
@@ -120,7 +119,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
             {},
             {
               headers: { Authorization: `${token}` },
-            }
+            },
           )
           .then((res) => {
             getIsLike();
@@ -181,7 +180,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
 
   // 폴더 이름 input 변경 핸들러
   const handleFolderNameChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setFolderName(event.target.value);
   };
@@ -200,7 +199,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
             headers: {
               Authorization: `${token}`,
             },
-          }
+          },
         )
         .then((res) => {
           console.log(res);
@@ -226,27 +225,27 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
               headers: {
                 Authorization: `${token}`,
               },
-            }
+            },
           )
           .then((res) => {
             console.log(res);
             getRootDirectoryInfo();
             setIsOpenNewFolder(false);
-            setFolderName("");
+            setFolderName('');
             setIsOpenSaveModal(true);
           });
       } catch (err) {
         console.log(err);
       }
     },
-    [token, getRootDirectoryInfo]
+    [token, getRootDirectoryInfo, rootDirectoryInfo.directoryId],
   );
 
   // 새 폴더 만들기 취소 시
   const handleCloseNewFolder = () => {
     setIsOpenNewFolder(false);
     setIsOpenSaveModal(true);
-    setFolderName("");
+    setFolderName('');
   };
 
   useEffect(() => {
@@ -277,7 +276,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
           <OnLoginModalText marginTop="17px">해당 서비스는</OnLoginModalText>
           <OnLoginModalText>로그인 후 사용할 수 있습니다.</OnLoginModalText>
           <PatchModalButtonComponent>
-            <PatchModalBtn style={{ borderRight: "2px solid #e6e6e6" }}>
+            <PatchModalBtn style={{ borderRight: '2px solid #e6e6e6' }}>
               <PatchModalBtnText onClick={handleCloseLoginWarninghModal}>
                 취소
               </PatchModalBtnText>
@@ -285,9 +284,9 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
             <PatchModalBtn>
               <PatchModalBtnText
                 onClick={() => {
-                  navigate("/login");
+                  navigate('/login');
                 }}
-                style={{ color: "#D33B4D" }}
+                style={{ color: '#D33B4D' }}
               >
                 로그인
               </PatchModalBtnText>
@@ -330,7 +329,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
             })}
           </SaveModalMiddleComponent>
           <PatchModalButtonComponent>
-            <PatchModalBtn style={{ borderRight: "2px solid #e6e6e6" }}>
+            <PatchModalBtn style={{ borderRight: '2px solid #e6e6e6' }}>
               <PatchModalBtnText onClick={closeSaveModal}>
                 취소
               </PatchModalBtnText>
@@ -339,7 +338,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
             <PatchModalBtn>
               <PatchModalBtnText
                 onClick={saveDirectory}
-                style={{ color: "#D33B4D" }}
+                style={{ color: '#D33B4D' }}
               >
                 확인
               </PatchModalBtnText>
@@ -358,7 +357,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
             placeholder="폴더명"
           />
           <NewModalButtonComponent>
-            <NewFolderModalBtn style={{ borderRight: "2px solid #e6e6e6" }}>
+            <NewFolderModalBtn style={{ borderRight: '2px solid #e6e6e6' }}>
               <PatchModalBtnText onClick={handleCloseNewFolder}>
                 취소
               </PatchModalBtnText>
@@ -366,7 +365,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
             <NewFolderModalBtn>
               <PatchModalBtnText
                 onClick={() => plusDirectoryName(folderName)}
-                style={{ color: "#D33B4D" }}
+                style={{ color: '#D33B4D' }}
               >
                 확인
               </PatchModalBtnText>
@@ -394,7 +393,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
         {/* 유튜브 영상 띄워주는 부분 */}
         <YoutubeFrameBox>
           <YouTube
-            style={{ width: "55.78vw", height: "31.377vw" }}
+            style={{ width: '55.78vw', height: '31.377vw' }}
             // https://youtu.be/NFcp_8np3e8 //마지막 슬래쉬 뒤에 있는 것이 id이다.
             videoId={videoId}
             //opts(옵션들): 플레이어의 크기나 다양한 플레이어 매개 변수를 사용할 수 있음.
@@ -408,7 +407,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
         {/* 조회수 및 영상날짜 */}
         <UnderTitleRowDiv>
           <VideoView>조회수</VideoView>
-          <VideoView style={{ marginLeft: "6px" }}>
+          <VideoView style={{ marginLeft: '6px' }}>
             {videoInfo.viewCount}회
           </VideoView>
           <VideoDate>{videoInfo.uploadDate}</VideoDate>
@@ -419,10 +418,10 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
           {videoLike.isLike ? (
             <UnderDateBtn
               onClick={modifyVideoLike}
-              style={{ borderColor: "#d33b4d" }}
+              style={{ borderColor: '#d33b4d' }}
             >
               <UnderDateBtnIcon src={fillThumbsUp} alt="thumbsUp" />
-              <UnderDateBtnText style={{ color: "#D33B4D" }}>
+              <UnderDateBtnText style={{ color: '#D33B4D' }}>
                 {videoLike.likeCount}
               </UnderDateBtnText>
             </UnderDateBtn>
@@ -441,100 +440,90 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
             <UnderDateBtnIcon src={camera} alt="camera" />
             <UnderDateBtnText>장면 캡쳐</UnderDateBtnText>
           </UnderDateBtn>
-          <UnderDateQuestionImg src={question} alt="?" />
         </UnderDateRowComponent>
 
-        {/* 기본정보 또는 광고효과 섹터 선택 부분 */}
-        <SelectSectorComponent>
-          {selectedSector === "기본정보" ? (
-            <SelectedSector value="기본정보">기본 정보</SelectedSector>
+        <EtcInfoComponent>
+          <SelectSectorComponent>
+            {selectedSector === '기본정보' ? (
+              <SelectedSector value="기본정보">기본 정보</SelectedSector>
+            ) : (
+              <UnSelectedSector onClick={handleClickSector} value="기본정보">
+                기본 정보
+              </UnSelectedSector>
+            )}
+            {selectedSector === '광고효과' ? (
+              <SelectedSector value="광고효과" style={{ marginLeft: '39px' }}>
+                광고 효과
+              </SelectedSector>
+            ) : (
+              <UnSelectedSector
+                onClick={handleClickSector}
+                value="광고효과"
+                style={{ marginLeft: '39px' }}
+              >
+                광고 효과
+              </UnSelectedSector>
+            )}
+          </SelectSectorComponent>
+          {selectedSector === '기본정보' ? (
+            <>
+              <KeywordLabel>키워드</KeywordLabel>
+              <KeywordListRowComponent>
+                {videoInfo.keywordList?.map((item: any) => {
+                  return <KeywordText>#{item}</KeywordText>;
+                })}
+              </KeywordListRowComponent>
+              <AdCopyLabel>광고 카피</AdCopyLabel>
+              <AdCopyContent>{videoInfo.copyDetail}</AdCopyContent>
+              <AdCopyRowComponent>
+                <AdCopyBtn>카피 저장</AdCopyBtn>
+              </AdCopyRowComponent>
+              <UnderCopyRowComponent>
+                <UnderCopyEachBox>
+                  <UnderCopyLabelText>인물</UnderCopyLabelText>
+                  <UnderCopyAnswerRowComponent>
+                    {videoInfo.peopleList?.map((item: any) => {
+                      return <UnderCopyAnswerText>{item}</UnderCopyAnswerText>;
+                    })}
+                  </UnderCopyAnswerRowComponent>
+                </UnderCopyEachBox>
+                <UnderCopyEachBox margin="0px 0px 0px 10px">
+                  <UnderCopyLabelText>사물</UnderCopyLabelText>
+                  <UnderCopyAnswerRowComponent>
+                    {videoInfo.objectList?.map((item: any) => {
+                      return <UnderCopyAnswerText>{item}</UnderCopyAnswerText>;
+                    })}
+                  </UnderCopyAnswerRowComponent>
+                </UnderCopyEachBox>
+              </UnderCopyRowComponent>
+              <OtherInfoRowComponent margin="30px 0px 0px 30px">
+                <OtherInfoLabel>광고주</OtherInfoLabel>
+                <OtherInfoAnswer>{videoInfo.owner}</OtherInfoAnswer>
+              </OtherInfoRowComponent>
+              <OtherInfoRowComponent>
+                <OtherInfoLabel>광고회사</OtherInfoLabel>
+                <OtherInfoAnswer>{videoInfo.ownerCompany}</OtherInfoAnswer>
+              </OtherInfoRowComponent>
+              <OtherInfoRowComponent>
+                <OtherInfoLabel>제작사</OtherInfoLabel>
+                <OtherInfoAnswer>{videoInfo.makerCompany}</OtherInfoAnswer>
+              </OtherInfoRowComponent>
+            </>
           ) : (
-            <UnSelectedSector onClick={handleClickSector} value="기본정보">
-              기본 정보
-            </UnSelectedSector>
+            <>
+              <TextBox>
+                <GraphTextRed>외식업</GraphTextRed>
+                <GraphText>광고 소재 키워드 검색량 추이</GraphText>
+              </TextBox>
+              <GraphFirstBox src={chartFirst} alt="graph" />
+              <TextBox margin="65px 0px 0px 30px">
+                <GraphTextRed>치킨</GraphTextRed>
+                <GraphText>소비자 구매 트렌드</GraphText>
+              </TextBox>
+              <GraphSecondBox src={chartSecond} alt="graph" />
+            </>
           )}
-          {selectedSector === "광고효과" ? (
-            <SelectedSector value="광고효과" style={{ marginLeft: "39px" }}>
-              광고 효과
-            </SelectedSector>
-          ) : (
-            <UnSelectedSector
-              onClick={handleClickSector}
-              value="광고효과"
-              style={{ marginLeft: "39px" }}
-            >
-              광고 효과
-            </UnSelectedSector>
-          )}
-        </SelectSectorComponent>
-
-        {/* 기본 정보 일 경우 */}
-        {selectedSector === "기본정보" ? (
-          <EtcInfoComponent>
-            {/* 키워드 리스트 보여주기 */}
-            <KeywordListRowComponent>
-              {videoInfo.keywordList?.map((item: any) => {
-                return <KeywordText>#{item}</KeywordText>;
-              })}
-            </KeywordListRowComponent>
-
-            {/* 카피 저장 부분 보여주기 */}
-            <AdCopyLabel>카피 저장</AdCopyLabel>
-            <AdCopyContent>{videoInfo.copyDetail}</AdCopyContent>
-            <AdCopyRowComponent>
-              <AdCopyBtn onClick={handleClickCopyBtn}>카피 저장</AdCopyBtn>
-              <UnderDateQuestionImg src={question} alt="?" />
-            </AdCopyRowComponent>
-
-            {/* 영상에 나온 인물과 사물 정보 */}
-            <UnderCopyRowComponent>
-              <UnderCopyEachBox>
-                <UnderCopyLabelText>인물</UnderCopyLabelText>
-                <UnderCopyAnswerRowComponent>
-                  {videoInfo.peopleList?.map((item: any) => {
-                    return <UnderCopyAnswerText>{item}</UnderCopyAnswerText>;
-                  })}
-                </UnderCopyAnswerRowComponent>
-              </UnderCopyEachBox>
-              <UnderCopyEachBox>
-                <UnderCopyLabelText>사물</UnderCopyLabelText>
-                <UnderCopyAnswerRowComponent>
-                  {videoInfo.objectList?.map((item: any) => {
-                    return <UnderCopyAnswerText>{item}</UnderCopyAnswerText>;
-                  })}
-                </UnderCopyAnswerRowComponent>
-              </UnderCopyEachBox>
-            </UnderCopyRowComponent>
-
-            {/* 광고주,광고회사,제작사 보여주기 */}
-            <OtherInfoRowComponent margin="78px 0px 0px 10px">
-              <OtherInfoLabel>광고주</OtherInfoLabel>
-              <OtherInfoAnswer>{videoInfo.owner}</OtherInfoAnswer>
-            </OtherInfoRowComponent>
-            <OtherInfoRowComponent>
-              <OtherInfoLabel>광고회사</OtherInfoLabel>
-              <OtherInfoAnswer>{videoInfo.ownerCompany}</OtherInfoAnswer>
-            </OtherInfoRowComponent>
-            <OtherInfoRowComponent>
-              <OtherInfoLabel>제작사</OtherInfoLabel>
-              <OtherInfoAnswer>{videoInfo.makerCompany}</OtherInfoAnswer>
-            </OtherInfoRowComponent>
-          </EtcInfoComponent>
-        ) : (
-          // 광고효과 섹터 누를 경우
-          <EtcInfoComponent>
-            <TextBox>
-              <GraphTextRed>외식업</GraphTextRed>
-              <GraphText>광고 소재 키워드 검색량 추이</GraphText>
-            </TextBox>
-            <GraphFirstBox src={chartFirst} alt="graph" />
-            <TextBox style={{ marginTop: "44px" }}>
-              <GraphTextRed>치킨</GraphTextRed>
-              <GraphText>소비자 구매 트렌드</GraphText>
-            </TextBox>
-            <GraphSecondBox src={chartSecond} alt="graph" />
-          </EtcInfoComponent>
-        )}
+        </EtcInfoComponent>
       </LeftInfoComponent>
       {/* 오른쪽 추가 영상 보여주는 부분 */}
       <SideBar advertiseId={id} />
@@ -570,7 +559,7 @@ const VideoTitle = styled.div`
   display: inline-flex;
   margin: 16px 0px 0px 0px;
   color: var(--Gray-9, #27272e);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
@@ -587,7 +576,7 @@ const UnderTitleRowDiv = styled.div`
 `;
 const VideoView = styled.div`
   color: var(--Gray-7, #707887);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -597,7 +586,7 @@ const VideoView = styled.div`
 const VideoDate = styled.div`
   margin: 0px 0px 0px 30.38px;
   color: var(--Gray-7, #707887);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 350;
@@ -614,7 +603,7 @@ const UnderDateRowComponent = styled.div`
 `;
 const UnderDateBtn = styled.div<{ margin?: any }>`
   height: 42px;
-  margin: ${(props) => props.margin || "0px"};
+  margin: ${(props) => props.margin || '0px'};
   display: inline-flex;
   padding: 0px 16px;
   align-items: center;
@@ -630,7 +619,7 @@ const UnderDateBtnIcon = styled.img`
 const UnderDateBtnText = styled.div`
   color: var(--Gray-7, #707887);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
@@ -645,23 +634,34 @@ const UnderDateQuestionImg = styled.img`
 
 // 광고카피, 인물, 사물 등 이외 정보부분
 const EtcInfoComponent = styled.div`
-  padding: 34px 0px 33px 0px;
-  margin: 30px 0px 0px 0px;
+  padding: 26px 0px 40px 0px;
+  margin: 22px 0px 0px 0px;
   width: 100%;
+  border: 1px solid #a0a0a0;
   flex-shrink: 0;
-  border-radius: 16px;
+  border-radius: 20px;
 `;
 
-// 키워드 정보 보여주는 부분
+const KeywordLabel = styled.div`
+  margin: 25px 0px 0px 30px;
+  color: var(--Gray-9, #27272e);
+  font-family: 'Noto Sans KR';
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 140%;
+  letter-spacing: -0.4px;
+`;
+
 const KeywordListRowComponent = styled.div`
   display: flex;
-  margin: 0px 0px 0px 0px;
+  margin: 8px 0px 0px 15px;
 `;
-const KeywordText = styled.div`
-  margin: 0px 0px 0px 10px;
+
+const KeywordText = styled.div<{ margin?: any }>`
+  margin: ${(props) => props.margin || '0px 0px 0px 15px'};
   color: var(--Main-1, #d33b4d);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -669,89 +669,98 @@ const KeywordText = styled.div`
   letter-spacing: -0.4px;
 `;
 
-// 카피 저장 부분
 const AdCopyLabel = styled.div`
-  margin: 28px 0px 0px 10px;
+  margin: 30px 0px 0px 30px;
   color: var(--Gray-9, #27272e);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
   line-height: 140%;
   letter-spacing: -0.4px;
 `;
+
 const AdCopyContent = styled.div`
-  margin: 0px 0px 0px 10px;
-  width: 479px;
+  margin: 8px 0px 0px 30px;
+  width: 379px;
   display: inline-flex;
   color: var(--Gray-8, #373d49);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
-  line-height: 177%;
+  line-height: 177%; /* 28.32px */
   letter-spacing: -0.4px;
 `;
+
 const AdCopyRowComponent = styled.div`
-  margin: 15px 0px 0px 10px;
+  margin: 14px 0px 0px 30px;
   display: flex;
   align-items: center;
 `;
+
 const AdCopyBtn = styled.button`
   display: inline-flex;
-  padding: 8px 12px;
-  align-items: center;
-  gap: 4px;
-  border-radius: 21.5px;
+  padding: 4px 9px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 17px;
   border: 1px solid var(--Main-1, #d33b4d);
   color: var(--Main-1, #d33b4d);
   text-align: center;
-  background-color: #fff;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
+  line-height: 140%;
   letter-spacing: -0.4px;
-  cursor: pointer;
 `;
 
-// 영상에 나온 인물,사물 관련 부분
 const UnderCopyRowComponent = styled.div`
-  margin: 78px 0px 0px 10px;
-  display: inline-flex;
+  margin: 30px 0px 0px 30px;
+  display: flex;
 `;
-const UnderCopyEachBox = styled.div`
-  width: 211px;
+
+const UnderCopyEachBox = styled.div<{ margin?: any }>`
+  /* margin 10값 더둠 */
+  min-width: 280px;
+  margin: ${(props) => props.margin || '0px'};
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 `;
+
 const UnderCopyLabelText = styled.div`
   color: var(--Gray-9, #27272e);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
   line-height: 140%;
   letter-spacing: -0.4px;
 `;
+
 const UnderCopyAnswerRowComponent = styled.div`
   margin: 20px 0px 0px 0px;
   display: grid;
-  grid-template-columns: max-content max-content;
-  gap: 4px;
+  grid-auto-flow: column;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px 10px;
 `;
+
 const UnderCopyAnswerText = styled.div`
+  width: max-content;
   display: inline-flex;
-  padding: 3px 10px;
+  padding: 4px 13px;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  border-radius: 20px;
+  border-radius: 15px;
   background: var(--Sub-2, #ffecee);
   color: var(--Main-1, #d33b4d);
   text-align: center;
-  font-family: "Noto Sans KR";
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
+  font-family: 'Noto Sans KR';
+  font-size: 16px;
   line-height: 140%;
   letter-spacing: -0.4px;
 `;
@@ -760,23 +769,25 @@ const UnderCopyAnswerText = styled.div`
 const OtherInfoRowComponent = styled.div<{ margin?: any }>`
   display: flex;
   height: 22px;
-  margin: ${(props) => props.margin || "10px 0px 0px 10px"};
+  margin: ${(props) => props.margin || '10px 0px 0px 30px'};
 `;
+
 const OtherInfoLabel = styled.div`
   color: var(--Gray-9, #27272e);
   width: 58px;
   /* Body/4 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: 140%; /* 22.4px */
   letter-spacing: -0.4px;
 `;
+
 const OtherInfoAnswer = styled.div`
   color: var(--Gray-9, #27272e);
   /* Body/4 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
@@ -811,7 +822,7 @@ const PatchTopText = styled.div`
   margin-top: 49px;
   color: var(--Gray-8, #373d49);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
@@ -820,7 +831,7 @@ const PatchTopText = styled.div`
 `;
 
 const OnLoginModalText = styled(PatchTopText)<{ marginTop?: string }>`
-  margin-top: ${(props) => props.marginTop || "0px"};
+  margin-top: ${(props) => props.marginTop || '0px'};
 `;
 
 const PatchModalButtonComponent = styled.div`
@@ -841,7 +852,7 @@ const PatchModalBtn = styled.div`
 `;
 const PatchModalBtnText = styled.div`
   color: var(--Gray-7, #707887);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
@@ -891,7 +902,7 @@ const PlusImg = styled.img`
 const EachFolderName = styled.div`
   color: var(--Gray-9, #27272e);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
@@ -906,7 +917,7 @@ const CopyContent = styled.div`
   color: var(--Gray-8, #373d49);
   text-align: center;
   width: 401px;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-style: normal;
   font-weight: 350;
@@ -923,7 +934,7 @@ const CopyModalBottom = styled.div`
   margin: 39px 0px 0px 0px;
   width: 100%;
   height: 93px;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
@@ -942,13 +953,14 @@ const XImg = styled.img`
 
 // 섹터 선택 부분
 const SelectSectorComponent = styled.div`
-  margin-top: 41px;
+  margin-left: 30px;
   display: flex;
   align-items: center;
 `;
+
 const SelectedSector = styled.button`
   display: flex;
-  width: 85px;
+  width: 77px;
   height: 27.99px;
   flex-direction: column;
   justify-content: center;
@@ -956,7 +968,7 @@ const SelectedSector = styled.button`
   color: var(--Gray-8, #373d49);
   text-align: center;
   padding-bottom: 2px;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -969,7 +981,7 @@ const SelectedSector = styled.button`
 `;
 const UnSelectedSector = styled.button`
   display: flex;
-  width: 85px;
+  width: 77px;
   height: 27.99px;
   flex-direction: column;
   justify-content: center;
@@ -978,7 +990,7 @@ const UnSelectedSector = styled.button`
   text-align: center;
   border: none;
   background-color: #fff;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -988,14 +1000,16 @@ const UnSelectedSector = styled.button`
 `;
 
 // 광고효과 섹터 부분
-const TextBox = styled.div`
+const TextBox = styled.div<{ margin?: any }>`
+  margin: ${(props) => props.margin || '33px 0px 0px 30px'};
   display: flex;
   align-items: center;
 `;
+
 const GraphText = styled.div`
   color: #000;
   margin-left: 8px;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -1007,16 +1021,17 @@ const GraphTextRed = styled(GraphText)`
   margin-left: 0px;
 `;
 const GraphFirstBox = styled.img`
-  margin-top: 38px;
+  margin: 28px 0px 0px 30px;
   display: block;
-  width: 667px;
-  height: 298px;
+  width: 642px;
+  height: 287px;
 `;
+
 const GraphSecondBox = styled.img`
   display: block;
-  margin-top: 46px;
-  width: 637px;
-  height: 238px;
+  margin: 21px 0px 0px 54px;
+  width: 612px;
+  height: 229px;
 `;
 
 const CompleteModal = styled.div`
@@ -1039,7 +1054,7 @@ const CompleteModal = styled.div`
 const NewFolderTopText = styled.div`
   color: var(--Gray-8, #373d49);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
@@ -1058,7 +1073,7 @@ const NewFolderInputDiv = styled.input`
   color: var(--Gray-9, #27272e);
   border: none;
   outline: none;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-style: normal;
   font-weight: 350;
@@ -1072,7 +1087,7 @@ const ConfirmSaveModalText = styled.div`
   margin-top: 126px;
   color: var(--Gray-8, #373d49);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
@@ -1088,7 +1103,7 @@ const ConfirmSaveModalConfirm = styled.div`
   color: var(--Main-1, #d33b4d);
   margin-top: 72px;
   border-top: 1px solid #e6e6e6;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
