@@ -7,16 +7,15 @@ import TrendAnalysisSection from '../../components/home/TrendAnalysisSection';
 
 const Home = () => {
   return (
-    <div className="w-full bg-white">
-      <div className="w-full px-6">
-        <div className="mx-auto w-[1024px]">
-          <HomeHeader />
-          <ReferenceSection />
-          <TrendAnalysisSection />
-          <AdCopySection />
-          <StoryboardSection />
-        </div>
-      </div>
+    <div
+      className="h-[calc(100vh-10.125rem)] w-full overflow-scroll bg-white"
+      style={{ scrollSnapType: 'y mandatory' }}
+    >
+      <HomeHeader />
+      <ReferenceSection />
+      <TrendAnalysisSection />
+      <AdCopySection />
+      <StoryboardSection />
       <StartSection />
     </div>
   );

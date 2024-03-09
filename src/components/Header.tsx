@@ -94,7 +94,7 @@ const Header = () => {
                   });
                 }}
               >
-                검색어 트렌드
+                트렌드 분석
               </MenuBox>
             </HeaderTAOnboarding>
             <MenuBox>광고 카피 제작</MenuBox>
@@ -117,7 +117,7 @@ const HeaderComponent = styled.header`
   height: 162px;
   top: 0;
   background-color: #fff;
-  z-index: 10;
+  z-index: 20;
   border-bottom: 1px solid var(--Gray-2, #e6e6e6);
 `;
 

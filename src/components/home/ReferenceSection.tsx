@@ -1,6 +1,8 @@
+import { Link } from 'react-router-dom';
+
 const ReferenceSection = () => {
   return (
-    <section className="flex h-[35rem] items-center justify-between">
+    <section className="mx-auto flex h-[calc(100vh-10.125rem)] w-[1024px] snap-start items-center justify-center">
       <div className="flex flex-1 flex-col items-start">
         <span className="text-lg font-semibold text-[#D33B4D]">01</span>
         <span className="font-semibold">
@@ -14,9 +16,12 @@ const ReferenceSection = () => {
           <br />
           광고 레퍼런스를 탐색하고 반짝이는 아이디어를 얻으세요.
         </p>
-        <button className="mt-12 rounded-md bg-[#D33B4D] px-12 py-2 font-semibold text-white">
+        <Link
+          to="/archive"
+          className="mt-12 rounded-md bg-[#D33B4D] px-12 py-2 font-semibold text-white"
+        >
           바로 가기
-        </button>
+        </Link>
       </div>
       <div className="flex justify-end">
         <img
