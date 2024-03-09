@@ -9,6 +9,7 @@ const Landing = () => {
     <LandingComponent>
       <Header />
       <HeaderSpacer />
+
       <Outlet />
     </LandingComponent>
   );

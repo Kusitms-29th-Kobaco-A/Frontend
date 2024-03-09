@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import TAHome from './pages/trend-analysis/TAHome';
 import Landing from './pages/landing/Landing';
-import Home from './pages/home/Home';
+import Home from './pages/new-home/Home';
 import Login from './pages/login/Login';
 import ArchiveMain from './pages/archive-main/ArchiveMain';
 import ArchivePopularVideos from './pages/archive-popular-videos/ArchivePopularVidoes';
@@ -13,7 +13,6 @@ import ArchiveSavedVideosDetail from './pages/archive-saved-videos-detail/Archiv
 import ArchiveDetailSample from './pages/sample-detail/SampleDetail';
 
 import ScrollToTop from './hooks/ScrollToTop';
-
 
 const Router = () => {
   return (
