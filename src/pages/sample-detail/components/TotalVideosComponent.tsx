@@ -20,7 +20,6 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
 
   const [rootDirectoryInfo, setRootDirectoryInfo] = useState<any>({});
 
-
   const getRootDirectoryInfo = useCallback(async () => {
     try {
       await axios
@@ -213,7 +212,6 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
           </UnderDateBtn>
         </UnderDateRowComponent>
 
-
         <EtcInfoComponent>
           <SelectSectorComponent>
             {selectedSector === '기본정보' ? (
@@ -281,7 +279,6 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
                 <OtherInfoAnswer>{videoInfo.makerCompany}</OtherInfoAnswer>
               </OtherInfoRowComponent>
             </>
-
           ) : (
             <>
               <TextBox>
@@ -296,9 +293,7 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
               <GraphSecondBox src={chartSecond} alt="graph" />
             </>
           )}
-
         </EtcInfoComponent>
-
       </LeftInfoComponent>
       <SideBar />
     </TotalComponent>
@@ -555,7 +550,6 @@ const OtherInfoRowComponent = styled.div<{ margin?: any }>`
   height: 22px;
 
   margin: ${(props) => props.margin || '10px 0px 0px 30px'};
-
 `;
 
 const OtherInfoLabel = styled.div`
@@ -582,7 +576,6 @@ const OtherInfoAnswer = styled.div`
   margin: 0px 0px 0px 22px;
 `;
 
-
 const SelectSectorComponent = styled.div`
   margin-left: 30px;
   display: flex;
@@ -591,7 +584,7 @@ const SelectSectorComponent = styled.div`
 
 const SelectedSector = styled.button`
   display: flex;
-  width: 77px;
+  width: 79px;
   height: 27.99px;
   flex-direction: column;
   justify-content: center;
@@ -614,7 +607,7 @@ const SelectedSector = styled.button`
 
 const UnSelectedSector = styled.button`
   display: flex;
-  width: 77px;
+  width: 79px;
   height: 27.99px;
   flex-direction: column;
   justify-content: center;
