@@ -1,27 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import styled from "styled-components";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
-import Pagination from "react-js-pagination";
+import styled from 'styled-components';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
+import axios from 'axios';
+import Pagination from 'react-js-pagination';
 
-import bottomArrow from "../../assets/archive/BottomArrow.svg";
-import dotImg from "../../assets/archive/DotDotDot.svg";
-import folder from "../../assets/archive/Folder.svg";
-import fillFolder from "../../assets/archive/FillFolder.svg";
-import rightArrow from "../../assets/archive/PlayBtn.svg";
-import trash from "../../assets/archive/Trash.svg";
-import move from "../../assets/archive/Move.svg";
-import xCircle from "../../assets/archive/XCircle.svg";
-import plusImg from "../../assets/archive/Plus.svg";
+import bottomArrow from '../../assets/archive/BottomArrow.svg';
+import dotImg from '../../assets/archive/DotDotDot.svg';
+import folder from '../../assets/archive/Folder.svg';
+import fillFolder from '../../assets/archive/FillFolder.svg';
+import rightArrow from '../../assets/archive/PlayBtn.svg';
+import trash from '../../assets/archive/Trash.svg';
+import move from '../../assets/archive/Move.svg';
+import xCircle from '../../assets/archive/XCircle.svg';
+import plusImg from '../../assets/archive/Plus.svg';
 
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 const ArchiveSavedVideosDetail = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
 
   const { state } = useLocation();
   const parentDirectoryId = state.parentDirectoryId;
@@ -44,9 +44,9 @@ const ArchiveSavedVideosDetail = () => {
   const [isOpenSettingDirectory, setIsOpenSettingDirectory] =
     useState<boolean>(false);
   // 어떤 파일인지 파일타입 지정
-  type SelectedType = "전체" | "폴더" | "영상" | "캡쳐화면";
+  type SelectedType = '전체' | '폴더' | '영상' | '캡쳐화면';
   // 선택된 타입
-  const [selectedType, setSelectedType] = useState<SelectedType>("전체");
+  const [selectedType, setSelectedType] = useState<SelectedType>('전체');
   //페이징을 위한 page 변수선언
   const [page, setPage] = useState<number>(1);
   // 파일 삭제 및 이동 선택할 수 있는 상태
@@ -65,7 +65,7 @@ const ArchiveSavedVideosDetail = () => {
   // 새 폴더 만들기 선택 시
   const [isOpenNewFolder, setIsOpenNewFolder] = useState<boolean>(false);
   // 폴더 이름을 관리할 상태
-  const [folderName, setFolderName] = useState("");
+  const [folderName, setFolderName] = useState('');
 
   // 현재 정보 받기 api
   const getCurrentDirectoryInfo = useCallback(async () => {
@@ -162,7 +162,7 @@ const ArchiveSavedVideosDetail = () => {
   const deleteSelectedFiles = useCallback(async () => {
     try {
       if (selectedFileIds.length === 0) {
-        alert("파일을 선택해주세요.");
+        alert('파일을 선택해주세요.');
         return;
       }
 
@@ -173,7 +173,7 @@ const ArchiveSavedVideosDetail = () => {
             headers: {
               Authorization: `${token}`,
             },
-          }
+          },
         );
       }
       getCurrentDirectoryInfo();
@@ -188,7 +188,7 @@ const ArchiveSavedVideosDetail = () => {
   // 파일 이동 모달창
   const openMoveDirectoryModal = () => {
     if (selectedFileIds.length === 0) {
-      alert("파일을 선택해주세요.");
+      alert('파일을 선택해주세요.');
       return;
     } else {
       setIsOpenMoveDirectoryModal(true);
@@ -209,7 +209,7 @@ const ArchiveSavedVideosDetail = () => {
               headers: {
                 Authorization: `${token}`,
               },
-            }
+            },
           )
           .then((res) => {
             console.log(res);
@@ -235,14 +235,14 @@ const ArchiveSavedVideosDetail = () => {
     setIsOpenMoveDirectoryModal(false);
   };
 
-  // 모달을 닫고 input 값을 초기화하는 함수
-  const handleClosePatchModal = () => {
-    setFolderName(""); // input 값을 초기화
-  };
+  // // 모달을 닫고 input 값을 초기화하는 함수
+  // const handleClosePatchModal = () => {
+  //   setFolderName(""); // input 값을 초기화
+  // };
 
   // 폴더 이름 input 변경 핸들러
   const handleFolderNameChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setFolderName(event.target.value);
   };
@@ -261,7 +261,7 @@ const ArchiveSavedVideosDetail = () => {
               headers: {
                 Authorization: `${token}`,
               },
-            }
+            },
           )
           .then((res) => {
             console.log(res);
@@ -273,14 +273,14 @@ const ArchiveSavedVideosDetail = () => {
         console.log(err);
       }
     },
-    [token, parentDirectoryId]
+    [token, parentDirectoryId],
   );
 
   // 새폴더 만들기 취소
   const handleCloseNewFolder = () => {
     setIsOpenNewFolder(false);
     setIsOpenMoveDirectoryModal(true);
-    setFolderName("");
+    setFolderName('');
   };
 
   return (
@@ -348,7 +348,7 @@ const ArchiveSavedVideosDetail = () => {
             })}
           </SaveModalMiddleComponent>
           <PatchModalButtonComponent>
-            <PatchModalBtn style={{ borderRight: "2px solid #e6e6e6" }}>
+            <PatchModalBtn style={{ borderRight: '2px solid #e6e6e6' }}>
               <PatchModalBtnText onClick={closeMoveDirectoryModal}>
                 취소
               </PatchModalBtnText>
@@ -357,7 +357,7 @@ const ArchiveSavedVideosDetail = () => {
             <PatchModalBtn>
               <PatchModalBtnText
                 onClick={moveDirectory}
-                style={{ color: "#D33B4D" }}
+                style={{ color: '#D33B4D' }}
               >
                 이동하기
               </PatchModalBtnText>
@@ -376,7 +376,7 @@ const ArchiveSavedVideosDetail = () => {
             placeholder="폴더명"
           />
           <PatchModalButtonComponent>
-            <NewFolderModalBtn style={{ borderRight: "2px solid #e6e6e6" }}>
+            <NewFolderModalBtn style={{ borderRight: '2px solid #e6e6e6' }}>
               <PatchModalBtnText onClick={handleCloseNewFolder}>
                 취소
               </PatchModalBtnText>
@@ -384,7 +384,7 @@ const ArchiveSavedVideosDetail = () => {
             <NewFolderModalBtn>
               <PatchModalBtnText
                 onClick={() => plusDirectoryName(folderName)}
-                style={{ color: "#D33B4D" }}
+                style={{ color: '#D33B4D' }}
               >
                 확인
               </PatchModalBtnText>
@@ -418,10 +418,10 @@ const ArchiveSavedVideosDetail = () => {
                                 `/archive/savedVideos/inFolder/${item.fileId}`,
                                 {
                                   state: {
-                                    menuState: "archive",
+                                    menuState: 'archive',
                                     prarentDirectoryId: directoryId,
                                   },
-                                }
+                                },
                               );
                             }}
                             src={fillFolder}
@@ -435,13 +435,13 @@ const ArchiveSavedVideosDetail = () => {
                                 `/archive/savedVideos/inFolder/${item.fileId}`,
                                 {
                                   state: {
-                                    menuState: "archive",
+                                    menuState: 'archive',
                                     prarentDirectoryId: directoryId,
                                   },
-                                }
+                                },
                               );
                             }}
-                            style={{ color: "#373D49" }}
+                            style={{ color: '#373D49' }}
                           >
                             {item.fileName}
                           </RootOtherFolderName>
@@ -456,10 +456,10 @@ const ArchiveSavedVideosDetail = () => {
                                 `/archive/savedVideos/inFolder/${item.fileId}`,
                                 {
                                   state: {
-                                    menuState: "archive",
+                                    menuState: 'archive',
                                     prarentDirectoryId: directoryId,
                                   },
-                                }
+                                },
                               );
                             }}
                             src={folder}
@@ -473,10 +473,10 @@ const ArchiveSavedVideosDetail = () => {
                                 `/archive/savedVideos/inFolder/${item.fileId}`,
                                 {
                                   state: {
-                                    menuState: "archive",
+                                    menuState: 'archive',
                                     prarentDirectoryId: directoryId,
                                   },
-                                }
+                                },
                               );
                             }}
                           >
@@ -508,46 +508,46 @@ const ArchiveSavedVideosDetail = () => {
               </SettingModal>
             )}
           </RowComponent>
-          <RowComponent style={{ marginTop: "20px" }}>
-            {selectedType === "전체" ? (
+          <RowComponent style={{ marginTop: '20px' }}>
+            {selectedType === '전체' ? (
               <FillFileType
-                style={{ marginLeft: "0px" }}
-                onClick={() => handleSelectType("전체")}
+                style={{ marginLeft: '0px' }}
+                onClick={() => handleSelectType('전체')}
               >
                 전체
               </FillFileType>
             ) : (
               <BlankFileType
-                style={{ marginLeft: "0px" }}
-                onClick={() => handleSelectType("전체")}
+                style={{ marginLeft: '0px' }}
+                onClick={() => handleSelectType('전체')}
               >
                 전체
               </BlankFileType>
             )}
-            {selectedType === "폴더" ? (
-              <FillFileType onClick={() => handleSelectType("폴더")}>
+            {selectedType === '폴더' ? (
+              <FillFileType onClick={() => handleSelectType('폴더')}>
                 폴더
               </FillFileType>
             ) : (
-              <BlankFileType onClick={() => handleSelectType("폴더")}>
+              <BlankFileType onClick={() => handleSelectType('폴더')}>
                 폴더
               </BlankFileType>
             )}
-            {selectedType === "영상" ? (
-              <FillFileType onClick={() => handleSelectType("영상")}>
+            {selectedType === '영상' ? (
+              <FillFileType onClick={() => handleSelectType('영상')}>
                 영상
               </FillFileType>
             ) : (
-              <BlankFileType onClick={() => handleSelectType("영상")}>
+              <BlankFileType onClick={() => handleSelectType('영상')}>
                 영상
               </BlankFileType>
             )}
-            {selectedType === "캡쳐화면" ? (
-              <FillFileType onClick={() => handleSelectType("캡쳐화면")}>
+            {selectedType === '캡쳐화면' ? (
+              <FillFileType onClick={() => handleSelectType('캡쳐화면')}>
                 캡쳐 화면
               </FillFileType>
             ) : (
-              <BlankFileType onClick={() => handleSelectType("캡쳐화면")}>
+              <BlankFileType onClick={() => handleSelectType('캡쳐화면')}>
                 캡쳐 화면
               </BlankFileType>
             )}
@@ -556,7 +556,7 @@ const ArchiveSavedVideosDetail = () => {
               <StateListBox>
                 <StateIcon
                   onClick={deleteSelectedFiles}
-                  style={{ marginLeft: "0px" }}
+                  style={{ marginLeft: '0px' }}
                   src={trash}
                   alt="trash"
                 />
@@ -577,8 +577,8 @@ const ArchiveSavedVideosDetail = () => {
             {currentDirectoryInfo?.fileList?.map((item: any) => {
               console.log(item);
               if (
-                item.fileType === "DIRECTORY" &&
-                (selectedType === "전체" || selectedType === "폴더")
+                item.fileType === 'DIRECTORY' &&
+                (selectedType === '전체' || selectedType === '폴더')
               ) {
                 return (
                   <EachFileComponent>
@@ -587,8 +587,8 @@ const ArchiveSavedVideosDetail = () => {
                         onClick={() => handleFileClick(item.fileId)}
                         style={{
                           border: selectedFileIds.includes(item.fileId)
-                            ? "2px solid var(--Main-1, #D33B4D)"
-                            : "none",
+                            ? '2px solid var(--Main-1, #D33B4D)'
+                            : 'none',
                         }}
                       >
                         <FolderImgSecond src={folder} alt="folder" />
@@ -600,16 +600,16 @@ const ArchiveSavedVideosDetail = () => {
                             `/archive/savedVideos/inFolder/${item.fileId}`,
                             {
                               state: {
-                                menuState: "archive",
+                                menuState: 'archive',
                                 prarentDirectoryId: directoryId,
                               },
-                            }
+                            },
                           )
                         }
                         style={{
                           border: selectedFileIds.includes(item.fileId)
-                            ? "2px solid var(--Main-1, #D33B4D)"
-                            : "none",
+                            ? '2px solid var(--Main-1, #D33B4D)'
+                            : 'none',
                         }}
                       >
                         <FolderImgSecond src={folder} alt="folder" />
@@ -622,14 +622,14 @@ const ArchiveSavedVideosDetail = () => {
                 );
               }
               if (
-                item.fileType === "ADVERTISE" &&
-                (selectedType === "전체" || selectedType === "영상")
+                item.fileType === 'ADVERTISE' &&
+                (selectedType === '전체' || selectedType === '영상')
               ) {
                 // 비디오 고유 아이디 추출하기
                 const url = item.videoUrl;
                 const extractVideoId = (url: string): string | undefined => {
                   const urlObj = new URL(url);
-                  const videoID = urlObj.searchParams.get("v");
+                  const videoID = urlObj.searchParams.get('v');
                   return videoID || undefined;
                 };
                 const videoId = extractVideoId(url);
@@ -641,8 +641,8 @@ const ArchiveSavedVideosDetail = () => {
                       <EachFrame
                         style={{
                           border: selectedFileIds.includes(item.fileId)
-                            ? "2px solid var(--Main-1, #D33B4D)"
-                            : "none",
+                            ? '2px solid var(--Main-1, #D33B4D)'
+                            : 'none',
                         }}
                         onClick={() => handleFileClick(item.fileId)}
                       >
@@ -657,7 +657,7 @@ const ArchiveSavedVideosDetail = () => {
                         onClick={() => {
                           navigate(`/archive/detail/${item.domainId}`, {
                             state: {
-                              menuState: "archive",
+                              menuState: 'archive',
                               videoInfo: { advertiseId: item.domainId },
                             },
                           });
@@ -678,8 +678,8 @@ const ArchiveSavedVideosDetail = () => {
               }
 
               if (
-                item.fileType === "IMAGE" &&
-                (selectedType === "전체" || selectedType === "캡쳐화면")
+                item.fileType === 'IMAGE' &&
+                (selectedType === '전체' || selectedType === '캡쳐화면')
               ) {
                 return (
                   <EachFileComponent>
@@ -687,8 +687,8 @@ const ArchiveSavedVideosDetail = () => {
                       <EachFrame
                         style={{
                           border: selectedFileIds.includes(item.fileId)
-                            ? "2px solid var(--Main-1, #D33B4D)"
-                            : "none",
+                            ? '2px solid var(--Main-1, #D33B4D)'
+                            : 'none',
                         }}
                         onClick={() => handleFileClick(item.fileId)}
                       >
@@ -702,7 +702,7 @@ const ArchiveSavedVideosDetail = () => {
                         onClick={() => {
                           navigate(`/archive/detail/${item.domainId}`, {
                             state: {
-                              menuState: "archive",
+                              menuState: 'archive',
                               videoInfo: { advertiseId: item.domainId },
                             },
                           });
@@ -724,16 +724,14 @@ const ArchiveSavedVideosDetail = () => {
           </FileListComponent>
         </CenteredInnerComponent>
       </TotalVideoComponent>
-      <ParentPageStyle
-       
-      >
+      <ParentPageStyle>
         <Pagination
           activePage={page}
           itemsCountPerPage={28}
           totalItemsCount={139}
           pageRangeDisplayed={3}
-          prevPageText={"‹"}
-          nextPageText={"›"}
+          prevPageText={'‹'}
+          nextPageText={'›'}
           onChange={handlePageChange}
         />
       </ParentPageStyle>
@@ -771,7 +769,7 @@ const RowComponent = styled.div`
 
 const FolderName = styled.div`
   color: var(--Gray-9, #27272e);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
@@ -823,7 +821,7 @@ const FolderImgSecond = styled.img`
 const RootOtherFolderName = styled.div`
   color: var(--Gray-7, #707887);
   margin-left: 10px;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -853,7 +851,7 @@ const SettingRowComponent = styled.div`
 
 const SettingText = styled.div`
   color: var(--Gray-8, #373d49);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
@@ -875,7 +873,7 @@ const BlankFileType = styled.button`
   background: var(--White-1, #fff);
   color: var(--Main-1, #d33b4d);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -936,7 +934,7 @@ const InLineFlex = styled.div`
   background: var(--Sub-2, #ffecee);
   color: var(--Main-1, #d33b4d);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -947,7 +945,7 @@ const InLineFlex = styled.div`
 const FileTitle = styled.div`
   margin: 8px 0px 0px 10px;
   color: var(--Gray-9, #27272e);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -1005,7 +1003,7 @@ const MiddleText = styled.div`
   color: var(--Gray-8, #373d49);
   text-align: center;
   margin-top: 126px;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
@@ -1017,7 +1015,7 @@ const ConfirmDiv = styled.div`
   width: 100%;
   height: 93px;
   color: var(--Main-1, #d33b4d);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
@@ -1088,7 +1086,7 @@ const PlusImg = styled.img`
 const EachFolderName = styled.div`
   color: var(--Gray-9, #27272e);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
@@ -1101,19 +1099,19 @@ const OnLoginModalText = styled.div<{ marginTop?: string }>`
   margin-top: 49px;
   color: var(--Gray-8, #373d49);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
   line-height: 140%; /* 39.2px */
   letter-spacing: -0.4px;
-  margin-top: ${(props) => props.marginTop || "0px"};
+  margin-top: ${(props) => props.marginTop || '0px'};
 `;
 
 const NewFolderTopText = styled.div`
   color: var(--Gray-8, #373d49);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
@@ -1133,7 +1131,7 @@ const NewFolderInputDiv = styled.input`
   color: var(--Gray-9, #27272e);
   border: none;
   outline: none;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-style: normal;
   font-weight: 350;
@@ -1163,7 +1161,7 @@ const NewFolderModalBtn = styled(PatchModalBtn)`
 
 const PatchModalBtnText = styled.div`
   color: var(--Gray-7, #707887);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
@@ -1172,55 +1170,51 @@ const PatchModalBtnText = styled.div`
   cursor: pointer;
 `;
 
-
 // 페이지 처리
-const ParentPageStyle=styled.div`
-  display:flex;
+const ParentPageStyle = styled.div`
+  display: flex;
   justify-content: center;
   margin-top: 14px;
-  margin-bottom:60px;
+  margin-bottom: 60px;
 
   /* 페이지네이션 전체 부분 */
-ul {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  justify-content: flex-end;
-  align-items: center;
-}
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: flex-end;
+    align-items: center;
+  }
 
-/* 페이지네이션 각자 부분 */
-li {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  margin: 0px 3.019vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-}
+  /* 페이지네이션 각자 부분 */
+  li {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 0px 3.019vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+  }
 
-/* 제일 앞으로 부분 */
-li:first-child {
-  display: none;
-}
+  /* 제일 앞으로 부분 */
+  li:first-child {
+    display: none;
+  }
 
-/* 제일 뒤로 부분 */
-li:last-child {
-  display: none;
-}
+  /* 제일 뒤로 부분 */
+  li:last-child {
+    display: none;
+  }
 
-
-
-/* 선택된 페이지, 비선택된 페이지 구분하기 */
-li a {
-  text-decoration: none;
-  color: var(--Gray-7, #707887);
-}
-li.active a {
-  color: black;
-  font-weight: 600;
-}
-
-`
+  /* 선택된 페이지, 비선택된 페이지 구분하기 */
+  li a {
+    text-decoration: none;
+    color: var(--Gray-7, #707887);
+  }
+  li.active a {
+    color: black;
+    font-weight: 600;
+  }
+`;

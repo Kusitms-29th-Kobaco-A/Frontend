@@ -94,7 +94,7 @@ interface ChartBarProps {
 
 const ChartBar = styled.div<ChartBarProps>`
   width: 2.5rem;
-  height: calc(${({ y }) => y} / 100 * 8rem);
+  height: calc(${({ y }) => y} / 100 * 16rem);
   border-radius: 8px;
   overflow: hidden;
 

@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import styled from "styled-components";
-import plusImg from "../assets/archive/Plus.svg";
-import folder from "../assets/archive/Folder.svg";
-import fillFolder from "../assets/archive/FillFolder.svg";
-import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
+import styled from 'styled-components';
+import plusImg from '../assets/archive/Plus.svg';
+import folder from '../assets/archive/Folder.svg';
+import fillFolder from '../assets/archive/FillFolder.svg';
+import { useCallback, useEffect, useState } from 'react';
+import axios from 'axios';
 
 // 폴더 이동시, 영상 찜하기 시 폴더 선택 컴포넌트
 const SelectDirectory = ({
@@ -13,7 +13,7 @@ const SelectDirectory = ({
   state,
   closeMoveDirectoryModal,
 }: any) => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   const [rootDirectoryInfo, setRootDirectoryInfo] = useState<any>({});
 
   // 최상단 폴더 정보 받기
@@ -42,7 +42,7 @@ const SelectDirectory = ({
     getRootDirectoryInfo();
   }, [getRootDirectoryInfo]);
 
-  const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false);
+  const [, setIsOpenConfirmModal] = useState(false);
 
   // 폴더 이동 api
   const moveDirectory = async () => {
@@ -58,7 +58,7 @@ const SelectDirectory = ({
               headers: {
                 Authorization: `${token}`,
               },
-            }
+            },
           )
           .then((res) => {
             console.log(res);
@@ -74,7 +74,7 @@ const SelectDirectory = ({
     <SaveModalComponent>
       {/* 최상단 텍스트 */}
       <OnLoginModalText marginTop="49px">
-        {state === "move" ? "이동할 폴더 선택" : "찜할 폴더 선택"}
+        {state === 'move' ? '이동할 폴더 선택' : '찜할 폴더 선택'}
       </OnLoginModalText>
 
       {/* 중간 폴더 리스트 그려주는 컴포넌트 */}
@@ -114,32 +114,32 @@ const SelectDirectory = ({
 
       {/* 취소, 이동 선택 버튼 컴포넌트 */}
       <PatchModalButtonComponent>
-        {state === "move" ? (
-          <PatchModalBtn style={{ borderRight: "2px solid #e6e6e6" }}>
+        {state === 'move' ? (
+          <PatchModalBtn style={{ borderRight: '2px solid #e6e6e6' }}>
             <PatchModalBtnText onClick={closeMoveDirectoryModal}>
               취소
             </PatchModalBtnText>
           </PatchModalBtn>
         ) : (
-          <PatchModalBtn style={{ borderRight: "2px solid #e6e6e6" }}>
+          <PatchModalBtn style={{ borderRight: '2px solid #e6e6e6' }}>
             <PatchModalBtnText onClick={closeMoveDirectoryModal}>
               취소
             </PatchModalBtnText>
           </PatchModalBtn>
         )}
 
-        {state === "move" ? (
+        {state === 'move' ? (
           <PatchModalBtn>
             <PatchModalBtnText
               onClick={moveDirectory}
-              style={{ color: "#D33B4D" }}
+              style={{ color: '#D33B4D' }}
             >
               이동하기
             </PatchModalBtnText>
           </PatchModalBtn>
         ) : (
           <PatchModalBtn>
-            <PatchModalBtnText style={{ color: "#D33B4D" }}>
+            <PatchModalBtnText style={{ color: '#D33B4D' }}>
               이동하기
             </PatchModalBtnText>
           </PatchModalBtn>
@@ -204,7 +204,7 @@ const PlusImg = styled.img`
 const EachFolderName = styled.div`
   color: var(--Gray-9, #27272e);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
@@ -228,7 +228,7 @@ const PatchModalBtn = styled.div`
 `;
 const PatchModalBtnText = styled.div`
   color: var(--Gray-7, #707887);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
@@ -241,11 +241,11 @@ const OnLoginModalText = styled.div<{ marginTop?: string }>`
   margin-top: 49px;
   color: var(--Gray-8, #373d49);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
   line-height: 140%;
   letter-spacing: -0.4px;
-  margin-top: ${(props) => props.marginTop || "0px"};
+  margin-top: ${(props) => props.marginTop || '0px'};
 `;

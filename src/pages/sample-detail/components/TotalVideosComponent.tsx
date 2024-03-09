@@ -17,7 +17,9 @@ import newYoutubeUrl from '../../../assets//archive/cocacola.mp4';
 
 const TotalVideosComponent = ({ videoInfo }: any) => {
   const token = localStorage.getItem('token');
+
   const [rootDirectoryInfo, setRootDirectoryInfo] = useState<any>({});
+
 
   const getRootDirectoryInfo = useCallback(async () => {
     try {
@@ -36,7 +38,7 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
     }
   }, [token]);
 
-  const [videoLike, setVideoLike] = useState({
+  const [videoLike] = useState({
     isLike: false,
     likeCount: 16,
   });
@@ -52,7 +54,7 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
     getRootDirectoryInfo();
   }, [getRootDirectoryInfo]);
 
-  const [capturedImage, setCapturedImage] = useState<string | null>(null);
+  const [, setCapturedImage] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const [isCaptureClicked, setIsCaptureClicked] = useState(false);
@@ -158,9 +160,11 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
         {/* 영상 날짜 */}
         <UnderTitleRowDiv>
           <VideoView>조회수</VideoView>
+
           <VideoView style={{ marginLeft: '6px' }}>
             {videoInfo.viewCount}회
           </VideoView>
+
           <VideoDate>{videoInfo.uploadDate}</VideoDate>
         </UnderTitleRowDiv>
         {/* 추천,찜,캡처 */}
@@ -208,6 +212,7 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
             </UnderDateBtnText>
           </UnderDateBtn>
         </UnderDateRowComponent>
+
 
         <EtcInfoComponent>
           <SelectSectorComponent>
@@ -276,6 +281,7 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
                 <OtherInfoAnswer>{videoInfo.makerCompany}</OtherInfoAnswer>
               </OtherInfoRowComponent>
             </>
+
           ) : (
             <>
               <TextBox>
@@ -290,7 +296,9 @@ const TotalVideosComponent = ({ videoInfo }: any) => {
               <GraphSecondBox src={chartSecond} alt="graph" />
             </>
           )}
+
         </EtcInfoComponent>
+
       </LeftInfoComponent>
       <SideBar />
     </TotalComponent>
@@ -432,6 +440,7 @@ const KeywordText = styled.div<{ margin?: any }>`
   margin: ${(props) => props.margin || '0px 0px 0px 15px'};
   color: var(--Main-1, #d33b4d);
   text-align: center;
+
   font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
@@ -443,6 +452,7 @@ const KeywordText = styled.div<{ margin?: any }>`
 const AdCopyLabel = styled.div`
   margin: 30px 0px 0px 30px;
   color: var(--Gray-9, #27272e);
+
   font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
@@ -480,6 +490,7 @@ const AdCopyBtn = styled.button`
   border: 1px solid var(--Main-1, #d33b4d);
   color: var(--Main-1, #d33b4d);
   text-align: center;
+
   font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
@@ -504,6 +515,7 @@ const UnderCopyEachBox = styled.div<{ margin?: any }>`
 
 const UnderCopyLabelText = styled.div`
   color: var(--Gray-9, #27272e);
+
   font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
@@ -530,16 +542,20 @@ const UnderCopyAnswerText = styled.div`
   background: var(--Sub-2, #ffecee);
   color: var(--Main-1, #d33b4d);
   text-align: center;
+
   font-family: 'Noto Sans KR';
   font-size: 16px;
   line-height: 140%;
+
   letter-spacing: -0.4px;
 `;
 
 const OtherInfoRowComponent = styled.div<{ margin?: any }>`
   display: flex;
   height: 22px;
+
   margin: ${(props) => props.margin || '10px 0px 0px 30px'};
+
 `;
 
 const OtherInfoLabel = styled.div`
@@ -566,6 +582,7 @@ const OtherInfoAnswer = styled.div`
   margin: 0px 0px 0px 22px;
 `;
 
+
 const SelectSectorComponent = styled.div`
   margin-left: 30px;
   display: flex;
@@ -582,6 +599,7 @@ const SelectedSector = styled.button`
   color: var(--Gray-8, #373d49);
   text-align: center;
   padding-bottom: 2px;
+
   font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
@@ -605,6 +623,7 @@ const UnSelectedSector = styled.button`
   text-align: center;
   border: none;
   background-color: #fff;
+
   font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;

@@ -18,7 +18,6 @@ const SavedVideosTotal = () => {
   const [directoryInfo, setDirectoryInfo] = useState<any>([]);
   const parentDirectoryId = directoryInfo.directoryId;
   // 모달 상태를 관리하기 위한 새로운 상태 추가
-  const [isOpenDotModal, setIsOpenDotModal] = useState<boolean>(false);
   const [openModalId, setOpenModalId] = useState<null | number>(null);
   // 수정 모달 상태
   const [isOpenPatchModal, setIsOpenPatchModal] = useState<boolean>(false);
@@ -49,12 +48,12 @@ const SavedVideosTotal = () => {
     }
   };
 
-  // 모달 바깥 선택 시
-  const handleClickOutside = (event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      setIsOpenDotModal(false);
-    }
-  };
+  // // 모달 바깥 선택 시
+  // const handleClickOutside = (event: MouseEvent) => {
+  //   if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+  //     setIsOpenDotModal(false);
+  //   }
+  // };
 
   // 폴더 목록 받기 api
   const getSavedVidosFolder = useCallback(async () => {
@@ -113,7 +112,7 @@ const SavedVideosTotal = () => {
               },
             },
           )
-          .then((res) => {
+          .then(() => {
             setIsOpenPatchModal(false); // 모달 닫기
             getSavedVidosFolder();
           });
@@ -153,7 +152,7 @@ const SavedVideosTotal = () => {
               },
             },
           )
-          .then((res) => {
+          .then(() => {
             setIsOpenDeleteModal(false); // 모달 닫기
             getSavedVidosFolder();
           });
@@ -191,7 +190,7 @@ const SavedVideosTotal = () => {
               },
             },
           )
-          .then((res) => {
+          .then(() => {
             setIsOpenPlusModal(false); // 모달 닫기
             getSavedVidosFolder();
           });

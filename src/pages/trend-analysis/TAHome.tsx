@@ -12,7 +12,8 @@ import KeywordRank from '../../components/trend-analysis/keyword-rank/KeywordRan
 import SNSContent from '../../components/trend-analysis/sns-content/root/SNSContent';
 import SearchTopFixed from '../../components/trend-analysis/search/SearchTopFixed';
 import useTAStep from '../../hooks/useTAStep';
-import axios from 'axios';
+import { cakeData } from '../../data/cake';
+import { vegonData } from '../../data/vegon';
 
 const TAHome = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -23,7 +24,9 @@ const TAHome = () => {
   const relatedTrendRef = useRef<HTMLDivElement>(null);
   const snsTrendRef = useRef<HTMLDivElement>(null);
 
-  const [searchKeyword, setSearchKeyword] = useState('');
+  const [searchKeyword, setSearchKeyword] = useState(
+    localStorage.getItem('ta-step-boarding') !== 'true' ? '케이크' : '',
+  );
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {
@@ -48,29 +51,31 @@ const TAHome = () => {
   useEffect(() => {
     if (localStorage.getItem('ta-step-boarding') === null) {
       localStorage.setItem('ta-step-boarding', 'false');
+      handleSearchSubmit();
     }
-    // if (localStorage.getItem('ta-step-boarding') === 'true') {
-    //   document.body.style.overflow = 'auto';
-    //   setTAStep(0);
-    //   return;
-    // }
-    // if (taStep === 0 || taStep > totalTAStep) {
-    //   document.body.style.overflow = 'auto';
-    //   localStorage.setItem('ta-step-boarding', 'true');
-    // } else {
-    //   document.body.style.overflow = 'hidden';
-    //   localStorage.setItem('ta-step-boarding', 'false');
-    // }
+    if (localStorage.getItem('ta-step-boarding') === 'false') {
+      handleSearchSubmit();
+    }
+    if (localStorage.getItem('ta-step-boarding') === 'true') {
+      document.body.style.overflow = 'auto';
+      setTAStep(0);
+      return;
+    }
+    if (taStep === 0 || taStep > totalTAStep) {
+      document.body.style.overflow = 'auto';
+      localStorage.setItem('ta-step-boarding', 'true');
+    } else {
+      document.body.style.overflow = 'hidden';
+      localStorage.setItem('ta-step-boarding', 'false');
+    }
   }, [taStep, totalTAStep]);
 
-  const handleSearchSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSearchSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     if (searchKeyword === '케이크') {
-      const res = await axios.get('/src/data/cake.json');
-      setData(res.data);
+      setData(cakeData);
     } else if (searchKeyword === '비건') {
-      const res = await axios.get('/src/data/vegon.json');
-      setData(res.data);
+      setData(vegonData);
     } else {
       setData(null);
     }
@@ -79,8 +84,8 @@ const TAHome = () => {
   const isLoading = !data;
 
   return (
-    <>
-      <SearchTopFixed />
+    <div className="min-h-[calc(100vh-10.125rem)] bg-[#F5F6F6] pb-[10rem]">
+      <SearchTopFixed searchKeyword={searchKeyword} />
       <main>
         <InnerArea>
           <SearchBar
@@ -129,7 +134,7 @@ const TAHome = () => {
           )}
         </InnerArea>
       </main>
-    </>
+    </div>
   );
 };
 

@@ -1,6 +1,8 @@
+import { Link } from 'react-router-dom';
+
 const TrendAnalysisSection = () => {
   return (
-    <section className="flex h-[35rem] items-center justify-between">
+    <section className="mx-auto flex h-[calc(100vh-10.125rem)] w-[1024px] snap-start items-center justify-between">
       <div className="flex flex-1 flex-col items-start">
         <span className="text-lg font-semibold text-[#D33B4D]">02</span>
         <span className="font-semibold">
@@ -12,9 +14,12 @@ const TrendAnalysisSection = () => {
           <br />
           대시보드에서 검색어와 SNS 트렌드를 쉽고 빠르게 탐색하세요.
         </p>
-        <button className="mt-12 rounded-md bg-[#D33B4D] px-12 py-2 font-semibold text-white">
+        <Link
+          to="/trend-analysis"
+          className="mt-12 rounded-md bg-[#D33B4D] px-12 py-2 font-semibold text-white"
+        >
           바로 가기
-        </button>
+        </Link>
       </div>
       <div className="flex justify-end">
         <img

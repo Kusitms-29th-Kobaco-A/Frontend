@@ -12,7 +12,7 @@ const EachVideoSample = () => {
   const navigate = useNavigate();
 
   // 비디오 정보 설정
-  const [videoInfo, setVideoInfo] = useState({
+  const [videoInfo] = useState({
     videoUrl: SamepleVideo,
     keywordList: ['콜라', '사이다'],
     advertiseId: 100,

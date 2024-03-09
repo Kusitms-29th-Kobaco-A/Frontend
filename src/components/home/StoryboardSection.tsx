@@ -1,6 +1,6 @@
 const StoryboardSection = () => {
   return (
-    <section className="flex h-[35rem] items-center justify-between">
+    <section className="mx-auto flex h-[calc(100vh-10.125rem)] w-[1024px] snap-start items-center justify-between">
       <div className="flex flex-1 flex-col items-start">
         <span className="text-lg font-semibold text-[#D33B4D]">04</span>
         <span className="font-semibold">
