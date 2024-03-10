@@ -711,15 +711,15 @@ const EtcInfoComponent = styled.div`
   border-radius: 20px;
 `;
 
-const KeywordLabel = styled.div`
-  margin: 25px 0px 0px 30px;
-  color: var(--Gray-9, #27272e);
-  font-family: 'Noto Sans KR';
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 140%;
-  letter-spacing: -0.4px;
-`;
+// const KeywordLabel = styled.div`
+//   margin: 25px 0px 0px 30px;
+//   color: var(--Gray-9, #27272e);
+//   font-family: 'Noto Sans KR';
+//   font-size: 20px;
+//   font-weight: 700;
+//   line-height: 140%;
+//   letter-spacing: -0.4px;
+// `;
 
 const KeywordListRowComponent = styled.div`
   display: flex;
