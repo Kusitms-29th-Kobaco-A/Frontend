@@ -28,7 +28,7 @@ const KobacoMenu = () => {
         Aisac이 도와드릴게요!
       </HeaderText>
       <MenuComponent>
-        <MenuBox data-aos="fade-up">
+        <MenuBox>
           <MenuNum>01</MenuNum>
           <MenuImg
             src={union1}
@@ -43,7 +43,7 @@ const KobacoMenu = () => {
             반짝이는 아이디어를 얻으세요.
           </MenuContent>
         </MenuBox>
-        <MenuBox data-aos="fade-up">
+        <MenuBox>
           <MenuNum>02</MenuNum>
           <MenuImg
             src={union2}
@@ -58,7 +58,7 @@ const KobacoMenu = () => {
             소비자 니즈를 확인하세요.
           </MenuContent>
         </MenuBox>
-        <MenuBox data-aos="fade-up">
+        <MenuBox>
           <MenuNum>03</MenuNum>
           <MenuImg
             src={union3}
@@ -73,7 +73,7 @@ const KobacoMenu = () => {
             광고 카피 제작 서비스를 체험하세요.
           </MenuContent>
         </MenuBox>
-        <MenuBox data-aos="fade-up">
+        <MenuBox>
           <MenuNum>04</MenuNum>
           <MenuImg
             src={union4}
@@ -99,11 +99,13 @@ const TotalComponent = styled.div`
   display: flex;
   background: var(--Gray-1, #f4f6f6);
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   position: relative;
   width: 100%;
-  height: 65vw; //832px;
+  height: calc(100vh - 10.125rem);
   z-index: -1;
+  scroll-snap-align: start;
 `;
 
 const BackgroundImg = styled.img`
@@ -132,7 +134,6 @@ const Overlay = styled.div`
 const HeaderText = styled.div`
   text-align: center;
   width: 512px;
-  margin: 18.281vw 0px 0px 0px;
   color: var(--Gray-9, #27272e);
   font-family: 'Noto Sans KR';
   font-size: 36px;
@@ -145,7 +146,7 @@ const MenuComponent = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
-  margin: 5.313vw 0px 0px 0px;
+  margin-top: 2.5rem;
 `;
 
 const MenuBox = styled.div`
@@ -153,15 +154,14 @@ const MenuBox = styled.div`
   flex-direction: column;
   align-items: center;
   width: 18.75vw;
-  height: 23.359vw;
   border-radius: 20px;
   border: 1px solid var(--White-1, #fff);
   background: var(--White-1, #fff);
   box-shadow: 0px 0px 12px 0px rgba(170, 146, 146, 0.2);
+  padding: 1.5rem;
 `;
 
 const MenuNum = styled.div`
-  margin: 1.719vw 0px 0px 0px;
   color: var(--Gray-6, #bfc7d1);
   text-align: center;
   font-family: 'Noto Sans KR';
@@ -190,7 +190,6 @@ const MenuTitle = styled.div<{ margin: any }>`
 
 const MenuContent = styled.div`
   width: 14.2vw;
-  margin: 0.625vw 0px 0px 0px;
   color: var(--Gray-8, #373d49);
   text-align: center;
   font-family: 'Noto Sans KR';
@@ -198,4 +197,6 @@ const MenuContent = styled.div`
   font-weight: 350;
   line-height: 140%;
   letter-spacing: -0.4px;
+  margin-top: 0.25rem;
+  word-break: keep-all;
 `;
