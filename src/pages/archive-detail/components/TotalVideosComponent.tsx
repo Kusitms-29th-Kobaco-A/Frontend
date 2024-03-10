@@ -21,11 +21,18 @@ import chartSecond from '../../../assets/archive/ChartSecond.svg';
 import fillFolder from '../../../assets/archive/FillFolder.svg';
 
 import SideBar from './SideBar';
+import FavoriteOnboarding from './FavoriteOnboarding';
+import CaptureOnboarding from './CaptureOnboarding';
+import useRefStep from '../../../hooks/useRefStep';
+import CopyOnboarding from './CopyOnboarding';
 
 const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const id = advertiseId.advertiseId;
+
+  const { refStep, setRefStep, totalRefStep, handleDismiss } = useRefStep();
+
   // 최상단 폴더 정보
   const [rootDirectoryInfo, setRootDirectoryInfo] = useState<any>({});
   // 비디오 좋아요 정보
@@ -253,6 +260,31 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
     getIsLike();
   }, [getRootDirectoryInfo, getIsLike]);
 
+  useEffect(() => {
+    if (refStep > totalRefStep) {
+      setRefStep(0);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [refStep, totalRefStep]);
+
+  useEffect(() => {
+    if (localStorage.getItem('ref-step-boarding') === null) {
+      localStorage.setItem('ref-step-boarding', 'false');
+    }
+    if (localStorage.getItem('ref-step-boarding') === 'true') {
+      document.body.style.overflow = 'auto';
+      setRefStep(0);
+      return;
+    }
+    if (refStep === 0 || refStep > totalRefStep) {
+      document.body.style.overflow = 'auto';
+      localStorage.setItem('ref-step-boarding', 'true');
+    } else {
+      document.body.style.overflow = 'hidden';
+      localStorage.setItem('ref-step-boarding', 'false');
+    }
+  }, [refStep, totalRefStep]);
+
   return (
     <TotalComponent>
       {/* 찜하기 완료 모달 */}
@@ -431,99 +463,135 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
               <UnderDateBtnText>{videoLike.likeCount}</UnderDateBtnText>
             </UnderDateBtn>
           )}
-
-          <UnderDateBtn onClick={handleClickSaveBtn} margin="0px 0px 0px 12px">
-            <UnderDateBtnIcon src={heart} alt="heart" />
-            <UnderDateBtnText>찜</UnderDateBtnText>
-          </UnderDateBtn>
-          <UnderDateBtn margin="0px 0px 0px 12px">
-            <UnderDateBtnIcon src={camera} alt="camera" />
-            <UnderDateBtnText>장면 캡쳐</UnderDateBtnText>
-          </UnderDateBtn>
+          <FavoriteOnboarding
+            isVisible={refStep === 1}
+            currentStep={refStep}
+            totalStep={totalRefStep}
+            onConfirm={() => setRefStep(refStep + 1)}
+            onDismiss={handleDismiss}
+          >
+            <UnderDateBtn
+              onClick={handleClickSaveBtn}
+              margin="0px 0px 0px 12px"
+            >
+              <UnderDateBtnIcon src={heart} alt="heart" />
+              <UnderDateBtnText>찜</UnderDateBtnText>
+            </UnderDateBtn>
+          </FavoriteOnboarding>
+          <CaptureOnboarding
+            isVisible={refStep === 2}
+            currentStep={refStep}
+            totalStep={totalRefStep}
+            onConfirm={() => setRefStep(refStep + 1)}
+            onDismiss={handleDismiss}
+          >
+            <UnderDateBtn margin="0px 0px 0px 12px">
+              <UnderDateBtnIcon src={camera} alt="camera" />
+              <UnderDateBtnText>장면 캡쳐</UnderDateBtnText>
+            </UnderDateBtn>
+          </CaptureOnboarding>
+          <UnderDateQuestionImg src={question} alt="?" />
         </UnderDateRowComponent>
 
-        <EtcInfoComponent>
-          <SelectSectorComponent>
-            {selectedSector === '기본정보' ? (
-              <SelectedSector value="기본정보">기본 정보</SelectedSector>
-            ) : (
-              <UnSelectedSector onClick={handleClickSector} value="기본정보">
-                기본 정보
-              </UnSelectedSector>
-            )}
-            {selectedSector === '광고효과' ? (
-              <SelectedSector value="광고효과" style={{ marginLeft: '39px' }}>
-                광고 효과
-              </SelectedSector>
-            ) : (
-              <UnSelectedSector
-                onClick={handleClickSector}
-                value="광고효과"
-                style={{ marginLeft: '39px' }}
-              >
-                광고 효과
-              </UnSelectedSector>
-            )}
-          </SelectSectorComponent>
+        {/* 기본정보 또는 광고효과 섹터 선택 부분 */}
+        <SelectSectorComponent>
           {selectedSector === '기본정보' ? (
-            <>
-              <KeywordLabel>키워드</KeywordLabel>
-              <KeywordListRowComponent>
-                {videoInfo.keywordList?.map((item: any) => {
-                  return <KeywordText>#{item}</KeywordText>;
-                })}
-              </KeywordListRowComponent>
-              <AdCopyLabel>광고 카피</AdCopyLabel>
-              <AdCopyContent>{videoInfo.copyDetail}</AdCopyContent>
-              <AdCopyRowComponent>
-                <AdCopyBtn>카피 저장</AdCopyBtn>
-              </AdCopyRowComponent>
-              <UnderCopyRowComponent>
-                <UnderCopyEachBox>
-                  <UnderCopyLabelText>인물</UnderCopyLabelText>
-                  <UnderCopyAnswerRowComponent>
-                    {videoInfo.peopleList?.map((item: any) => {
-                      return <UnderCopyAnswerText>{item}</UnderCopyAnswerText>;
-                    })}
-                  </UnderCopyAnswerRowComponent>
-                </UnderCopyEachBox>
-                <UnderCopyEachBox margin="0px 0px 0px 10px">
-                  <UnderCopyLabelText>사물</UnderCopyLabelText>
-                  <UnderCopyAnswerRowComponent>
-                    {videoInfo.objectList?.map((item: any) => {
-                      return <UnderCopyAnswerText>{item}</UnderCopyAnswerText>;
-                    })}
-                  </UnderCopyAnswerRowComponent>
-                </UnderCopyEachBox>
-              </UnderCopyRowComponent>
-              <OtherInfoRowComponent margin="30px 0px 0px 30px">
-                <OtherInfoLabel>광고주</OtherInfoLabel>
-                <OtherInfoAnswer>{videoInfo.owner}</OtherInfoAnswer>
-              </OtherInfoRowComponent>
-              <OtherInfoRowComponent>
-                <OtherInfoLabel>광고회사</OtherInfoLabel>
-                <OtherInfoAnswer>{videoInfo.ownerCompany}</OtherInfoAnswer>
-              </OtherInfoRowComponent>
-              <OtherInfoRowComponent>
-                <OtherInfoLabel>제작사</OtherInfoLabel>
-                <OtherInfoAnswer>{videoInfo.makerCompany}</OtherInfoAnswer>
-              </OtherInfoRowComponent>
-            </>
+            <SelectedSector value="기본정보">기본 정보</SelectedSector>
           ) : (
-            <>
-              <TextBox>
-                <GraphTextRed>{videoInfo.keywordList[0]}</GraphTextRed>
-                <GraphText>광고 소재 키워드 검색량 추이</GraphText>
-              </TextBox>
-              <GraphFirstBox src={chartFirst} alt="graph" />
-              <TextBox margin="65px 0px 0px 30px">
-                <GraphTextRed>{videoInfo.keywordList[1]}</GraphTextRed>
-                <GraphText>소비자 구매 트렌드</GraphText>
-              </TextBox>
-              <GraphSecondBox src={chartSecond} alt="graph" />
-            </>
+            <UnSelectedSector onClick={handleClickSector} value="기본정보">
+              기본 정보
+            </UnSelectedSector>
           )}
-        </EtcInfoComponent>
+          {selectedSector === '광고효과' ? (
+            <SelectedSector value="광고효과" style={{ marginLeft: '39px' }}>
+              광고 효과
+            </SelectedSector>
+          ) : (
+            <UnSelectedSector
+              onClick={handleClickSector}
+              value="광고효과"
+              style={{ marginLeft: '39px' }}
+            >
+              광고 효과
+            </UnSelectedSector>
+          )}
+        </SelectSectorComponent>
+
+        {/* 기본 정보 일 경우 */}
+        {selectedSector === '기본정보' ? (
+          <EtcInfoComponent>
+            {/* 키워드 리스트 보여주기 */}
+            <KeywordListRowComponent>
+              {videoInfo.keywordList?.map((item: any) => {
+                return <KeywordText>#{item}</KeywordText>;
+              })}
+            </KeywordListRowComponent>
+
+            {/* 카피 저장 부분 보여주기 */}
+            <AdCopyLabel>카피 저장</AdCopyLabel>
+            <AdCopyContent>{videoInfo.copyDetail}</AdCopyContent>
+            <AdCopyRowComponent>
+              <CopyOnboarding
+                isVisible={refStep === 3}
+                currentStep={refStep}
+                totalStep={totalRefStep}
+                onConfirm={() => setRefStep(refStep + 1)}
+                onDismiss={handleDismiss}
+              >
+                <AdCopyBtn onClick={handleClickCopyBtn}>카피 저장</AdCopyBtn>
+              </CopyOnboarding>
+              <UnderDateQuestionImg src={question} alt="?" />
+            </AdCopyRowComponent>
+
+            {/* 영상에 나온 인물과 사물 정보 */}
+            <UnderCopyRowComponent>
+              <UnderCopyEachBox>
+                <UnderCopyLabelText>인물</UnderCopyLabelText>
+                <UnderCopyAnswerRowComponent>
+                  {videoInfo.peopleList?.map((item: any) => {
+                    return <UnderCopyAnswerText>{item}</UnderCopyAnswerText>;
+                  })}
+                </UnderCopyAnswerRowComponent>
+              </UnderCopyEachBox>
+              <UnderCopyEachBox>
+                <UnderCopyLabelText>사물</UnderCopyLabelText>
+                <UnderCopyAnswerRowComponent>
+                  {videoInfo.objectList?.map((item: any) => {
+                    return <UnderCopyAnswerText>{item}</UnderCopyAnswerText>;
+                  })}
+                </UnderCopyAnswerRowComponent>
+              </UnderCopyEachBox>
+            </UnderCopyRowComponent>
+
+            {/* 광고주,광고회사,제작사 보여주기 */}
+            <OtherInfoRowComponent margin="78px 0px 0px 10px">
+              <OtherInfoLabel>광고주</OtherInfoLabel>
+              <OtherInfoAnswer>{videoInfo.owner}</OtherInfoAnswer>
+            </OtherInfoRowComponent>
+            <OtherInfoRowComponent>
+              <OtherInfoLabel>광고회사</OtherInfoLabel>
+              <OtherInfoAnswer>{videoInfo.ownerCompany}</OtherInfoAnswer>
+            </OtherInfoRowComponent>
+            <OtherInfoRowComponent>
+              <OtherInfoLabel>제작사</OtherInfoLabel>
+              <OtherInfoAnswer>{videoInfo.makerCompany}</OtherInfoAnswer>
+            </OtherInfoRowComponent>
+          </EtcInfoComponent>
+        ) : (
+          // 광고효과 섹터 누를 경우
+          <EtcInfoComponent>
+            <TextBox>
+              <GraphTextRed>외식업</GraphTextRed>
+              <GraphText>광고 소재 키워드 검색량 추이</GraphText>
+            </TextBox>
+            <GraphFirstBox src={chartFirst} alt="graph" />
+            <TextBox style={{ marginTop: '44px' }}>
+              <GraphTextRed>치킨</GraphTextRed>
+              <GraphText>소비자 구매 트렌드</GraphText>
+            </TextBox>
+            <GraphSecondBox src={chartSecond} alt="graph" />
+          </EtcInfoComponent>
+        )}
       </LeftInfoComponent>
       {/* 오른쪽 추가 영상 보여주는 부분 */}
       <SideBar advertiseId={id} />
@@ -611,6 +679,7 @@ const UnderDateBtn = styled.div<{ margin?: any }>`
   border-radius: 21.5px;
   border: 1px solid var(--Gray-6, #bfc7d1);
   cursor: pointer;
+  background-color: #ffffff;
 `;
 const UnderDateBtnIcon = styled.img`
   width: 24px;
@@ -709,6 +778,7 @@ const AdCopyBtn = styled.button`
   border: 1px solid var(--Main-1, #d33b4d);
   color: var(--Main-1, #d33b4d);
   text-align: center;
+  background-color: #fff;
   font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
@@ -760,7 +830,9 @@ const UnderCopyAnswerText = styled.div`
   color: var(--Main-1, #d33b4d);
   text-align: center;
   font-family: 'Noto Sans KR';
-  font-size: 16px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
   line-height: 140%;
   letter-spacing: -0.4px;
 `;
@@ -769,7 +841,7 @@ const UnderCopyAnswerText = styled.div`
 const OtherInfoRowComponent = styled.div<{ margin?: any }>`
   display: flex;
   height: 22px;
-  margin: ${(props) => props.margin || '10px 0px 0px 30px'};
+  margin: ${(props) => props.margin || '10px 0px 0px 10px'};
 `;
 
 const OtherInfoLabel = styled.div`

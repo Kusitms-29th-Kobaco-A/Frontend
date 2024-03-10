@@ -8,7 +8,7 @@ import TrendAnalysisSection from '../../components/home/TrendAnalysisSection';
 const Home = () => {
   return (
     <div
-      className="h-[calc(100vh-10.125rem)] w-full overflow-scroll bg-white"
+      className="h-[calc(100vh-10.125rem)] w-full overflow-y-scroll bg-white"
       style={{ scrollSnapType: 'y mandatory' }}
     >
       <HomeHeader />

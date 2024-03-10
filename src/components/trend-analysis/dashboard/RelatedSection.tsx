@@ -60,7 +60,7 @@ const ChartWrapper = styled.div`
   width: 500px;
   flex: 1;
   padding-bottom: 1.5rem;
-  margin-top: -3rem;
+  margin-top: -1.5rem;
 `;
 
 const BottomText = styled.p`

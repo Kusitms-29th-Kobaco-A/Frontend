@@ -113,12 +113,11 @@ export default Header;
 //전체 헤더
 const HeaderComponent = styled.header`
   position: fixed;
-  width: 100vw;
-  height: 162px;
+  width: 100%;
+  height: 10.125rem;
   top: 0;
   background-color: #fff;
   z-index: 20;
-  border-bottom: 1px solid var(--Gray-2, #e6e6e6);
 `;
 
 //제일 위 탑 부분
@@ -168,6 +167,7 @@ const HeaderMenuBar = styled.div`
   position: fixed;
   top: 80px;
   background-color: #fff;
+  border-bottom: 1px solid #e6e6e6;
 `;
 const VisibleMenuComponent = styled.section`
   display: flex;

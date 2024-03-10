@@ -5,9 +5,14 @@ import BarChart from '../../ui/BarChart';
 interface Props {
   youtubeGenderTrend: any;
   youtubeAgeTrend: any;
+  originalSearchKeyword: string;
 }
 
-const ViewAnalysis = ({ youtubeGenderTrend, youtubeAgeTrend }: Props) => {
+const ViewAnalysis = ({
+  youtubeGenderTrend,
+  youtubeAgeTrend,
+  originalSearchKeyword,
+}: Props) => {
   const barData = youtubeAgeTrend;
 
   const doughnutData = youtubeGenderTrend;
@@ -15,7 +20,7 @@ const ViewAnalysis = ({ youtubeGenderTrend, youtubeAgeTrend }: Props) => {
   return (
     <ViewAnalysisSection>
       <Heading>
-        <span>케이크</span> 검색량 세부 트렌드
+        <span>{originalSearchKeyword}</span> 검색량 세부 트렌드
       </Heading>
       <Description>
         입력한 검색어의 네이버 검색량을 하나의 차트에서 한 번에 비교해 볼 수

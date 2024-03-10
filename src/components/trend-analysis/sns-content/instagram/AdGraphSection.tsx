@@ -2,15 +2,16 @@ import styled from 'styled-components';
 
 interface Props {
   instagramAd: any;
+  originalSearchKeyword: string;
 }
 
-const AdGraphSection = ({ instagramAd }: Props) => {
+const AdGraphSection = ({ instagramAd, originalSearchKeyword }: Props) => {
   const data = instagramAd;
 
   return (
     <AdGraphSectionBlock>
       <Heading>
-        <span>케이크</span> 게시글의 광고/비광고 비율
+        <span>{originalSearchKeyword}</span> 게시글의 광고/비광고 비율
       </Heading>
       <Description>
         검색한 키워드가 들어간 인스타그램 인기 게시글 중 광고와 비광고의 비율을
@@ -48,12 +49,12 @@ const AdGraphSection = ({ instagramAd }: Props) => {
             </div>
           </BackgroundLine>
           <ChartBarGroup>
-            <ChartBar yPercent={20} color="#FD929F">
+            <ChartBar $yPercent={20} color="#FD929F">
               <span className="top-label">{data[0].yValue}%</span>
               <div className="bar" />
               <span className="bottom-label">{data[0].xLabel}</span>
             </ChartBar>
-            <ChartBar yPercent={80} color="#D33B4D">
+            <ChartBar $yPercent={80} color="#D33B4D">
               <span className="top-label">{data[1].yValue}%</span>
               <div className="bar" />
               <span className="bottom-label">{data[1].xLabel}</span>
@@ -186,13 +187,13 @@ const ChartBarGroup = styled.div`
 `;
 
 interface ChartBarProps {
-  yPercent: number;
+  $yPercent: number;
   color: string;
 }
 
 const ChartBar = styled.div<ChartBarProps>`
   position: relative;
-  height: ${({ yPercent }) => yPercent}%;
+  height: ${({ $yPercent }) => $yPercent}%;
   width: 3rem;
 
   .top-label {

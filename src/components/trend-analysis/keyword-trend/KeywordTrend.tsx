@@ -23,9 +23,10 @@ Chart.register(
 
 interface Props {
   searchTrend: any;
+  originalSearchKeyword: string;
 }
 
-const KeywordTrend = ({ searchTrend }: Props) => {
+const KeywordTrend = ({ searchTrend, originalSearchKeyword }: Props) => {
   const options = {
     scales: {
       x: {
@@ -79,7 +80,7 @@ const KeywordTrend = ({ searchTrend }: Props) => {
   return (
     <KeywordTrendSection>
       <Heading>
-        <span>케이크</span> 검색량 트렌드
+        <span>{originalSearchKeyword}</span> 검색량 트렌드
       </Heading>
       <Description>
         입력한 검색어의 네이버 검색량을 하나의 차트에서 한 번에 비교해 볼 수

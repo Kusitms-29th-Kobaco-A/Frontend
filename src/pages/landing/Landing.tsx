@@ -17,7 +17,7 @@ const Landing = () => {
 export default Landing;
 
 const LandingComponent = styled.div`
-  width: 100vw;
+  /* width: 100vw; */
 `;
 
 const HeaderSpacer = styled.div`
