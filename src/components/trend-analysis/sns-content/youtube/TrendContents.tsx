@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface Props {
   originalSearchKeyword: string;
@@ -39,7 +40,7 @@ const TrendContents = ({ originalSearchKeyword, data }: Props) => {
           </IconWrapper>
           <div className="mt-4 grid grid-cols-2 gap-3">
             {youtubeVideoList.map((video: any) => (
-              <div key={video.id}>
+              <Link to={video.link} target="_blank" key={video.id}>
                 <div className="overflow-hidden rounded">
                   <img src={video.thumbnail} alt="유튜브 사진" />
                 </div>
@@ -51,7 +52,7 @@ const TrendContents = ({ originalSearchKeyword, data }: Props) => {
                     {video.view}
                   </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </WhiteRoundedBox>
@@ -64,7 +65,9 @@ const TrendContents = ({ originalSearchKeyword, data }: Props) => {
           </IconWrapper>
           <div className="mt-4 grid grid-cols-3 gap-3 px-6">
             {youtubeShortsList.map((shorts: any) => (
-              <div
+              <Link
+                to={shorts.link}
+                target="_blank"
                 key={shorts.id}
                 className="aspect-[1/2] overflow-hidden rounded-lg"
               >
@@ -73,7 +76,7 @@ const TrendContents = ({ originalSearchKeyword, data }: Props) => {
                   alt="쇼츠 케이크 사진"
                   className="h-full object-cover"
                 />
-              </div>
+              </Link>
             ))}
           </div>
         </WhiteRoundedBox>

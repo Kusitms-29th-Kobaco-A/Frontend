@@ -8,6 +8,8 @@ import {
   Tooltip,
   Filler,
 } from 'chart.js';
+import clsx from 'clsx';
+import { useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import styled from 'styled-components';
 
@@ -22,16 +24,24 @@ Chart.register(
 );
 
 interface Props {
-  searchTrend: any;
   originalSearchKeyword: string;
+  data: any;
 }
 
-const KeywordTrend = ({ searchTrend, originalSearchKeyword }: Props) => {
+const KeywordTrend = ({ originalSearchKeyword, data }: Props) => {
+  const [graphType, setGraphType] = useState<'DAILY' | 'WEEKLY' | 'MONTHLY'>(
+    'DAILY',
+  );
+
+  const searchTrend =
+    graphType === 'DAILY'
+      ? data.searchTrend
+      : graphType === 'WEEKLY'
+        ? data.searchWeekTrend
+        : graphType === 'MONTHLY' && data.searchMonthTrend;
+
   const options = {
     scales: {
-      x: {
-        display: false,
-      },
       y: {
         min: 0,
         max: 100,
@@ -40,9 +50,6 @@ const KeywordTrend = ({ searchTrend, originalSearchKeyword }: Props) => {
     elements: {
       line: {
         tension: 0.3,
-      },
-      point: {
-        radius: 0,
       },
     },
     ticks: {
@@ -95,9 +102,30 @@ const KeywordTrend = ({ searchTrend, originalSearchKeyword }: Props) => {
             <span>검색어 검색량 추이</span>
           </IconWrapper>
           <TimeChoice>
-            <li className="active">일간</li>
-            <li>주간</li>
-            <li>월간</li>
+            <li
+              className={clsx('cursor-pointer duration-200', {
+                active: graphType === 'DAILY',
+              })}
+              onClick={() => setGraphType('DAILY')}
+            >
+              일간
+            </li>
+            <li
+              className={clsx('cursor-pointer duration-200', {
+                active: graphType === 'WEEKLY',
+              })}
+              onClick={() => setGraphType('WEEKLY')}
+            >
+              주간
+            </li>
+            <li
+              className={clsx('cursor-pointer duration-200', {
+                active: graphType === 'MONTHLY',
+              })}
+              onClick={() => setGraphType('MONTHLY')}
+            >
+              월간
+            </li>
           </TimeChoice>
         </BoxTop>
         <LineWrapper>

@@ -71,31 +71,159 @@ export const vegonData = {
   searchTrend: [
     {
       xLabel: '23.09.02',
-      yValue: 30,
+      yValue: 29,
+    },
+    {
+      xLabel: '23.09.10',
+      yValue: 17,
+    },
+    {
+      xLabel: '23.09.20',
+      yValue: 16,
     },
     {
       xLabel: '23.10.01',
-      yValue: 40,
+      yValue: 26,
+    },
+    {
+      xLabel: '23.10.10',
+      yValue: 21,
+    },
+    {
+      xLabel: '23.10.20',
+      yValue: 57,
     },
     {
       xLabel: '23.10.31',
-      yValue: 70,
+      yValue: 18,
+    },
+    {
+      xLabel: '23.11.10',
+      yValue: 20,
+    },
+    {
+      xLabel: '23.11.20',
+      yValue: 24,
     },
     {
       xLabel: '23.11.30',
-      yValue: 90,
+      yValue: 26,
     },
     {
-      xLabel: '23.12.30',
-      yValue: 70,
+      xLabel: '23.12.10',
+      yValue: 17,
     },
     {
-      xLabel: '24.01.29',
+      xLabel: '23.12.20',
       yValue: 40,
     },
     {
+      xLabel: '23.12.30',
+      yValue: 42,
+    },
+    {
+      xLabel: '24.01.10',
+      yValue: 45,
+    },
+    {
+      xLabel: '24.01.20',
+      yValue: 40,
+    },
+    {
+      xLabel: '24.01.29',
+      yValue: 52,
+    },
+    {
+      xLabel: '24.02.10',
+      yValue: 26,
+    },
+    {
+      xLabel: '24.02.20',
+      yValue: 37,
+    },
+    {
       xLabel: '24.02.27',
-      yValue: 20,
+      yValue: 27,
+    },
+    {
+      xLabel: '24.01.29',
+      yValue: 52,
+    },
+  ],
+  searchWeekTrend: [
+    {
+      xLabel: '23.08.28',
+      yValue: 30,
+    },
+    {
+      xLabel: '23.09.15',
+      yValue: 26,
+    },
+    {
+      xLabel: '23.09.25',
+      yValue: 40,
+    },
+    {
+      xLabel: '23.10.15',
+      yValue: 65,
+    },
+    {
+      xLabel: '23.10.23',
+      yValue: 90,
+    },
+    {
+      xLabel: '23.11.15',
+      yValue: 100,
+    },
+    {
+      xLabel: '23.11.20',
+      yValue: 34,
+    },
+    {
+      xLabel: '23.12.01',
+      yValue: 65,
+    },
+    {
+      xLabel: '23.12.18',
+      yValue: 82,
+    },
+    {
+      xLabel: '23.01.01',
+      yValue: 41,
+    },
+    {
+      xLabel: '24.01.15',
+      yValue: 57,
+    },
+    {
+      xLabel: '24.01.30',
+      yValue: 33,
+    },
+    {
+      xLabel: '24.02.12',
+      yValue: 25,
+    },
+  ],
+  searchMonthTrend: [
+    {
+      xLabel: '23.09',
+      yValue: 38,
+    },
+    {
+      xLabel: '23.10',
+      yValue: 34,
+    },
+    {
+      xLabel: '23.11',
+      yValue: 59,
+    },
+    {
+      xLabel: '23.12',
+      yValue: 61,
+    },
+    {
+      xLabel: '24.01',
+      yValue: 41,
     },
   ],
   genderTrend: [
@@ -459,34 +587,158 @@ export const vegonData = {
       yValue: 95,
     },
   ],
-  instagramPost: [
+  instagramDailyTrend: [
     {
       xLabel: '23.09.02',
-      yValue: 60,
+      yValue: 18,
+    },
+    {
+      xLabel: '23.09.10',
+      yValue: 27,
+    },
+    {
+      xLabel: '23.09.20',
+      yValue: 39,
     },
     {
       xLabel: '23.10.01',
-      yValue: 70,
+      yValue: 26,
+    },
+    {
+      xLabel: '23.10.10',
+      yValue: 21,
+    },
+    {
+      xLabel: '23.10.20',
+      yValue: 39,
     },
     {
       xLabel: '23.10.31',
-      yValue: 90,
+      yValue: 21,
+    },
+    {
+      xLabel: '23.11.10',
+      yValue: 24,
+    },
+    {
+      xLabel: '23.11.20',
+      yValue: 42,
     },
     {
       xLabel: '23.11.30',
-      yValue: 60,
+      yValue: 37,
+    },
+    {
+      xLabel: '23.12.10',
+      yValue: 45,
+    },
+    {
+      xLabel: '23.12.20',
+      yValue: 68,
     },
     {
       xLabel: '23.12.30',
-      yValue: 70,
+      yValue: 29,
+    },
+    {
+      xLabel: '24.01.10',
+      yValue: 37,
+    },
+    {
+      xLabel: '24.01.20',
+      yValue: 29,
     },
     {
       xLabel: '24.01.29',
-      yValue: 30,
+      yValue: 20,
+    },
+    {
+      xLabel: '24.02.10',
+      yValue: 28,
+    },
+    {
+      xLabel: '24.02.20',
+      yValue: 37,
     },
     {
       xLabel: '24.02.27',
-      yValue: 20,
+      yValue: 27,
+    },
+  ],
+  instagramWeeklyTrend: [
+    {
+      xLabel: '23.08.28',
+      yValue: 30,
+    },
+    {
+      xLabel: '23.09.15',
+      yValue: 38,
+    },
+    {
+      xLabel: '23.09.25',
+      yValue: 40,
+    },
+    {
+      xLabel: '23.10.15',
+      yValue: 90,
+    },
+    {
+      xLabel: '23.10.23',
+      yValue: 70,
+    },
+    {
+      xLabel: '23.11.15',
+      yValue: 45,
+    },
+    {
+      xLabel: '23.11.20',
+      yValue: 90,
+    },
+    {
+      xLabel: '23.12.01',
+      yValue: 67,
+    },
+    {
+      xLabel: '23.12.18',
+      yValue: 70,
+    },
+    {
+      xLabel: '23.01.01',
+      yValue: 41,
+    },
+    {
+      xLabel: '24.01.15',
+      yValue: 47,
+    },
+    {
+      xLabel: '24.01.30',
+      yValue: 33,
+    },
+    {
+      xLabel: '24.02.12',
+      yValue: 24,
+    },
+  ],
+  instagramMonthlyTrend: [
+    {
+      xLabel: '23.09',
+      yValue: 30,
+    },
+    {
+      xLabel: '23.10',
+      yValue: 40,
+    },
+    {
+      xLabel: '23.11',
+      yValue: 78,
+    },
+    {
+      xLabel: '23.12',
+      yValue: 98,
+    },
+    {
+      xLabel: '24.01',
+      yValue: 76,
     },
   ],
   instagramContents: [

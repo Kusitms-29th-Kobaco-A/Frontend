@@ -71,75 +71,155 @@ export const cakeData = {
   searchTrend: [
     {
       xLabel: '23.09.02',
-      yValue: 34,
+      yValue: 17,
     },
     {
       xLabel: '23.09.10',
-      yValue: 42,
+      yValue: 21,
     },
     {
       xLabel: '23.09.20',
-      yValue: 60,
+      yValue: 30,
     },
     {
       xLabel: '23.10.01',
-      yValue: 52,
+      yValue: 26,
     },
     {
       xLabel: '23.10.10',
-      yValue: 42,
+      yValue: 21,
     },
     {
       xLabel: '23.10.20',
-      yValue: 70,
+      yValue: 35,
     },
     {
       xLabel: '23.10.31',
-      yValue: 42,
+      yValue: 21,
     },
     {
       xLabel: '23.11.10',
-      yValue: 56,
+      yValue: 28,
     },
     {
       xLabel: '23.11.20',
-      yValue: 84,
+      yValue: 42,
     },
     {
       xLabel: '23.11.30',
-      yValue: 70,
+      yValue: 35,
     },
     {
       xLabel: '23.12.10',
-      yValue: 80,
+      yValue: 45,
     },
     {
       xLabel: '23.12.20',
-      yValue: 92,
+      yValue: 67,
     },
     {
       xLabel: '23.12.30',
-      yValue: 58,
+      yValue: 29,
     },
     {
       xLabel: '24.01.10',
-      yValue: 38,
+      yValue: 19,
     },
     {
       xLabel: '24.01.20',
-      yValue: 58,
+      yValue: 29,
     },
     {
       xLabel: '24.01.29',
-      yValue: 38,
+      yValue: 19,
     },
     {
       xLabel: '24.02.10',
-      yValue: 52,
+      yValue: 26,
+    },
+    {
+      xLabel: '24.02.20',
+      yValue: 37,
     },
     {
       xLabel: '24.02.27',
-      yValue: 74,
+      yValue: 26,
+    },
+  ],
+  searchWeekTrend: [
+    {
+      xLabel: '23.08.28',
+      yValue: 30,
+    },
+    {
+      xLabel: '23.09.15',
+      yValue: 34,
+    },
+    {
+      xLabel: '23.09.25',
+      yValue: 40,
+    },
+    {
+      xLabel: '23.10.15',
+      yValue: 65,
+    },
+    {
+      xLabel: '23.10.23',
+      yValue: 70,
+    },
+    {
+      xLabel: '23.11.15',
+      yValue: 100,
+    },
+    {
+      xLabel: '23.11.20',
+      yValue: 90,
+    },
+    {
+      xLabel: '23.12.01',
+      yValue: 65,
+    },
+    {
+      xLabel: '23.12.18',
+      yValue: 70,
+    },
+    {
+      xLabel: '23.01.01',
+      yValue: 41,
+    },
+    {
+      xLabel: '24.01.15',
+      yValue: 40,
+    },
+    {
+      xLabel: '24.01.30',
+      yValue: 33,
+    },
+    {
+      xLabel: '24.02.12',
+      yValue: 20,
+    },
+  ],
+  searchMonthTrend: [
+    {
+      xLabel: '23.09',
+      yValue: 30,
+    },
+    {
+      xLabel: '23.10',
+      yValue: 40,
+    },
+    {
+      xLabel: '23.11',
+      yValue: 70,
+    },
+    {
+      xLabel: '23.12',
+      yValue: 90,
+    },
+    {
+      xLabel: '24.01',
+      yValue: 70,
     },
   ],
   genderTrend: [
@@ -387,6 +467,190 @@ export const cakeData = {
     {
       xLabel: '24.02.27',
       yValue: 20,
+    },
+  ],
+  instagramWeekPost: [
+    {
+      xLabel: '23.09.02',
+      yValue: 30,
+    },
+    {
+      xLabel: '23.10.01',
+      yValue: 40,
+    },
+    {
+      xLabel: '23.10.31',
+      yValue: 70,
+    },
+    {
+      xLabel: '23.11.30',
+      yValue: 90,
+    },
+    {
+      xLabel: '23.12.30',
+      yValue: 70,
+    },
+    {
+      xLabel: '24.01.29',
+      yValue: 40,
+    },
+    {
+      xLabel: '24.02.27',
+      yValue: 20,
+    },
+  ],
+  instagramDailyTrend: [
+    {
+      xLabel: '23.09.02',
+      yValue: 29,
+    },
+    {
+      xLabel: '23.09.10',
+      yValue: 17,
+    },
+    {
+      xLabel: '23.09.20',
+      yValue: 30,
+    },
+    {
+      xLabel: '23.10.01',
+      yValue: 20,
+    },
+    {
+      xLabel: '23.10.10',
+      yValue: 39,
+    },
+    {
+      xLabel: '23.10.20',
+      yValue: 35,
+    },
+    {
+      xLabel: '23.10.31',
+      yValue: 38,
+    },
+    {
+      xLabel: '23.11.10',
+      yValue: 28,
+    },
+    {
+      xLabel: '23.11.20',
+      yValue: 78,
+    },
+    {
+      xLabel: '23.11.30',
+      yValue: 20,
+    },
+    {
+      xLabel: '23.12.10',
+      yValue: 40,
+    },
+    {
+      xLabel: '23.12.20',
+      yValue: 67,
+    },
+    {
+      xLabel: '23.12.30',
+      yValue: 57,
+    },
+    {
+      xLabel: '24.01.10',
+      yValue: 19,
+    },
+    {
+      xLabel: '24.01.20',
+      yValue: 37,
+    },
+    {
+      xLabel: '24.01.29',
+      yValue: 19,
+    },
+    {
+      xLabel: '24.02.10',
+      yValue: 26,
+    },
+    {
+      xLabel: '24.02.20',
+      yValue: 34,
+    },
+    {
+      xLabel: '24.02.27',
+      yValue: 27,
+    },
+  ],
+  instagramWeeklyTrend: [
+    {
+      xLabel: '23.08.28',
+      yValue: 32,
+    },
+    {
+      xLabel: '23.09.15',
+      yValue: 22,
+    },
+    {
+      xLabel: '23.09.25',
+      yValue: 37,
+    },
+    {
+      xLabel: '23.10.15',
+      yValue: 28,
+    },
+    {
+      xLabel: '23.10.23',
+      yValue: 70,
+    },
+    {
+      xLabel: '23.11.15',
+      yValue: 97,
+    },
+    {
+      xLabel: '23.11.20',
+      yValue: 87,
+    },
+    {
+      xLabel: '23.12.01',
+      yValue: 67,
+    },
+    {
+      xLabel: '23.12.18',
+      yValue: 70,
+    },
+    {
+      xLabel: '23.01.01',
+      yValue: 77,
+    },
+    {
+      xLabel: '24.01.15',
+      yValue: 47,
+    },
+    {
+      xLabel: '24.01.30',
+      yValue: 34,
+    },
+    {
+      xLabel: '24.02.12',
+      yValue: 20,
+    },
+  ],
+  instagramMonthlyTrend: [
+    {
+      xLabel: '23.09',
+      yValue: 30,
+    },
+    {
+      xLabel: '23.10',
+      yValue: 47,
+    },
+    {
+      xLabel: '23.11',
+      yValue: 70,
+    },
+    {
+      xLabel: '23.12',
+      yValue: 88,
+    },
+    {
+      xLabel: '24.01',
+      yValue: 70,
     },
   ],
   instagramAd: [
@@ -748,6 +1012,22 @@ export const cakeData = {
       link: 'https://youtu.be/N3eNXA6CO7I?feature=shared',
       thumbnail: '/images/youtube/cake-youtube-video8.png',
     },
+    {
+      id: 9,
+      title:
+        '파스텔🍭 레인보우 크레이프 케이크 만들기 : Pastel Rainbow Crepe Cake Recipe : パステルレインボークレープケーキ | Cooking tree',
+      view: '조회수 1675만회',
+      link: 'https://youtu.be/vaj2TSPe5_4?feature=shared',
+      thumbnail: '/images/youtube/cake-youtube-video9.png',
+    },
+    {
+      id: 10,
+      title:
+        '귀여운 강아지케이크 만들기 / 딸기생크림 케이크 / Cute strawberry cake',
+      view: '조회수 857회',
+      link: 'https://youtu.be/FHq5ErHtg58?feature=shared',
+      thumbnail: '/images/youtube/cake-youtube-video10.png',
+    },
   ],
   youtubeShortsList: [
     {
@@ -777,37 +1057,37 @@ export const cakeData = {
     },
     {
       id: 6,
-      thumbnail: '/images/youtube/cake-youtube-shorts1.png',
+      thumbnail: '/images/youtube/cake-youtube-shorts6.png',
       link: 'https://youtube.com/shorts/CEiLfMiRgMs?si=RqWwFgTr878FfROv',
     },
     {
       id: 7,
-      thumbnail: '/images/youtube/cake-youtube-shorts1.png',
+      thumbnail: '/images/youtube/cake-youtube-shorts7.png',
       link: 'https://youtube.com/shorts/L33OoXSWrb4?si=xdiTDtduYTx64YaD',
     },
     {
       id: 8,
-      thumbnail: '/images/youtube/cake-youtube-shorts1.png',
+      thumbnail: '/images/youtube/cake-youtube-shorts8.png',
       link: 'https://youtube.com/shorts/Qp6jMC7G03o?si=0I2zDir6CARf9Ufa',
     },
     {
       id: 9,
-      thumbnail: '/images/youtube/cake-youtube-shorts1.png',
+      thumbnail: '/images/youtube/cake-youtube-shorts9.png',
       link: 'https://youtube.com/shorts/fLQSXv77e84?si=j6ZqMhouQqutAZ0O',
     },
     {
       id: 10,
-      thumbnail: '/images/youtube/cake-youtube-shorts1.png',
+      thumbnail: '/images/youtube/cake-youtube-shorts10.png',
       link: 'https://youtube.com/shorts/OQ0T382sddM?si=yNOkpVkBsb8id069',
     },
     {
       id: 11,
-      thumbnail: '/images/youtube/cake-youtube-shorts1.png',
+      thumbnail: '/images/youtube/cake-youtube-shorts11.png',
       link: 'https://youtube.com/shorts/rTcgcTnN2q4?si=Hz2SwK178f-lSGm1',
     },
     {
       id: 12,
-      thumbnail: '/images/youtube/cake-youtube-shorts1.png',
+      thumbnail: '/images/youtube/cake-youtube-shorts12.png',
       link: 'https://youtube.com/shorts/ZJVir3nSrNs?si=9U-XzljftEj18nyp',
     },
   ],
