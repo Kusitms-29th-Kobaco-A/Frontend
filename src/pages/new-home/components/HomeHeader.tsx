@@ -6,6 +6,7 @@ const HomeHeader = () => {
   return (
     <TotalComponent>
       <HeaderVideo src={headerVideo} width="100%" muted autoPlay loop />
+      <Overlay />
       <HeaderText>AI를 활용한 혁신적인 광고 창작 서비스</HeaderText>
       <MiddleDiv>
         <MiddleTextRed>AiSAC</MiddleTextRed>
@@ -37,11 +38,24 @@ const HeaderVideo = styled.video`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  z-index: -2;
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.36);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: -1;
 `;
 
 const HeaderText = styled.div`
-  margin: 9.258vw 0px 0px 0px;
+  margin: 5.078vw 0px 0px 0px;
   color: #27272e;
   font-family: 'Noto Sans KR';
   font-size: 36px;
@@ -68,7 +82,9 @@ const MiddleTextRed = styled(MiddleText)`
 `;
 
 const MoveBtn = styled.button`
-  margin: 1.5rem 0px 0px 0px;
+
+  margin: 2.813vw 0px 0px 0px;
+
   display: inline-flex;
   padding: 9px 32px;
   justify-content: center;
