@@ -13,17 +13,17 @@ const BubbleForceChart = ({ relatedTrendBubble }: Props) => {
         offsetY: -0.01,
       }}
       width={500}
-      height={520}
+      height={375}
       padding={0} // optional value, number that set the padding between bubbles
       showLegend={false} // optional value, pass false to disable the legend.
       valueFont={{
-        family: 'Arial',
+        family: 'Noto Sans KR',
         size: 0,
         color: '#fff',
         weight: 'bold',
       }}
       labelFont={{
-        family: 'Arial',
+        family: 'Noto Sans KR',
         size: 20,
         color: '#fff',
         weight: 'bold',
