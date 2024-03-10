@@ -12,7 +12,7 @@ const Trend = () => {
       <BlurredComponent>
         <ContentBox>
           <ContentOrder>02</ContentOrder>
-          <ContentTop>빠르게 변화하는 트렌드 속에서 살아남는 법</ContentTop>
+          <ContentTop>빠르게 변화하는 트렌드를 포착하고 싶을 땐</ContentTop>
           <ContentTitle>트렌드 분석</ContentTitle>
           <ContentContent>
             최신 인기 트렌드를 한 눈에!

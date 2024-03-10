@@ -1,14 +1,19 @@
 import styled from 'styled-components';
+import headerVideo from '../../../assets/home/Header.mp4';
+import { Link } from 'react-router-dom';
 
 const HomeHeader = () => {
   return (
     <TotalComponent>
-      <HeaderText>눈길을 끄는 광고의 비밀</HeaderText>
+      <HeaderVideo src={headerVideo} width="100%" muted autoPlay loop />
+      <HeaderText>AI를 활용한 혁신적인 광고 창작 서비스</HeaderText>
       <MiddleDiv>
         <MiddleTextRed>AiSAC</MiddleTextRed>
-        <MiddleText>을 만나보세요</MiddleText>
+        <MiddleText>과 시작하세요</MiddleText>
       </MiddleDiv>
-      <MoveBtn>AiSAC 시작하기</MoveBtn>
+      <Link to="https://www.youtube.com/watch?v=4K6A6o4zF2o">
+        <MoveBtn>AiSAC 이용가이드</MoveBtn>
+      </Link>
     </TotalComponent>
   );
 };
@@ -16,11 +21,22 @@ const HomeHeader = () => {
 export default HomeHeader;
 
 const TotalComponent = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   height: 52.422vw; //671px;
+`;
+
+const HeaderVideo = styled.video`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
 `;
 
 const HeaderText = styled.div`
@@ -51,7 +67,7 @@ const MiddleTextRed = styled(MiddleText)`
 `;
 
 const MoveBtn = styled.button`
-  margin: 5vw 0px 0px 0px;
+  margin: 4vw 0px 0px 0px;
   display: inline-flex;
   padding: 9px 32px;
   justify-content: center;
