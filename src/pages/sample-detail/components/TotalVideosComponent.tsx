@@ -6,7 +6,6 @@ import thumbsUp from '../../../assets/archive/ThumbsUp.svg';
 import heart from '../../../assets/archive/Heart.svg';
 import camera from '../../../assets/archive/Camera.svg';
 import fillThumbsUp from '../../../assets/archive/FillThumbsUp.svg';
-import question from '../../../assets/archive/Question.svg';
 import axios from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import chartFirst from '../../../assets/archive/ChartFirst.svg';
@@ -18,7 +17,7 @@ import newYoutubeUrl from '../../../assets//archive/cocacola.mp4';
 const TotalVideosComponent = ({ videoInfo }: any) => {
   const token = localStorage.getItem('token');
 
-  const [rootDirectoryInfo, setRootDirectoryInfo] = useState<any>({});
+  const [, setRootDirectoryInfo] = useState<any>({});
 
   const getRootDirectoryInfo = useCallback(async () => {
     try {
@@ -400,11 +399,11 @@ const UnderDateBtnText = styled.div`
   letter-spacing: -0.4px;
 `;
 
-const UnderDateQuestionImg = styled.img`
-  width: 23px;
-  height: 23px;
-  margin: 0px 0px 0px 8px;
-`;
+// const UnderDateQuestionImg = styled.img`
+//   width: 23px;
+//   height: 23px;
+//   margin: 0px 0px 0px 8px;
+// `;
 
 // 광고카피, 인물, 사물 등 이외 정보부분
 const EtcInfoComponent = styled.div`

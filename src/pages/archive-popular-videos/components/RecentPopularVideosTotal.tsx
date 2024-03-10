@@ -32,8 +32,6 @@ const RecentPopularVideosTotal = () => {
   const [selectedType, setSelectedType] = useState<string>('');
   const [selectedIndustry, setSelectedIndustry] = useState<string>('');
 
-  const [selectedOrder, setSelectedOrder] = useState('최근등록순');
-
   // 페이지 처리 위한 전체 개수 부분
   const [numberOfElements, setNumberOfElements] = useState<number>(0);
 
@@ -493,7 +491,6 @@ const ParentPageStyle = styled.div`
   justify-content: center;
 
   margin-top: 53px;
-
 
   /* 페이지네이션 전체 부분 */
   ul {
