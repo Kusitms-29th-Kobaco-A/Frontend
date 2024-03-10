@@ -138,10 +138,9 @@ const TAHome = () => {
             <>
               <RelatedKeywords relatedKeywordList={data.relatedKeywordList} />
               <Dashboard
-                relatedTrendBubble={data.relatedTrendBubble}
                 genderAgeTrend={data.genderAgeTrend}
                 snsTrend={data.snsTrend}
-                searchKeyword={searchKeyword}
+                data={data}
               />
               <section
                 id="keyword-trend"
