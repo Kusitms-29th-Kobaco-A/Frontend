@@ -19,11 +19,11 @@ const InstagramContent = ({ data, originalSearchKeyword }: Props) => {
         instagramAd={data.instagramAd}
         originalSearchKeyword={originalSearchKeyword}
       />
-      <PostSection
-        instagramPost={data.instagramPost}
+      <PostSection originalSearchKeyword={originalSearchKeyword} data={data} />
+      <TrendContents
         originalSearchKeyword={originalSearchKeyword}
+        data={data}
       />
-      <TrendContents originalSearchKeyword={originalSearchKeyword} />
     </>
   );
 };

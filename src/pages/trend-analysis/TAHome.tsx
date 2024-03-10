@@ -121,6 +121,19 @@ const TAHome = () => {
             setSearchKeyword={setSearchKeyword}
             handleSearchSubmit={handleSearchSubmit}
           />
+          {originalSearchKeyword !== '케이크' &&
+            originalSearchKeyword !== '비건' && (
+              <div className="flex h-[calc(100vh-26rem)] flex-col items-center justify-center text-[#A0A0A0]">
+                <img
+                  src="/images/search/no-keyword.svg"
+                  alt="입력된 검색어가 없습니다 이미지"
+                />
+                <div className="mt-2 text-2xl font-semibold">
+                  검색된 키워드가 없어요.
+                </div>
+                <div className="mt-1">검색창에 키워드를 입력해보세요.</div>
+              </div>
+            )}
           {!isLoading && (
             <>
               <RelatedKeywords relatedKeywordList={data.relatedKeywordList} />
@@ -136,13 +149,14 @@ const TAHome = () => {
                 ref={keywordTrendRef}
               >
                 <KeywordTrend
-                  searchTrend={data.searchTrend}
                   originalSearchKeyword={originalSearchKeyword}
+                  data={data}
                 />
                 <KeywordDetailTrend
                   genderTrend={data.genderTrend}
                   ageTrend={data.ageTrend}
                   originalSearchKeyword={originalSearchKeyword}
+                  data={data}
                 />
               </section>
               <section

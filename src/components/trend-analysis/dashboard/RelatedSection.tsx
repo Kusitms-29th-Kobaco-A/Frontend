@@ -12,13 +12,11 @@ const RelatedSection = ({ relatedTrendBubble }: Props) => {
       <Heading>
         <span>연관어</span> 트렌드
       </Heading>
-      <Description>
-        (언제부터 언제까지 검색된 연관어임을 알려야 하는 부분)
-      </Description>
+      <Description>2023-09-02~2024-02-27 (최근 6개월)</Description>
       <ChartWrapper>
         <BubbleForceChart relatedTrendBubble={relatedTrendBubble} />
       </ChartWrapper>
-      <BottomText>연관된 검색어를 찾아보았어요. (워딩 수정)</BottomText>
+      <BottomText>연관 검색어를 찾아보았어요!</BottomText>
     </WhiteRoundedBox>
   );
 };

@@ -3,12 +3,14 @@ import styled from 'styled-components';
 import { FaList } from 'react-icons/fa6';
 import { LuLayoutGrid } from 'react-icons/lu';
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 
 interface Props {
   originalSearchKeyword: string;
+  data: any;
 }
 
-const BottomArea = ({ originalSearchKeyword }: Props) => {
+const BottomArea = ({ originalSearchKeyword, data }: Props) => {
   const [listType, setListType] = useState<'LIST' | 'GRID'>('LIST');
 
   return (
@@ -40,7 +42,7 @@ const BottomArea = ({ originalSearchKeyword }: Props) => {
               <img src="/images/mindmap/cake-mindmap.svg" alt="마인드맵 임시" />
             </ChartPlaceholder>
           </GrayRoundedBox>
-          <GrayRoundedBox>
+          <GrayRoundedBoxRight>
             <GrayRoundedBoxTop>
               <span>{originalSearchKeyword}</span>
               <div className="flex items-center gap-2">
@@ -65,49 +67,46 @@ const BottomArea = ({ originalSearchKeyword }: Props) => {
             <GrayRoundedBottom>
               {listType === 'LIST' ? (
                 <GridList>
-                  {Array.from({ length: 5 }, (_, index) => index + 1).map(
-                    (_, index) => (
-                      <GridListItem key={index}>
-                        <ListImage>
-                          <img
-                            src="/images/posts/cake.jpeg"
-                            alt="게시글 케이크 이미지"
-                          />
-                        </ListImage>
-                        <ListContent>
-                          <h3>세상에서 제일 맛있는 케이크 가...</h3>
-                          <p>
-                            케이크케이크케이크케이크케이크케이크케이크케이크케이크케이크케이크케
-                          </p>
-                        </ListContent>
-                      </GridListItem>
-                    ),
-                  )}
+                  {data.postData.map((post: any) => (
+                    <GridListItem to={post.link} target="_blank" key={post.id}>
+                      <ListImage>
+                        <img src={post.imageUrl} alt="게시글 케이크 이미지" />
+                      </ListImage>
+                      <ListContent className="w-full">
+                        <h3 className="h-[1.25rem] overflow-hidden">
+                          {post.title}
+                        </h3>
+                        <p className="h-[2.5rem] overflow-hidden">
+                          {post.description}
+                        </p>
+                      </ListContent>
+                    </GridListItem>
+                  ))}
                 </GridList>
               ) : (
                 listType === 'GRID' && (
                   <div className="h-[18rem] overflow-scroll">
                     <div className="grid grid-cols-2 gap-3">
-                      {Array.from({ length: 5 }, (_, index) => index + 1).map(
-                        (_, index) => (
-                          <div
-                            className="aspect-video overflow-hidden rounded"
-                            key={index}
-                          >
-                            <img
-                              src="/images/posts/cake.jpeg"
-                              alt="게시글 케이크 이미지"
-                              className="aspect-video w-full object-cover object-center"
-                            />
-                          </div>
-                        ),
-                      )}
+                      {data.postData.map((post: any) => (
+                        <Link
+                          to={post.link}
+                          target="_blank"
+                          className="aspect-video overflow-hidden rounded"
+                          key={post.id}
+                        >
+                          <img
+                            src={post.imageUrl}
+                            alt="게시글 이미지"
+                            className="aspect-video w-full object-cover object-center"
+                          />
+                        </Link>
+                      ))}
                     </div>
                   </div>
                 )
               )}
             </GrayRoundedBottom>
-          </GrayRoundedBox>
+          </GrayRoundedBoxRight>
         </GrayRoundedBoxGroup>
       </WhiteRoundedBox>
     </WhiteBoxGroupBottom>
@@ -162,7 +161,15 @@ const GrayRoundedBox = styled.div`
   padding: 1.25rem 1.75rem;
   border-radius: 16px;
   margin-top: 1.5rem;
-  flex: 1;
+  flex: 3;
+`;
+
+const GrayRoundedBoxRight = styled.div`
+  background-color: #f4f6f6;
+  padding: 1.25rem 1.75rem;
+  border-radius: 16px;
+  margin-top: 1.5rem;
+  flex: 2;
 `;
 
 const GrayRoundedBoxTop = styled.div`
@@ -175,7 +182,7 @@ const GrayRoundedBottom = styled.div`
   margin-top: 1rem;
 `;
 
-const GridList = styled.ul`
+const GridList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -183,7 +190,7 @@ const GridList = styled.ul`
   overflow: scroll;
 `;
 
-const GridListItem = styled.li`
+const GridListItem = styled(Link)`
   padding: 0.5rem;
   border-radius: 0.5rem;
   background: #ffffff;
@@ -198,8 +205,8 @@ const ListImage = styled.div`
   overflow: hidden;
 
   img {
-    width: 100%;
-    height: 100%;
+    height: 110%;
+    object-fit: cover;
   }
 `;
 

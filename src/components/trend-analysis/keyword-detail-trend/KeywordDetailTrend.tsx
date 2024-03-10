@@ -8,12 +8,14 @@ interface Props {
   genderTrend: any;
   ageTrend: any;
   originalSearchKeyword: string;
+  data: any;
 }
 
 const KeywordDetailTrend = ({
   genderTrend,
   ageTrend,
   originalSearchKeyword,
+  data,
 }: Props) => {
   const barData = ageTrend;
 
@@ -65,7 +67,7 @@ const KeywordDetailTrend = ({
           </div>
         </WhiteRoundedBox>
       </WhiteBoxGroupTop>
-      <BottomArea originalSearchKeyword={originalSearchKeyword} />
+      <BottomArea originalSearchKeyword={originalSearchKeyword} data={data} />
     </KeywordTrendDetailSection>
   );
 };
