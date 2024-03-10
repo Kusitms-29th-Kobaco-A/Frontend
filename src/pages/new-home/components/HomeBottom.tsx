@@ -43,11 +43,11 @@ const HomeBottom = () => {
   return (
     <TotalComponent>
       <MiddleTextDiv>
-        <MiddleTextRed>
+        <MiddleText>
           신개념 Ai 광고 제작 서비스
           <br />
-          AiSAC
-        </MiddleTextRed>
+        </MiddleText>
+        <MiddleTextRed>AiSAC</MiddleTextRed>
         <MiddleText>을 이용해보세요.</MiddleText>
       </MiddleTextDiv>
       <MoveBtn
