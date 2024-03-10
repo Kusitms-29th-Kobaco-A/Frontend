@@ -3,7 +3,18 @@ import moveImg from '../../../assets/home/Move.svg';
 import icon from '../../../assets/home/Icon3.svg';
 import order from '../../../assets/home/Order3.svg';
 
+import Aos from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
+
 const Copy = () => {
+  useEffect(() => {
+    Aos.init({
+      // AOS 초기화 옵션
+      duration: 2000, // 애니메이션 지속 시간(ms)
+    });
+  });
+
   return (
     <TotalComponent>
       <BlurredComponent>
@@ -17,7 +28,7 @@ const Copy = () => {
             누구나 쉽게 만들 수 있는 광고 카피 제작 서비스를 체험하세요.
           </ContentContent>
           <MoveBtn src={moveImg} alt=">" />
-          <IconImg src={icon} alt="icon" />
+          <IconImg data-aos="fade-up" src={icon} alt="icon" />
           <OrderImg src={order} alt="order" />
         </ContentBox>
       </BlurredComponent>
