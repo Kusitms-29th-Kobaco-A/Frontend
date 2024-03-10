@@ -34,7 +34,7 @@ const SearchBarOnboarding = ({
       <div className="fixed left-0 top-0 z-40 h-full w-full overflow-x-auto bg-black bg-opacity-50" />
       <div className="relative z-50 flex h-full items-center justify-center">
         {children}
-        <div className="absolute -bottom-2 mx-auto w-60 translate-y-full rounded-xl bg-[#D33B4D] px-4 py-3 text-white">
+        <div className="absolute -bottom-6 mx-auto w-60 translate-y-full rounded-xl bg-[#D33B4D] px-4 py-3 text-white">
           <div
             className="absolute left-1/2 top-0 h-4 w-6 -translate-x-1/2 -translate-y-full bg-[#D33B4D]"
             style={{ clipPath: 'polygon(0 100%, 50% 0, 100% 100%)' }}

@@ -1,6 +1,6 @@
 const StartSection = () => {
   return (
-    <div className="relative z-10 flex h-[calc(100vh-10.125rem)] w-full snap-start flex-col items-center justify-center gap-8 bg-[#373D49]">
+    <div className="relative z-10 flex h-[calc(100vh-10.125rem)] w-full snap-start flex-col items-center justify-center gap-8 overflow-hidden bg-[#373D49]">
       <img
         src="/images/home/background-circle.svg"
         alt="배경 원형 디자인"

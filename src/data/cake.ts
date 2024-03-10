@@ -160,6 +160,7 @@ export const cakeData = {
   ],
   keywordLank: [
     {
+      timeLabel: '2월 첫째주',
       period: '2024.02.01 - 2024.02.07',
       rankList: [
         {
@@ -185,6 +186,7 @@ export const cakeData = {
       ],
     },
     {
+      timeLabel: '2월 둘째주',
       period: '2024.02.08 - 2024.02.14',
       rankList: [
         {
@@ -210,6 +212,7 @@ export const cakeData = {
       ],
     },
     {
+      timeLabel: '2월 셋째주',
       period: '2024.02.15 - 2024.02.21',
       rankList: [
         {
@@ -235,6 +238,7 @@ export const cakeData = {
       ],
     },
     {
+      timeLabel: '2월 넷째주',
       period: '2024.02.22 - 2024.02.28',
       rankList: [
         {

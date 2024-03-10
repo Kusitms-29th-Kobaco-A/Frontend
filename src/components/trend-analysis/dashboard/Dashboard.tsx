@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import styled from 'styled-components';
 
 import RelatedSection from './RelatedSection';
@@ -13,17 +12,11 @@ interface Props {
   relatedTrendBubble: any;
   genderAgeTrend: any;
   snsTrend: any;
+  searchKeyword: string;
 }
 
 const Dashboard = ({ relatedTrendBubble, genderAgeTrend, snsTrend }: Props) => {
   const { taStep, setTAStep, totalTAStep, handleDismiss } = useTAStep();
-
-  useEffect(() => {
-    if (taStep > totalTAStep) {
-      setTAStep(0);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }, [taStep]);
 
   return (
     <DashboardBlock>

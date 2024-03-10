@@ -6,9 +6,10 @@ import YoutubeContent from '../youtube/YoutubeContent';
 
 interface Props {
   data: any;
+  originalSearchKeyword: string;
 }
 
-const SNSContent = ({ data }: Props) => {
+const SNSContent = ({ data, originalSearchKeyword }: Props) => {
   const [activeMenu, setActiveMenu] = useState<'INSTAGRAM' | 'YOUTUBE'>(
     'INSTAGRAM',
   );
@@ -18,13 +19,13 @@ const SNSContent = ({ data }: Props) => {
       <TopMenuWrapper>
         <TopMenu>
           <MenuItem
-            active={activeMenu === 'INSTAGRAM'}
+            $active={activeMenu === 'INSTAGRAM'}
             onClick={() => setActiveMenu('INSTAGRAM')}
           >
             인스타그램
           </MenuItem>
           <MenuItem
-            active={activeMenu === 'YOUTUBE'}
+            $active={activeMenu === 'YOUTUBE'}
             onClick={() => setActiveMenu('YOUTUBE')}
           >
             유튜브
@@ -32,9 +33,17 @@ const SNSContent = ({ data }: Props) => {
         </TopMenu>
       </TopMenuWrapper>
       {activeMenu === 'INSTAGRAM' ? (
-        <InstagramContent data={data} />
+        <InstagramContent
+          data={data}
+          originalSearchKeyword={originalSearchKeyword}
+        />
       ) : (
-        activeMenu === 'YOUTUBE' && <YoutubeContent data={data} />
+        activeMenu === 'YOUTUBE' && (
+          <YoutubeContent
+            data={data}
+            originalSearchKeyword={originalSearchKeyword}
+          />
+        )
       )}
     </div>
   );
@@ -56,7 +65,7 @@ const TopMenu = styled.div`
 `;
 
 interface MenuItemProps {
-  active: boolean;
+  $active: boolean;
 }
 
 const MenuItem = styled.div<MenuItemProps>`
@@ -72,8 +81,8 @@ const MenuItem = styled.div<MenuItemProps>`
   line-height: 140%;
   cursor: pointer;
 
-  ${({ active }) =>
-    active
+  ${({ $active }) =>
+    $active
       ? css`
           background-color: #d33b4d;
         `

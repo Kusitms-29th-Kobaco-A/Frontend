@@ -23,9 +23,10 @@ Chart.register(
 
 interface Props {
   instagramPost: any;
+  originalSearchKeyword: string;
 }
 
-const PostSection = ({ instagramPost }: Props) => {
+const PostSection = ({ instagramPost, originalSearchKeyword }: Props) => {
   const options = {
     scales: {
       x: {
@@ -78,7 +79,7 @@ const PostSection = ({ instagramPost }: Props) => {
   return (
     <PostSectionBlock>
       <Heading>
-        <span>케이크</span> 관련 인스타그램 게시글 현황
+        <span>{originalSearchKeyword}</span> 관련 인스타그램 게시글 현황
       </Heading>
       <Description>
         검색한 키워드 관련 인스타그램 콘텐츠 수, 게시글 내 키워드 분석 결과
@@ -122,7 +123,7 @@ const PostSection = ({ instagramPost }: Props) => {
             <span className="date-text">2024-02-02~2024-02-02</span>
           </DateLabel>
           <KeywordList>
-            <KeywordListItem active>01 케이크맛있어</KeywordListItem>
+            <KeywordListItem>01 케이크맛있어</KeywordListItem>
             <KeywordListItem>02 케이크맛있어</KeywordListItem>
             <KeywordListItem>02 케이크맛있어</KeywordListItem>
             <KeywordListItem>03 케이크맛있어</KeywordListItem>
@@ -250,19 +251,14 @@ const KeywordList = styled.ul`
   overflow-y: auto;
 `;
 
-interface KeywordListItemProps {
-  active?: boolean;
-}
-
-const KeywordListItem = styled.li<KeywordListItemProps>`
+const KeywordListItem = styled.li`
   cursor: pointer;
   border-radius: 9999px;
   padding: 12px 20px;
   font-size: 1.25rem; /* 20px */
   font-weight: 500;
   line-height: 1.75rem; /* 28px */
-  color: ${(props) => (props.active ? 'white' : '#707887')};
-  background-color: ${(props) => (props.active ? '#D33B4D' : 'transparent')};
+  color: #707887;
   transition:
     background-color 150ms,
     color 150ms;

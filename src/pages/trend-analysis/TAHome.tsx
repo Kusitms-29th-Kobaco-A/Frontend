@@ -14,6 +14,7 @@ import SearchTopFixed from '../../components/trend-analysis/search/SearchTopFixe
 import useTAStep from '../../hooks/useTAStep';
 import { cakeData } from '../../data/cake';
 import { vegonData } from '../../data/vegon';
+import RelatedKeywords from '../../components/trend-analysis/search/RelatedKeywords';
 
 const TAHome = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,6 +29,8 @@ const TAHome = () => {
     localStorage.getItem('ta-step-boarding') !== 'true' ? '케이크' : '',
   );
   const [data, setData] = useState<any>(null);
+  const [isSearchFixedFocused, setIsSearchFixedFocused] = useState(false);
+  const [originalSearchKeyword, setOriginalSearchKeyword] = useState('');
 
   useEffect(() => {
     const scrollToMission = searchParams.get('scroll_to');
@@ -47,6 +50,19 @@ const TAHome = () => {
       }
     }
   }, [searchParams]);
+
+  useEffect(() => {
+    window.onbeforeunload = function pushRefresh() {
+      window.scrollTo(0, 0);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (taStep > totalTAStep) {
+      setTAStep(0);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [taStep]);
 
   useEffect(() => {
     if (localStorage.getItem('ta-step-boarding') === null) {
@@ -79,56 +95,80 @@ const TAHome = () => {
     } else {
       setData(null);
     }
+    setOriginalSearchKeyword(searchKeyword);
+    if (localStorage.getItem('ta-step-boarding') === 'true') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    setIsSearchFixedFocused(false);
   };
 
   const isLoading = !data;
 
   return (
     <div className="min-h-[calc(100vh-10.125rem)] bg-[#F5F6F6] pb-[10rem]">
-      <SearchTopFixed searchKeyword={searchKeyword} />
+      <SearchTopFixed
+        searchKeyword={searchKeyword}
+        setSearchKeyword={setSearchKeyword}
+        handleSearchSubmit={handleSearchSubmit}
+        isSearchFixedFocused={isSearchFixedFocused}
+        setIsSearchFixedFocused={setIsSearchFixedFocused}
+        originalSearchKeyword={originalSearchKeyword}
+      />
       <main>
         <InnerArea>
           <SearchBar
             searchKeyword={searchKeyword}
             setSearchKeyword={setSearchKeyword}
             handleSearchSubmit={handleSearchSubmit}
-            isLoading={isLoading}
           />
           {!isLoading && (
             <>
+              <RelatedKeywords relatedKeywordList={data.relatedKeywordList} />
               <Dashboard
                 relatedTrendBubble={data.relatedTrendBubble}
                 genderAgeTrend={data.genderAgeTrend}
                 snsTrend={data.snsTrend}
+                searchKeyword={searchKeyword}
               />
               <section
                 id="keyword-trend"
-                className="scroll-mt-[16rem]"
+                className="scroll-mt-[18rem]"
                 ref={keywordTrendRef}
               >
-                <KeywordTrend searchTrend={data.searchTrend} />
+                <KeywordTrend
+                  searchTrend={data.searchTrend}
+                  originalSearchKeyword={originalSearchKeyword}
+                />
                 <KeywordDetailTrend
                   genderTrend={data.genderTrend}
                   ageTrend={data.ageTrend}
+                  originalSearchKeyword={originalSearchKeyword}
                 />
               </section>
               <section
                 id="related-trend"
-                className="scroll-mt-[16rem]"
+                className="scroll-mt-[18rem]"
                 ref={relatedTrendRef}
               >
                 <RelatedKeyword
                   naverBubble={data.naverBubble}
                   googleBubble={data.googleBubble}
+                  originalSearchKeyword={originalSearchKeyword}
                 />
-                <KeywordRank keywordLank={data.keywordLank} />
+                <KeywordRank
+                  keywordLank={data.keywordLank}
+                  originalSearchKeyword={originalSearchKeyword}
+                />
               </section>
               <section
                 id="sns-trend"
-                className="scroll-mt-[16rem]"
+                className="scroll-mt-[18rem]"
                 ref={snsTrendRef}
               >
-                <SNSContent data={data} />
+                <SNSContent
+                  data={data}
+                  originalSearchKeyword={originalSearchKeyword}
+                />
               </section>
             </>
           )}

@@ -5,13 +5,18 @@ import GoogleBubble from './GoogleBubble';
 interface Props {
   naverBubble: any;
   googleBubble: any;
+  originalSearchKeyword: string;
 }
 
-const RelatedKeyword = ({ naverBubble, googleBubble }: Props) => {
+const RelatedKeyword = ({
+  naverBubble,
+  googleBubble,
+  originalSearchKeyword,
+}: Props) => {
   return (
     <RelatedKeywordBlock>
       <Heading>
-        <span>케이크</span> 연관 키워드 TOP20
+        <span>{originalSearchKeyword}</span> 연관 키워드 TOP20
       </Heading>
       <Description>
         구글, 네이버에서 검색한 키워드와 연관이 있는 키워드 상위 20개를
