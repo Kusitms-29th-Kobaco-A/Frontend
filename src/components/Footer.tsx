@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import footer from "../assets/footer/FooterImg.svg";
+import styled from 'styled-components';
+import footer from '../assets/footer/FooterImg.svg';
 
 const Footer = () => {
   return (
@@ -15,6 +15,7 @@ const FooterComponent = styled.section`
   width: 100vw;
   height: 222px;
   background-color: #f8f8f8;
+  scroll-snap-align: end;
 `;
 
 const FooterImgComponent = styled.img`
