@@ -5,9 +5,18 @@ import order from '../../../assets/home/Order1.svg';
 import line from '../../../assets/home/Line2.svg';
 import { useNavigate } from 'react-router-dom';
 
+import Aos from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
+
 const Reference = () => {
   const navigate = useNavigate();
-
+  useEffect(() => {
+    Aos.init({
+      // AOS 초기화 옵션
+      duration: 2000, // 애니메이션 지속 시간(ms)
+    });
+  });
   return (
     <TotalComponent>
       <BackgroundImg src={line} alt="line" />
@@ -28,7 +37,7 @@ const Reference = () => {
             src={moveImg}
             alt=">"
           />
-          <IconImg src={icon} alt="icon" />
+          <IconImg data-aos="fade-up" src={icon} alt="icon" />
           <OrderImg src={order} alt="order" />
         </ContentBox>
       </BlurredComponent>
