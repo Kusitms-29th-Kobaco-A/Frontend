@@ -245,7 +245,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
         console.log(err);
       }
     },
-    [token, getRootDirectoryInfo],
+    [token, getRootDirectoryInfo, rootDirectoryInfo.directoryId],
   );
 
   // 새 폴더 만들기 취소 시
@@ -703,20 +703,31 @@ const UnderDateQuestionImg = styled.img`
 
 // 광고카피, 인물, 사물 등 이외 정보부분
 const EtcInfoComponent = styled.div`
-  padding: 34px 0px 33px 0px;
-  margin: 30px 0px 0px 0px;
+  padding: 26px 0px 40px 0px;
+  margin: 22px 0px 0px 0px;
   width: 100%;
+  border: 1px solid #a0a0a0;
   flex-shrink: 0;
-  border-radius: 16px;
+  border-radius: 20px;
 `;
 
-// 키워드 정보 보여주는 부분
+const KeywordLabel = styled.div`
+  margin: 25px 0px 0px 30px;
+  color: var(--Gray-9, #27272e);
+  font-family: 'Noto Sans KR';
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 140%;
+  letter-spacing: -0.4px;
+`;
+
 const KeywordListRowComponent = styled.div`
   display: flex;
-  margin: 0px 0px 0px 0px;
+  margin: 8px 0px 0px 15px;
 `;
-const KeywordText = styled.div`
-  margin: 0px 0px 0px 10px;
+
+const KeywordText = styled.div<{ margin?: any }>`
+  margin: ${(props) => props.margin || '0px 0px 0px 15px'};
   color: var(--Main-1, #d33b4d);
   text-align: center;
   font-family: 'Noto Sans KR';
@@ -727,9 +738,8 @@ const KeywordText = styled.div`
   letter-spacing: -0.4px;
 `;
 
-// 카피 저장 부분
 const AdCopyLabel = styled.div`
-  margin: 28px 0px 0px 10px;
+  margin: 30px 0px 0px 30px;
   color: var(--Gray-9, #27272e);
   font-family: 'Noto Sans KR';
   font-size: 20px;
@@ -738,29 +748,33 @@ const AdCopyLabel = styled.div`
   line-height: 140%;
   letter-spacing: -0.4px;
 `;
+
 const AdCopyContent = styled.div`
-  margin: 0px 0px 0px 10px;
-  width: 479px;
+  margin: 8px 0px 0px 30px;
+  width: 379px;
   display: inline-flex;
   color: var(--Gray-8, #373d49);
   font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
-  line-height: 177%;
+  line-height: 177%; /* 28.32px */
   letter-spacing: -0.4px;
 `;
+
 const AdCopyRowComponent = styled.div`
-  margin: 15px 0px 0px 10px;
+  margin: 14px 0px 0px 30px;
   display: flex;
   align-items: center;
 `;
+
 const AdCopyBtn = styled.button`
   display: inline-flex;
-  padding: 8px 12px;
-  align-items: center;
-  gap: 4px;
-  border-radius: 21.5px;
+  padding: 4px 9px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 17px;
   border: 1px solid var(--Main-1, #d33b4d);
   color: var(--Main-1, #d33b4d);
   text-align: center;
@@ -769,18 +783,24 @@ const AdCopyBtn = styled.button`
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
+  line-height: 140%;
   letter-spacing: -0.4px;
-  cursor: pointer;
 `;
 
-// 영상에 나온 인물,사물 관련 부분
 const UnderCopyRowComponent = styled.div`
-  margin: 78px 0px 0px 10px;
-  display: inline-flex;
+  margin: 30px 0px 0px 30px;
+  display: flex;
 `;
-const UnderCopyEachBox = styled.div`
-  width: 211px;
+
+const UnderCopyEachBox = styled.div<{ margin?: any }>`
+  /* margin 10값 더둠 */
+  min-width: 280px;
+  margin: ${(props) => props.margin || '0px'};
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 `;
+
 const UnderCopyLabelText = styled.div`
   color: var(--Gray-9, #27272e);
   font-family: 'Noto Sans KR';
@@ -790,19 +810,22 @@ const UnderCopyLabelText = styled.div`
   line-height: 140%;
   letter-spacing: -0.4px;
 `;
+
 const UnderCopyAnswerRowComponent = styled.div`
   margin: 20px 0px 0px 0px;
   display: grid;
-  grid-template-columns: max-content max-content;
-  gap: 4px;
+  grid-auto-flow: column;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px 10px;
 `;
+
 const UnderCopyAnswerText = styled.div`
+  width: max-content;
   display: inline-flex;
-  padding: 3px 10px;
+  padding: 4px 13px;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  border-radius: 20px;
+  border-radius: 15px;
   background: var(--Sub-2, #ffecee);
   color: var(--Main-1, #d33b4d);
   text-align: center;
@@ -820,6 +843,7 @@ const OtherInfoRowComponent = styled.div<{ margin?: any }>`
   height: 22px;
   margin: ${(props) => props.margin || '10px 0px 0px 10px'};
 `;
+
 const OtherInfoLabel = styled.div`
   color: var(--Gray-9, #27272e);
   width: 58px;
@@ -831,6 +855,7 @@ const OtherInfoLabel = styled.div`
   line-height: 140%; /* 22.4px */
   letter-spacing: -0.4px;
 `;
+
 const OtherInfoAnswer = styled.div`
   color: var(--Gray-9, #27272e);
   /* Body/4 */
@@ -1000,13 +1025,14 @@ const XImg = styled.img`
 
 // 섹터 선택 부분
 const SelectSectorComponent = styled.div`
-  margin-top: 41px;
+  margin-left: 30px;
   display: flex;
   align-items: center;
 `;
+
 const SelectedSector = styled.button`
   display: flex;
-  width: 85px;
+  width: 79px;
   height: 27.99px;
   flex-direction: column;
   justify-content: center;
@@ -1027,7 +1053,7 @@ const SelectedSector = styled.button`
 `;
 const UnSelectedSector = styled.button`
   display: flex;
-  width: 85px;
+  width: 79px;
   height: 27.99px;
   flex-direction: column;
   justify-content: center;
@@ -1046,10 +1072,12 @@ const UnSelectedSector = styled.button`
 `;
 
 // 광고효과 섹터 부분
-const TextBox = styled.div`
+const TextBox = styled.div<{ margin?: any }>`
+  margin: ${(props) => props.margin || '33px 0px 0px 30px'};
   display: flex;
   align-items: center;
 `;
+
 const GraphText = styled.div`
   color: #000;
   margin-left: 8px;
@@ -1065,16 +1093,17 @@ const GraphTextRed = styled(GraphText)`
   margin-left: 0px;
 `;
 const GraphFirstBox = styled.img`
-  margin-top: 38px;
+  margin: 28px 0px 0px 30px;
   display: block;
-  width: 667px;
-  height: 298px;
+  width: 642px;
+  height: 287px;
 `;
+
 const GraphSecondBox = styled.img`
   display: block;
-  margin-top: 46px;
-  width: 637px;
-  height: 238px;
+  margin: 21px 0px 0px 54px;
+  width: 612px;
+  height: 229px;
 `;
 
 const CompleteModal = styled.div`

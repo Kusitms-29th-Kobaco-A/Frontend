@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import styled from "styled-components";
-import EachVideo from "../../../components/EachVideo";
+import styled from 'styled-components';
+import EachVideo from '../../../components/EachVideo';
 
 // 실제 동영상 리스트 보여주는 부분
 // 리스트를 받아서 보여준다

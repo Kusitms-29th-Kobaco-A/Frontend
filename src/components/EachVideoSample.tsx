@@ -54,7 +54,7 @@ const EachVideoSample = () => {
       {/* 키워드 부분 */}
       <KeywordComponent>
         {lastTwoKeywords?.map((item: any) => {
-          return <EachKeyword>#{item}</EachKeyword>;
+          return <EachKeyword key={item}>#{item}</EachKeyword>;
         })}
       </KeywordComponent>
 

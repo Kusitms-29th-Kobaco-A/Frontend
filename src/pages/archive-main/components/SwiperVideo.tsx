@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import styled from "styled-components";
-import { Navigation } from "swiper/modules";
-import { useNavigate } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
+import styled from 'styled-components';
+import { Navigation } from 'swiper/modules';
+import { useNavigate } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-import questionImg from "../../../assets/archive/Question.svg";
+import questionImg from '../../../assets/archive/Question.svg';
 
-import "swiper/swiper-bundle.css";
-import "swiper/css";
-import SwiperCore from "swiper";
-import EachVideo from "../../../components/EachVideo";
-import { Tooltip } from "react-tooltip";
-import EachVideoSample from "../../../components/EachVideoSample";
+import 'swiper/swiper-bundle.css';
+import 'swiper/css';
+import SwiperCore from 'swiper';
+import EachVideo from '../../../components/EachVideo';
+import { Tooltip } from 'react-tooltip';
+import EachVideoSample from '../../../components/EachVideoSample';
 
 SwiperCore.use([Navigation]);
 
@@ -27,29 +27,29 @@ const SwiperVideo = ({ sector, videos }: any) => {
       {/* 제일 위 sector 표시 */}
       <TopRowFlexComponent>
         <TopLabel>
-          {sector === "trend"
-            ? "2023 광고 트렌드"
-            : sector === "popular"
-            ? "최근 인기있는 영상"
-            : "내가 찜한 영상"}
+          {sector === 'trend'
+            ? '2023 광고 트렌드'
+            : sector === 'popular'
+              ? '최근 인기있는 영상'
+              : '내가 찜한 영상'}
         </TopLabel>
 
-        {sector === "trend" ? (
-          <div style={{ zIndex: "2" }}>
+        {sector === 'trend' ? (
+          <div style={{ zIndex: '2' }}>
             <TotalTopQuestionImgBox
               src={questionImg}
               alt="?"
               data-tooltip-id="trend-tooltip"
               data-tooltip-place="bottom"
             />
-            <Tooltip style={{ zIndex: "2" }} id="trend-tooltip">
+            <Tooltip style={{ zIndex: '2' }} id="trend-tooltip">
               <TooltipComponent>
                 <div>'2023 광고 트렌드'는 YOUTUBE WORKS</div>
                 <div>AWARDS의 수상작을 노출합니다.</div>
               </TooltipComponent>
             </Tooltip>
           </div>
-        ) : sector === "popular" ? (
+        ) : sector === 'popular' ? (
           <div>
             <TotalTopQuestionImgBox
               src={questionImg}
@@ -57,7 +57,7 @@ const SwiperVideo = ({ sector, videos }: any) => {
               data-tooltip-id="popular-tooltip"
               data-tooltip-place="bottom"
             />
-            <Tooltip style={{ zIndex: "2" }} id="popular-tooltip">
+            <Tooltip style={{ zIndex: '2' }} id="popular-tooltip">
               <TooltipComponent>
                 <div>최근 한 달 동안 가장 많이 시청된</div>
                 <div>영상으로 정렬되었습니다.</div>
@@ -69,14 +69,14 @@ const SwiperVideo = ({ sector, videos }: any) => {
         )}
 
         {/* sector state로 넘겨주기 */}
-        {sector === "trend" ? (
+        {sector === 'trend' ? (
           <></>
-        ) : sector === "popular" ? (
+        ) : sector === 'popular' ? (
           <AdditionalVideo
             onClick={() => {
-              navigate("/archive/popularVideos", {
+              navigate('/archive/popularVideos', {
                 state: {
-                  menuState: "archive",
+                  menuState: 'archive',
                 },
               });
             }}
@@ -86,9 +86,9 @@ const SwiperVideo = ({ sector, videos }: any) => {
         ) : (
           <AdditionalVideo
             onClick={() => {
-              navigate("/archive/savedVideos", {
+              navigate('/archive/savedVideos', {
                 state: {
-                  menuState: "archive",
+                  menuState: 'archive',
                 },
               });
             }}
@@ -106,17 +106,17 @@ const SwiperVideo = ({ sector, videos }: any) => {
             nextEl: `.${nextButtonClass}`,
             prevEl: `.${prevButtonClass}`,
           }}
-          style={{ width: "100%", margin: "33px 0px 0px" }}
+          style={{ width: '100%', margin: '33px 0px 0px' }}
           spaceBetween={16}
           slidesPerView={4.5}
           onSwiper={(swiper) => console.log(swiper)}
-          onSlideChange={() => console.log("slide change")}
+          onSlideChange={() => console.log('slide change')}
         >
-          {sector==="popular"&&
+          {sector === 'popular' && (
             <SwiperSlide key="999">
               <EachVideoSample />
             </SwiperSlide>
-          }
+          )}
           {videos?.map((videoInfo: any) => {
             return (
               <SwiperSlide key={videoInfo.videoId}>
@@ -127,9 +127,9 @@ const SwiperVideo = ({ sector, videos }: any) => {
           })}
         </Swiper>
         {/* 화살표 부분 */}
-        <PrevSlide className={`swiper-button-prev ${prevButtonClass}`} />{" "}
+        <PrevSlide className={`swiper-button-prev ${prevButtonClass}`} />{' '}
         {/* Next button */}
-        <NextSlide className={`swiper-button-next ${nextButtonClass}`} />{" "}
+        <NextSlide className={`swiper-button-next ${nextButtonClass}`} />{' '}
         {/* Next button */}
       </VideosComponent>
     </TotalComponent>
@@ -153,7 +153,7 @@ const TopRowFlexComponent = styled.div`
 const TopLabel = styled.div`
   color: var(--Gray-9, #27272e);
   height: 34px;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
@@ -179,7 +179,7 @@ const TooltipComponent = styled.div`
   color: var(--Gray-1, #f4f6f6);
   text-align: center;
 
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 14px;
   font-style: normal;
   font-weight: 350;
@@ -240,7 +240,7 @@ const AdditionalVideo = styled.div`
   position: absolute;
   right: 11.875vw;
   color: var(--Gray-9, #27272e);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
