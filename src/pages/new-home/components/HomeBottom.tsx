@@ -2,8 +2,10 @@
 import styled from 'styled-components';
 import bottomVideo from '../../../assets/home/Bottom.mp4';
 import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const HomeBottom = () => {
+  const navigate = useNavigate();
   const videoRef = useRef<HTMLVideoElement | null>(null);
   // 비디오가 뷰포트에 다시 들어올 때마다 처음부터 재생하려면 playedOnce 상태를 저장할 필요가 없습니다.
 
