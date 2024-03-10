@@ -11,7 +11,12 @@ const AdGraphSection = ({ instagramAd, originalSearchKeyword }: Props) => {
   return (
     <AdGraphSectionBlock>
       <Heading>
-        <span>{originalSearchKeyword}</span> 게시글의 광고/비광고 비율
+        <span>
+          {originalSearchKeyword === '케이크'
+            ? '#레터링케이크'
+            : originalSearchKeyword === '비건' && '#비건빵'}
+        </span>{' '}
+        해시태그의 광고/비광고 비율
       </Heading>
       <Description>
         검색한 키워드가 들어간 인스타그램 인기 게시글 중 광고와 비광고의 비율을

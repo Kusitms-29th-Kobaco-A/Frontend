@@ -131,7 +131,7 @@ const TAHome = () => {
                 <div className="mt-2 text-2xl font-semibold">
                   검색된 키워드가 없어요.
                 </div>
-                <div className="mt-1">검색창에 키워드를 입력해보세요.</div>
+                <div className="mt-1">검색창에 키워드를 입력하세요.</div>
               </div>
             )}
           {!isLoading && (
