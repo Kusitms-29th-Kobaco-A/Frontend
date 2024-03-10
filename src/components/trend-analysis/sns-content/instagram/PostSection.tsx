@@ -131,34 +131,12 @@ const PostSection = ({ originalSearchKeyword, data }: Props) => {
           <LineWrapper>
             <Line
               width="100%"
-              height="40rem"
+              height="25rem"
               options={options}
               data={graphData}
             />
           </LineWrapper>
         </LeftWhiteRoundedBox>
-        <RightWhiteRoundedBox>
-          <IconWrapper>
-            <i>
-              <img src="/icons/search-icon.svg" alt="네이버 아이콘" />
-            </i>
-            <span>게시글 내 키워드 분석 결과</span>
-          </IconWrapper>
-          <DateLabel>
-            <i>
-              <img src="/icons/search-icon.svg" alt="검색 아이콘" />
-            </i>
-            <span className="date-text">2024-02-02~2024-02-02</span>
-          </DateLabel>
-          <KeywordList>
-            <KeywordListItem>01 케이크맛있어</KeywordListItem>
-            <KeywordListItem>02 케이크맛있어</KeywordListItem>
-            <KeywordListItem>02 케이크맛있어</KeywordListItem>
-            <KeywordListItem>03 케이크맛있어</KeywordListItem>
-            <KeywordListItem>04 케이크맛있어</KeywordListItem>
-            <KeywordListItem>05 케이크맛있어</KeywordListItem>
-          </KeywordList>
-        </RightWhiteRoundedBox>
       </WhiteRoundedBoxGroup>
     </PostSectionBlock>
   );
@@ -198,16 +176,6 @@ const LeftWhiteRoundedBox = styled.div`
   padding: 1.5rem 1.75rem;
   border-radius: 16px;
   margin-top: 1.5rem;
-`;
-
-const RightWhiteRoundedBox = styled.div`
-  flex: 1;
-  background-color: white;
-  padding: 1.5rem 1.75rem;
-  border-radius: 16px;
-  margin-top: 1.5rem;
-  display: flex;
-  flex-direction: column;
 `;
 
 const BoxTop = styled.div`
@@ -252,47 +220,4 @@ const TimeChoice = styled.ul`
 
 const LineWrapper = styled.div`
   margin-top: 0.5rem;
-`;
-
-const DateLabel = styled.div`
-  display: flex;
-  align-items: start;
-  gap: 2px;
-
-  i {
-    opacity: 0;
-  }
-
-  .date-text {
-    font-size: 0.75rem; /* 12px */
-    font-weight: 500;
-    color: #bebebe;
-  }
-`;
-
-const KeywordList = styled.ul`
-  margin-top: 12px;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 4px;
-  overflow-y: auto;
-`;
-
-const KeywordListItem = styled.li`
-  cursor: pointer;
-  border-radius: 9999px;
-  padding: 12px 20px;
-  font-size: 1.25rem; /* 20px */
-  font-weight: 500;
-  line-height: 1.75rem; /* 28px */
-  color: #707887;
-  transition:
-    background-color 150ms,
-    color 150ms;
-
-  &:hover {
-    background-color: #d33b4d;
-    color: white;
-  }
 `;

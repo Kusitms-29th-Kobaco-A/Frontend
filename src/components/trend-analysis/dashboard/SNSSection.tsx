@@ -86,7 +86,7 @@ const SNSSection = ({ snsTrend }: Props) => {
         <span>인스타그램 게시글 수 추이</span>
       </IconWrapper>
       <LineWrapper>
-        <Line width="100%" height="40rem" options={options} data={graphData} />
+        <Line width="100%" height="34rem" options={options} data={graphData} />
       </LineWrapper>
     </WhiteRoundedBox>
   );
@@ -131,6 +131,8 @@ const IconWrapper = styled.div`
 const LineWrapper = styled.div`
   color: #a0a0a0;
   width: 100%;
-  height: 8rem;
   margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
