@@ -17,7 +17,7 @@ const Reference = () => {
           <ContentTop>반짝이는 광고 아이디어를 얻고 싶을 땐</ContentTop>
           <ContentTitle>레퍼런스 탐색</ContentTitle>
           <ContentContent>
-            트렌드 광고부터 최근 인기있는 영상까지 한 번에!
+            광고 트렌드부터 최근 인기있는 영상까지 한 번에!
             <br />
             광고 레퍼런스를 탐색하고 반짝이는 아이디어를 얻으세요.
           </ContentContent>

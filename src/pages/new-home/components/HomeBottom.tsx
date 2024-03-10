@@ -50,7 +50,13 @@ const HomeBottom = () => {
         </MiddleTextRed>
         <MiddleText>을 이용해보세요.</MiddleText>
       </MiddleTextDiv>
-      <MoveBtn>AiSAC 시작하기</MoveBtn>
+      <MoveBtn
+        onClick={() => {
+          navigate('/archive');
+        }}
+      >
+        AiSAC 시작하기
+      </MoveBtn>
       <BottomVideo
         ref={videoRef}
         width="100%"
