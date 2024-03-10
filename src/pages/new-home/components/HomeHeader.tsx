@@ -12,7 +12,7 @@ const HomeHeader = () => {
         <MiddleText>과 시작하세요</MiddleText>
       </MiddleDiv>
       <Link to="https://www.youtube.com/watch?v=4K6A6o4zF2o">
-        <MoveBtn>AiSAC 이용가이드</MoveBtn>
+        <MoveBtn className="shadow-lg">AiSAC 이용가이드</MoveBtn>
       </Link>
     </TotalComponent>
   );
@@ -26,7 +26,8 @@ const TotalComponent = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 52.422vw; //671px;
+  height: calc(100vh - 10.125rem);
+  scroll-snap-align: start;
 `;
 
 const HeaderVideo = styled.video`
@@ -67,7 +68,7 @@ const MiddleTextRed = styled(MiddleText)`
 `;
 
 const MoveBtn = styled.button`
-  margin: 4vw 0px 0px 0px;
+  margin: 1.5rem 0px 0px 0px;
   display: inline-flex;
   padding: 9px 32px;
   justify-content: center;

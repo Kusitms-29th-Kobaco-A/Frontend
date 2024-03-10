@@ -41,21 +41,23 @@ const HomeBottom = () => {
 
   return (
     <TotalComponent>
-      <MiddleTextDiv>
-        <MiddleText>
-          신개념 Ai 광고 제작 서비스
-          <br />
-        </MiddleText>
-        <MiddleTextRed>AiSAC</MiddleTextRed>
-        <MiddleText>을 이용해보세요.</MiddleText>
-      </MiddleTextDiv>
-      <MoveBtn
-        onClick={() => {
-          navigate('/archive');
-        }}
-      >
-        AiSAC 시작하기
-      </MoveBtn>
+      <div className="z-[10] flex flex-col items-center justify-center">
+        <MiddleTextDiv>
+          <MiddleText>
+            신개념 Ai 광고 제작 서비스
+            <br />
+          </MiddleText>
+          <MiddleTextRed>AiSAC</MiddleTextRed>
+          <MiddleText>을 이용해보세요.</MiddleText>
+        </MiddleTextDiv>
+        <MoveBtn
+          onClick={() => {
+            navigate('/archive');
+          }}
+        >
+          AiSAC 시작하기
+        </MoveBtn>
+      </div>
       <BottomVideo
         ref={videoRef}
         width="100%"
@@ -73,10 +75,12 @@ export default HomeBottom;
 const TotalComponent = styled.div`
   position: relative;
   width: 100%;
-  height: 41.875vw;
+  height: calc(100vh - 10.125rem);
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 `;
 
 const BottomVideo = styled.video`
@@ -101,7 +105,6 @@ const Overlay = styled.div`
 `;
 
 const MiddleTextDiv = styled.div`
-  margin: 11.094vw 0px 0px 0px;
   z-index: 2;
   text-align: center;
 `;
@@ -120,8 +123,8 @@ const MiddleTextRed = styled(MiddleText)`
 `;
 
 const MoveBtn = styled.button`
-  margin: 5.078vw 0px 0px 0px;
   display: inline-flex;
+  margin-top: 2rem;
   padding: 9px 32px;
   justify-content: center;
   align-items: center;
