@@ -39,7 +39,7 @@ const BottomArea = ({ originalSearchKeyword, data }: Props) => {
               </IconWrapper>
             </IconWrapperGroup>
             <ChartPlaceholder>
-              <img src="/images/mindmap/cake-mindmap.svg" alt="마인드맵 임시" />
+              <img src={data.postMindmap} alt="마인드맵 임시" />
             </ChartPlaceholder>
           </GrayRoundedBox>
           <GrayRoundedBoxRight>

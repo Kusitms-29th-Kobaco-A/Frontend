@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 
-import BubbleForceChart from './BubbleForceChart';
-
 interface Props {
-  relatedTrendBubble: any;
+  data: any;
 }
 
-const RelatedSection = ({ relatedTrendBubble }: Props) => {
+const RelatedSection = ({ data }: Props) => {
   return (
     <WhiteRoundedBox>
       <Heading>
@@ -14,7 +12,7 @@ const RelatedSection = ({ relatedTrendBubble }: Props) => {
       </Heading>
       <Description>2023-09-02~2024-02-27 (최근 6개월)</Description>
       <ChartWrapper>
-        <BubbleForceChart relatedTrendBubble={relatedTrendBubble} />
+        <img src={data.relatedBubbleImage} alt="마인드맵 이미지" />
       </ChartWrapper>
       <BottomText>연관 검색어를 찾아보았어요!</BottomText>
     </WhiteRoundedBox>
@@ -58,7 +56,9 @@ const ChartWrapper = styled.div`
   width: 500px;
   flex: 1;
   padding-bottom: 1.5rem;
-  margin-top: -1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const BottomText = styled.p`

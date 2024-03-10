@@ -53,15 +53,16 @@ const TotalComponent = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 65vw;
+  height: calc(100vh - 10.125rem);
+  scroll-snap-align: start;
 `;
 
 const BackgroundImg = styled.img`
   position: absolute;
   /* top: -2.188vw; */
   display: flex;
-  height: 266.875vw;
-  width: 130.703vw;
+  width: 100%;
+  height: 100%;
   transform: rotate(0deg);
   justify-content: center;
   align-items: center;
@@ -71,7 +72,6 @@ const BackgroundImg = styled.img`
 
 const BlurredComponent = styled.div`
   position: relative;
-  margin: 12.969vw 0px 0px 0px;
   width: 86.719vw;
   height: 43.75vw;
   border-radius: 20px;

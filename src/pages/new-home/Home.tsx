@@ -9,7 +9,10 @@ import Trend from './components/Trend';
 
 const Home = () => {
   return (
-    <div>
+    <div
+      className="h-[calc(100vh-10.125rem)] overflow-y-scroll"
+      style={{ scrollSnapType: 'y mandatory' }}
+    >
       <HomeHeader />
       <KobacoMenu />
       <Reference />

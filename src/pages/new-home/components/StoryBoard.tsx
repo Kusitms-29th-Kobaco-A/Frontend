@@ -43,12 +43,12 @@ const TotalComponent = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 65vw;
+  height: calc(100vh - 10.125rem);
+  scroll-snap-align: start;
 `;
 
 const BlurredComponent = styled.div`
   position: relative;
-  margin: 12.969vw 0px 0px 0px;
   width: 86.719vw;
   height: 43.75vw;
   border-radius: 20px;
