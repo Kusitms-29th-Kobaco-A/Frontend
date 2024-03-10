@@ -1,17 +1,18 @@
 export const cakeData = {
   relatedKeywordList: ['베이커리', '카페', '과일', '생일이벤트', '기념일'],
-  relatedTrendBubble: [
-    { label: '생크림', value: 20, color: '#D33B4D' },
-    { label: '초콜렛', value: 18, color: '#FD929F' },
-    { label: '생일', value: 16, color: '#FD929F' },
-    { label: '냉장보관', value: 14, color: '#FD929F' },
-    { label: '레터링', value: 12, color: '#FD929F' },
-    { label: '냉장보관', value: 10, color: '#FD929F' },
-    { label: '고구마', value: 8, color: '#fac8cd' },
-    { label: 'ITZY', value: 4, color: '#fac8cd' },
-    { label: '축하', value: 2, color: '#fac8cd' },
-    { label: '선물', value: 1, color: '#fac8cd' },
-  ],
+  // relatedTrendBubble: [
+  //   { label: '생크림', value: 20, color: '#D33B4D' },
+  //   { label: '초콜렛', value: 18, color: '#FD929F' },
+  //   { label: '생일', value: 16, color: '#FD929F' },
+  //   { label: '냉장보관', value: 14, color: '#FD929F' },
+  //   { label: '레터링', value: 12, color: '#FD929F' },
+  //   { label: '냉장보관', value: 10, color: '#FD929F' },
+  //   { label: '고구마', value: 8, color: '#fac8cd' },
+  //   { label: 'ITZY', value: 4, color: '#fac8cd' },
+  //   { label: '축하', value: 2, color: '#fac8cd' },
+  //   { label: '선물', value: 1, color: '#fac8cd' },
+  // ],
+  relatedBubbleImage: '/images/bubble/cake-bubble.svg',
   genderAgeTrend: [
     {
       xLabel: '10대',

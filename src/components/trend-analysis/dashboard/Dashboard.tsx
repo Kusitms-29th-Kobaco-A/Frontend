@@ -9,13 +9,12 @@ import KeywordOnboarding from './KeywordOnboarding';
 import SNSOnboarding from './SNSOnboarding';
 
 interface Props {
-  relatedTrendBubble: any;
   genderAgeTrend: any;
   snsTrend: any;
-  searchKeyword: string;
+  data: any;
 }
 
-const Dashboard = ({ relatedTrendBubble, genderAgeTrend, snsTrend }: Props) => {
+const Dashboard = ({ genderAgeTrend, snsTrend, data }: Props) => {
   const { taStep, setTAStep, totalTAStep, handleDismiss } = useTAStep();
 
   return (
@@ -28,7 +27,7 @@ const Dashboard = ({ relatedTrendBubble, genderAgeTrend, snsTrend }: Props) => {
           onConfirm={() => setTAStep(taStep + 1)}
           onDismiss={handleDismiss}
         >
-          <RelatedSection relatedTrendBubble={relatedTrendBubble} />
+          <RelatedSection data={data} />
         </RelatedOnboarding>
       </Left>
       <Right>

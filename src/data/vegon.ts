@@ -1,17 +1,18 @@
 export const vegonData = {
   relatedKeywordList: ['비건식당', '친환경', '화장품', '수제', '다이어트'],
-  relatedTrendBubble: [
-    { label: '비건카페', value: 20, color: '#D33B4D' },
-    { label: '친환경', value: 18, color: '#FD929F' },
-    { label: '두부요리', value: 16, color: '#FD929F' },
-    { label: '비건화장품', value: 14, color: '#FD929F' },
-    { label: '비건식당', value: 12, color: '#FD929F' },
-    { label: '콤부차', value: 10, color: '#FD929F' },
-    { label: '건강한 음식', value: 8, color: '#fac8cd' },
-    { label: '채식', value: 4, color: '#fac8cd' },
-    { label: '비건장점', value: 2, color: '#fac8cd' },
-    { label: '비건단계', value: 1, color: '#fac8cd' },
-  ],
+  // relatedTrendBubble: [
+  //   { label: '비건카페', value: 20, color: '#D33B4D' },
+  //   { label: '친환경', value: 18, color: '#FD929F' },
+  //   { label: '두부요리', value: 16, color: '#FD929F' },
+  //   { label: '비건화장품', value: 14, color: '#FD929F' },
+  //   { label: '비건식당', value: 12, color: '#FD929F' },
+  //   { label: '콤부차', value: 10, color: '#FD929F' },
+  //   { label: '건강한 음식', value: 8, color: '#fac8cd' },
+  //   { label: '채식', value: 4, color: '#fac8cd' },
+  //   { label: '비건장점', value: 2, color: '#fac8cd' },
+  //   { label: '비건단계', value: 1, color: '#fac8cd' },
+  // ],
+  relatedBubbleImage: '/images/bubble/vegon-bubble.svg',
   genderAgeTrend: [
     {
       xLabel: '10대',
