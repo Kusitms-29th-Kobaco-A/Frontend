@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from 'styled-components';
-import Aos from 'aos';
-import { useEffect } from 'react';
-import 'aos/dist/aos.css';
+// import Aos from 'aos';
+// import { useEffect } from 'react';
+// import 'aos/dist/aos.css';
 
 import background from '../../../assets/home/Background.svg';
 import union1 from '../../../assets/home/Union1.svg';
@@ -12,12 +12,12 @@ import union3 from '../../../assets/home/Union3.svg';
 import union4 from '../../../assets/home/Union4.svg';
 
 const KobacoMenu = () => {
-  useEffect(() => {
-    Aos.init({
-      // AOS 초기화 옵션
-      duration: 3000, // 애니메이션 지속 시간(ms)
-    });
-  });
+  // useEffect(() => {
+  //   Aos.init({
+  //     // AOS 초기화 옵션
+  //     duration: 3000, // 애니메이션 지속 시간(ms)
+  //   });
+  // });
   return (
     <TotalComponent>
       <BackgroundImg src={background} alt="line" />
