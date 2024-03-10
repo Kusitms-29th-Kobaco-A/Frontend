@@ -4,18 +4,8 @@ import icon from '../../../assets/home/Icon2.svg';
 import order from '../../../assets/home/Order2.svg';
 import { useNavigate } from 'react-router-dom';
 
-import Aos from 'aos';
-import 'aos/dist/aos.css';
-import { useEffect } from 'react';
-
 const Trend = () => {
   const navigate = useNavigate();
-  useEffect(() => {
-    Aos.init({
-      // AOS 초기화 옵션
-      duration: 2000, // 애니메이션 지속 시간(ms)
-    });
-  });
 
   return (
     <TotalComponent>
@@ -36,7 +26,7 @@ const Trend = () => {
             src={moveImg}
             alt=">"
           />
-          <IconImg data-aos="fade-up" src={icon} alt="icon" />
+          <IconImg src={icon} alt="icon" />
           <OrderImg src={order} alt="order" />
         </ContentBox>
       </BlurredComponent>
