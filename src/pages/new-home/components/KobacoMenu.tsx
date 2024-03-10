@@ -1,10 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from 'styled-components';
 import Aos from 'aos';
 import { useEffect } from 'react';
 import 'aos/dist/aos.css';
 
-import line from '../../../assets/home/Line1.svg';
+import background from '../../../assets/home/Background.svg';
+import union1 from '../../../assets/home/Union1.svg';
+import union2 from '../../../assets/home/Union2.svg';
+import union3 from '../../../assets/home/Union3.svg';
+import union4 from '../../../assets/home/Union4.svg';
 
 const KobacoMenu = () => {
   useEffect(() => {
@@ -15,15 +20,23 @@ const KobacoMenu = () => {
   });
   return (
     <TotalComponent>
-      <BackgroundImg src={line} alt="line" />
+      <BackgroundImg src={background} alt="line" />
+      <Overlay />
       <HeaderText>
-        Ai가 ~~해주는 아이작을 활용하여 광고 만들어 보세요.
+        눈길을 끄는 신박한 광고 기획
+        <br />
+        Aisac이 도와드릴게요!
       </HeaderText>
       <MenuComponent>
         <MenuBox data-aos="fade-up">
           <MenuNum>01</MenuNum>
-          <MenuImg />
-          <MenuTitle>레퍼런스 탐색</MenuTitle>
+          <MenuImg
+            src={union1}
+            margin="2.656vw 0px 0px 0px"
+            width="5.723vw"
+            height="5.723vw"
+          />
+          <MenuTitle margin="2.714vw 0px 0px 0px">레퍼런스 탐색</MenuTitle>
           <MenuContent>
             광고 레퍼런스를 탐색하고
             <br />
@@ -32,18 +45,28 @@ const KobacoMenu = () => {
         </MenuBox>
         <MenuBox data-aos="fade-up">
           <MenuNum>02</MenuNum>
-          <MenuImg />
-          <MenuTitle>트렌드 분석</MenuTitle>
+          <MenuImg
+            src={union2}
+            margin="2.969vw 0px 0px 0px"
+            width="6.016vw"
+            height="5.174vw"
+          />
+          <MenuTitle margin="2.952vw 0px 0px 0px">트렌드 분석</MenuTitle>
           <MenuContent>
-            대시보드에서 검색어와 SNS 트렌드를
+            빅데이터로 시장 트렌드와
             <br />
-            쉽고 빠르게 탐색하세요.
+            소비자 니즈를 확인하세요.
           </MenuContent>
         </MenuBox>
         <MenuBox data-aos="fade-up">
           <MenuNum>03</MenuNum>
-          <MenuImg />
-          <MenuTitle>광고 카피 제작</MenuTitle>
+          <MenuImg
+            src={union3}
+            margin="2.500vw 0px 0px 0px"
+            width="6.022vw"
+            height="6.022vw"
+          />
+          <MenuTitle margin="2.572vw 0px 0px 0px">광고 카피 제작</MenuTitle>
           <MenuContent>
             누구나 쉽게 만들 수 있는
             <br />
@@ -52,8 +75,13 @@ const KobacoMenu = () => {
         </MenuBox>
         <MenuBox data-aos="fade-up">
           <MenuNum>04</MenuNum>
-          <MenuImg />
-          <MenuTitle>스토리보드 제작</MenuTitle>
+          <MenuImg
+            src={union4}
+            margin="2.656vw 0px 0px 0px"
+            width="3.991vw"
+            height="5.805vw"
+          />
+          <MenuTitle margin="2.632vw 0px 0px 0px">스토리보드 제작</MenuTitle>
           <MenuContent>
             AI가 대신 그려주는 스토리보드
             <br />
@@ -80,17 +108,25 @@ const TotalComponent = styled.div`
 
 const BackgroundImg = styled.img`
   position: absolute;
-  top: 5.391vw;
-  left: -1.25vw;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 98.438%;
+  z-index: -1;
+  object-fit: cover;
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.45);
   display: flex;
-  width: 117.199vw;
-  height: 88.341%;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
-  z-index: 0;
-  object-fit: cover;
-  /* overflow: visible; */
+  z-index: -1;
 `;
 
 const HeaderText = styled.div`
@@ -135,15 +171,14 @@ const MenuNum = styled.div`
   letter-spacing: -0.4px;
 `;
 
-const MenuImg = styled.img`
-  margin: 1.719vw 0px 0px 0px;
-  width: 13.828vw;
-  height: 7.813vw;
-  background: #d9d9d9;
+const MenuImg = styled.img<{ margin: any; width: any; height: any }>`
+  margin: ${(props) => props.margin};
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
 `;
 
-const MenuTitle = styled.div`
-  margin: 1.563vw 0px 0px 0px;
+const MenuTitle = styled.div<{ margin: any }>`
+  margin: ${(props) => props.margin};
   color: var(--Gray-8, #373d49);
   text-align: center;
   font-family: 'Noto Sans KR';
