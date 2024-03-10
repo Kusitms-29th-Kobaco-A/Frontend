@@ -14,10 +14,10 @@ const EachVideoSample = () => {
   // 비디오 정보 설정
   const [videoInfo] = useState({
     videoUrl: SamepleVideo,
-    keywordList: ['콜라', '사이다'],
+    keywordList: ['식품/외식업', '탄산음료', '유머있는'],
     advertiseId: 100,
-    videoTime: '00:03:18',
-    title: '맛도 좋은 콜라, 시원해요',
+    videoTime: '00:00:23',
+    title: '[#코카콜라] 맛있는 걸 선택해! 코카-코라 제로!',
   });
 
   // 마지막 두개 키워드 설정
