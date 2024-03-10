@@ -5,15 +5,25 @@ import TrendContents from './TrendContents';
 
 interface Props {
   data: any;
+  originalSearchKeyword: string;
 }
 
-const InstagramContent = ({ data }: Props) => {
+const InstagramContent = ({ data, originalSearchKeyword }: Props) => {
   return (
     <>
-      <HashTagSection instagramHashTag={data.instagramHashTag} />
-      <AdGraphSection instagramAd={data.instagramAd} />
-      <PostSection instagramPost={data.instagramPost} />
-      <TrendContents />
+      <HashTagSection
+        instagramHashTag={data.instagramHashTag}
+        originalSearchKeyword={originalSearchKeyword}
+      />
+      <AdGraphSection
+        instagramAd={data.instagramAd}
+        originalSearchKeyword={originalSearchKeyword}
+      />
+      <PostSection
+        instagramPost={data.instagramPost}
+        originalSearchKeyword={originalSearchKeyword}
+      />
+      <TrendContents originalSearchKeyword={originalSearchKeyword} />
     </>
   );
 };

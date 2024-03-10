@@ -1,31 +1,37 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import YouTube, { YouTubeProps } from "react-youtube";
+import axios from 'axios';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import YouTube, { YouTubeProps } from 'react-youtube';
 
-import thumbsUp from "../../../assets/archive/ThumbsUp.svg";
-import heart from "../../../assets/archive/Heart.svg";
-import folder from "../../../assets/archive/Folder.svg";
-import camera from "../../../assets/archive/Camera.svg";
-import fillThumbsUp from "../../../assets/archive/FillThumbsUp.svg";
-import plusImg from "../../../assets/archive/Plus.svg";
-import question from "../../../assets/archive/Question.svg";
-import warning from "../../../assets/archive/Warning.svg";
-import xIcon from "../../../assets/archive/XIcon.svg";
-import chartFirst from "../../../assets/archive/ChartFirst.svg";
-import chartSecond from "../../../assets/archive/ChartSecond.svg";
-import fillFolder from "../../../assets/archive/FillFolder.svg";
+import thumbsUp from '../../../assets/archive/ThumbsUp.svg';
+import heart from '../../../assets/archive/Heart.svg';
+import folder from '../../../assets/archive/Folder.svg';
+import camera from '../../../assets/archive/Camera.svg';
+import fillThumbsUp from '../../../assets/archive/FillThumbsUp.svg';
+import plusImg from '../../../assets/archive/Plus.svg';
+import question from '../../../assets/archive/Question.svg';
+import warning from '../../../assets/archive/Warning.svg';
+import xIcon from '../../../assets/archive/XIcon.svg';
+import chartFirst from '../../../assets/archive/ChartFirst.svg';
+import chartSecond from '../../../assets/archive/ChartSecond.svg';
+import fillFolder from '../../../assets/archive/FillFolder.svg';
 
-import SideBar from "./SideBar";
+import SideBar from './SideBar';
+import FavoriteOnboarding from './FavoriteOnboarding';
+import CaptureOnboarding from './CaptureOnboarding';
+import useRefStep from '../../../hooks/useRefStep';
+import CopyOnboarding from './CopyOnboarding';
 
 const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   const id = advertiseId.advertiseId;
+
+  const { refStep, setRefStep, totalRefStep, handleDismiss } = useRefStep();
 
   // 최상단 폴더 정보
   const [rootDirectoryInfo, setRootDirectoryInfo] = useState<any>({});
@@ -39,13 +45,13 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
   const [isOpenSaveModal, setIsOpenSaveModal] = useState<any>(false);
   const [isOpenCopyModal, setIsOpenCopyModal] = useState<any>(false);
   //아래 Etc 영상관련 정보에서 어느 부분을 보여줄 지 상태 정보
-  const [selectedSector, setSelectedSector] = useState("기본정보");
+  const [selectedSector, setSelectedSector] = useState('기본정보');
   // 찜하기 시 선택된 폴더 정보
   const [selectedFolder, setSelectedFolder] = useState<number | null>(null);
   // 찜하기에서 새 폴더 만들기 클릭 시 정보
   const [isOpenNewFolder, setIsOpenNewFolder] = useState<boolean>(false);
   // 폴더 이름을 관리할 상태
-  const [folderName, setFolderName] = useState("");
+  const [folderName, setFolderName] = useState('');
   // 찜하기 완료 되었다는 모달 상태
   const [isConfirmSaveModal, setIsConfirmSaveModal] = useState<boolean>(false);
 
@@ -71,18 +77,18 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
   const url = videoInfo.videoUrl;
   const extractVideoId = (url: string): string | undefined => {
     const urlObj = new URL(url);
-    const videoID = urlObj.searchParams.get("v");
+    const videoID = urlObj.searchParams.get('v');
     return videoID || undefined;
   };
   const videoId = extractVideoId(url);
 
-  const onPlayerReady: YouTubeProps["onReady"] = (event) => {
+  const onPlayerReady: YouTubeProps['onReady'] = (event) => {
     event.target.pauseVideo();
   };
 
   const opts = {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     playerVars: {
       autoplay: 0,
       // cc_load_policy: 1,
@@ -112,7 +118,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
   const modifyVideoLike = useCallback(async () => {
     if (token) {
       try {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem('token');
         console.log(token);
         await axios
           .patch(
@@ -120,7 +126,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
             {},
             {
               headers: { Authorization: `${token}` },
-            }
+            },
           )
           .then((res) => {
             getIsLike();
@@ -181,7 +187,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
 
   // 폴더 이름 input 변경 핸들러
   const handleFolderNameChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setFolderName(event.target.value);
   };
@@ -200,7 +206,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
             headers: {
               Authorization: `${token}`,
             },
-          }
+          },
         )
         .then((res) => {
           console.log(res);
@@ -226,33 +232,58 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
               headers: {
                 Authorization: `${token}`,
               },
-            }
+            },
           )
           .then((res) => {
             console.log(res);
             getRootDirectoryInfo();
             setIsOpenNewFolder(false);
-            setFolderName("");
+            setFolderName('');
             setIsOpenSaveModal(true);
           });
       } catch (err) {
         console.log(err);
       }
     },
-    [token, getRootDirectoryInfo]
+    [token, getRootDirectoryInfo],
   );
 
   // 새 폴더 만들기 취소 시
   const handleCloseNewFolder = () => {
     setIsOpenNewFolder(false);
     setIsOpenSaveModal(true);
-    setFolderName("");
+    setFolderName('');
   };
 
   useEffect(() => {
     getRootDirectoryInfo();
     getIsLike();
   }, [getRootDirectoryInfo, getIsLike]);
+
+  useEffect(() => {
+    if (refStep > totalRefStep) {
+      setRefStep(0);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [refStep, totalRefStep]);
+
+  useEffect(() => {
+    if (localStorage.getItem('ref-step-boarding') === null) {
+      localStorage.setItem('ref-step-boarding', 'false');
+    }
+    if (localStorage.getItem('ref-step-boarding') === 'true') {
+      document.body.style.overflow = 'auto';
+      setRefStep(0);
+      return;
+    }
+    if (refStep === 0 || refStep > totalRefStep) {
+      document.body.style.overflow = 'auto';
+      localStorage.setItem('ref-step-boarding', 'true');
+    } else {
+      document.body.style.overflow = 'hidden';
+      localStorage.setItem('ref-step-boarding', 'false');
+    }
+  }, [refStep, totalRefStep]);
 
   return (
     <TotalComponent>
@@ -277,7 +308,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
           <OnLoginModalText marginTop="17px">해당 서비스는</OnLoginModalText>
           <OnLoginModalText>로그인 후 사용할 수 있습니다.</OnLoginModalText>
           <PatchModalButtonComponent>
-            <PatchModalBtn style={{ borderRight: "2px solid #e6e6e6" }}>
+            <PatchModalBtn style={{ borderRight: '2px solid #e6e6e6' }}>
               <PatchModalBtnText onClick={handleCloseLoginWarninghModal}>
                 취소
               </PatchModalBtnText>
@@ -285,9 +316,9 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
             <PatchModalBtn>
               <PatchModalBtnText
                 onClick={() => {
-                  navigate("/login");
+                  navigate('/login');
                 }}
-                style={{ color: "#D33B4D" }}
+                style={{ color: '#D33B4D' }}
               >
                 로그인
               </PatchModalBtnText>
@@ -330,7 +361,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
             })}
           </SaveModalMiddleComponent>
           <PatchModalButtonComponent>
-            <PatchModalBtn style={{ borderRight: "2px solid #e6e6e6" }}>
+            <PatchModalBtn style={{ borderRight: '2px solid #e6e6e6' }}>
               <PatchModalBtnText onClick={closeSaveModal}>
                 취소
               </PatchModalBtnText>
@@ -339,7 +370,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
             <PatchModalBtn>
               <PatchModalBtnText
                 onClick={saveDirectory}
-                style={{ color: "#D33B4D" }}
+                style={{ color: '#D33B4D' }}
               >
                 확인
               </PatchModalBtnText>
@@ -358,7 +389,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
             placeholder="폴더명"
           />
           <NewModalButtonComponent>
-            <NewFolderModalBtn style={{ borderRight: "2px solid #e6e6e6" }}>
+            <NewFolderModalBtn style={{ borderRight: '2px solid #e6e6e6' }}>
               <PatchModalBtnText onClick={handleCloseNewFolder}>
                 취소
               </PatchModalBtnText>
@@ -366,7 +397,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
             <NewFolderModalBtn>
               <PatchModalBtnText
                 onClick={() => plusDirectoryName(folderName)}
-                style={{ color: "#D33B4D" }}
+                style={{ color: '#D33B4D' }}
               >
                 확인
               </PatchModalBtnText>
@@ -394,7 +425,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
         {/* 유튜브 영상 띄워주는 부분 */}
         <YoutubeFrameBox>
           <YouTube
-            style={{ width: "55.78vw", height: "31.377vw" }}
+            style={{ width: '55.78vw', height: '31.377vw' }}
             // https://youtu.be/NFcp_8np3e8 //마지막 슬래쉬 뒤에 있는 것이 id이다.
             videoId={videoId}
             //opts(옵션들): 플레이어의 크기나 다양한 플레이어 매개 변수를 사용할 수 있음.
@@ -408,7 +439,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
         {/* 조회수 및 영상날짜 */}
         <UnderTitleRowDiv>
           <VideoView>조회수</VideoView>
-          <VideoView style={{ marginLeft: "6px" }}>
+          <VideoView style={{ marginLeft: '6px' }}>
             {videoInfo.viewCount}회
           </VideoView>
           <VideoDate>{videoInfo.uploadDate}</VideoDate>
@@ -419,10 +450,10 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
           {videoLike.isLike ? (
             <UnderDateBtn
               onClick={modifyVideoLike}
-              style={{ borderColor: "#d33b4d" }}
+              style={{ borderColor: '#d33b4d' }}
             >
               <UnderDateBtnIcon src={fillThumbsUp} alt="thumbsUp" />
-              <UnderDateBtnText style={{ color: "#D33B4D" }}>
+              <UnderDateBtnText style={{ color: '#D33B4D' }}>
                 {videoLike.likeCount}
               </UnderDateBtnText>
             </UnderDateBtn>
@@ -432,36 +463,54 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
               <UnderDateBtnText>{videoLike.likeCount}</UnderDateBtnText>
             </UnderDateBtn>
           )}
-
-          <UnderDateBtn onClick={handleClickSaveBtn} margin="0px 0px 0px 12px">
-            <UnderDateBtnIcon src={heart} alt="heart" />
-            <UnderDateBtnText>찜</UnderDateBtnText>
-          </UnderDateBtn>
-          <UnderDateBtn margin="0px 0px 0px 12px">
-            <UnderDateBtnIcon src={camera} alt="camera" />
-            <UnderDateBtnText>장면 캡쳐</UnderDateBtnText>
-          </UnderDateBtn>
+          <FavoriteOnboarding
+            isVisible={refStep === 1}
+            currentStep={refStep}
+            totalStep={totalRefStep}
+            onConfirm={() => setRefStep(refStep + 1)}
+            onDismiss={handleDismiss}
+          >
+            <UnderDateBtn
+              onClick={handleClickSaveBtn}
+              margin="0px 0px 0px 12px"
+            >
+              <UnderDateBtnIcon src={heart} alt="heart" />
+              <UnderDateBtnText>찜</UnderDateBtnText>
+            </UnderDateBtn>
+          </FavoriteOnboarding>
+          <CaptureOnboarding
+            isVisible={refStep === 2}
+            currentStep={refStep}
+            totalStep={totalRefStep}
+            onConfirm={() => setRefStep(refStep + 1)}
+            onDismiss={handleDismiss}
+          >
+            <UnderDateBtn margin="0px 0px 0px 12px">
+              <UnderDateBtnIcon src={camera} alt="camera" />
+              <UnderDateBtnText>장면 캡쳐</UnderDateBtnText>
+            </UnderDateBtn>
+          </CaptureOnboarding>
           <UnderDateQuestionImg src={question} alt="?" />
         </UnderDateRowComponent>
 
         {/* 기본정보 또는 광고효과 섹터 선택 부분 */}
         <SelectSectorComponent>
-          {selectedSector === "기본정보" ? (
+          {selectedSector === '기본정보' ? (
             <SelectedSector value="기본정보">기본 정보</SelectedSector>
           ) : (
             <UnSelectedSector onClick={handleClickSector} value="기본정보">
               기본 정보
             </UnSelectedSector>
           )}
-          {selectedSector === "광고효과" ? (
-            <SelectedSector value="광고효과" style={{ marginLeft: "39px" }}>
+          {selectedSector === '광고효과' ? (
+            <SelectedSector value="광고효과" style={{ marginLeft: '39px' }}>
               광고 효과
             </SelectedSector>
           ) : (
             <UnSelectedSector
               onClick={handleClickSector}
               value="광고효과"
-              style={{ marginLeft: "39px" }}
+              style={{ marginLeft: '39px' }}
             >
               광고 효과
             </UnSelectedSector>
@@ -469,7 +518,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
         </SelectSectorComponent>
 
         {/* 기본 정보 일 경우 */}
-        {selectedSector === "기본정보" ? (
+        {selectedSector === '기본정보' ? (
           <EtcInfoComponent>
             {/* 키워드 리스트 보여주기 */}
             <KeywordListRowComponent>
@@ -482,7 +531,15 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
             <AdCopyLabel>카피 저장</AdCopyLabel>
             <AdCopyContent>{videoInfo.copyDetail}</AdCopyContent>
             <AdCopyRowComponent>
-              <AdCopyBtn onClick={handleClickCopyBtn}>카피 저장</AdCopyBtn>
+              <CopyOnboarding
+                isVisible={refStep === 3}
+                currentStep={refStep}
+                totalStep={totalRefStep}
+                onConfirm={() => setRefStep(refStep + 1)}
+                onDismiss={handleDismiss}
+              >
+                <AdCopyBtn onClick={handleClickCopyBtn}>카피 저장</AdCopyBtn>
+              </CopyOnboarding>
               <UnderDateQuestionImg src={question} alt="?" />
             </AdCopyRowComponent>
 
@@ -528,7 +585,7 @@ const TotalVideosComponent = ({ advertiseId, videoInfo }: any) => {
               <GraphText>광고 소재 키워드 검색량 추이</GraphText>
             </TextBox>
             <GraphFirstBox src={chartFirst} alt="graph" />
-            <TextBox style={{ marginTop: "44px" }}>
+            <TextBox style={{ marginTop: '44px' }}>
               <GraphTextRed>치킨</GraphTextRed>
               <GraphText>소비자 구매 트렌드</GraphText>
             </TextBox>
@@ -570,7 +627,7 @@ const VideoTitle = styled.div`
   display: inline-flex;
   margin: 16px 0px 0px 0px;
   color: var(--Gray-9, #27272e);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
@@ -587,7 +644,7 @@ const UnderTitleRowDiv = styled.div`
 `;
 const VideoView = styled.div`
   color: var(--Gray-7, #707887);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -597,7 +654,7 @@ const VideoView = styled.div`
 const VideoDate = styled.div`
   margin: 0px 0px 0px 30.38px;
   color: var(--Gray-7, #707887);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 350;
@@ -614,7 +671,7 @@ const UnderDateRowComponent = styled.div`
 `;
 const UnderDateBtn = styled.div<{ margin?: any }>`
   height: 42px;
-  margin: ${(props) => props.margin || "0px"};
+  margin: ${(props) => props.margin || '0px'};
   display: inline-flex;
   padding: 0px 16px;
   align-items: center;
@@ -622,6 +679,7 @@ const UnderDateBtn = styled.div<{ margin?: any }>`
   border-radius: 21.5px;
   border: 1px solid var(--Gray-6, #bfc7d1);
   cursor: pointer;
+  background-color: #ffffff;
 `;
 const UnderDateBtnIcon = styled.img`
   width: 24px;
@@ -630,7 +688,7 @@ const UnderDateBtnIcon = styled.img`
 const UnderDateBtnText = styled.div`
   color: var(--Gray-7, #707887);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
@@ -661,7 +719,7 @@ const KeywordText = styled.div`
   margin: 0px 0px 0px 10px;
   color: var(--Main-1, #d33b4d);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -673,7 +731,7 @@ const KeywordText = styled.div`
 const AdCopyLabel = styled.div`
   margin: 28px 0px 0px 10px;
   color: var(--Gray-9, #27272e);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -685,7 +743,7 @@ const AdCopyContent = styled.div`
   width: 479px;
   display: inline-flex;
   color: var(--Gray-8, #373d49);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
@@ -707,7 +765,7 @@ const AdCopyBtn = styled.button`
   color: var(--Main-1, #d33b4d);
   text-align: center;
   background-color: #fff;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -725,7 +783,7 @@ const UnderCopyEachBox = styled.div`
 `;
 const UnderCopyLabelText = styled.div`
   color: var(--Gray-9, #27272e);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -748,7 +806,7 @@ const UnderCopyAnswerText = styled.div`
   background: var(--Sub-2, #ffecee);
   color: var(--Main-1, #d33b4d);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -760,13 +818,13 @@ const UnderCopyAnswerText = styled.div`
 const OtherInfoRowComponent = styled.div<{ margin?: any }>`
   display: flex;
   height: 22px;
-  margin: ${(props) => props.margin || "10px 0px 0px 10px"};
+  margin: ${(props) => props.margin || '10px 0px 0px 10px'};
 `;
 const OtherInfoLabel = styled.div`
   color: var(--Gray-9, #27272e);
   width: 58px;
   /* Body/4 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -776,7 +834,7 @@ const OtherInfoLabel = styled.div`
 const OtherInfoAnswer = styled.div`
   color: var(--Gray-9, #27272e);
   /* Body/4 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
@@ -811,7 +869,7 @@ const PatchTopText = styled.div`
   margin-top: 49px;
   color: var(--Gray-8, #373d49);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
@@ -820,7 +878,7 @@ const PatchTopText = styled.div`
 `;
 
 const OnLoginModalText = styled(PatchTopText)<{ marginTop?: string }>`
-  margin-top: ${(props) => props.marginTop || "0px"};
+  margin-top: ${(props) => props.marginTop || '0px'};
 `;
 
 const PatchModalButtonComponent = styled.div`
@@ -841,7 +899,7 @@ const PatchModalBtn = styled.div`
 `;
 const PatchModalBtnText = styled.div`
   color: var(--Gray-7, #707887);
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
@@ -891,7 +949,7 @@ const PlusImg = styled.img`
 const EachFolderName = styled.div`
   color: var(--Gray-9, #27272e);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
@@ -906,7 +964,7 @@ const CopyContent = styled.div`
   color: var(--Gray-8, #373d49);
   text-align: center;
   width: 401px;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-style: normal;
   font-weight: 350;
@@ -923,7 +981,7 @@ const CopyModalBottom = styled.div`
   margin: 39px 0px 0px 0px;
   width: 100%;
   height: 93px;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
@@ -956,7 +1014,7 @@ const SelectedSector = styled.button`
   color: var(--Gray-8, #373d49);
   text-align: center;
   padding-bottom: 2px;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -978,7 +1036,7 @@ const UnSelectedSector = styled.button`
   text-align: center;
   border: none;
   background-color: #fff;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -995,7 +1053,7 @@ const TextBox = styled.div`
 const GraphText = styled.div`
   color: #000;
   margin-left: 8px;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -1039,7 +1097,7 @@ const CompleteModal = styled.div`
 const NewFolderTopText = styled.div`
   color: var(--Gray-8, #373d49);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
@@ -1058,7 +1116,7 @@ const NewFolderInputDiv = styled.input`
   color: var(--Gray-9, #27272e);
   border: none;
   outline: none;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-style: normal;
   font-weight: 350;
@@ -1072,7 +1130,7 @@ const ConfirmSaveModalText = styled.div`
   margin-top: 126px;
   color: var(--Gray-8, #373d49);
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
@@ -1088,7 +1146,7 @@ const ConfirmSaveModalConfirm = styled.div`
   color: var(--Main-1, #d33b4d);
   margin-top: 72px;
   border-top: 1px solid #e6e6e6;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 28px;
   font-style: normal;
   font-weight: 500;

@@ -4,17 +4,22 @@ import ViewAnalysis from './ViewAnalysis';
 
 interface Props {
   data: any;
+  originalSearchKeyword: string;
 }
 
-const YoutubeContent = ({ data }: Props) => {
+const YoutubeContent = ({ data, originalSearchKeyword }: Props) => {
   return (
     <>
-      <HashTagSection youtubeHashTag={data.youtubeHashTag} />
+      <HashTagSection
+        youtubeHashTag={data.youtubeHashTag}
+        originalSearchKeyword={originalSearchKeyword}
+      />
       <ViewAnalysis
         youtubeGenderTrend={data.youtubeGenderTrend}
         youtubeAgeTrend={data.youtubeAgeTrend}
+        originalSearchKeyword={originalSearchKeyword}
       />
-      <TrendContents />
+      <TrendContents originalSearchKeyword={originalSearchKeyword} />
     </>
   );
 };

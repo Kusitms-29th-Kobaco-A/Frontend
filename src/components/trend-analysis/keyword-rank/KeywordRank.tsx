@@ -2,13 +2,14 @@ import styled from 'styled-components';
 
 interface Props {
   keywordLank: any;
+  originalSearchKeyword: string;
 }
 
-const KeywordRank = ({ keywordLank }: Props) => {
+const KeywordRank = ({ keywordLank, originalSearchKeyword }: Props) => {
   return (
     <KeywordRankBlock>
       <Heading>
-        <span>케이크</span> 기간별 연관 키워드 순위 비교
+        <span>{originalSearchKeyword}</span> 기간별 연관 키워드 순위 비교
       </Heading>
       <Description>
         구글에서 검색한 키워드의 연관 키워드 상위 10개를 기간별로 제공합니다.
@@ -16,7 +17,11 @@ const KeywordRank = ({ keywordLank }: Props) => {
       <WhiteBoxGroup>
         {keywordLank.map((element: any, index: number) => (
           <WhiteRoundedBox key={index}>
-            <BoxHeading>{element.period}</BoxHeading>
+            <BoxHeading>{element.timeLabel}</BoxHeading>
+            <div className="mt-1 text-center text-sm text-[#BEBEBE]">
+              {element.period}
+            </div>
+            <hr className="mx-auto my-4 h-[1px] w-[10rem] bg-[#E6E6E6]" />
             <RankListWrapper>
               <RankList>
                 {element.rankList.map((element: any) => (
@@ -76,6 +81,7 @@ const BoxHeading = styled.h3`
   font-weight: 700;
   line-height: 140%;
   white-space: nowrap;
+  font-size: 1.125rem;
 `;
 
 const RankListWrapper = styled.div`
@@ -84,7 +90,6 @@ const RankListWrapper = styled.div`
 `;
 
 const RankList = styled.ul`
-  margin-top: 1.5rem;
   color: #707887;
   line-height: 140%;
 `;

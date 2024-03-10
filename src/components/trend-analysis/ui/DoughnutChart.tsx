@@ -11,6 +11,9 @@ const DoughnutChart = ({ data }: Props) => {
   if (data[0].yValue > data[1].yValue) {
     data[0].isActive = true;
     data[1].isActive = false;
+  } else {
+    data[0].isActive = false;
+    data[1].isActive = true;
   }
 
   return (
@@ -20,7 +23,7 @@ const DoughnutChart = ({ data }: Props) => {
         <br />
         {data[0].yValue}%
       </Label>
-      <ChartCircle yValueLeft={data[0].yValue} yValueRight={data[1].yValue}>
+      <ChartCircle $yValueLeft={data[0].yValue} $yValueRight={data[1].yValue}>
         <ChartInnerCircle />
       </ChartCircle>
       <Label className={clsx({ active: data[1].isActive })}>
@@ -53,8 +56,8 @@ const Label = styled.span`
 `;
 
 interface ChartCircleProps {
-  yValueLeft: number;
-  yValueRight: number;
+  $yValueLeft: number;
+  $yValueRight: number;
 }
 
 const ChartCircle = styled.div<ChartCircleProps>`
@@ -64,22 +67,22 @@ const ChartCircle = styled.div<ChartCircleProps>`
   border-radius: 50%;
   position: relative;
   background: conic-gradient(
-    ${({ yValueLeft, yValueRight }) => {
-        if (yValueLeft > yValueRight) {
+    ${({ $yValueLeft, $yValueRight }) => {
+        if ($yValueLeft > $yValueRight) {
           return '#f9f3f3';
         } else {
           return '#d33b4d';
         }
       }}
-      ${({ yValueRight }) => (yValueRight / 100) * 360}deg,
-    ${({ yValueLeft, yValueRight }) => {
-        if (yValueLeft > yValueRight) {
+      ${({ $yValueRight }) => ($yValueRight / 100) * 360}deg,
+    ${({ $yValueLeft, $yValueRight }) => {
+        if ($yValueLeft > $yValueRight) {
           return '#d33b4d';
         } else {
           return '#f9f3f3';
         }
       }}
-      ${({ yValueRight }) => (yValueRight / 100) * 360}deg
+      ${({ $yValueRight }) => ($yValueRight / 100) * 360}deg
   ); /* 차트 설정 */
 `;
 

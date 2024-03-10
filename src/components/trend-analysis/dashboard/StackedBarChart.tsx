@@ -33,18 +33,18 @@ const StackedBarChart = ({ genderAgeTrend }: Props) => {
         ) => (
           <ChartBarGroup key={index}>
             <ChartBar
-              y={item.yValue[0] + item.yValue[1]}
+              $y={item.yValue[0] + item.yValue[1]}
               className={clsx({
                 active: item.isActive,
               })}
             >
               <ChartTopBar
-                yPercent={
+                $yPercent={
                   (item.yValue[0] / (item.yValue[0] + item.yValue[1])) * 100
                 }
               />
               <ChartBottomBar
-                yPercent={
+                $yPercent={
                   (item.yValue[1] / (item.yValue[0] + item.yValue[1])) * 100
                 }
               />
@@ -89,12 +89,12 @@ const ChartBarGroup = styled.div`
 `;
 
 interface ChartBarProps {
-  y: number;
+  $y: number;
 }
 
 const ChartBar = styled.div<ChartBarProps>`
   width: 2.5rem;
-  height: calc(${({ y }) => y} / 100 * 16rem);
+  height: calc(${({ $y }) => $y} / 100 * 16rem);
   border-radius: 8px;
   overflow: hidden;
 
@@ -108,19 +108,19 @@ const ChartBar = styled.div<ChartBarProps>`
 `;
 
 interface ChartTopBarProps {
-  yPercent: number;
+  $yPercent: number;
 }
 
 const ChartTopBar = styled.div<ChartTopBarProps>`
   background-color: #fd929f;
-  height: ${({ yPercent }) => yPercent}%;
+  height: ${({ $yPercent }) => $yPercent}%;
 `;
 
 interface ChartBottomBarProps {
-  yPercent: number;
+  $yPercent: number;
 }
 
 const ChartBottomBar = styled.div<ChartBottomBarProps>`
   background-color: #ffecee;
-  height: ${({ yPercent }) => yPercent}%;
+  height: ${({ $yPercent }) => $yPercent}%;
 `;

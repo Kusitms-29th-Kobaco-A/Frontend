@@ -1,6 +1,16 @@
+import { useState } from 'react';
 import styled from 'styled-components';
+import { FaList } from 'react-icons/fa6';
+import { LuLayoutGrid } from 'react-icons/lu';
+import clsx from 'clsx';
 
-const BottomArea = () => {
+interface Props {
+  originalSearchKeyword: string;
+}
+
+const BottomArea = ({ originalSearchKeyword }: Props) => {
+  const [listType, setListType] = useState<'LIST' | 'GRID'>('LIST');
+
   return (
     <WhiteBoxGroupBottom>
       <WhiteRoundedBox>
@@ -27,42 +37,75 @@ const BottomArea = () => {
               </IconWrapper>
             </IconWrapperGroup>
             <ChartPlaceholder>
-              <img
-                src="/images/graph-placeholder/mindmap-placeholder.svg"
-                alt="마인드맵 임시"
-              />
+              <img src="/images/mindmap/cake-mindmap.svg" alt="마인드맵 임시" />
             </ChartPlaceholder>
           </GrayRoundedBox>
           <GrayRoundedBox>
             <GrayRoundedBoxTop>
-              <span>케이크</span>
-              <div>
-                <i>
-                  <img src="/icons/list.svg" alt="리스트 아이콘" />
+              <span>{originalSearchKeyword}</span>
+              <div className="flex items-center gap-2">
+                <i
+                  className={clsx('cursor-pointer text-[1.4rem]', {
+                    'text-[#D33B4D]': listType === 'LIST',
+                  })}
+                  onClick={() => setListType('LIST')}
+                >
+                  <FaList />
                 </i>
-                <i>
-                  <img src="/icons/grid.svg" alt="그리드 아이콘" />
+                <i
+                  className={clsx('cursor-pointer text-2xl', {
+                    'text-[#D33B4D]': listType === 'GRID',
+                  })}
+                  onClick={() => setListType('GRID')}
+                >
+                  <LuLayoutGrid />
                 </i>
               </div>
             </GrayRoundedBoxTop>
             <GrayRoundedBottom>
-              <GridList>
-                {Array.from({ length: 5 }, (_, index) => index + 1).map(
-                  (_, index) => (
-                    <GridListItem key={index}>
-                      <ListImage>
-                        <img src="/images/posts/cake.jpeg" alt="" />
-                      </ListImage>
-                      <ListContent>
-                        <h3>세상에서 제일 맛있는 케이크 가...</h3>
-                        <p>
-                          케이크케이크케이크케이크케이크케이크케이크케이크케이크케이크케이크케
-                        </p>
-                      </ListContent>
-                    </GridListItem>
-                  ),
-                )}
-              </GridList>
+              {listType === 'LIST' ? (
+                <GridList>
+                  {Array.from({ length: 5 }, (_, index) => index + 1).map(
+                    (_, index) => (
+                      <GridListItem key={index}>
+                        <ListImage>
+                          <img
+                            src="/images/posts/cake.jpeg"
+                            alt="게시글 케이크 이미지"
+                          />
+                        </ListImage>
+                        <ListContent>
+                          <h3>세상에서 제일 맛있는 케이크 가...</h3>
+                          <p>
+                            케이크케이크케이크케이크케이크케이크케이크케이크케이크케이크케이크케
+                          </p>
+                        </ListContent>
+                      </GridListItem>
+                    ),
+                  )}
+                </GridList>
+              ) : (
+                listType === 'GRID' && (
+                  <div className="h-[18rem] overflow-scroll">
+                    <div className="grid grid-cols-2 gap-3">
+                      {Array.from({ length: 5 }, (_, index) => index + 1).map(
+                        (_, index) => (
+                          <div
+                            className="aspect-video overflow-hidden rounded"
+                            key={index}
+                          >
+                            <img
+                              src="/images/posts/cake.jpeg"
+                              alt="게시글 케이크 이미지"
+                              className="aspect-video w-full object-cover object-center"
+                            />
+                          </div>
+                        ),
+                      )}
+                    </div>
+                  </div>
+                )
+              )}
             </GrayRoundedBottom>
           </GrayRoundedBox>
         </GrayRoundedBoxGroup>
@@ -102,10 +145,11 @@ const IconWrapper = styled.div`
 `;
 
 const ChartPlaceholder = styled.div`
-  padding: 3.15rem;
+  padding: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 1rem;
 `;
 
 const GrayRoundedBoxGroup = styled.div`
@@ -127,14 +171,16 @@ const GrayRoundedBoxTop = styled.div`
   align-items: center;
 `;
 
-const GrayRoundedBottom = styled.div``;
+const GrayRoundedBottom = styled.div`
+  margin-top: 1rem;
+`;
 
 const GridList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  height: 22.5rem;
-  overflow-y: scroll;
+  height: 18rem;
+  overflow: scroll;
 `;
 
 const GridListItem = styled.li`

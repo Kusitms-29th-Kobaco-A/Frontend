@@ -7,17 +7,31 @@ import DoughnutChart from '../ui/DoughnutChart';
 interface Props {
   genderTrend: any;
   ageTrend: any;
+  originalSearchKeyword: string;
 }
 
-const KeywordDetailTrend = ({ genderTrend, ageTrend }: Props) => {
+const KeywordDetailTrend = ({
+  genderTrend,
+  ageTrend,
+  originalSearchKeyword,
+}: Props) => {
   const barData = ageTrend;
 
   const doughnutData = genderTrend;
 
+  let max = 0;
+  let maxIndex = 0;
+  for (let i = 0; i < barData.length; i++) {
+    if (barData[i].yValue > max) {
+      max = barData[i].yValue;
+      maxIndex = i;
+    }
+  }
+
   return (
     <KeywordTrendDetailSection>
       <Heading>
-        <span>케이크</span> 검색량 세부 트렌드
+        <span>{originalSearchKeyword}</span> 검색량 세부 트렌드
       </Heading>
       <Description>
         입력한 검색어의 네이버 검색량을 하나의 차트에서 한 번에 비교해 볼 수
@@ -45,9 +59,13 @@ const KeywordDetailTrend = ({ genderTrend, ageTrend }: Props) => {
           <ChartPlaceholder>
             <BarChart data={barData} />
           </ChartPlaceholder>
+          <div className="text-center text-sm font-medium text-[#707887]">
+            {barData[maxIndex].xLabel} 사용자분들이 해당 검색어를 가장 많이
+            검색했어요.
+          </div>
         </WhiteRoundedBox>
       </WhiteBoxGroupTop>
-      <BottomArea />
+      <BottomArea originalSearchKeyword={originalSearchKeyword} />
     </KeywordTrendDetailSection>
   );
 };
@@ -100,6 +118,7 @@ const IconWrapper = styled.div`
 
 const ChartPlaceholder = styled.div`
   padding: 3.15rem;
+  padding-bottom: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;

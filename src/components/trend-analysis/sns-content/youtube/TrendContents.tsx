@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
-const TrendContents = () => {
+interface Props {
+  originalSearchKeyword: string;
+}
+
+const TrendContents = ({ originalSearchKeyword }: Props) => {
   return (
     <TrendContentsBlock>
       <Heading>
-        <span>케이크</span> 유튜브 트렌드 콘텐츠
+        <span>{originalSearchKeyword}</span> 유튜브 트렌드 콘텐츠
       </Heading>
       <Description>
         검색한 키워드 기준 최근 30일 내 발행된 유튜브 인기 영상 콘텐츠를

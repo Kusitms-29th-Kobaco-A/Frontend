@@ -1,19 +1,28 @@
 import styled from 'styled-components';
 
-const RelatedKeywords = () => {
+interface Props {
+  relatedKeywordList: string[];
+}
+
+const RelatedKeywords = ({ relatedKeywordList }: Props) => {
+  if (relatedKeywordList.length === 0) {
+    return <></>;
+  }
+
   return (
     <RelatedKeywordsBlock>
-      <span className="label">연관검색어</span>
-      <span>|</span>
-      <span className="keyword">맛있는생크림케이크만드는</span>
-      <span>|</span>
-      <span className="keyword">초코케이크망함</span>
-      <span>|</span>
-      <span className="keyword">블루베리케이크</span>
-      <span>|</span>
-      <span className="keyword">강아지케이크먹어도</span>
-      <span>|</span>
-      <span className="keyword">식물성생크림맛</span>
+      <div className="keyword-item">
+        <span className="label">추천검색어</span>
+        <span className="divider">|</span>
+      </div>
+      {relatedKeywordList.map((keyword, index) => (
+        <div className="keyword-item" key={index}>
+          <span className="keyword">{keyword}</span>
+          {index < relatedKeywordList.length - 1 && (
+            <span className="divider">|</span>
+          )}
+        </div>
+      ))}
     </RelatedKeywordsBlock>
   );
 };
@@ -28,11 +37,21 @@ const RelatedKeywordsBlock = styled.div`
   font-weight: 300;
   margin-top: 1rem;
 
-  .label {
-    font-weight: 600;
-  }
+  .keyword-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 
-  .keyword {
-    cursor: pointer;
+    .label {
+      font-weight: 600;
+    }
+
+    .keyword {
+      cursor: pointer;
+    }
+
+    .divider {
+      font-size: 0.875rem;
+    }
   }
 `;
