@@ -4,9 +4,7 @@ import styled from 'styled-components';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
-import { useLocation, useParams } from 'react-router-dom';
-
-
+import { useParams } from 'react-router-dom';
 
 import { useCallback, useEffect, useState } from 'react';
 import TotalVideosComponent from './components/TotalVideosComponent';
@@ -15,13 +13,6 @@ import TotalCommentComponent from './components/TotalCommentComponent';
 
 //광고 상세페이지 화면
 const ArchiveDetail = () => {
-
-  // menuState추출하기
-  const location = useLocation();
-  const state = location.state;
-  const token = localStorage.getItem('token');
-
-
   const advertiseId = useParams();
   console.log(advertiseId);
   // 비디오 info  받았을 경우 넘겨주기
