@@ -20,22 +20,13 @@ const BottomArea = ({ originalSearchKeyword, data }: Props) => {
           <i>
             <img src="/icons/search-icon.svg" alt="검색 아이콘" />
           </i>
-          <span>인기 검색어 TOP 50</span>
+          <span>네이버 블로그 인기검색어 TOP10</span>
         </IconWrapper>
         <GrayRoundedBoxGroup>
           <GrayRoundedBox>
             <IconWrapperGroup>
               <IconWrapper>
                 <span>연관어</span>
-                <i>
-                  <img src="/icons/question-circle.svg" alt="물음표 아이콘" />
-                </i>
-              </IconWrapper>
-              <IconWrapper>
-                <i>
-                  <img src="/icons/excel.svg" alt="물음표 아이콘" />
-                </i>
-                <span>데이터 내보내기</span>
               </IconWrapper>
             </IconWrapperGroup>
             <ChartPlaceholder>
