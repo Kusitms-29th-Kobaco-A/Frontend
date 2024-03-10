@@ -61,7 +61,6 @@ const DashboardBlock = styled.div`
   display: flex;
   gap: 1rem;
   align-items: stretch;
-  height: calc(100vh - 20.5rem);
 `;
 
 const Left = styled.div`
