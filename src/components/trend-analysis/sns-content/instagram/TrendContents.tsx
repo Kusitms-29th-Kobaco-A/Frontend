@@ -1,11 +1,21 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { Link } from 'react-router-dom';
 
 interface Props {
   originalSearchKeyword: string;
+  data: any;
 }
 
-const TrendContents = ({ originalSearchKeyword }: Props) => {
+const TrendContents = ({ originalSearchKeyword, data }: Props) => {
+  const [page, setPage] = useState(1);
+
+  const instagramContents = data.instagramContents.slice(
+    (page - 1) * 10,
+    page * 10,
+  );
+
   return (
     <TrendContentsBlock>
       <Heading>
@@ -17,13 +27,19 @@ const TrendContents = ({ originalSearchKeyword }: Props) => {
       </Description>
       <WhiteRoundedBox>
         <div className="grid grid-cols-5 gap-5">
-          {Array.from({ length: 9 }).map((_, index) => (
-            <div key={index} className="overflow-hidden rounded">
+          {instagramContents.map((post: any) => (
+            <Link
+              to={post.link}
+              target="_blank"
+              key={post.id}
+              className="aspect-square overflow-hidden rounded"
+            >
               <img
-                src="/images/posts/instagram-cake.png"
+                src={post.imageUrl}
                 alt="인스타그램 케이크 사진"
+                className="h-[120%] object-cover object-center"
               />
-            </div>
+            </Link>
           ))}
         </div>
       </WhiteRoundedBox>
@@ -33,9 +49,18 @@ const TrendContents = ({ originalSearchKeyword }: Props) => {
             <IoIosArrowBack />
           </i>
         </li>
-        <li className="cursor-pointer text-[#27272E]">1</li>
-        <li className="cursor-pointer text-[#707887]">2</li>
-        <li className="cursor-pointer text-[#707887]">3</li>
+        <li
+          className="cursor-pointer text-[#27272E]"
+          onClick={() => setPage(1)}
+        >
+          1
+        </li>
+        <li
+          className="cursor-pointer text-[#707887]"
+          onClick={() => setPage(2)}
+        >
+          2
+        </li>
         <li>
           <i>
             <IoIosArrowForward />

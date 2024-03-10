@@ -1,11 +1,25 @@
 import styled from 'styled-components';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { useState } from 'react';
 
 interface Props {
   originalSearchKeyword: string;
+  data: any;
 }
 
-const TrendContents = ({ originalSearchKeyword }: Props) => {
+const TrendContents = ({ originalSearchKeyword, data }: Props) => {
+  const [page, setPage] = useState(1);
+
+  const youtubeVideoList = data.youtubeVideoList.slice(
+    (page - 1) * 6,
+    page * 6,
+  );
+
+  const youtubeShortsList = data.youtubeShortsList.slice(
+    (page - 1) * 6,
+    page * 6,
+  );
+
   return (
     <TrendContentsBlock>
       <Heading>
@@ -24,20 +38,17 @@ const TrendContents = ({ originalSearchKeyword }: Props) => {
             <span>영상</span>
           </IconWrapper>
           <div className="mt-4 grid grid-cols-2 gap-3">
-            {Array.from({ length: 6 }).map((_, index) => (
-              <div>
-                <div key={index} className="overflow-hidden rounded">
-                  <img
-                    src="/images/posts/youtube-cake.png"
-                    alt="유튜브 케이크 사진"
-                  />
+            {youtubeVideoList.map((video: any) => (
+              <div key={video.id}>
+                <div className="overflow-hidden rounded">
+                  <img src={video.thumbnail} alt="유튜브 사진" />
                 </div>
                 <div className="mt-1 flex flex-col">
-                  <h3 className="font-semibold text-[#707887]">
-                    감딸기를 따라잡을 수 있는 기회
+                  <h3 className="overflow-hidden text-ellipsis whitespace-nowrap font-semibold text-[#707887]">
+                    {video.title}
                   </h3>
                   <span className="text-sm font-light text-[#707887]">
-                    조회수 1,700만 회
+                    {video.view}
                   </span>
                 </div>
               </div>
@@ -52,11 +63,15 @@ const TrendContents = ({ originalSearchKeyword }: Props) => {
             <span>숏폼</span>
           </IconWrapper>
           <div className="mt-4 grid grid-cols-3 gap-3 px-6">
-            {Array.from({ length: 6 }).map((_, index) => (
-              <div key={index} className="overflow-hidden rounded-lg">
+            {youtubeShortsList.map((shorts: any) => (
+              <div
+                key={shorts.id}
+                className="aspect-[1/2] overflow-hidden rounded-lg"
+              >
                 <img
-                  src="/images/posts/shorts-cake.png"
+                  src={shorts.thumbnail}
                   alt="쇼츠 케이크 사진"
+                  className="h-full object-cover"
                 />
               </div>
             ))}
@@ -69,9 +84,18 @@ const TrendContents = ({ originalSearchKeyword }: Props) => {
             <IoIosArrowBack />
           </i>
         </li>
-        <li className="cursor-pointer text-[#27272E]">1</li>
-        <li className="cursor-pointer text-[#707887]">2</li>
-        <li className="cursor-pointer text-[#707887]">3</li>
+        <li
+          className="cursor-pointer text-[#27272E]"
+          onClick={() => setPage(1)}
+        >
+          1
+        </li>
+        <li
+          className="cursor-pointer text-[#707887]"
+          onClick={() => setPage(2)}
+        >
+          2
+        </li>
         <li>
           <i>
             <IoIosArrowForward />

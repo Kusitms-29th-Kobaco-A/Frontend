@@ -19,7 +19,10 @@ const YoutubeContent = ({ data, originalSearchKeyword }: Props) => {
         youtubeAgeTrend={data.youtubeAgeTrend}
         originalSearchKeyword={originalSearchKeyword}
       />
-      <TrendContents originalSearchKeyword={originalSearchKeyword} />
+      <TrendContents
+        originalSearchKeyword={originalSearchKeyword}
+        data={data}
+      />
     </>
   );
 };

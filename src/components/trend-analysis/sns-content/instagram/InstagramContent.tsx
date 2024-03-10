@@ -23,7 +23,10 @@ const InstagramContent = ({ data, originalSearchKeyword }: Props) => {
         instagramPost={data.instagramPost}
         originalSearchKeyword={originalSearchKeyword}
       />
-      <TrendContents originalSearchKeyword={originalSearchKeyword} />
+      <TrendContents
+        originalSearchKeyword={originalSearchKeyword}
+        data={data}
+      />
     </>
   );
 };

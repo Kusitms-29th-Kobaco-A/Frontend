@@ -131,8 +131,6 @@ const IconWrapper = styled.div`
 const LineWrapper = styled.div`
   color: #a0a0a0;
   width: 100%;
-  height: 10rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 8rem;
+  margin-top: 1rem;
 `;

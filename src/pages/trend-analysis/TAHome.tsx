@@ -143,6 +143,7 @@ const TAHome = () => {
                   genderTrend={data.genderTrend}
                   ageTrend={data.ageTrend}
                   originalSearchKeyword={originalSearchKeyword}
+                  data={data}
                 />
               </section>
               <section
