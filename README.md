@@ -9,6 +9,7 @@
 
 # 홀로서기 프로젝트 최종 화면 캡처
 - 랜딩 페이지
+<br/>
 <img width="750" height="600" alt="스크린샷 2024-03-12 오후 2 07 26" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/6afe550f-bd92-4055-b900-f4bb2380765a">
 <img width="750" height="600" alt="스크린샷 2024-03-12 오후 2 07 54" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/54da14c7-7770-4d0f-8f6c-fe022fd35820">
 <img width="750" height="600"  alt="스크린샷 2024-03-12 오후 2 08 06" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/867652de-c478-4d8c-816d-1c432ec784a1">
@@ -16,20 +17,21 @@
 <img width="750" height="600" alt="스크린샷 2024-03-12 오후 2 08 32" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/44a486a7-eca9-4735-ab3a-daa00021e5d2">
 <img width="750" height="600" alt="스크린샷 2024-03-12 오후 2 08 45" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/66742968-d1c4-4af6-b8a8-91df109763ce">
 <img width="750" height="600"  alt="스크린샷 2024-03-12 오후 2 08 57" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/5a26fb74-e3f7-4394-92a6-bd2bb404bf55">
-
-
+<br/>
 - 레퍼런스 탐색 메인 페이지
+<br/>
 <img width="750"  height="600" alt="스크린샷 2024-03-12 오후 2 09 20" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/1055cb3a-2bbb-4af6-802b-9eda304f432b">
 <img width="750"  height="600" alt="스크린샷 2024-03-12 오후 3 08 24" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/90ac1621-6a7f-428a-897d-b720d9c06e32">
 <img width="750"  height="600" alt="스크린샷 2024-03-12 오후 2 10 55" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/1b519b08-d60f-4138-8574-00954bd6dc66">
 <img width="750"  height="600" alt="스크린샷 2024-03-12 오후 2 11 06" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/af0e3c28-a719-4393-99ce-f7803bec63ea">
 <img width="750"  height="600" alt="스크린샷 2024-03-12 오후 2 11 30" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/916b10fa-41a1-4645-a3f0-f0718d565a9f">
-
+<br/>
 - 레퍼런스 탐색 상세 페이지 온보딩
+<br/>
 <img width="750"  height="600" alt="스크린샷 2024-03-12 오후 2 11 44" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/ad1c3273-d513-4de6-bdcc-10e02157d662">
 <img width="750"  height="600" alt="스크린샷 2024-03-12 오후 2 11 56" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/5cac032d-2298-42b6-aa1b-c5e725257e34">
 <img width="750"  height="600" alt="스크린샷 2024-03-12 오후 2 12 08" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/9663a87a-c57e-4104-9184-d9e9482f4262">
-
+<br/>
 -레퍼런스 탐색 상세 페이지 (동영상 좋아요, 동영상 저장, 동영상 캡쳐, 리뷰 작성)
 <img width="750"  height="600" alt="스크린샷 2024-04-04 오후 4 11 33" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/cc7729eb-ed89-43b2-bb33-5a4d6695bdad">
 <img width="750"  height="600" alt="스크린샷 2024-04-04 오후 4 11 45" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/674a429d-6f6f-40e2-9594-7c5b84add0f9">
@@ -41,6 +43,7 @@
 <img width="750" height="600"  alt="스크린샷 2024-03-12 오후 3 07 55" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/43fdf3a9-f4c8-40c7-a5a5-1367d5b100d2">
 
 -레퍼런스 탐색 "내가 찜한" 페이지
+<br/>
 <img width="750" height="600"  alt="스크린샷 2024-03-12 오후 3 08 47" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/d8cab2a0-6cc3-46b2-823e-98b0f982d3c4">
 
 -레퍼런스 탐색 "내가 찜한" 페이지 폴더 생성
