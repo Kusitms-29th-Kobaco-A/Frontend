@@ -6,10 +6,9 @@
 # 최종 프로젝트 발표물
 [코바코 A.pdf](https://github.com/Kusitms-29th-Kobaco-A/Frontend/files/14862646/A.pdf)
 
-
 # 홀로서기 프로젝트 최종 화면 캡처
 - 랜딩 페이지
-  
+
 <img width="750" height="600" alt="스크린샷 2024-03-12 오후 2 07 26" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/6afe550f-bd92-4055-b900-f4bb2380765a">
 <img width="550" height="600" alt="스크린샷 2024-03-12 오후 2 07 54" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/54da14c7-7770-4d0f-8f6c-fe022fd35820">
 <img width="750" height="600"  alt="스크린샷 2024-03-12 오후 2 08 06" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/867652de-c478-4d8c-816d-1c432ec784a1">
@@ -21,7 +20,7 @@
   
 - 레퍼런스 탐색 메인 페이지
 
-  
+
 <img width="750"  height="600" alt="스크린샷 2024-03-12 오후 2 09 20" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/1055cb3a-2bbb-4af6-802b-9eda304f432b">
 <img width="750"  height="600" alt="스크린샷 2024-03-12 오후 3 08 24" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/90ac1621-6a7f-428a-897d-b720d9c06e32">
 <img width="750"  height="600" alt="스크린샷 2024-03-12 오후 2 10 55" src="https://github.com/Kusitms-29th-Kobaco-A/Frontend/assets/102502542/1b519b08-d60f-4138-8574-00954bd6dc66">
